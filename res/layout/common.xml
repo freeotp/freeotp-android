@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2013  Nathaniel McCallum, Red Hat
+   - see file 'COPYING' for use and warranty information
+   -
+   - This program is free software you can redistribute it and/or modify
+   - it under the terms of the GNU General Public License as published by
+   - the Free Software Foundation, either version 3 of the License, or
+   - (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU General Public License for more details.
+   -
+   - You should have received a copy of the GNU General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="72dp"
+    android:layout_weight="1"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:gravity="center_vertical|left"
+        android:paddingTop="4dp"
+        android:paddingLeft="8dp"
+        android:text="Example: example@example.com"
+        android:textSize="14sp" />
+    
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="46dp"
+	    android:orientation="horizontal" >
+	    <ImageButton
+	        android:id="@+id/button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/delete"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="center" />
+	    
+	    <TextView
+	        android:id="@+id/code"
+	        android:layout_width="match_parent"
+	        android:layout_height="46dp"
+	        android:gravity="center_vertical|left"
+	        android:padding="0dp"
+	        android:text="00000000"
+	        android:textSize="34sp"
+	        android:typeface="monospace" />
+	</LinearLayout>
+    
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="action_add">Add</string>
+    <string name="token_scan_invalid">The scanned token data was invalid!</string>
+    <string name="delete_message">Are you sure you want to remove this token?\n\nNOTE: This will NOT disable two-factor authentication on the server.\n\n</string>
+    <string name="delete">Delete</string>
+</resources>
