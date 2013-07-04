@@ -5,4 +5,8 @@
     <string name="token_scan_invalid">The scanned token data was invalid!</string>
     <string name="delete_message">Are you sure you want to remove this token?\n\nNOTE: This will NOT disable two-factor authentication on the server.\n\n</string>
     <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="install_title">Install Barcode Scanner?</string>
+    <string name="install_message">Barcode Scanner is required. Would you like to install it?</string>
 </resources>

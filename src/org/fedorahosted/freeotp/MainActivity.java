@@ -20,22 +20,67 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * Portions Copyright 2009 ZXing authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.fedorahosted.freeotp;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
+	private static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+	private static final List<String> providers = Arrays.asList(new String[] {
+		"com.google.zxing.client.android", // Barcode Scanner
+		"com.srowen.bs.android",           // Barcode Scanner+
+		"com.srowen.bs.android.simple",    // Barcode Scanner+ Simple
+		"com.google.android.apps.unveil"   // Google Goggles
+	});
+
 	private TokenAdapter ta;
+
+	private String findAppPackage(Intent i) {
+		PackageManager pm = getPackageManager();
+		List<ResolveInfo> ril = pm.queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
+		if (ril != null) {
+			for (ResolveInfo ri : ril) {
+				if (providers.contains(ri.activityInfo.packageName))
+					return ri.activityInfo.packageName;
+			}
+		}
+
+		return null;
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +96,45 @@ public class MainActivity extends ListActivity {
         
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			public boolean onMenuItemClick(MenuItem item) {
-				Intent i = new Intent("com.google.zxing.client.android.SCAN");
-		        i.putExtra("SCAN_MODE", "QR_CODE_MODE");
-		        i.putExtra("SAVE_HISTORY", false);
-		        startActivityForResult(i, 0);
-				return false;
+				Intent i = new Intent(ACTION_SCAN);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				i.addCategory(Intent.CATEGORY_DEFAULT);
+				i.putExtra("SCAN_MODE", "QR_CODE_MODE");
+				i.putExtra("SAVE_HISTORY", false);
+
+				String pkg = findAppPackage(i);
+				if (pkg != null) {
+					i.setPackage(pkg);
+					startActivityForResult(i, 0);
+					return false;
+				}
+
+				new AlertDialog.Builder(MainActivity.this)
+					.setTitle(R.string.install_title)
+					.setMessage(R.string.install_message)
+					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialogInterface, int i) {
+							Uri uri = Uri.parse("market://details?id=" + providers.get(0));
+							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+							try {
+								startActivity(intent);
+							} catch (ActivityNotFoundException e) {
+								e.printStackTrace();
+							}
+						}
+					})
+					.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialogInterface, int i) {
+							return;
+						}
+					})
+					.create().show();
+
+		        return false;
 			}
 		});
-        
+
         return true;
     }
     
