@@ -60,7 +60,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
 	private static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
-	private static final List<String> providers = Arrays.asList(new String[] {
+	private static final List<String> PROVIDERS = Arrays.asList(new String[] {
 		"com.google.zxing.client.android", // Barcode Scanner
 		"com.srowen.bs.android",           // Barcode Scanner+
 		"com.srowen.bs.android.simple",    // Barcode Scanner+ Simple
@@ -74,7 +74,7 @@ public class MainActivity extends ListActivity {
 		List<ResolveInfo> ril = pm.queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
 		if (ril != null) {
 			for (ResolveInfo ri : ril) {
-				if (providers.contains(ri.activityInfo.packageName))
+				if (PROVIDERS.contains(ri.activityInfo.packageName))
 					return ri.activityInfo.packageName;
 			}
 		}
@@ -115,7 +115,7 @@ public class MainActivity extends ListActivity {
 					.setMessage(R.string.install_message)
 					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialogInterface, int i) {
-							Uri uri = Uri.parse("market://details?id=" + providers.get(0));
+							Uri uri = Uri.parse("market://details?id=" + PROVIDERS.get(0));
 							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 							try {
 								startActivity(intent);
