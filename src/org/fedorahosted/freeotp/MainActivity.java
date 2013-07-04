@@ -85,7 +85,7 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        setContentView(R.layout.main);
         ta = new TokenAdapter(this);
         setListAdapter(ta);
     }
