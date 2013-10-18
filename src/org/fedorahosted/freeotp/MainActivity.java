@@ -38,7 +38,6 @@
 
 package org.fedorahosted.freeotp;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +47,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -97,42 +97,61 @@ public class MainActivity extends ListActivity {
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				Intent i = new Intent(ACTION_SCAN);
-				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				i.addCategory(Intent.CATEGORY_DEFAULT);
-				i.putExtra("SCAN_MODE", "QR_CODE_MODE");
-				i.putExtra("SAVE_HISTORY", false);
-
-				String pkg = findAppPackage(i);
-				if (pkg != null) {
-					i.setPackage(pkg);
-					startActivityForResult(i, 0);
-					return false;
-				}
-
-				new AlertDialog.Builder(MainActivity.this)
-					.setTitle(R.string.install_title)
-					.setMessage(R.string.install_message)
-					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialogInterface, int i) {
-							Uri uri = Uri.parse("market://details?id=" + PROVIDERS.get(0));
-							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-							try {
-								startActivity(intent);
-							} catch (ActivityNotFoundException e) {
-								e.printStackTrace();
-							}
+				AlertDialog ad = new AddTokenDialog(MainActivity.this) {
+					@Override
+					public void addToken(String uri) {
+						try {
+							ta.add(MainActivity.this, uri);
+						} catch (TokenUriInvalidException e) {
+							Toast.makeText(MainActivity.this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
+							e.printStackTrace();
 						}
-					})
-					.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialogInterface, int i) {
+					}
+				};
+
+				ad.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.scan_qr_code), new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent i = new Intent(ACTION_SCAN);
+						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i.addCategory(Intent.CATEGORY_DEFAULT);
+						i.putExtra("SCAN_MODE", "QR_CODE_MODE");
+						i.putExtra("SAVE_HISTORY", false);
+
+						String pkg = findAppPackage(i);
+						if (pkg != null) {
+							i.setPackage(pkg);
+							startActivityForResult(i, 0);
 							return;
 						}
-					})
-					.create().show();
+
+						new AlertDialog.Builder(MainActivity.this)
+							.setTitle(R.string.install_title)
+							.setMessage(R.string.install_message)
+							.setPositiveButton(R.string.yes, new OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									Uri uri = Uri.parse("market://details?id=" + PROVIDERS.get(0));
+									Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+									try {
+										startActivity(intent);
+									} catch (ActivityNotFoundException e) {
+										e.printStackTrace();
+									}
+								}
+							})
+							.setNegativeButton(R.string.no, new OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									return;
+								}
+							})
+							.create().show();
+					}
+				});
+
+				ad.show();
 
 		        return false;
 			}
@@ -141,18 +160,15 @@ public class MainActivity extends ListActivity {
         return true;
     }
 
-    @Override
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (resultCode == RESULT_OK) {
-            try {
+		if (resultCode == RESULT_OK) {
+			try {
 				ta.add(this, intent.getStringExtra("SCAN_RESULT"));
-			} catch (NoSuchAlgorithmException e) {
-				Toast.makeText(this, R.string.token_scan_invalid, Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
 			} catch (TokenUriInvalidException e) {
-				Toast.makeText(this, R.string.token_scan_invalid, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			}
-        }
-    }
+		}
+	}
 }

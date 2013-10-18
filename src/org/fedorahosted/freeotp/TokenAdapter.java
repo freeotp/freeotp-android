@@ -22,7 +22,6 @@
 
 package org.fedorahosted.freeotp;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -200,7 +199,7 @@ public class TokenAdapter extends BaseAdapter {
 		}
 	}
 
-	public void add(Context ctx, String uri) throws NoSuchAlgorithmException, TokenUriInvalidException {
+	public void add(Context ctx, String uri) throws TokenUriInvalidException {
 		Token t = new Token(uri);
 		t.save(ctx);
 		tokens.add(t);

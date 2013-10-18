@@ -27,5 +27,5 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/scan"
-        android:title="@string/action_add" />
+        android:title="@string/add" />
 </menu>

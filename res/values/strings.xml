@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="action_add">Add</string>
-    <string name="token_scan_invalid">The scanned token data was invalid!</string>
+    <string name="add">Add</string>
+    <string name="invalid_token">The token specified was invalid!</string>
     <string name="delete_message">Are you sure you want to remove this token?\n\nNOTE: This will NOT disable two-factor authentication on the server.\n\n</string>
     <string name="delete">Delete</string>
     <string name="yes">Yes</string>
@@ -10,4 +10,30 @@
     <string name="install_title">Install Barcode Scanner?</string>
     <string name="install_message">Barcode Scanner is required. Would you like to install it?</string>
     <string name="no_keys">No OTP keys installed.</string>
+    <string name="add_token">Add Token</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="interval">Interval</string>
+    <string name="counter">Counter</string>
+    <string name="id">ID</string>
+    <string name="secret">Secret</string>
+    <string name="type">Type</string>
+    <string name="algorithm">Algorithm</string>
+    <string name="digits">Digits</string>
+
+    <string-array name="token_types">
+        <item>Time-based (TOTP)</item>
+        <item>Counter-based (HOTP)</item>
+    </string-array>
+
+    <string-array name="digits">
+        <item>6</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
 </resources>

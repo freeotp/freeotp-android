@@ -67,15 +67,13 @@ public class Token {
 				tokens.add(new Token(prefs.getString(key, null)));
 			} catch (TokenUriInvalidException e) {
 				e.printStackTrace();
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
 			}
 		}
 
 		return tokens;
 	}
 
-	private Token(Uri uri) throws TokenUriInvalidException, NoSuchAlgorithmException {
+	private Token(Uri uri) throws TokenUriInvalidException {
 		if (!uri.getScheme().equals("otpauth"))
 			throw new TokenUriInvalidException();
 
@@ -105,10 +103,11 @@ public class Token {
 		if (algo == null)
 			algo = "sha1";
 		algo = algo.toUpperCase(Locale.US);
-		if (!algo.equals("SHA1") && !algo.equals("SHA256") &&
-            !algo.equals("SHA512") && !algo.equals("MD5"))
+		try {
+			Mac.getInstance("Hmac" + algo);
+		} catch (NoSuchAlgorithmException e1) {
 			throw new TokenUriInvalidException();
-		Mac.getInstance("Hmac" + algo);
+		}
 
 		try {
 			String d = uri.getQueryParameter("digits");
@@ -194,7 +193,7 @@ public class Token {
 		return "";
 	}
 
-	public Token(String uri) throws TokenUriInvalidException, NoSuchAlgorithmException {
+	public Token(String uri) throws TokenUriInvalidException {
 		this(Uri.parse(uri));
 	}
 
