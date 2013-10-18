@@ -50,12 +50,12 @@ public class CircleProgressBar extends ProgressBar {
 		super(context);
 		setup();
 	}
-	
+
 	private void setup() {
 		paint = new Paint();
         rectf = new RectF();
         rect = new Rect();
-        
+
         paint.setColor(0x33333300);
         paint.setAlpha(0x99);
         paint.setAntiAlias(true);
@@ -69,7 +69,7 @@ public class CircleProgressBar extends ProgressBar {
 		rect.top += getPaddingTop() + 2;
 		rect.right -= getPaddingRight() + 2;
 		rect.bottom -= getPaddingBottom() + 2;
-		
+
 		rectf.set(rect);
 		canvas.drawArc(rectf, -90, getProgress() * 360 / getMax(), true, paint);
 	}

@@ -44,8 +44,6 @@ import java.util.List;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
@@ -53,6 +51,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -93,8 +93,9 @@ public class MainActivity extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        
+
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				Intent i = new Intent(ACTION_SCAN);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
@@ -114,6 +115,7 @@ public class MainActivity extends ListActivity {
 					.setTitle(R.string.install_title)
 					.setMessage(R.string.install_message)
 					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							Uri uri = Uri.parse("market://details?id=" + PROVIDERS.get(0));
 							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -125,6 +127,7 @@ public class MainActivity extends ListActivity {
 						}
 					})
 					.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							return;
 						}
@@ -137,8 +140,9 @@ public class MainActivity extends ListActivity {
 
         return true;
     }
-    
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
             try {
 				ta.add(this, intent.getStringExtra("SCAN_RESULT"));

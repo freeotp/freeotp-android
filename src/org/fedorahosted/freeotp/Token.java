@@ -32,35 +32,35 @@ import java.util.Locale;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.google.android.apps.authenticator.Base32String;
-import com.google.android.apps.authenticator.Base32String.DecodingException;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+
+import com.google.android.apps.authenticator.Base32String;
+import com.google.android.apps.authenticator.Base32String.DecodingException;
 
 public class Token {
 	public static class TokenUriInvalidException extends Exception {
 		private static final long serialVersionUID = -1108624734612362345L;
 	}
-	
+
 	public static enum TokenType {
 		HOTP, TOTP
 	}
-	
-	private String issuerInt;
-	private String issuerExt;
-	private String label;
+
+	private final String issuerInt;
+	private final String issuerExt;
+	private final String label;
 	private TokenType type;
 	private String algo;
 	private byte[] key;
 	private int digits;
 	private long counter;
 	private int period;
-	
+
 	public static List<Token> getTokens(Context ctx) {
 		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
-		
+
 		List<Token> tokens = new ArrayList<Token>();
 		for (String key : prefs.getAll().keySet()) {
 			try {
@@ -71,21 +71,21 @@ public class Token {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return tokens;
 	}
 
 	private Token(Uri uri) throws TokenUriInvalidException, NoSuchAlgorithmException {
 		if (!uri.getScheme().equals("otpauth"))
 			throw new TokenUriInvalidException();
-		
+
 		if (uri.getAuthority().equals("totp"))
 			type = TokenType.TOTP;
 		else if (uri.getAuthority().equals("hotp"))
 			type = TokenType.HOTP;
 		else
 			throw new TokenUriInvalidException();
-		
+
 		String path = uri.getPath();
 		if (path == null)
 			throw new TokenUriInvalidException();
@@ -95,12 +95,12 @@ public class Token {
 			path = path.substring(1);
 		if (path.length() == 0)
 			throw new TokenUriInvalidException();
-		
+
 		int i = path.indexOf(':');
 		issuerExt = i < 0 ? "" : path.substring(0, i);
 		issuerInt = uri.getQueryParameter("issuer");
 		label = path.substring(i >= 0 ? i + 1 : 0);
-		
+
 		algo = uri.getQueryParameter("algorithm");
 		if (algo == null)
 			algo = "sha1";
@@ -109,7 +109,7 @@ public class Token {
             !algo.equals("SHA512") && !algo.equals("MD5"))
 			throw new TokenUriInvalidException();
 		Mac.getInstance("Hmac" + algo);
-		
+
 		try {
 			String d = uri.getQueryParameter("digits");
 			if (d == null)
@@ -120,7 +120,7 @@ public class Token {
 		} catch (NumberFormatException e) {
 			throw new TokenUriInvalidException();
 		}
-		
+
 		switch (type) {
 		case HOTP:
 			try {
@@ -143,7 +143,7 @@ public class Token {
 			}
 			break;
 		}
-		
+
 		try {
 			String s = uri.getQueryParameter("secret");
 			key = Base32String.decode(s);
@@ -151,25 +151,25 @@ public class Token {
 			throw new TokenUriInvalidException();
 		}
 	}
-	
+
 	private String getHOTP(long counter) {
 		// Encode counter in network byte order
 		ByteBuffer bb = ByteBuffer.allocate(8);
 		bb.putLong(counter);
-		
+
 		// Create digits divisor
 		int div = 1;
 		for (int i = digits; i > 0; i--)
 			div *= 10;
-		
+
 		// Create the HMAC
 		try {
 			Mac mac = Mac.getInstance("Hmac" + algo);
 			mac.init(new SecretKeySpec(key, "Hmac" + algo));
-			
+
 			// Do the hashing
 			byte[] digest = mac.doFinal(bb.array());
-			
+
 			// Truncate
 			int binary;
 			int off = digest[digest.length - 1] & 0xf;
@@ -178,12 +178,12 @@ public class Token {
 			binary |= (digest[off + 2] & 0xff) << 0x08;
 			binary |= (digest[off + 3] & 0xff) << 0x00;
 			binary  = binary % div;
-			
+
 			// Zero pad
 			String hotp = Integer.toString(binary);
 			while (hotp.length() != digits)
 				hotp = "0" + hotp;
-			
+
 			return hotp;
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
@@ -193,11 +193,11 @@ public class Token {
 
 		return "";
 	}
-	
+
 	public Token(String uri) throws TokenUriInvalidException, NoSuchAlgorithmException {
 		this(Uri.parse(uri));
 	}
-	
+
 	private String getId() {
 		String id;
 		if (issuerInt != null && !issuerInt.equals(""))
@@ -206,20 +206,20 @@ public class Token {
 			id = issuerExt + ":" + label;
 		else
 			id = label;
-		
+
 		return id;
 	}
-	
+
 	public void remove(Context ctx) {
 		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
 		prefs.edit().remove(getId()).apply();
 	}
-	
+
 	public void save(Context ctx) {
 		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
 		prefs.edit().putString(getId(), toString()).apply();
 	}
-	
+
 	public String getTitle() {
 		String title = "";
 		if (issuerExt != null && !issuerExt.equals(""))
@@ -227,7 +227,7 @@ public class Token {
 		title += label;
 		return title;
 	}
-	
+
 	public String getCurrentTokenValue(Context ctx, boolean increment) {
 		if (type == TokenType.HOTP) {
 			if (increment) {
@@ -240,17 +240,17 @@ public class Token {
 				String placeholder = "";
 				for (int i = 0; i < digits; i++)
 					placeholder += "-";
-				
+
 				return placeholder;
 			}
 		}
-		
+
 		return getHOTP(System.currentTimeMillis() / 1000 / period);
 	}
-	
+
 	public Uri toUri() {
 		String issuerLabel = !issuerExt.equals("") ? issuerExt + ":" + label : label;
-		
+
 		Uri.Builder builder = new Uri.Builder()
 			.scheme("otpauth")
 			.path(issuerLabel)
@@ -258,7 +258,7 @@ public class Token {
 			.appendQueryParameter("issuer", issuerInt == null ? issuerExt : issuerInt)
 			.appendQueryParameter("algorithm", algo)
 			.appendQueryParameter("digits", Integer.toString(digits));
-		
+
 		switch (type) {
 		case HOTP:
 			builder.authority("hotp");
@@ -269,22 +269,22 @@ public class Token {
 			builder.appendQueryParameter("period", Integer.toString(period));
 			break;
 		}
-		
+
 		return builder.build();
 	}
-	
+
 	public TokenType getType() {
 		return type;
 	}
-	
+
 	// Progress is on a scale from 0 - 1000.
 	public int getProgress() {
 		int p = period * 10;
-		
+
 		long time = System.currentTimeMillis() / 100;
 		return (int) ((time % p) * 1000 / p);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toUri().toString();
