@@ -23,15 +23,11 @@ package org.fedorahosted.freeotp;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 
 import com.google.android.apps.authenticator.Base32String;
@@ -55,21 +51,6 @@ public class Token {
 	private int digits;
 	private long counter;
 	private int period;
-
-	public static List<Token> getTokens(Context ctx) {
-		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
-
-		List<Token> tokens = new ArrayList<Token>();
-		for (String key : prefs.getAll().keySet()) {
-			try {
-				tokens.add(new Token(prefs.getString(key, null)));
-			} catch (TokenUriInvalidException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return tokens;
-	}
 
 	private Token(Uri uri) throws TokenUriInvalidException {
 		if (!uri.getScheme().equals("otpauth"))
@@ -195,7 +176,7 @@ public class Token {
 		this(Uri.parse(uri));
 	}
 
-	private String getId() {
+	public String getID() {
 		String id;
 		if (issuerInt != null && !issuerInt.equals(""))
 			id = issuerInt + ":" + label;
@@ -207,42 +188,35 @@ public class Token {
 		return id;
 	}
 
-	public void remove(Context ctx) {
-		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
-		prefs.edit().remove(getId()).apply();
+	public String getIssuer() {
+		return issuerExt != null ? issuerExt : "";
 	}
 
-	public void save(Context ctx) {
-		SharedPreferences prefs = ctx.getSharedPreferences(Token.class.getName(), Context.MODE_PRIVATE);
-		prefs.edit().putString(getId(), toString()).apply();
+	public String getLabel() {
+		return label != null ? label : "";
 	}
 
-	public String getTitle() {
-		String title = "";
-		if (issuerExt != null && !issuerExt.equals(""))
-			title += issuerExt + ": ";
-		title += label;
-		return title;
-	}
-
-	public String getCurrentTokenValue(Context ctx, boolean increment) {
-		if (type == TokenType.HOTP) {
-			if (increment) {
-				try {
-					return getHOTP(counter++);
-				} finally {
-					save(ctx);
-				}
-			} else {
-				String placeholder = "";
-				for (int i = 0; i < digits; i++)
-					placeholder += "-";
-
-				return placeholder;
-			}
+	public String getCode() {
+		switch (type) {
+		case HOTP:
+			return getHOTP(counter);
+		case TOTP:
+			return getHOTP(System.currentTimeMillis() / 1000 / period);
 		}
 
-		return getHOTP(System.currentTimeMillis() / 1000 / period);
+		return null;
+	}
+
+	public String getPlaceholder() {
+		StringBuilder sb = new StringBuilder(digits);
+		for (int i = 0; i < digits; i++)
+			sb.append('-');
+		return sb.toString();
+	}
+
+	public void increment() {
+		if (type == TokenType.HOTP)
+			counter++;
 	}
 
 	public Uri toUri() {

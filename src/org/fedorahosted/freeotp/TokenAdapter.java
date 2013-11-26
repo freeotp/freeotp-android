@@ -20,11 +20,7 @@
 
 package org.fedorahosted.freeotp;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
@@ -34,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -63,32 +60,29 @@ public class TokenAdapter extends BaseAdapter {
 		}
 	}
 
-	private final List<Token> tokens = new ArrayList<Token>();
-	private final Ticker ticker = new Ticker();
-
-	private void sort() {
-		Collections.sort(tokens, new Comparator<Token>() {
-			@Override
-			public int compare(Token lhs, Token rhs) {
-				return lhs.getTitle().compareTo(rhs.getTitle());
-			}
-		});
+	private static class ViewHolder {
+		int index;
+		Token token;
+		TextView code;
+		TextView title;
 	}
 
+	private final TokenStore ts;
+	private final Ticker ticker = new Ticker();
+
 	public TokenAdapter(Context ctx) {
-		tokens.addAll(Token.getTokens(ctx));
+		ts = new TokenStore(ctx);
 		ticker.sendEmptyMessageDelayed(0, 200);
-		sort();
 	}
 
 	@Override
 	public int getCount() {
-		return tokens.size();
+		return ts.getTokenCount();
 	}
 
 	@Override
 	public Token getItem(int position) {
-		return tokens.get(position);
+		return ts.get(position);
 	}
 
 	@Override
@@ -98,86 +92,104 @@ public class TokenAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final Context ctx = parent.getContext();
+		Token token = ts.get(position);
 
-		if (convertView == null) {
-			switch (getItem(position).getType()) {
-			case HOTP:
-				convertView = View.inflate(ctx, R.layout.hotp, null);
-				break;
+        if (convertView == null)
+            convertView = newView(parent.getContext(), token.getType(), parent);
 
-			case TOTP:
-				convertView = View.inflate(ctx, R.layout.totp, null);
-				break;
-			}
-		}
+        bindView(parent.getContext(), convertView, token, position);
+        return convertView;
+	}
 
-		final Token item = getItem(position);
-		final TextView code = (TextView) convertView.findViewById(R.id.code);
-		final TextView title = (TextView) convertView.findViewById(R.id.title);
-		final ImageButton ib = (ImageButton) convertView.findViewById(R.id.button);
+	public void bindView(Context ctx, View view, Token token, int position) {
+		ViewHolder holder = (ViewHolder) view.getTag();
+		holder.index = position;
+		holder.token = token;
 
-		code.setText(item.getCurrentTokenValue(ctx, false));
-		title.setText(item.getTitle());
+		holder.code.setText(token.getPlaceholder());
+		holder.title.setText(token.getIssuer() + ": " + token.getLabel());
+	}
 
-		ib.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String delmsg = ctx.getString(R.string.delete_message);
+	public View newView(Context ctx, Token.TokenType type, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		ViewHolder holder = new ViewHolder();
 
-				AlertDialog ad = new AlertDialog.Builder(ctx)
-				.setTitle("Delete")
-				.setMessage(delmsg + item.getTitle())
-				.setIcon(android.R.drawable.ic_delete)
-				.setPositiveButton(R.string.delete,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								tokens.remove(tokens.indexOf(item));
-								item.remove(ctx);
-								notifyDataSetChanged();
-								dialog.dismiss();
-							}
-
-						})
-				.setNegativeButton(android.R.string.cancel,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.cancel();
-							}
-						}).create();
-				ad.show();
-			}
-		});
-
-		switch (getItem(position).getType()) {
+		View view = null;
+		switch (type) {
 		case HOTP:
-			ImageButton hotp = (ImageButton) convertView.findViewById(R.id.hotpButton);
+			view = inflater.inflate(R.layout.hotp, parent, false);
+			ImageButton hotp = (ImageButton) view.findViewById(R.id.hotpButton);
+			hotp.setTag(holder);
 			hotp.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					code.setText(item.getCurrentTokenValue(ctx, true));
+					ViewHolder holder = (ViewHolder) v.getTag();
+					holder.code.setText(holder.token.getCode());
+					holder.token.increment();
+					ts.save(holder.token);
 				}
 			});
 			break;
 
 		case TOTP:
-			ProgressBar pb = (ProgressBar) convertView.findViewById(R.id.totpProgressBar);
+			view = inflater.inflate(R.layout.totp, parent, false);
+			ProgressBar pb = (ProgressBar) view.findViewById(R.id.totpProgressBar);
+			pb.setTag(holder);
 			ticker.set(pb, new Ticker.OnTickListener() {
 				@Override
 				public void tick(ProgressBar pb) {
-					int max = pb.getMax();
-					int pro = item.getProgress();
-					pb.setProgress(max - pro);
-					if (pro < max / 20 || pro > max / 20 * 19)
-						code.setText(item.getCurrentTokenValue(ctx, false));
+					ViewHolder holder = (ViewHolder) pb.getTag();
+					pb.setProgress(pb.getMax() - holder.token.getProgress());
+					holder.code.setText(holder.token.getCode());
 				}
 			});
 			break;
 		}
 
-		return convertView;
+		ImageButton ib = (ImageButton) view.findViewById(R.id.button);
+		ib.setTag(holder);
+		ib.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final ViewHolder holder = (ViewHolder) v.getTag();
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(v.getContext().getString(R.string.delete_message));
+				sb.append(holder.token.getIssuer());
+				sb.append("\n");
+				sb.append(holder.token.getLabel());
+
+				AlertDialog ad = new AlertDialog.Builder(v.getContext())
+					.setTitle("Delete")
+					.setMessage(sb.toString())
+					.setIcon(android.R.drawable.ic_delete)
+					.setPositiveButton(R.string.delete,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									ts.del(holder.index);
+									notifyDataSetChanged();
+									dialog.dismiss();
+								}
+
+							})
+					.setNegativeButton(android.R.string.cancel,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.cancel();
+								}
+							})
+					.create();
+				ad.show();
+			}
+		});
+
+		holder.code = (TextView) view.findViewById(R.id.code);
+		holder.title = (TextView) view.findViewById(R.id.title);
+		view.setTag(holder);
+
+		return view;
 	}
 
 	@Override
@@ -193,15 +205,12 @@ public class TokenAdapter extends BaseAdapter {
 		case TOTP:
 			return 1;
 		default:
-			return -1;
+			return IGNORE_ITEM_VIEW_TYPE;
 		}
 	}
 
 	public void add(Context ctx, String uri) throws TokenUriInvalidException {
-		Token t = new Token(uri);
-		t.save(ctx);
-		tokens.add(t);
-		sort();
+		ts.add(new Token(uri));
 		notifyDataSetChanged();
 	}
 }
