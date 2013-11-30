@@ -19,11 +19,10 @@
    - limitations under the License.
    -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/action_add"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:icon="@drawable/scan"
-        android:title="@string/add" />
-</menu>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false"
+          android:drawable="@drawable/token_disabled" />
+    <item android:state_pressed="true"
+          android:drawable="@drawable/token_pressed" />
+    <item android:drawable="@drawable/token_normal" />
+</selector>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
    - FreeOTP
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
@@ -18,165 +18,173 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp" >
-
-    <TableRow
+    android:layout_height="match_parent" >
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/issuer"
-            android:paddingRight="8dp" />
+        android:layout_height="wrap_content"
+        android:padding="16dp" >
 
-        <EditText
-            android:id="@+id/issuer"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="jdoe@example.com"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse" />
-    </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/issuer" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/id"
-            android:paddingRight="8dp" />
-
-        <EditText
-            android:id="@+id/id"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="18c5d06cfcbd4927"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/secret"
-            android:paddingRight="8dp" />
-
-        <EditText
-            android:id="@+id/secret"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
-            android:hint="Base32 (ex. &apos;GEZDGNBV&apos;)"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-    </TableRow>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="4dp"
-        android:background="?android:attr/dividerHorizontal"
-        />
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/type"
-            android:paddingRight="8dp" />
-
-        <Spinner
-            android:id="@+id/type"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:entries="@array/token_types" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/algorithm"
-            android:paddingRight="8dp" />
-
-        <Spinner
-            android:id="@+id/algorithm"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:entries="@array/algorithms" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
-        <TextView
-            android:id="@+id/interval_label"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/interval"
-            android:paddingRight="8dp" />
-
-        <EditText
-            android:id="@+id/interval"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:text="30" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="48dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="@string/digits"
-            android:paddingRight="8dp" />
-
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-            <RadioButton
-                android:id="@+id/digits6"
+            <EditText
+                android:id="@+id/issuer"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="6"
-                android:checked="true" />
+                android:hint="jdoe@example.com"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+        </TableRow>
 
-            <RadioButton
-                android:id="@+id/digits8"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/id" />
+
+            <EditText
+                android:id="@+id/id"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="8" />
-        </RadioGroup>
-    </TableRow>
-</TableLayout>
+                android:hint="18c5d06cfcbd4927"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/secret" />
+
+            <EditText
+                android:id="@+id/secret"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
+                android:hint="(Base32 encoded)"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="12dp"
+            android:background="?android:attr/dividerHorizontal" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/type" />
+
+            <Spinner
+                android:id="@+id/type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/token_types" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/algorithm" />
+
+            <Spinner
+                android:id="@+id/algorithm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/algorithms" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:id="@+id/interval_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/interval" />
+
+            <EditText
+                android:id="@+id/interval"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:text="30" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="48dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:paddingRight="8dp"
+                android:text="@string/digits" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/digits6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="6" />
+
+                <RadioButton
+                    android:id="@+id/digits8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="8" />
+            </RadioGroup>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

@@ -40,23 +40,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
+import org.fedorahosted.freeotp.adapters.TokenAdapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 	private static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 	private static final List<String> PROVIDERS = Arrays.asList(new String[] {
 		"com.google.zxing.client.android", // Barcode Scanner
@@ -82,10 +86,24 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        ta = new TokenAdapter(this);
-        setListAdapter(ta);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		ta = new TokenAdapter(this);
+		((GridView) findViewById(R.id.grid)).setAdapter(ta);
+
+		DataSetObserver dso = new DataSetObserver() {
+			@Override
+			public void onChanged() {
+				super.onChanged();
+				if (ta.getCount() == 0)
+					findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+				else
+					findViewById(android.R.id.empty).setVisibility(View.GONE);
+			}
+		};
+		ta.registerDataSetObserver(dso);
+		dso.onChanged();
     }
 
     @Override
@@ -99,7 +117,7 @@ public class MainActivity extends ListActivity {
 					@Override
 					public void addToken(String uri) {
 						try {
-							ta.add(MainActivity.this, uri);
+							ta.add(uri);
 						} catch (TokenUriInvalidException e) {
 							Toast.makeText(MainActivity.this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
@@ -162,7 +180,7 @@ public class MainActivity extends ListActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (resultCode == RESULT_OK) {
 			try {
-				ta.add(this, intent.getStringExtra("SCAN_RESULT"));
+				ta.add(intent.getStringExtra("SCAN_RESULT"));
 			} catch (TokenUriInvalidException e) {
 				Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
 				e.printStackTrace();

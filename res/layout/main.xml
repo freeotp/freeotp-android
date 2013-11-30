@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
    - FreeOTP
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
@@ -34,11 +34,18 @@
         android:text="@string/no_keys"
         />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
+	<GridView
+	    android:id="@+id/grid"
+	    android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:drawSelectorOnTop="false"
-        />
+	    android:columnWidth="250dp"
+	    android:gravity="center"
+	    android:horizontalSpacing="8dp"
+	    android:numColumns="auto_fit"
+	    android:padding="8dp"
+	    android:stretchMode="columnWidth"
+	    android:verticalSpacing="8dp"
+	    android:background="#E5E5E5"
+	    />
 </LinearLayout>

@@ -3,7 +3,6 @@
     <string name="app_name">FreeOTP</string>
     <string name="add">Add</string>
     <string name="invalid_token">The token specified was invalid!</string>
-    <string name="delete_message">Are you sure you want to remove this token?\n\nNOTE: This will NOT disable two-factor authentication on the server.\n\n</string>
     <string name="delete">Delete</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -21,14 +20,14 @@
     <string name="algorithm">Algorithm</string>
     <string name="digits">Digits</string>
 
+    <plurals name="tokens_selected">
+        <item quantity="one">%d token selected</item>
+        <item quantity="other">%d tokens selected</item>
+    </plurals>
+
     <string-array name="token_types">
         <item>Time-based (TOTP)</item>
         <item>Counter-based (HOTP)</item>
-    </string-array>
-
-    <string-array name="digits">
-        <item>6</item>
-        <item>8</item>
     </string-array>
 
     <string-array name="algorithms">

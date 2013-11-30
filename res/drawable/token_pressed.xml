@@ -19,11 +19,23 @@
    - limitations under the License.
    -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/action_add"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:icon="@drawable/scan"
-        android:title="@string/add" />
-</menu>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <solid android:color="#CCCCCC" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+    <item android:bottom="2dp" android:drawable="?android:attr/selectableItemBackground">
+        <shape android:dither="true" android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="2dp" />
+            <padding
+                android:top="8dp"
+                android:bottom="8dp"
+                android:left="8dp"
+                android:right="8dp"
+                />
+        </shape>
+    </item>
+</layer-list>

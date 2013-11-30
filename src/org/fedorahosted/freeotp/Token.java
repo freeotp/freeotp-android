@@ -42,24 +42,25 @@ public class Token {
 		HOTP, TOTP
 	}
 
-	private final String issuerInt;
-	private final String issuerExt;
-	private final String label;
-	private TokenType type;
-	private String algo;
-	private byte[] key;
-	private int digits;
-	private long counter;
-	private int period;
+	private final String mIssuerInt;
+	private final String mIssuerExt;
+	private final String mLabel;
+	private TokenType mType;
+	private String mAlgorithm;
+	private byte[] mSecret;
+	private int mDigits;
+	private long mCounter;
+	private int mPeriod;
+	private long mLastCode;
 
 	private Token(Uri uri) throws TokenUriInvalidException {
 		if (!uri.getScheme().equals("otpauth"))
 			throw new TokenUriInvalidException();
 
 		if (uri.getAuthority().equals("totp"))
-			type = TokenType.TOTP;
+			mType = TokenType.TOTP;
 		else if (uri.getAuthority().equals("hotp"))
-			type = TokenType.HOTP;
+			mType = TokenType.HOTP;
 		else
 			throw new TokenUriInvalidException();
 
@@ -74,16 +75,16 @@ public class Token {
 			throw new TokenUriInvalidException();
 
 		int i = path.indexOf(':');
-		issuerExt = i < 0 ? "" : path.substring(0, i);
-		issuerInt = uri.getQueryParameter("issuer");
-		label = path.substring(i >= 0 ? i + 1 : 0);
+		mIssuerExt = i < 0 ? "" : path.substring(0, i);
+		mIssuerInt = uri.getQueryParameter("issuer");
+		mLabel = path.substring(i >= 0 ? i + 1 : 0);
 
-		algo = uri.getQueryParameter("algorithm");
-		if (algo == null)
-			algo = "sha1";
-		algo = algo.toUpperCase(Locale.US);
+		mAlgorithm = uri.getQueryParameter("algorithm");
+		if (mAlgorithm == null)
+			mAlgorithm = "sha1";
+		mAlgorithm = mAlgorithm.toUpperCase(Locale.US);
 		try {
-			Mac.getInstance("Hmac" + algo);
+			Mac.getInstance("Hmac" + mAlgorithm);
 		} catch (NoSuchAlgorithmException e1) {
 			throw new TokenUriInvalidException();
 		}
@@ -92,20 +93,20 @@ public class Token {
 			String d = uri.getQueryParameter("digits");
 			if (d == null)
 				d = "6";
-			digits = Integer.parseInt(d);
-			if (digits != 6 && digits != 8)
+			mDigits = Integer.parseInt(d);
+			if (mDigits != 6 && mDigits != 8)
 				throw new TokenUriInvalidException();
 		} catch (NumberFormatException e) {
 			throw new TokenUriInvalidException();
 		}
 
-		switch (type) {
+		switch (mType) {
 		case HOTP:
 			try {
 				String c = uri.getQueryParameter("counter");
 				if (c == null)
 					c = "0";
-				counter = Long.parseLong(c);
+				mCounter = Long.parseLong(c) - 1;
 			} catch (NumberFormatException e) {
 				throw new TokenUriInvalidException();
 			}
@@ -115,7 +116,7 @@ public class Token {
 				String p = uri.getQueryParameter("period");
 				if (p == null)
 					p = "30";
-				period = Integer.parseInt(p);
+				mPeriod = Integer.parseInt(p);
 			} catch (NumberFormatException e) {
 				throw new TokenUriInvalidException();
 			}
@@ -124,7 +125,7 @@ public class Token {
 
 		try {
 			String s = uri.getQueryParameter("secret");
-			key = Base32String.decode(s);
+			mSecret = Base32String.decode(s);
 		} catch (DecodingException e) {
 			throw new TokenUriInvalidException();
 		}
@@ -137,13 +138,13 @@ public class Token {
 
 		// Create digits divisor
 		int div = 1;
-		for (int i = digits; i > 0; i--)
+		for (int i = mDigits; i > 0; i--)
 			div *= 10;
 
 		// Create the HMAC
 		try {
-			Mac mac = Mac.getInstance("Hmac" + algo);
-			mac.init(new SecretKeySpec(key, "Hmac" + algo));
+			Mac mac = Mac.getInstance("Hmac" + mAlgorithm);
+			mac.init(new SecretKeySpec(mSecret, "Hmac" + mAlgorithm));
 
 			// Do the hashing
 			byte[] digest = mac.doFinal(bb.array());
@@ -159,7 +160,7 @@ public class Token {
 
 			// Zero pad
 			String hotp = Integer.toString(binary);
-			while (hotp.length() != digits)
+			while (hotp.length() != mDigits)
 				hotp = "0" + hotp;
 
 			return hotp;
@@ -176,84 +177,86 @@ public class Token {
 		this(Uri.parse(uri));
 	}
 
+	public void increment() {
+		if (mType == TokenType.HOTP) {
+			mCounter++;
+			mLastCode = System.currentTimeMillis();
+		}
+	}
+
 	public String getID() {
 		String id;
-		if (issuerInt != null && !issuerInt.equals(""))
-			id = issuerInt + ":" + label;
-		else if (issuerExt != null && !issuerExt.equals(""))
-			id = issuerExt + ":" + label;
+		if (mIssuerInt != null && !mIssuerInt.equals(""))
+			id = mIssuerInt + ":" + mLabel;
+		else if (mIssuerExt != null && !mIssuerExt.equals(""))
+			id = mIssuerExt + ":" + mLabel;
 		else
-			id = label;
+			id = mLabel;
 
 		return id;
 	}
 
 	public String getIssuer() {
-		return issuerExt != null ? issuerExt : "";
+		return mIssuerExt != null ? mIssuerExt : "";
 	}
 
 	public String getLabel() {
-		return label != null ? label : "";
+		return mLabel != null ? mLabel : "";
 	}
 
 	public String getCode() {
-		switch (type) {
-		case HOTP:
-			return getHOTP(counter);
-		case TOTP:
-			return getHOTP(System.currentTimeMillis() / 1000 / period);
+		if (mType == TokenType.TOTP)
+			return getHOTP(System.currentTimeMillis() / 1000 / mPeriod);
+
+		long time = System.currentTimeMillis();
+		if (time - mLastCode > 60000) {
+			StringBuilder sb = new StringBuilder(mDigits);
+			for (int i = 0; i < mDigits; i++)
+				sb.append('-');
+			return sb.toString();
 		}
 
-		return null;
-	}
-
-	public String getPlaceholder() {
-		StringBuilder sb = new StringBuilder(digits);
-		for (int i = 0; i < digits; i++)
-			sb.append('-');
-		return sb.toString();
-	}
-
-	public void increment() {
-		if (type == TokenType.HOTP)
-			counter++;
-	}
-
-	public Uri toUri() {
-		String issuerLabel = !issuerExt.equals("") ? issuerExt + ":" + label : label;
-
-		Uri.Builder builder = new Uri.Builder()
-			.scheme("otpauth")
-			.path(issuerLabel)
-			.appendQueryParameter("secret", Base32String.encode(key))
-			.appendQueryParameter("issuer", issuerInt == null ? issuerExt : issuerInt)
-			.appendQueryParameter("algorithm", algo)
-			.appendQueryParameter("digits", Integer.toString(digits));
-
-		switch (type) {
-		case HOTP:
-			builder.authority("hotp");
-			builder.appendQueryParameter("counter", Long.toString(counter));
-			break;
-		case TOTP:
-			builder.authority("totp");
-			builder.appendQueryParameter("period", Integer.toString(period));
-			break;
-		}
-
-		return builder.build();
+		return getHOTP(mCounter);
 	}
 
 	public TokenType getType() {
-		return type;
+		return mType;
 	}
 
 	// Progress is on a scale from 0 - 1000.
 	public int getProgress() {
-		int p = period * 10;
+		long time = System.currentTimeMillis();
 
-		long time = System.currentTimeMillis() / 100;
-		return (int) ((time % p) * 1000 / p);
+		if (mType == TokenType.TOTP)
+			return (int) (time % (mPeriod * 1000) / mPeriod);
+
+		long state = (time - mLastCode) / 60;
+		return (int) (state > 1000 ? 1000 : state);
+	}
+
+	public Uri toUri() {
+		String issuerLabel = !mIssuerExt.equals("") ? mIssuerExt + ":" + mLabel : mLabel;
+
+		Uri.Builder builder = new Uri.Builder()
+			.scheme("otpauth")
+			.path(issuerLabel)
+			.appendQueryParameter("secret", Base32String.encode(mSecret))
+			.appendQueryParameter("issuer", mIssuerInt == null ? mIssuerExt : mIssuerInt)
+			.appendQueryParameter("algorithm", mAlgorithm)
+			.appendQueryParameter("digits", Integer.toString(mDigits));
+
+		switch (mType) {
+		case HOTP:
+			builder.authority("hotp");
+			builder.appendQueryParameter("counter", Long.toString(mCounter + 1));
+			break;
+		case TOTP:
+			builder.authority("totp");
+			builder.appendQueryParameter("period", Integer.toString(mPeriod));
+			break;
+		}
+
+		return builder.build();
 	}
 
 	@Override
