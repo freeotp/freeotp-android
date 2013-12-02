@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 		TextView label;
 		TextView issuer;
 		ProgressBar progress;
+		ImageView image;
 	}
 
 	private static class Ticker extends Handler {
@@ -60,11 +62,18 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 				return;
 
 			ViewHolder holder = (ViewHolder) view.getTag();
-			int progress = 1000 - holder.token.getProgress();
 			holder.code.setText(holder.token.getCode());
+
+			int progress = holder.token.getProgress();
 			holder.progress.setProgress(progress);
 			if (progress > 0 && progress < 950)
 				view.setEnabled(true);
+
+			if (holder.token.getType() == TokenType.HOTP && progress == 0) {
+				holder.progress.setVisibility(View.GONE);
+				holder.image.setVisibility(View.VISIBLE);
+			}
+
 			start();
 		}
 
@@ -107,6 +116,8 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 					ViewHolder holder = (ViewHolder) v.getTag();
 					holder.token.increment();
 					holder.code.setText(holder.token.getCode());
+					holder.progress.setVisibility(View.VISIBLE);
+					holder.image.setVisibility(View.GONE);
 					save(holder.token);
 					v.setEnabled(false);
 				}
@@ -114,10 +125,15 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 		}
 		view.setOnClickListener(ocl);
 
-		if (holder.token.getType() == TokenType.TOTP)
+		if (holder.token.getType() == TokenType.TOTP) {
 			view.setBackgroundResource(R.drawable.token_normal);
-		else
+			holder.progress.setVisibility(View.VISIBLE);
+			holder.image.setVisibility(View.GONE);
+		} else {
 			view.setBackgroundResource(R.drawable.token);
+			holder.progress.setVisibility(View.GONE);
+			holder.image.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -129,6 +145,7 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 		holder.label = (TextView) view.findViewById(R.id.label);
 		holder.issuer = (TextView) view.findViewById(R.id.issuer);
 		holder.progress = (ProgressBar) view.findViewById(R.id.progress);
+		holder.image = (ImageView) view.findViewById(R.id.image);
 		view.setTag(holder);
 
 		new Ticker(view).start();

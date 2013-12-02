@@ -228,10 +228,10 @@ public class Token {
 		long time = System.currentTimeMillis();
 
 		if (mType == TokenType.TOTP)
-			return (int) (time % (mPeriod * 1000) / mPeriod);
+			return 1000 - (int) (time % (mPeriod * 1000) / mPeriod);
 
 		long state = (time - mLastCode) / 60;
-		return (int) (state > 1000 ? 1000 : state);
+		return 1000 - (int) (state > 1000 ? 1000 : state);
 	}
 
 	public Uri toUri() {
