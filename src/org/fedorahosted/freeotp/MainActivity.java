@@ -169,7 +169,15 @@ public class MainActivity extends Activity {
 
 				ad.show();
 
-		        return false;
+		        return true;
+			}
+		});
+
+		menu.findItem(R.id.action_about).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				new AboutDialog(MainActivity.this).show();
+				return true;
 			}
 		});
 
