@@ -106,6 +106,12 @@ public class TokenAdapter extends TokenPersistenceBaseAdapter {
 		holder.label.setText(holder.token.getLabel());
 		holder.issuer.setText(holder.token.getIssuer());
 		holder.progress.setProgress(holder.token.getProgress());
+		if (holder.issuer.getText().length() == 0) {
+			holder.issuer.setText(holder.token.getLabel());
+			holder.label.setVisibility(View.GONE);
+		} else {
+			holder.label.setVisibility(View.VISIBLE);
+		}
 
 		// Update click listener
 		View.OnClickListener ocl = null;
