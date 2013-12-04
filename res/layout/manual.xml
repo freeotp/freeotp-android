@@ -85,7 +85,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
-                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:inputType="textVisiblePassword|textCapCharacters|textNoSuggestions"
                 android:hint="(Base32 encoded)"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </TableRow>
