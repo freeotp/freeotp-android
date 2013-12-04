@@ -176,7 +176,8 @@ public class MainActivity extends Activity {
 		menu.findItem(R.id.action_about).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				new AboutDialog(MainActivity.this).show();
+				new AboutDialogFragment().show(getFragmentManager(),
+						AboutDialogFragment.FRAGMENT_TAG);
 				return true;
 			}
 		});
