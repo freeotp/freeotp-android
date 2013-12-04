@@ -101,12 +101,8 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 				new CameraDialogFragment().show(getFragmentManager(),
 						CameraDialogFragment.FRAGMENT_TAG);
 			} else {
-				new AddTokenDialog(this) {
-					@Override
-					public void addToken(String uri) {
-						tokenURIReceived(uri);
-					}
-				}.show();
+				new ManualDialogFragment().show(getFragmentManager(),
+						ManualDialogFragment.FRAGMENT_TAG);
 			}
 
 			return true;

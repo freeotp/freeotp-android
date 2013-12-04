@@ -59,7 +59,7 @@
                 android:text="@string/id" />
 
             <EditText
-                android:id="@+id/id"
+                android:id="@+id/label"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

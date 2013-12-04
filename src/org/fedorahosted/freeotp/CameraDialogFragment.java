@@ -52,12 +52,8 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == AlertDialog.BUTTON_NEUTRAL) {
-			new AddTokenDialog(getActivity()) {
-				@Override
-				public void addToken(String uri) {
-					((MainActivity) getActivity()).tokenURIReceived(uri);
-				}
-			}.show();
+			new ManualDialogFragment().show(getFragmentManager(),
+					ManualDialogFragment.FRAGMENT_TAG);
 		}
 	}
 

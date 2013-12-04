@@ -26,11 +26,19 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddTokenTextWatcher implements TextWatcher {
-	private final AlertDialog dialog;
+public class ManualTextWatcher implements TextWatcher {
+	private final Button mButton;
+	private final EditText mIssuer;
+	private final EditText mLabel;
+	private final EditText mSecret;
+	private final EditText mInterval;
 
-	public AddTokenTextWatcher(AlertDialog dialog) {
-		this.dialog = dialog;
+	public ManualTextWatcher(AlertDialog dialog) {
+		mButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		mIssuer = (EditText) dialog.findViewById(R.id.issuer);
+		mLabel = (EditText) dialog.findViewById(R.id.label);
+		mSecret = (EditText) dialog.findViewById(R.id.secret);
+		mInterval = (EditText) dialog.findViewById(R.id.interval);
 	}
 
 	@Override
@@ -40,24 +48,22 @@ public class AddTokenTextWatcher implements TextWatcher {
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		Button b = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		mButton.setEnabled(false);
 
-		b.setEnabled(false);
-
-		if (((EditText) dialog.findViewById(R.id.issuer)).getText().length() == 0)
+		if (mIssuer.getText().length() == 0)
 			return;
 
-		if (((EditText) dialog.findViewById(R.id.id)).getText().length() == 0)
+		if (mLabel.getText().length() == 0)
 			return;
 
-		if (((EditText) dialog.findViewById(R.id.secret)).getText().length() == 0 ||
-			((EditText) dialog.findViewById(R.id.secret)).getText().length() % 8 != 0)
+		if (mSecret.getText().length() == 0 ||
+			mSecret.getText().length() % 8 != 0)
 			return;
 
-		if (((EditText) dialog.findViewById(R.id.interval)).getText().length() == 0)
+		if (mInterval.getText().length() == 0)
 			return;
 
-		b.setEnabled(true);
+		mButton.setEnabled(true);
 	}
 
 	@Override
