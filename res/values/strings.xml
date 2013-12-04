@@ -12,6 +12,7 @@
     <string name="no_keys">No OTP keys installed.</string>
     <string name="add_token">Add Token</string>
     <string name="scan_qr_code">Scan QR Code</string>
+    <string name="manual_entry">Manual Entry</string>
     <string name="interval">Interval</string>
     <string name="counter">Counter</string>
     <string name="issuer">Issuer</string>
@@ -32,6 +33,8 @@
     <string name="link_report_a_problem">&lt;a href=&quot;http://fedorahosted.org/freeotp/newticket&quot;&gt;Report a Problem&lt;/a&gt;</string>
     <string name="link_ask_for_help">&lt;a href=&quot;http://lists.fedorahosted.org/mailman/listinfo/freeotp-devel&quot;&gt;Ask for Help&lt;/a&gt;</string>
     <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">Error while opening camera!</string>
 
     <plurals name="tokens_selected">
         <item quantity="one">%d token selected</item>
