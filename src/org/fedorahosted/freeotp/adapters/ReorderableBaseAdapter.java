@@ -90,8 +90,6 @@ public abstract class ReorderableBaseAdapter extends BaseAdapter {
 		view.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(final View view) {
-				view.setVisibility(View.INVISIBLE);
-
 				// Force a reset of any states
 				notifyDataSetChanged();
 
