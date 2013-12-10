@@ -20,6 +20,9 @@
 
 package org.fedorahosted.freeotp;
 
+import java.util.List;
+
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -84,6 +87,7 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 	}
 
 	@Override
+	@TargetApi(14)
 	public void surfaceCreated(SurfaceHolder holder) {
 		try {
 			mCamera = Camera.open();
@@ -105,7 +109,13 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 
 			// Set auto-focus mode
 			Parameters params = mCamera.getParameters();
-			params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+			List<String> modes = params.getSupportedFocusModes();
+			if (modes.contains(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+				params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+			else if (modes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO))
+				params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+			else if (modes.contains(Parameters.FOCUS_MODE_AUTO))
+				params.setFocusMode(Parameters.FOCUS_MODE_AUTO);
 			mCamera.setParameters(params);
 		} catch (Exception e) {
 			SurfaceView sv = (SurfaceView) getDialog().findViewById(R.id.camera_surfaceview);

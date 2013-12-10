@@ -96,8 +96,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 		case R.id.action_add:
 			// If the device has a camera available, try to scan for QR code
 			PackageManager pm = getPackageManager();
-			if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) &&
-				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS)) {
+			if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 				new CameraDialogFragment().show(getFragmentManager(),
 						CameraDialogFragment.FRAGMENT_TAG);
 			} else {
