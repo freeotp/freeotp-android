@@ -40,10 +40,7 @@ import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 import org.fedorahosted.freeotp.adapters.TokenAdapter;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
-import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -96,26 +93,8 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			// Look for a back-facing camera.
-			boolean backCamera = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
-
-			// If the above method doesn't return a camera, try to work around it.
-			// Some buggy implementations return false above even when there is a camera.
-			for (int i = Camera.getNumberOfCameras() - 1; i >= 0 && !backCamera; i--) {
-				CameraInfo ci = new CameraInfo();
-				Camera.getCameraInfo(i, ci);
-				backCamera = ci.facing == CameraInfo.CAMERA_FACING_BACK;
-			}
-
-			// If the device has a camera available, try to scan for QR code
-			if (backCamera) {
-				new CameraDialogFragment().show(getFragmentManager(),
-						CameraDialogFragment.FRAGMENT_TAG);
-			} else {
-				new ManualDialogFragment().show(getFragmentManager(),
-						ManualDialogFragment.FRAGMENT_TAG);
-			}
-
+			new CameraDialogFragment().show(getFragmentManager(),
+					CameraDialogFragment.FRAGMENT_TAG);
 			return true;
 
 		case R.id.action_about:
