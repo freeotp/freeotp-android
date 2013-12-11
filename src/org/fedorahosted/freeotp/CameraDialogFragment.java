@@ -30,18 +30,22 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
-public class CameraDialogFragment extends BaseAlertDialogFragment implements SurfaceHolder.Callback {
+public class CameraDialogFragment extends BaseAlertDialogFragment
+			implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
 	public static final String FRAGMENT_TAG = "fragment_camera";
 
 	private final CameraInfo mCameraInfo = new CameraInfo();
 	private final DecodeAsyncTask mDecodeAsyncTask;
 	private final int mCameraId;
+	private Handler mHandler;
 	private Camera mCamera;
 
 	public CameraDialogFragment() {
@@ -128,6 +132,9 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 
 		mCamera.setDisplayOrientation((mCameraInfo.orientation - rotation + 360) % 360);
 		mCamera.startPreview();
+
+		if (mHandler != null)
+			mHandler.sendEmptyMessageDelayed(0, 100);
 	}
 
 	@Override
@@ -160,8 +167,16 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 			params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 		else if (modes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO))
 			params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-		else if (modes.contains(Parameters.FOCUS_MODE_AUTO))
+		else if (modes.contains(Parameters.FOCUS_MODE_AUTO)) {
 			params.setFocusMode(Parameters.FOCUS_MODE_AUTO);
+			mHandler = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+					mCamera.autoFocus(CameraDialogFragment.this);
+				}
+			};
+		}
 		mCamera.setParameters(params);
 	}
 
@@ -170,9 +185,21 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 		if (mCamera == null)
 			return;
 
+		if (mHandler != null) {
+			mCamera.cancelAutoFocus();
+			mHandler.removeMessages(0);
+			mHandler = null;
+		}
+
 		mCamera.stopPreview();
 		mCamera.setPreviewCallback(null);
 		mCamera.release();
 		mCamera = null;
+	}
+
+	@Override
+	public void onAutoFocus(boolean success, Camera camera) {
+		if (mHandler != null)
+			mHandler.sendEmptyMessageDelayed(0, 1000);
 	}
 }
