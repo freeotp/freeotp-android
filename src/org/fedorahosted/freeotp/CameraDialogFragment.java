@@ -52,9 +52,9 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 		super(R.string.scan_qr_code, R.layout.camera,
 			android.R.string.cancel, R.string.manual_entry, 0);
 
-		// Find a back-facing camera
+		// Find a back-facing camera, otherwise use the first camera.
 		int cameraId;
-		for (cameraId = Camera.getNumberOfCameras() - 1; cameraId >= 0; cameraId--) {
+		for (cameraId = Camera.getNumberOfCameras() - 1; cameraId > 0; cameraId--) {
 			Camera.getCameraInfo(cameraId, mCameraInfo);
 			if (mCameraInfo.facing == CameraInfo.CAMERA_FACING_BACK)
 				break;
@@ -77,7 +77,7 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// If we have no back facing camera, open the manual dialog
+		// If we have no cameras, open the manual dialog
 		if (mCameraId < 0) {
 			new ManualDialogFragment().show(getFragmentManager(),
 					ManualDialogFragment.FRAGMENT_TAG);
