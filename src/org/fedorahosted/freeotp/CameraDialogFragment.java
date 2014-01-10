@@ -114,6 +114,9 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 		if (mCamera == null)
 			return;
 
+		// The code in this section comes from the developer docs. See:
+		//    http://developer.android.com/reference/android/hardware/Camera.html#setDisplayOrientation(int)
+
 		int rotation = 0;
 		switch (getActivity().getWindowManager().getDefaultDisplay().getRotation()) {
 		case Surface.ROTATION_0:
@@ -130,7 +133,19 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 			break;
 		}
 
-		mCamera.setDisplayOrientation((mCameraInfo.orientation - rotation + 360) % 360);
+		int result = 0;
+		switch (mCameraInfo.facing) {
+		case Camera.CameraInfo.CAMERA_FACING_FRONT:
+			result = (mCameraInfo.orientation + rotation) % 360;
+			result = (360 - result) % 360; // compensate the mirror
+			break;
+
+		case Camera.CameraInfo.CAMERA_FACING_BACK:
+			result = (mCameraInfo.orientation - rotation + 360) % 360;
+			break;
+		}
+
+		mCamera.setDisplayOrientation(result);
 		mCamera.startPreview();
 
 		if (mHandler != null)
