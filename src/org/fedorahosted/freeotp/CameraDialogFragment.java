@@ -39,7 +39,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class CameraDialogFragment extends BaseAlertDialogFragment
-			implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
+			implements SurfaceHolder.Callback  {
 	public static final String FRAGMENT_TAG = "fragment_camera";
 
 	private final CameraInfo mCameraInfo = new CameraInfo();
@@ -47,6 +47,26 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 	private final int mCameraId;
 	private Handler mHandler;
 	private Camera mCamera;
+
+	private static class AutoFocusHandler extends Handler
+			implements Camera.AutoFocusCallback {
+		private final Camera mCamera;
+
+		public AutoFocusHandler(Camera camera) {
+			mCamera = camera;
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			mCamera.autoFocus(this);
+		}
+
+		@Override
+		public void onAutoFocus(boolean success, Camera camera) {
+			sendEmptyMessageDelayed(0, 1000);
+		}
+	}
 
 	public CameraDialogFragment() {
 		super(R.string.scan_qr_code, R.layout.camera,
@@ -184,13 +204,7 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 			params.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
 		else if (modes.contains(Parameters.FOCUS_MODE_AUTO)) {
 			params.setFocusMode(Parameters.FOCUS_MODE_AUTO);
-			mHandler = new Handler() {
-				@Override
-				public void handleMessage(Message msg) {
-					super.handleMessage(msg);
-					mCamera.autoFocus(CameraDialogFragment.this);
-				}
-			};
+			mHandler = new AutoFocusHandler(mCamera);
 		}
 		mCamera.setParameters(params);
 	}
@@ -210,11 +224,5 @@ public class CameraDialogFragment extends BaseAlertDialogFragment
 		mCamera.setPreviewCallback(null);
 		mCamera.release();
 		mCamera = null;
-	}
-
-	@Override
-	public void onAutoFocus(boolean success, Camera camera) {
-		if (mHandler != null)
-			mHandler.sendEmptyMessageDelayed(0, 1000);
 	}
 }
