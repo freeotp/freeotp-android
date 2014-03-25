@@ -98,11 +98,12 @@
         freeotp:max="1000"
         />
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="40dp"
+    <ImageButton
+        android:id="@+id/menuButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="bottom|right"
-        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_action_overflow"
         android:gravity="center_vertical" />
 </FrameLayout>

@@ -22,7 +22,7 @@ package org.fedorahosted.freeotp.adapters;
 
 import android.app.Activity;
 
-public class TokenAdapter extends TokenUIActionBarAdapter {
+public class TokenAdapter extends TokenUIMenuAdapter {
     public TokenAdapter(Activity activity) {
         super(activity);
     }
