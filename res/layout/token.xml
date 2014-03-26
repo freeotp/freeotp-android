@@ -85,7 +85,7 @@
         android:layout_height="48dp"
         android:layout_gravity="top|right"
         android:padding="4dp"
-        android:src="@drawable/generate" />
+        android:src="@drawable/ic_action_replay" />
 
     <org.fedorahosted.freeotp.CircleProgressBar
         android:id="@+id/progress"

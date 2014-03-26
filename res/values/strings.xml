@@ -28,6 +28,7 @@
     <string name="about_license">FreeOTP is licensed under %1$s.</string>
     <string name="about_website">For more information, see our %s.</string>
     <string name="about_feedback">We welcome your feedback:&lt;br/&gt;• %1$s&lt;br/&gt;• %2$s</string>
+    <string name="about_icons">Some icons used by this application are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.</string>
 
     <string name="link_website">&lt;a href=&quot;http://freeotp.fedorahosted.org&quot;&gt;website&lt;/a&gt;</string>
     <string name="link_report_a_problem">&lt;a href=&quot;http://fedorahosted.org/freeotp/newticket&quot;&gt;Report a Problem&lt;/a&gt;</string>

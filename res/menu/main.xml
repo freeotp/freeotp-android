@@ -22,14 +22,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/action_add"
-        android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/scan"
+        android:icon="@drawable/ic_action_new_account"
         android:title="@string/add" />
 
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="110"
         android:showAsAction="never"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about" />
