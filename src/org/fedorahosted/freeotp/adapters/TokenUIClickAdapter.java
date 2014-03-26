@@ -20,10 +20,11 @@
 
 package org.fedorahosted.freeotp.adapters;
 
-import org.fedorahosted.freeotp.CircleProgressBar;
+import org.fedorahosted.freeotp.ProgressCircle;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.Token.TokenType;
+import org.fedorahosted.freeotp.TokenCode;
 
 import android.content.Context;
 import android.os.Handler;
@@ -35,11 +36,21 @@ import android.widget.TextView;
 public class TokenUIClickAdapter extends TokenUIBaseAdapter {
     private static class Ticker extends Handler {
         private static class Task {
-            View mView;
-            Token mToken;
-            public Task(View view, Token token) {
+            public final View mView;
+            public final TextView mCode;
+            public final ImageView mImage;
+            public final ProgressCircle mProgress;
+            public final TokenCode mCodes;
+            public final TokenType mType;
+            public final long mStartTime;
+            public Task(View view, TokenCode codes, TokenType type) {
                 mView = view;
-                mToken = token;
+                mCode = (TextView) view.findViewById(R.id.code);
+                mImage = (ImageView) view.findViewById(R.id.image);
+                mProgress = (ProgressCircle) view.findViewById(R.id.progress);
+                mCodes = codes;
+                mType = type;
+                mStartTime = System.currentTimeMillis();
             }
         }
 
@@ -47,35 +58,51 @@ public class TokenUIClickAdapter extends TokenUIBaseAdapter {
         public void handleMessage(Message msg) {
             Task task = (Task) msg.obj;
 
-            CircleProgressBar progress = (CircleProgressBar) task.mView.findViewById(R.id.progress);
-            ImageView image = (ImageView) task.mView.findViewById(R.id.image);
-            TextView code = (TextView) task.mView.findViewById(R.id.code);
+            // Get the current data
+            String code = task.mCodes.getCurrentCode();
+            int inner = task.mCodes.getCurrentProgress();
+            int outer = task.mCodes.getTotalProgress();
 
-            code.setText(task.mToken.getCode());
-
-            int prog = task.mToken.getProgress();
-            progress.setProgress(prog);
-            if (prog > 0 && prog < 950)
-                task.mView.setEnabled(true);
-
-            if (task.mToken.getType() == TokenType.HOTP && prog == 0) {
-                progress.setVisibility(View.GONE);
-                image.setVisibility(View.VISIBLE);
+            // If all tokens are expired, reset and return.
+            if (code == null) {
+                stop(task.mView, task.mCode.getText().length());
                 return;
             }
 
+            // Determine whether to enable/disable the view.
+            boolean enabled = false;
+            enabled |= task.mType != TokenType.HOTP;
+            enabled |= System.currentTimeMillis() - task.mStartTime > 5000;
+            task.mView.setEnabled(enabled);
+
+            // Update the fields
+            task.mCode.setText(code);
+            task.mProgress.setOuter(task.mType == TokenType.TOTP);
+            task.mProgress.setProgress(inner, outer);
+
+            // Sleep
             sendMessageDelayed(Message.obtain(msg), 100);
         }
 
-        public void start(View view, Token token) {
-            stop(view);
+        public void start(View view, TokenCode codes, TokenType type) {
+            Task task = new Task(view, codes, type);
+            task.mImage.setVisibility(View.GONE);
+            task.mProgress.setVisibility(View.VISIBLE);
 
-            Task task = new Task(view, token);
-            Message msg = Message.obtain(this, System.identityHashCode(view), task);
-            msg.sendToTarget();
+            removeMessages(System.identityHashCode(view));
+            Message.obtain(this, System.identityHashCode(view), task).sendToTarget();
         }
 
-        public void stop(View view) {
+        public void stop(View view, int placeholderLength) {
+            char[] placeholder = new char[placeholderLength];
+            for (int i = 0; i < placeholder.length; i++)
+                placeholder[i] = '-';
+
+            ((TextView) view.findViewById(R.id.code)).setText(new String(placeholder));
+            view.findViewById(R.id.image).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.progress).setVisibility(View.GONE);
+            view.setEnabled(true);
+
             removeMessages(System.identityHashCode(view));
         }
     }
@@ -89,42 +116,17 @@ public class TokenUIClickAdapter extends TokenUIBaseAdapter {
     @Override
     protected void bindView(View view, int position, final Token token) {
         super.bindView(view, position, token);
-        mTicker.stop(view);
-
-        final CircleProgressBar progress = (CircleProgressBar) view.findViewById(R.id.progress);
-        final ImageView image = (ImageView) view.findViewById(R.id.image);
-        final TextView code = (TextView) view.findViewById(R.id.code);
-        code.setText(token.getCode());
+        mTicker.stop(view, token.getDigits());
 
         // Update click listener
-        View.OnClickListener ocl = null;
-        if (token.getType() == TokenType.HOTP) {
-            ocl = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    token.increment();
-                    save(token);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TokenCode codes = token.generateCodes();
+                save(token);
 
-                    ((TextView) v.findViewById(R.id.code)).setText(token.getCode());
-                    progress.setVisibility(View.VISIBLE);
-                    image.setVisibility(View.GONE);
-                    v.setEnabled(false);
-
-                    mTicker.start(v, token);
-                }
-            };
-        }
-        view.setOnClickListener(ocl);
-
-        if (token.getType() == TokenType.TOTP) {
-            view.setBackgroundResource(R.drawable.token_normal);
-            progress.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            mTicker.start(view, token);
-        } else {
-            view.setBackgroundResource(R.drawable.token);
-            progress.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-        }
+                mTicker.start(v, codes, token.getType());
+            }
+        });
     }
 }

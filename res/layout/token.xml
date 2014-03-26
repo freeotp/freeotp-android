@@ -19,7 +19,9 @@
    - limitations under the License.
    -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:freeotp="http://schemas.android.com/apk/res/org.fedorahosted.freeotp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
@@ -87,15 +89,14 @@
         android:padding="4dp"
         android:src="@drawable/ic_action_replay" />
 
-    <org.fedorahosted.freeotp.CircleProgressBar
+    <org.fedorahosted.freeotp.ProgressCircle
         android:id="@+id/progress"
-        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="top|right"
-        android:max="1000"
         android:padding="8dp"
-        android:progress="750" />
+        freeotp:max="1000"
+        />
 
     <CheckBox
         android:id="@+id/checkBox"

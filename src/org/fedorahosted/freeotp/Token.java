@@ -51,7 +51,6 @@ public class Token {
     private int          mDigits;
     private long         mCounter;
     private int          mPeriod;
-    private long         mLastCode;
 
     private Token(Uri uri) throws TokenUriInvalidException {
         if (!uri.getScheme().equals("otpauth"))
@@ -100,8 +99,16 @@ public class Token {
             throw new TokenUriInvalidException();
         }
 
-        switch (mType) {
-        case HOTP:
+        try {
+            String p = uri.getQueryParameter("period");
+            if (p == null)
+                p = "30";
+            mPeriod = Integer.parseInt(p);
+        } catch (NumberFormatException e) {
+            throw new TokenUriInvalidException();
+        }
+
+        if (mType == TokenType.HOTP) {
             try {
                 String c = uri.getQueryParameter("counter");
                 if (c == null)
@@ -110,17 +117,6 @@ public class Token {
             } catch (NumberFormatException e) {
                 throw new TokenUriInvalidException();
             }
-            break;
-        case TOTP:
-            try {
-                String p = uri.getQueryParameter("period");
-                if (p == null)
-                    p = "30";
-                mPeriod = Integer.parseInt(p);
-            } catch (NumberFormatException e) {
-                throw new TokenUriInvalidException();
-            }
-            break;
         }
 
         try {
@@ -177,13 +173,6 @@ public class Token {
         this(Uri.parse(uri));
     }
 
-    public void increment() {
-        if (mType == TokenType.HOTP) {
-            mCounter++;
-            mLastCode = System.currentTimeMillis();
-        }
-    }
-
     public String getID() {
         String id;
         if (mIssuerInt != null && !mIssuerInt.equals(""))
@@ -204,34 +193,33 @@ public class Token {
         return mLabel != null ? mLabel : "";
     }
 
-    public String getCode() {
-        if (mType == TokenType.TOTP)
-            return getHOTP(System.currentTimeMillis() / 1000 / mPeriod);
+    public int getDigits() {
+        return mDigits;
+    }
 
-        long time = System.currentTimeMillis();
-        if (time - mLastCode > 60000) {
-            StringBuilder sb = new StringBuilder(mDigits);
-            for (int i = 0; i < mDigits; i++)
-                sb.append('-');
-            return sb.toString();
+    // NOTE: This may change internal data. You MUST save the token immediately.
+    public TokenCode generateCodes() {
+        long cur = System.currentTimeMillis();
+
+        switch (mType) {
+        case HOTP:
+            return new TokenCode(getHOTP(mCounter++), cur, cur + (mPeriod * 1000));
+
+        case TOTP:
+            long counter = cur / 1000 / mPeriod;
+            return new TokenCode(getHOTP(counter + 0),
+                                 (counter + 0) * mPeriod * 1000,
+                                 (counter + 1) * mPeriod * 1000,
+                   new TokenCode(getHOTP(counter + 1),
+                                 (counter + 1) * mPeriod * 1000,
+                                 (counter + 2) * mPeriod * 1000));
         }
 
-        return getHOTP(mCounter);
+        return null;
     }
 
     public TokenType getType() {
         return mType;
-    }
-
-    // Progress is on a scale from 0 - 1000.
-    public int getProgress() {
-        long time = System.currentTimeMillis();
-
-        if (mType == TokenType.TOTP)
-            return 1000 - (int) (time % (mPeriod * 1000) / mPeriod);
-
-        long state = (time - mLastCode) / 60;
-        return 1000 - (int) (state > 1000 ? 1000 : state);
     }
 
     public Uri toUri() {
@@ -241,7 +229,8 @@ public class Token {
                 .appendQueryParameter("secret", Base32String.encode(mSecret))
                 .appendQueryParameter("issuer", mIssuerInt == null ? mIssuerExt : mIssuerInt)
                 .appendQueryParameter("algorithm", mAlgorithm)
-                .appendQueryParameter("digits", Integer.toString(mDigits));
+                .appendQueryParameter("digits", Integer.toString(mDigits))
+                .appendQueryParameter("period", Integer.toString(mPeriod));
 
         switch (mType) {
         case HOTP:
@@ -250,7 +239,6 @@ public class Token {
             break;
         case TOTP:
             builder.authority("totp");
-            builder.appendQueryParameter("period", Integer.toString(mPeriod));
             break;
         }
 
