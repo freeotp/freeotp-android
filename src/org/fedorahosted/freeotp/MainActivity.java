@@ -48,6 +48,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -62,6 +63,9 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 
         mTokenAdapter = new TokenAdapter(this);
         ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
+
+        // Don't permit screenshots since these might contain OTP codes.
+        getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
 
         mDataSetObserver = new DataSetObserver() {
             @Override
