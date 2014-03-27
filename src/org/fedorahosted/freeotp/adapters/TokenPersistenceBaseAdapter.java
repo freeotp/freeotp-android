@@ -32,98 +32,97 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAdapter {
-	private static final String NAME = "tokens";
-	private static final String ORDER = "tokenOrder";
-	private final SharedPreferences prefs;
+    private static final String     NAME  = "tokens";
+    private static final String     ORDER = "tokenOrder";
+    private final SharedPreferences prefs;
 
-	private List<String> getTokenOrder() {
-		try {
-			JSONArray array = new JSONArray(prefs.getString(ORDER, null));
-			List<String> out = new LinkedList<String>();
-			for (int i = 0; i < array.length(); i++)
-				out.add(array.getString(i));
-			return out;
-		} catch (JSONException e) {
-		} catch (NullPointerException e) {
-		}
+    private List<String> getTokenOrder() {
+        try {
+            JSONArray array = new JSONArray(prefs.getString(ORDER, null));
+            List<String> out = new LinkedList<String>();
+            for (int i = 0; i < array.length(); i++)
+                out.add(array.getString(i));
+            return out;
+        } catch (JSONException e) {
+        } catch (NullPointerException e) {
+        }
 
-		return new LinkedList<String>();
-	}
+        return new LinkedList<String>();
+    }
 
-	private SharedPreferences.Editor setTokenOrder(List<String> order) {
-		JSONArray array = new JSONArray();
-		for (String key : order)
-			array.put(key);
+    private SharedPreferences.Editor setTokenOrder(List<String> order) {
+        JSONArray array = new JSONArray();
+        for (String key : order)
+            array.put(key);
 
-		return prefs.edit().putString(ORDER, array.toString());
-	}
+        return prefs.edit().putString(ORDER, array.toString());
+    }
 
-	public TokenPersistenceBaseAdapter(Context ctx) {
-		prefs = ctx.getApplicationContext()
-				   .getSharedPreferences(NAME, Context.MODE_PRIVATE);
-	}
+    public TokenPersistenceBaseAdapter(Context ctx) {
+        prefs = ctx.getApplicationContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+    }
 
-	@Override
-	public int getCount() {
-		return getTokenOrder().size();
-	}
+    @Override
+    public int getCount() {
+        return getTokenOrder().size();
+    }
 
-	@Override
-	public Token getItem(int position) {
-		try {
-			return new Token(prefs.getString(getTokenOrder().get(position), null));
-		} catch (TokenUriInvalidException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
+    @Override
+    public Token getItem(int position) {
+        try {
+            return new Token(prefs.getString(getTokenOrder().get(position), null));
+        } catch (TokenUriInvalidException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public void move(int fromPosition, int toPosition) {
-		if (fromPosition == toPosition)
-			return;
+    @Override
+    public void move(int fromPosition, int toPosition) {
+        if (fromPosition == toPosition)
+            return;
 
-		List<String> order = getTokenOrder();
-		if (fromPosition < 0 || fromPosition > order.size())
-			return;
-		if (toPosition < 0 || toPosition > order.size())
-			return;
+        List<String> order = getTokenOrder();
+        if (fromPosition < 0 || fromPosition > order.size())
+            return;
+        if (toPosition < 0 || toPosition > order.size())
+            return;
 
-		order.add(toPosition, order.remove(fromPosition));
-		setTokenOrder(order).apply();
-		notifyDataSetChanged();
-	}
+        order.add(toPosition, order.remove(fromPosition));
+        setTokenOrder(order).apply();
+        notifyDataSetChanged();
+    }
 
-	public void add(String uri) throws TokenUriInvalidException {
-		Token token = new Token(uri);
-		String key = token.getID();
+    public void add(String uri) throws TokenUriInvalidException {
+        Token token = new Token(uri);
+        String key = token.getID();
 
-		if (prefs.contains(key))
-			return;
+        if (prefs.contains(key))
+            return;
 
-		List<String> order = getTokenOrder();
-		order.add(0, key);
-		setTokenOrder(order).putString(key, token.toString()).apply();
-		notifyDataSetChanged();
-	}
+        List<String> order = getTokenOrder();
+        order.add(0, key);
+        setTokenOrder(order).putString(key, token.toString()).apply();
+        notifyDataSetChanged();
+    }
 
-	@Override
-	public void delete(int position) {
-		List<String> order = getTokenOrder();
-		String key = order.remove(position);
-		setTokenOrder(order).remove(key).apply();
-		notifyDataSetChanged();
-	}
+    @Override
+    public void delete(int position) {
+        List<String> order = getTokenOrder();
+        String key = order.remove(position);
+        setTokenOrder(order).remove(key).apply();
+        notifyDataSetChanged();
+    }
 
-	protected void save(Token token) {
-		prefs.edit().putString(token.getID(), token.toString()).apply();
-	}
+    protected void save(Token token) {
+        prefs.edit().putString(token.getID(), token.toString()).apply();
+    }
 }

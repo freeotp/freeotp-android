@@ -30,56 +30,56 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 public class CircleProgressBar extends ProgressBar {
-	private Paint paint;
-	private RectF rectf;
-	private Rect rect;
+    private Paint paint;
+    private RectF rectf;
+    private Rect  rect;
 
-	public CircleProgressBar(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		setup();
-	}
+    public CircleProgressBar(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setup();
+    }
 
-	public CircleProgressBar(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setup();
-	}
+    public CircleProgressBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setup();
+    }
 
-	public CircleProgressBar(Context context) {
-		super(context);
-		setup();
-	}
+    public CircleProgressBar(Context context) {
+        super(context);
+        setup();
+    }
 
-	private void setup() {
-		paint = new Paint();
+    private void setup() {
+        paint = new Paint();
         rectf = new RectF();
         rect = new Rect();
 
         paint.setARGB(0x99, 0x33, 0x33, 0x33);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL_AND_STROKE);
-	}
+    }
 
-	@Override
-	public synchronized void setProgress(int progress) {
-		super.setProgress(progress);
-		if (paint != null) {
-			int percent = progress * 100 / getMax();
-			if (percent > 25 || progress == 0)
-				paint.setARGB(0x99, 0x33, 0x33, 0x33);
-			else
-				paint.setARGB(0x99, 0xff, 0xe0 * percent / 25, 0x00);
-		}
-	}
+    @Override
+    public synchronized void setProgress(int progress) {
+        super.setProgress(progress);
+        if (paint != null) {
+            int percent = progress * 100 / getMax();
+            if (percent > 25 || progress == 0)
+                paint.setARGB(0x99, 0x33, 0x33, 0x33);
+            else
+                paint.setARGB(0x99, 0xff, 0xe0 * percent / 25, 0x00);
+        }
+    }
 
-	@Override
-	protected synchronized void onDraw(Canvas canvas) {
-		getDrawingRect(rect);
-		rect.left += getPaddingLeft() + 2;
-		rect.top += getPaddingTop() + 2;
-		rect.right -= getPaddingRight() + 2;
-		rect.bottom -= getPaddingBottom() + 2;
+    @Override
+    protected synchronized void onDraw(Canvas canvas) {
+        getDrawingRect(rect);
+        rect.left += getPaddingLeft() + 2;
+        rect.top += getPaddingTop() + 2;
+        rect.right -= getPaddingRight() + 2;
+        rect.bottom -= getPaddingBottom() + 2;
 
-		rectf.set(rect);
-		canvas.drawArc(rectf, -90, getProgress() * 360 / getMax(), true, paint);
-	}
+        rectf.set(rect);
+        canvas.drawArc(rectf, -90, getProgress() * 360 / getMax(), true, paint);
+    }
 }

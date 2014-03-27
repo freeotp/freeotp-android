@@ -40,116 +40,116 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 public abstract class DeleteActionBarBaseAdapter extends ReorderableBaseAdapter {
-	private final Map<View, CompoundButton> mButtons = new WeakHashMap<View, CompoundButton>();
-	private final Set<Integer> mChecked = new HashSet<Integer>();
-	private ActionMode mActionMode;
+    private final Map<View, CompoundButton> mButtons = new WeakHashMap<View, CompoundButton>();
+    private final Set<Integer>              mChecked = new HashSet<Integer>();
+    private ActionMode                      mActionMode;
 
-	@Override
-	public void notifyDataSetChanged() {
-		if (mActionMode != null)
-			mActionMode.finish();
-		mChecked.clear();
-		super.notifyDataSetChanged();
-	}
+    @Override
+    public void notifyDataSetChanged() {
+        if (mActionMode != null)
+            mActionMode.finish();
+        mChecked.clear();
+        super.notifyDataSetChanged();
+    }
 
-	@Override
-	public void notifyDataSetInvalidated() {
-		if (mActionMode != null)
-			mActionMode.finish();
-		mChecked.clear();
-		super.notifyDataSetInvalidated();
-	}
+    @Override
+    public void notifyDataSetInvalidated() {
+        if (mActionMode != null)
+            mActionMode.finish();
+        mChecked.clear();
+        super.notifyDataSetInvalidated();
+    }
 
-	@Override
-	protected void bindView(View view, int position) {
-		super.bindView(view, position);
-		mButtons.get(view).setChecked(mChecked.contains(position));
-	}
+    @Override
+    protected void bindView(View view, int position) {
+        super.bindView(view, position);
+        mButtons.get(view).setChecked(mChecked.contains(position));
+    }
 
-	@Override
-	protected void processView(View view, int type) {
-		super.processView(view, type);
+    @Override
+    protected void processView(View view, int type) {
+        super.processView(view, type);
 
-		CompoundButton cb = getCompoundButton(view);
-		mButtons.put(view, cb);
-		cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				int position = getPositionFromView(buttonView);
+        CompoundButton cb = getCompoundButton(view);
+        mButtons.put(view, cb);
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int position = getPositionFromView(buttonView);
 
-				if (!isChecked) {
-					mChecked.remove(position);
-					if (mChecked.size() == 0 && mActionMode != null)
-						mActionMode.finish();
+                if (!isChecked) {
+                    mChecked.remove(position);
+                    if (mChecked.size() == 0 && mActionMode != null)
+                        mActionMode.finish();
 
-					setTitle(buttonView.getContext());
-					return;
-				}
+                    setTitle(buttonView.getContext());
+                    return;
+                }
 
-				if (mChecked.size() == 0) {
-					mActionMode = buttonView.startActionMode(new ActionMode.Callback() {
-						@Override
-						public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-							return false;
-						}
+                if (mChecked.size() == 0) {
+                    mActionMode = buttonView.startActionMode(new ActionMode.Callback() {
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
 
-						@Override
-						public void onDestroyActionMode(ActionMode mode) {
-							mActionMode = null;
-							for (final CompoundButton cb : mButtons.values()) {
-								cb.post(new Runnable() {
-									@Override
-									public void run() {
-										cb.setChecked(false);
-									}
-								});
-							}
-						}
+                        @Override
+                        public void onDestroyActionMode(ActionMode mode) {
+                            mActionMode = null;
+                            for (final CompoundButton cb : mButtons.values()) {
+                                cb.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        cb.setChecked(false);
+                                    }
+                                });
+                            }
+                        }
 
-						@Override
-						public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-							menu.add(R.string.delete).setIcon(android.R.drawable.ic_menu_delete);
-							return true;
-						}
+                        @Override
+                        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                            menu.add(R.string.delete).setIcon(android.R.drawable.ic_menu_delete);
+                            return true;
+                        }
 
-						@Override
-						public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-							// Get the list of all the checked positions
-							// and reverse sort the list.
-							List<Integer> list = new ArrayList<Integer>(mChecked);
-							Collections.sort(list, new Comparator<Integer>() {
-								@Override
-								public int compare(Integer lhs, Integer rhs) {
-									return rhs.intValue() - lhs.intValue();
-								}
-							});
+                        @Override
+                        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                            // Get the list of all the checked positions
+                            // and reverse sort the list.
+                            List<Integer> list = new ArrayList<Integer>(mChecked);
+                            Collections.sort(list, new Comparator<Integer>() {
+                                @Override
+                                public int compare(Integer lhs, Integer rhs) {
+                                    return rhs.intValue() - lhs.intValue();
+                                }
+                            });
 
-							// Delete all the selected tokens (in reverse order!)
-							for (Integer i : list)
-								delete(i);
+                            // Delete all the selected tokens (in reverse
+                            // order!)
+                            for (Integer i : list)
+                                delete(i);
 
-							mode.finish();
-							return true;
-						}
-					});
-				}
+                            mode.finish();
+                            return true;
+                        }
+                    });
+                }
 
-				mChecked.add(position);
-				setTitle(buttonView.getContext());
-			}
-		});
-	}
+                mChecked.add(position);
+                setTitle(buttonView.getContext());
+            }
+        });
+    }
 
-	private void setTitle(Context ctx) {
-		if (mActionMode == null || mChecked.size() == 0)
-			return;
+    private void setTitle(Context ctx) {
+        if (mActionMode == null || mChecked.size() == 0)
+            return;
 
-		Resources res = ctx.getResources();
-		mActionMode.setTitle(res.getQuantityString(R.plurals.tokens_selected,
-                                                   mChecked.size(),
-                                                   mChecked.size()));
-	}
+        Resources res = ctx.getResources();
+        mActionMode.setTitle(res.getQuantityString(R.plurals.tokens_selected, mChecked.size(), mChecked.size()));
+    }
 
-	protected abstract CompoundButton getCompoundButton(View view);
-	public abstract void delete(int position);
+    protected abstract CompoundButton getCompoundButton(View view);
+
+    public abstract void delete(int position);
 }

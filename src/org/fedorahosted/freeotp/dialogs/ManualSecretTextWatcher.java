@@ -18,30 +18,30 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp;
+package org.fedorahosted.freeotp.dialogs;
 
 import android.app.AlertDialog;
 import android.text.Editable;
 
 public class ManualSecretTextWatcher extends ManualTextWatcher {
-	public ManualSecretTextWatcher(AlertDialog dialog) {
-		super(dialog);
-	}
+    public ManualSecretTextWatcher(AlertDialog dialog) {
+        super(dialog);
+    }
 
-	@Override
-	public void afterTextChanged(Editable s) {
-		if (s.length() != 0) {
-			// Ensure that = is only permitted at the end
-			boolean haveData = false;
-			for (int i = s.length() - 1; i >= 0; i--) {
-				char c = s.charAt(i);
-				if (c != '=')
-					haveData = true;
-				else if (haveData)
-					s.delete(i, i + 1);
-			}
-		}
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (s.length() != 0) {
+            // Ensure that = is only permitted at the end
+            boolean haveData = false;
+            for (int i = s.length() - 1; i >= 0; i--) {
+                char c = s.charAt(i);
+                if (c != '=')
+                    haveData = true;
+                else if (haveData)
+                    s.delete(i, i + 1);
+            }
+        }
 
-		super.afterTextChanged(s);
-	}
+        super.afterTextChanged(s);
+    }
 }

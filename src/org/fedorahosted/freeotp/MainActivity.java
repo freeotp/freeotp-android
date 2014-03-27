@@ -38,6 +38,8 @@ package org.fedorahosted.freeotp;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 import org.fedorahosted.freeotp.adapters.TokenAdapter;
+import org.fedorahosted.freeotp.dialogs.AboutDialogFragment;
+import org.fedorahosted.freeotp.dialogs.CameraDialogFragment;
 
 import android.app.Activity;
 import android.database.DataSetObserver;
@@ -50,68 +52,66 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
-	private TokenAdapter mTokenAdapter;
-	private DataSetObserver mDataSetObserver;
+    private TokenAdapter    mTokenAdapter;
+    private DataSetObserver mDataSetObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-		mTokenAdapter = new TokenAdapter(this);
-		((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
+        mTokenAdapter = new TokenAdapter(this);
+        ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
 
-		mDataSetObserver = new DataSetObserver() {
-			@Override
-			public void onChanged() {
-				super.onChanged();
-				if (mTokenAdapter.getCount() == 0)
-					findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
-				else
-					findViewById(android.R.id.empty).setVisibility(View.GONE);
-			}
-		};
-		mTokenAdapter.registerDataSetObserver(mDataSetObserver);
-		mDataSetObserver.onChanged();
+        mDataSetObserver = new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (mTokenAdapter.getCount() == 0)
+                    findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+                else
+                    findViewById(android.R.id.empty).setVisibility(View.GONE);
+            }
+        };
+        mTokenAdapter.registerDataSetObserver(mDataSetObserver);
+        mDataSetObserver.onChanged();
     }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
-		menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
+        menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
         return true;
     }
 
-	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_add:
-			new CameraDialogFragment().show(getFragmentManager(),
-					CameraDialogFragment.FRAGMENT_TAG);
-			return true;
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_add:
+            new CameraDialogFragment().show(getFragmentManager(), CameraDialogFragment.FRAGMENT_TAG);
+            return true;
 
-		case R.id.action_about:
-			new AboutDialogFragment().show(getFragmentManager(),
-					AboutDialogFragment.FRAGMENT_TAG);
-			return true;
-		}
+        case R.id.action_about:
+            new AboutDialogFragment().show(getFragmentManager(), AboutDialogFragment.FRAGMENT_TAG);
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public void tokenURIReceived(String uri) {
-		try {
-			mTokenAdapter.add(uri);
-		} catch (TokenUriInvalidException e) {
-			Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		}
-	}
+    public void tokenURIReceived(String uri) {
+        try {
+            mTokenAdapter.add(uri);
+        } catch (TokenUriInvalidException e) {
+            Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 }
