@@ -30,8 +30,9 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.View;
 
-public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAdapter {
+public abstract class TokenPersistenceAdapter extends ReorderableBaseAdapter {
     private static final String     NAME  = "tokens";
     private static final String     ORDER = "tokenOrder";
     private final SharedPreferences prefs;
@@ -58,7 +59,7 @@ public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAda
         return prefs.edit().putString(ORDER, array.toString());
     }
 
-    public TokenPersistenceBaseAdapter(Context ctx) {
+    public TokenPersistenceAdapter(Context ctx) {
         prefs = ctx.getApplicationContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
     }
 
@@ -85,22 +86,6 @@ public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAda
         return position;
     }
 
-    @Override
-    public void move(int fromPosition, int toPosition) {
-        if (fromPosition == toPosition)
-            return;
-
-        List<String> order = getTokenOrder();
-        if (fromPosition < 0 || fromPosition > order.size())
-            return;
-        if (toPosition < 0 || toPosition > order.size())
-            return;
-
-        order.add(toPosition, order.remove(fromPosition));
-        setTokenOrder(order).apply();
-        notifyDataSetChanged();
-    }
-
     public void add(String uri) throws TokenUriInvalidException {
         Token token = new Token(uri);
         String key = token.getID();
@@ -115,7 +100,22 @@ public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAda
     }
 
     @Override
-    public void delete(int position) {
+    protected void move(int fromPosition, int toPosition) {
+        if (fromPosition == toPosition)
+            return;
+
+        List<String> order = getTokenOrder();
+        if (fromPosition < 0 || fromPosition > order.size())
+            return;
+        if (toPosition < 0 || toPosition > order.size())
+            return;
+
+        order.add(toPosition, order.remove(fromPosition));
+        setTokenOrder(order).apply();
+        notifyDataSetChanged();
+    }
+
+    protected void delete(int position) {
         List<String> order = getTokenOrder();
         String key = order.remove(position);
         setTokenOrder(order).remove(key).apply();
@@ -125,4 +125,11 @@ public abstract class TokenPersistenceBaseAdapter extends DeleteActionBarBaseAda
     protected void save(Token token) {
         prefs.edit().putString(token.getID(), token.toString()).apply();
     }
+
+    @Override
+    protected void bindView(View view, int position) {
+        bindView(view, position, getItem(position));
+    }
+
+    protected abstract void bindView(View view, int position, Token token);
 }

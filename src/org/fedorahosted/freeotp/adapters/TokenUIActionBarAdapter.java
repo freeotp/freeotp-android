@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.Token;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -39,10 +40,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 
-public abstract class DeleteActionBarBaseAdapter extends ReorderableBaseAdapter {
+public abstract class TokenUIActionBarAdapter extends TokenUIClickAdapter {
     private final Map<View, CompoundButton> mButtons = new WeakHashMap<View, CompoundButton>();
     private final Set<Integer>              mChecked = new HashSet<Integer>();
     private ActionMode                      mActionMode;
+
+    public TokenUIActionBarAdapter(Context ctx) {
+        super(ctx);
+    }
 
     @Override
     public void notifyDataSetChanged() {
@@ -67,16 +72,14 @@ public abstract class DeleteActionBarBaseAdapter extends ReorderableBaseAdapter 
     }
 
     @Override
-    protected void processView(View view, int type) {
-        super.processView(view, type);
+    protected void bindView(View view, final int position, Token token) {
+        super.bindView(view, position, token);
 
-        CompoundButton cb = getCompoundButton(view);
+        CompoundButton cb = (CompoundButton) view.findViewById(R.id.checkBox);
         mButtons.put(view, cb);
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int position = getPositionFromView(buttonView);
-
                 if (!isChecked) {
                     mChecked.remove(position);
                     if (mChecked.size() == 0 && mActionMode != null)
@@ -148,8 +151,4 @@ public abstract class DeleteActionBarBaseAdapter extends ReorderableBaseAdapter 
         Resources res = ctx.getResources();
         mActionMode.setTitle(res.getQuantityString(R.plurals.tokens_selected, mChecked.size(), mChecked.size()));
     }
-
-    protected abstract CompoundButton getCompoundButton(View view);
-
-    public abstract void delete(int position);
 }

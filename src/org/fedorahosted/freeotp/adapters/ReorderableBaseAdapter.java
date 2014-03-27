@@ -20,18 +20,17 @@
 
 package org.fedorahosted.freeotp.adapters;
 
-import java.util.WeakHashMap;
-
 import android.content.ClipData;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
-import android.view.ViewParent;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
-public abstract class ReorderableBaseAdapter extends BaseAdapter implements OnLongClickListener, OnDragListener {
-    private final WeakHashMap<View, Integer> mPositions = new WeakHashMap<View, Integer>();
+public abstract class ReorderableBaseAdapter extends BaseAdapter {
+    private static final int KEY = ReorderableBaseAdapter.class.hashCode();
 
     private class Reference<T> {
         public Reference(T t) {
@@ -42,93 +41,71 @@ public abstract class ReorderableBaseAdapter extends BaseAdapter implements OnLo
     }
 
     @Override
-    public void notifyDataSetChanged() {
-        mPositions.clear();
-        super.notifyDataSetChanged();
-    }
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            int type = getItemViewType(position);
+            convertView = createView(parent, type);
 
-    @Override
-    public void notifyDataSetInvalidated() {
-        mPositions.clear();
-        super.notifyDataSetInvalidated();
-    }
-
-    @Override
-    protected void bindView(View view, int position) {
-        mPositions.put(view, position);
-    }
-
-    @Override
-    public boolean onDrag(View dstView, DragEvent event) {
-        Reference<View> ref = (Reference<View>) event.getLocalState();
-        final View srcView = ref.reference;
-
-        switch (event.getAction()) {
-        case DragEvent.ACTION_DRAG_ENTERED:
-            srcView.setVisibility(View.VISIBLE);
-            dstView.setVisibility(View.INVISIBLE);
-
-            Integer src = mPositions.get(srcView);
-            Integer dst = mPositions.get(dstView);
-            if (src != null && dst != null)
-                move(src, dst);
-
-            ref.reference = dstView;
-            break;
-
-        case DragEvent.ACTION_DRAG_ENDED:
-            srcView.post(new Runnable() {
+            convertView.setOnDragListener(new OnDragListener() {
                 @Override
-                public void run() {
-                    srcView.setVisibility(View.VISIBLE);
+                public boolean onDrag(View dstView, DragEvent event) {
+                    Reference<View> ref = (Reference<View>) event.getLocalState();
+                    final View srcView = ref.reference;
+
+                    switch (event.getAction()) {
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        srcView.setVisibility(View.VISIBLE);
+                        dstView.setVisibility(View.INVISIBLE);
+
+                        move(((Integer) srcView.getTag(KEY)).intValue(),
+                             ((Integer) dstView.getTag(KEY)).intValue());
+                        ref.reference = dstView;
+                        break;
+
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        srcView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                srcView.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        break;
+                    }
+
+                    return true;
                 }
             });
-            break;
+
+            convertView.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(final View view) {
+                    // Force a reset of any states
+                    notifyDataSetChanged();
+
+                    // Start the drag on the main loop to allow
+                    // the above state reset to settle.
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ClipData data = ClipData.newPlainText("", "");
+                            DragShadowBuilder sb = new View.DragShadowBuilder(view);
+                            view.startDrag(data, sb, new Reference<View>(view), 0);
+                        }
+                    });
+
+                    return true;
+                }
+            });
         }
 
-        return true;
+        convertView.setTag(KEY, Integer.valueOf(position));
+        bindView(convertView, position);
+        return convertView;
     }
 
-    @Override
-    public boolean onLongClick(final View view) {
-        // Force a reset of any states
-        notifyDataSetChanged();
+    protected abstract void move(int fromPosition, int toPosition);
 
-        // Start the drag on the main loop to allow
-        // the above state reset to settle.
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                ClipData data = ClipData.newPlainText("", "");
-                DragShadowBuilder sb = new View.DragShadowBuilder(view);
-                view.startDrag(data, sb, new Reference<View>(view), 0);
-            }
-        });
+    protected abstract void bindView(View view, int position);
 
-        return true;
-    }
-
-    @Override
-    protected void processView(View view, int type) {
-        view.setOnDragListener(this);
-        view.setOnLongClickListener(this);
-    }
-
-    protected int getPositionFromView(View view) {
-        while (true) {
-            Integer position = mPositions.get(view);
-            if (position != null)
-                return position;
-
-            ViewParent vp = view.getParent();
-            if (vp == null || !(vp instanceof View))
-                break;
-
-            view = (View) vp;
-        }
-
-        return -1;
-    }
-
-    public abstract void move(int fromPosition, int toPosition);
+    protected abstract View createView(ViewGroup parent, int type);
 }
