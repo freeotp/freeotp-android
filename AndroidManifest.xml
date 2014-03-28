@@ -59,6 +59,12 @@
             />
 
         <activity
+            android:name=".dialogs.DeleteDialogActivity"
+            android:label="@string/delete"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            />
+
+        <activity
             android:name=".dialogs.ManualDialogActivity"
             android:label="@string/add_token"
             android:theme="@android:style/Theme.Holo.Light.Dialog"

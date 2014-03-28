@@ -39,6 +39,9 @@
 
     <string name="error_camera_open">Error while opening camera!</string>
 
+    <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
+    <string name="delete_question">Would you like to delete this token?</string>
+
     <plurals name="tokens_selected">
         <item quantity="one">%d token selected</item>
         <item quantity="other">%d tokens selected</item>

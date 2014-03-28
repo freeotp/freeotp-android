@@ -4,31 +4,17 @@ import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class RenameDialogActivity extends BaseDialogActivity {
+public class RenameDialogActivity extends BasePositionedDialogActivity {
     public static final String FRAGMENT_TAG = "fragment_rename";
-    public static final String POSITION     = "position";
-
     private TokenPersistence   mTokenPersistence;
     private EditText           mIssuer;
     private EditText           mLabel;
-    private int                mPosition;
 
     public RenameDialogActivity() {
         super(R.layout.rename, android.R.string.cancel, R.string.restore_defaults, R.string.rename);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Get the position we wish to rename. This MUST exist.
-        mPosition = getIntent().getIntExtra(POSITION, -1);
-        if (mPosition < 0)
-            finish();
     }
 
     @Override
@@ -36,7 +22,7 @@ public class RenameDialogActivity extends BaseDialogActivity {
         super.onStart();
 
         mTokenPersistence = new TokenPersistence(this);
-        Token token = mTokenPersistence.get(mPosition);
+        Token token = mTokenPersistence.get(getPosition());
 
         mIssuer = (EditText) findViewById(R.id.issuer);
         mIssuer.setText(token.getIssuer());
@@ -60,7 +46,7 @@ public class RenameDialogActivity extends BaseDialogActivity {
                 label = null;
             }
 
-            Token token = mTokenPersistence.get(mPosition);
+            Token token = mTokenPersistence.get(getPosition());
             token.setIssuer(issuer);
             token.setLabel(label);
             mTokenPersistence.save(token);
