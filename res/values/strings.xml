@@ -5,6 +5,8 @@
     <string name="about">About</string>
     <string name="invalid_token">The token specified was invalid!</string>
     <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
+    <string name="restore_defaults">Restore Defaults</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="install_title">Install Barcode Scanner?</string>

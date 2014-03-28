@@ -65,6 +65,12 @@
             />
 
         <activity
+            android:name=".dialogs.RenameDialogActivity"
+            android:label="@string/rename"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            />
+
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>

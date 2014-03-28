@@ -28,47 +28,9 @@
         android:layout_height="wrap_content"
         android:padding="16dp" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="48dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|right"
-                android:paddingRight="8dp"
-                android:text="@string/issuer" />
-
-            <EditText
-                android:id="@+id/issuer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="textNoSuggestions"
-                android:hint="jdoe@example.com"
-                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="48dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|right"
-                android:paddingRight="8dp"
-                android:text="@string/id" />
-
-            <EditText
-                android:id="@+id/label"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="textNoSuggestions"
-                android:hint="18c5d06cfcbd4927"
-                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
-        </TableRow>
+        <include
+            layout="@layout/issuerlabel"
+            />
 
         <TableRow
             android:layout_width="match_parent"

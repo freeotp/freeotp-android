@@ -5,11 +5,13 @@ import java.util.regex.Pattern;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
+import org.fedorahosted.freeotp.dialogs.RenameDialogActivity;
 
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +54,12 @@ public class TokenUIMenuAdapter extends TokenUIClickAdapter {
                                 ClipData cd = ClipData.newPlainText(TITLE, code.getText());
                                 mClipboardManager.setPrimaryClip(cd);
                             }
+                            break;
+
+                        case R.id.action_rename:
+                            Intent i = new Intent(code.getContext(), RenameDialogActivity.class);
+                            i.putExtra(RenameDialogActivity.POSITION, position);
+                            code.getContext().startActivity(i);
                             break;
 
                         case R.id.action_delete:

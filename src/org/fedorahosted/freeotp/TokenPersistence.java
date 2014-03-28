@@ -47,7 +47,7 @@ public class TokenPersistence {
 
     public Token get(int position) {
         try {
-            return new Token(prefs.getString(getTokenOrder().get(position), null));
+            return new Token(prefs.getString(getTokenOrder().get(position), null), true);
         } catch (TokenUriInvalidException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -58,7 +58,7 @@ public class TokenPersistence {
     }
 
     public void add(String uri) throws TokenUriInvalidException {
-        Token token = new Token(uri);
+        Token token = new Token(uri, false);
         String key = token.getID();
 
         if (prefs.contains(key))

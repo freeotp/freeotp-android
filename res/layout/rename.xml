@@ -4,7 +4,7 @@
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
    -
-   - Copyright (C) 2014  Nathaniel McCallum, Red Hat
+   - Copyright (C) 2013  Nathaniel McCallum, Red Hat
    -
    - Licensed under the Apache License, Version 2.0 (the "License");
    - you may not use this file except in compliance with the License.
@@ -18,19 +18,12 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/action_copy"
-        android:icon="@drawable/ic_action_copy"
-        android:title="@android:string/copy" />
-
-    <item
-        android:id="@+id/action_rename"
-        android:icon="@drawable/ic_action_edit"
-        android:title="@string/rename" />
-
-    <item
-        android:id="@+id/action_delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/delete" />
-</menu>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    >
+    <include
+        layout="@layout/issuerlabel"
+        />
+</TableLayout>

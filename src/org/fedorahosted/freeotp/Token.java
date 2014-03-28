@@ -44,7 +44,9 @@ public class Token {
 
     private final String mIssuerInt;
     private final String mIssuerExt;
+    private String       mIssuerAlt;
     private final String mLabel;
+    private String       mLabelAlt;
     private TokenType    mType;
     private String       mAlgorithm;
     private byte[]       mSecret;
@@ -52,7 +54,7 @@ public class Token {
     private long         mCounter;
     private int          mPeriod;
 
-    private Token(Uri uri) throws TokenUriInvalidException {
+    private Token(Uri uri, boolean internal) throws TokenUriInvalidException {
         if (!uri.getScheme().equals("otpauth"))
             throw new TokenUriInvalidException();
 
@@ -125,6 +127,11 @@ public class Token {
         } catch (DecodingException e) {
             throw new TokenUriInvalidException();
         }
+
+        if (internal) {
+            setIssuer(uri.getQueryParameter("issueralt"));
+            setLabel(uri.getQueryParameter("labelalt"));
+        }
     }
 
     private String getHOTP(long counter) {
@@ -169,8 +176,8 @@ public class Token {
         return "";
     }
 
-    public Token(String uri) throws TokenUriInvalidException {
-        this(Uri.parse(uri));
+    public Token(String uri, boolean internal) throws TokenUriInvalidException {
+        this(Uri.parse(uri), internal);
     }
 
     public String getID() {
@@ -185,11 +192,25 @@ public class Token {
         return id;
     }
 
+    // NOTE: This changes internal data. You MUST save the token immediately.
+    public void setIssuer(String issuer) {
+        mIssuerAlt = issuer;
+    }
+
     public String getIssuer() {
+        if (mIssuerAlt != null)
+            return mIssuerAlt;
         return mIssuerExt != null ? mIssuerExt : "";
     }
 
+    // NOTE: This changes internal data. You MUST save the token immediately.
+    public void setLabel(String label) {
+        mLabelAlt = label;
+    }
+
     public String getLabel() {
+        if (mLabelAlt != null)
+            return mLabelAlt;
         return mLabel != null ? mLabel : "";
     }
 
@@ -231,6 +252,11 @@ public class Token {
                 .appendQueryParameter("algorithm", mAlgorithm)
                 .appendQueryParameter("digits", Integer.toString(mDigits))
                 .appendQueryParameter("period", Integer.toString(mPeriod));
+
+        if (mIssuerAlt != null)
+            builder.appendQueryParameter("issueralt", mIssuerAlt);
+        if (mLabelAlt != null)
+            builder.appendQueryParameter("labelalt", mLabelAlt);
 
         switch (mType) {
         case HOTP:
