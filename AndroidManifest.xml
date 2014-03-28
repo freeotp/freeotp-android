@@ -62,12 +62,14 @@
             android:name=".dialogs.ManualDialogActivity"
             android:label="@string/add_token"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:windowSoftInputMode="stateVisible"
             />
 
         <activity
             android:name=".dialogs.RenameDialogActivity"
             android:label="@string/rename"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:windowSoftInputMode="stateVisible"
             />
 
         <activity
