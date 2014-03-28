@@ -20,7 +20,9 @@
    -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    >
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
 
             <EditText
                 android:id="@+id/issuer"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:inputType="textNoSuggestions"
@@ -60,7 +62,7 @@
 
             <EditText
                 android:id="@+id/label"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:inputType="textNoSuggestions"
@@ -71,7 +73,6 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="48dp" >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -81,7 +82,7 @@
 
             <EditText
                 android:id="@+id/secret"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
@@ -110,7 +111,7 @@
 
             <Spinner
                 android:id="@+id/type"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:entries="@array/token_types" />
@@ -129,7 +130,7 @@
 
             <Spinner
                 android:id="@+id/algorithm"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:entries="@array/algorithms" />
@@ -149,7 +150,7 @@
 
             <EditText
                 android:id="@+id/interval"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:inputType="number"
@@ -168,14 +169,14 @@
                 android:text="@string/digits" />
 
             <RadioGroup
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal" >
 
                 <RadioButton
                     android:id="@+id/digits6"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:checked="true"
@@ -183,7 +184,7 @@
 
                 <RadioButton
                     android:id="@+id/digits8"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="8" />

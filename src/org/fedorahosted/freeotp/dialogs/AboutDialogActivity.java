@@ -22,7 +22,6 @@ package org.fedorahosted.freeotp.dialogs;
 
 import org.fedorahosted.freeotp.R;
 
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -31,23 +30,23 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
-public class AboutDialogFragment extends BaseAlertDialogFragment {
-    public static final String FRAGMENT_TAG = "fragment_about";
-
-    public AboutDialogFragment() {
-        super(R.string.about, R.layout.about, 0, android.R.string.ok, 0);
+public class AboutDialogActivity extends BaseDialogActivity {
+    public AboutDialogActivity() {
+        super(R.layout.about, 0, android.R.string.ok, 0);
     }
 
     @Override
-    protected void onViewInflated(View view) {
-        Resources res = getActivity().getResources();
+    public void onStart() {
+        super.onStart();
+
+        Resources res = getResources();
         TextView tv;
 
         try {
-            PackageManager pm = getActivity().getPackageManager();
-            PackageInfo info = pm.getPackageInfo(getActivity().getPackageName(), 0);
+            PackageManager pm = getPackageManager();
+            PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
             String version = res.getString(R.string.about_version, info.versionName, info.versionCode);
-            tv = (TextView) view.findViewById(R.id.about_version);
+            tv = (TextView) findViewById(R.id.about_version);
             tv.setText(version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -55,34 +54,28 @@ public class AboutDialogFragment extends BaseAlertDialogFragment {
 
         String apache2 = res.getString(R.string.link_apache2);
         String license = res.getString(R.string.about_license, apache2);
-        tv = (TextView) view.findViewById(R.id.about_license);
+        tv = (TextView) findViewById(R.id.about_license);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setText(Html.fromHtml(license));
 
         String lwebsite = res.getString(R.string.link_website);
         String swebsite = res.getString(R.string.about_website, lwebsite);
-        tv = (TextView) view.findViewById(R.id.about_website);
+        tv = (TextView) findViewById(R.id.about_website);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setText(Html.fromHtml(swebsite));
 
         String problem = res.getString(R.string.link_report_a_problem);
         String help = res.getString(R.string.link_ask_for_help);
         String feedback = res.getString(R.string.about_feedback, problem, help);
-        tv = (TextView) view.findViewById(R.id.about_feedback);
+        tv = (TextView) findViewById(R.id.about_feedback);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setText(Html.fromHtml(feedback));
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Resources res = getActivity().getResources();
         String title = res.getString(R.string.about_title, res.getString(R.string.app_name));
-        getDialog().setTitle(title);
+        setTitle(title);
     }
 
     @Override
-    public void onClick(DialogInterface arg0, int arg1) {
+    protected void onClick(View v, int which) {
     }
 }

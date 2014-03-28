@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
+import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -54,7 +55,8 @@ public class TokenUIMenuAdapter extends TokenUIClickAdapter {
                             break;
 
                         case R.id.action_delete:
-                            TokenUIMenuAdapter.this.delete(position);
+                            new TokenPersistence(code.getContext()).delete(position);
+                            notifyDataSetChanged();
                             break;
                         }
 

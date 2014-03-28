@@ -36,12 +36,12 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 import org.fedorahosted.freeotp.adapters.TokenAdapter;
-import org.fedorahosted.freeotp.dialogs.AboutDialogFragment;
-import org.fedorahosted.freeotp.dialogs.CameraDialogFragment;
+import org.fedorahosted.freeotp.dialogs.AboutDialogActivity;
+import org.fedorahosted.freeotp.dialogs.CameraDialogActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,7 +50,6 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter    mTokenAdapter;
@@ -78,7 +77,12 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         };
         mTokenAdapter.registerDataSetObserver(mDataSetObserver);
-        mDataSetObserver.onChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTokenAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -99,23 +103,14 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.action_add:
-            new CameraDialogFragment().show(getFragmentManager(), CameraDialogFragment.FRAGMENT_TAG);
+            startActivity(new Intent(this, CameraDialogActivity.class));
             return true;
 
         case R.id.action_about:
-            new AboutDialogFragment().show(getFragmentManager(), AboutDialogFragment.FRAGMENT_TAG);
+            startActivity(new Intent(this, AboutDialogActivity.class));
             return true;
         }
 
         return false;
-    }
-
-    public void tokenURIReceived(String uri) {
-        try {
-            mTokenAdapter.add(uri);
-        } catch (TokenUriInvalidException e) {
-            Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
     }
 }

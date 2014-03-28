@@ -22,7 +22,6 @@ package org.fedorahosted.freeotp.dialogs;
 
 import org.fedorahosted.freeotp.R;
 
-import android.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
@@ -35,12 +34,12 @@ public class ManualTextWatcher implements TextWatcher {
     private final EditText mSecret;
     private final EditText mInterval;
 
-    public ManualTextWatcher(AlertDialog dialog) {
-        mButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        mIssuer = (EditText) dialog.findViewById(R.id.issuer);
-        mLabel = (EditText) dialog.findViewById(R.id.label);
-        mSecret = (EditText) dialog.findViewById(R.id.secret);
-        mInterval = (EditText) dialog.findViewById(R.id.interval);
+    public ManualTextWatcher(BaseDialogActivity bda) {
+        mButton = bda.getButton(BaseDialogActivity.BUTTON_POSITIVE);
+        mIssuer = (EditText) bda.findViewById(R.id.issuer);
+        mLabel = (EditText) bda.findViewById(R.id.label);
+        mSecret = (EditText) bda.findViewById(R.id.secret);
+        mInterval = (EditText) bda.findViewById(R.id.interval);
     }
 
     @Override

@@ -25,6 +25,7 @@ import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.Token.TokenType;
 import org.fedorahosted.freeotp.TokenCode;
+import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.content.Context;
 import android.os.Handler;
@@ -123,7 +124,7 @@ public class TokenUIClickAdapter extends TokenUIBaseAdapter {
             @Override
             public void onClick(View v) {
                 TokenCode codes = token.generateCodes();
-                save(token);
+                new TokenPersistence(v.getContext()).save(token);
 
                 mTicker.start(v, codes, token.getType());
             }

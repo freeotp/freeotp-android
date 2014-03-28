@@ -22,13 +22,10 @@ package org.fedorahosted.freeotp.dialogs;
 
 import java.util.List;
 
-import org.fedorahosted.freeotp.MainActivity;
 import org.fedorahosted.freeotp.R;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
@@ -41,9 +38,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
-public class CameraDialogFragment extends BaseAlertDialogFragment implements SurfaceHolder.Callback {
-    public static final String          FRAGMENT_TAG = "fragment_camera";
-
+public class CameraDialogActivity extends BaseAddTokenDialogActivity implements SurfaceHolder.Callback {
     private final CameraInfo            mCameraInfo  = new CameraInfo();
     private final CameraDecodeAsyncTask mDecodeAsyncTask;
     private final int                   mCameraId;
@@ -69,8 +64,9 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
         }
     }
 
-    public CameraDialogFragment() {
-        super(R.string.scan_qr_code, R.layout.camera, android.R.string.cancel, R.string.manual_entry, 0);
+    public CameraDialogActivity() {
+        super(R.layout.camera,
+              android.R.string.cancel, R.string.manual_entry, 0);
 
         // Find a back-facing camera, otherwise use the first camera.
         int cameraId;
@@ -86,9 +82,8 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                if (result != null)
-                    ((MainActivity) getActivity()).tokenURIReceived(result);
-                dismiss();
+                onTokenURI(result);
+                finish();
             }
         };
     }
@@ -99,8 +94,8 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
 
         // If we have no cameras, open the manual dialog
         if (mCameraId < 0) {
-            new ManualDialogFragment().show(getFragmentManager(), ManualDialogFragment.FRAGMENT_TAG);
-            dismiss();
+            startActivity(new Intent(this, ManualDialogActivity.class));
+            finish();
             return;
         }
 
@@ -114,17 +109,18 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
     }
 
     @Override
-    protected void onViewInflated(View view) {
-        SurfaceView sv = (SurfaceView) view.findViewById(R.id.camera_surfaceview);
+    protected void onStart() {
+        super.onStart();
+        SurfaceView sv = (SurfaceView) findViewById(R.id.camera_surfaceview);
         sv.getHolder().addCallback(this);
     }
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which != AlertDialog.BUTTON_NEUTRAL)
+    public void onClick(View view, int which) {
+        if (which != BUTTON_NEUTRAL)
             return;
 
-        new ManualDialogFragment().show(getFragmentManager(), ManualDialogFragment.FRAGMENT_TAG);
+        startActivity(new Intent(CameraDialogActivity.this, ManualDialogActivity.class));
     }
 
     @Override
@@ -136,7 +132,7 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
         // http://developer.android.com/reference/android/hardware/Camera.html#setDisplayOrientation(int)
 
         int rotation = 0;
-        switch (getActivity().getWindowManager().getDefaultDisplay().getRotation()) {
+        switch (getWindowManager().getDefaultDisplay().getRotation()) {
         case Surface.ROTATION_0:
             rotation = 0;
             break;
@@ -185,9 +181,8 @@ public class CameraDialogFragment extends BaseAlertDialogFragment implements Sur
             surfaceDestroyed(holder);
 
             // Show error message
-            Dialog d = getDialog();
-            SurfaceView sv = (SurfaceView) d.findViewById(R.id.camera_surfaceview);
-            TextView tv = (TextView) d.findViewById(R.id.camera_textview);
+            SurfaceView sv = (SurfaceView) findViewById(R.id.camera_surfaceview);
+            TextView tv = (TextView) findViewById(R.id.camera_textview);
             sv.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.VISIBLE);
             return;

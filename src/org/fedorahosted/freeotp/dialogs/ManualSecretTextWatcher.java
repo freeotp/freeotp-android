@@ -20,12 +20,11 @@
 
 package org.fedorahosted.freeotp.dialogs;
 
-import android.app.AlertDialog;
 import android.text.Editable;
 
 public class ManualSecretTextWatcher extends ManualTextWatcher {
-    public ManualSecretTextWatcher(AlertDialog dialog) {
-        super(dialog);
+    public ManualSecretTextWatcher(BaseDialogActivity bda) {
+        super(bda);
     }
 
     @Override
