@@ -30,6 +30,7 @@
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
             android:text="@string/issuer"
+            android:textStyle="bold"
             />
 
         <EditText
@@ -54,6 +55,7 @@
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
             android:text="@string/id"
+            android:textStyle="bold"
             />
 
         <EditText

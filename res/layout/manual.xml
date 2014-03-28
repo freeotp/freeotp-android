@@ -40,7 +40,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:paddingRight="8dp"
-                android:text="@string/secret" />
+                android:text="@string/secret"
+                android:textStyle="bold"
+                />
 
             <EditText
                 android:id="@+id/secret"
@@ -69,7 +71,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:paddingRight="8dp"
-                android:text="@string/type" />
+                android:text="@string/type"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/type"
@@ -88,7 +92,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:paddingRight="8dp"
-                android:text="@string/algorithm" />
+                android:text="@string/algorithm"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/algorithm"
@@ -108,7 +114,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:paddingRight="8dp"
-                android:text="@string/interval" />
+                android:text="@string/interval"
+                android:textStyle="bold"
+                />
 
             <EditText
                 android:id="@+id/interval"
@@ -128,7 +136,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:paddingRight="8dp"
-                android:text="@string/digits" />
+                android:text="@string/digits"
+                android:textStyle="bold"
+                />
 
             <RadioGroup
                 android:layout_width="match_parent"
