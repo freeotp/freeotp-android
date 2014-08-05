@@ -36,7 +36,7 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.adapters.TokenAdapter;
+import org.fedorahosted.freeotp.adapters.TokenUIMenuAdapter;
 import org.fedorahosted.freeotp.dialogs.AboutDialogActivity;
 import org.fedorahosted.freeotp.dialogs.CameraDialogActivity;
 
@@ -52,15 +52,15 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
-    private TokenAdapter    mTokenAdapter;
-    private DataSetObserver mDataSetObserver;
+    private TokenUIMenuAdapter mTokenAdapter;
+    private DataSetObserver    mDataSetObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        mTokenAdapter = new TokenAdapter(this);
+        mTokenAdapter = new TokenUIMenuAdapter(this);
         ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
 
         // Don't permit screenshots since these might contain OTP codes.

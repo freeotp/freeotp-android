@@ -27,6 +27,8 @@ import org.fedorahosted.freeotp.Token.TokenType;
 import org.fedorahosted.freeotp.TokenCode;
 import org.fedorahosted.freeotp.TokenPersistence;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -123,9 +125,17 @@ public class TokenUIClickAdapter extends TokenUIBaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TokenCode codes = token.generateCodes();
-                new TokenPersistence(v.getContext()).save(token);
+                Context ctx = v.getContext();
 
+                // Increment the token.
+                TokenCode codes = token.generateCodes();
+                new TokenPersistence(ctx).save(token);
+
+                // Copy code to clipboard.
+                ClipboardManager cm = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+                cm.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
+
+                // Start the ticker.
                 mTicker.start(v, codes, token.getType());
             }
         });
