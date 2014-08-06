@@ -37,7 +37,7 @@
 package org.fedorahosted.freeotp;
 
 import org.fedorahosted.freeotp.adapters.TokenUIMenuAdapter;
-import org.fedorahosted.freeotp.dialogs.AboutDialogActivity;
+import org.fedorahosted.freeotp.AboutActivity;
 import org.fedorahosted.freeotp.dialogs.CameraDialogActivity;
 
 import android.app.Activity;
@@ -107,7 +107,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             return true;
 
         case R.id.action_about:
-            startActivity(new Intent(this, AboutDialogActivity.class));
+            startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
 

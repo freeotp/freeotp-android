@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">FreeOTP</string>
     <string name="add">Add</string>
-    <string name="about">About</string>
     <string name="invalid_token">The token specified was invalid!</string>
     <string name="delete">Delete</string>
     <string name="rename">Rename</string>
@@ -24,8 +23,8 @@
     <string name="algorithm">Algorithm</string>
     <string name="digits">Digits</string>
 
-    <string name="about_title">About %1$s</string>
-    <string name="about_version">Version %1$s (%2$d)</string>
+    <string name="about_freeotp">About FreeOTP</string>
+    <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
     <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
     <string name="about_license">FreeOTP is licensed under %1$s.</string>
     <string name="about_website">For more information, see our %s.</string>

@@ -18,21 +18,22 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.R;
-
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.View;
 import android.widget.TextView;
 
-public class AboutDialogActivity extends BaseDialogActivity {
-    public AboutDialogActivity() {
-        super(R.layout.about, 0, android.R.string.ok, 0);
+public class AboutActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.about);
     }
 
     @Override
@@ -70,12 +71,5 @@ public class AboutDialogActivity extends BaseDialogActivity {
         tv = (TextView) findViewById(R.id.about_feedback);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setText(Html.fromHtml(feedback));
-
-        String title = res.getString(R.string.about_title, res.getString(R.string.app_name));
-        setTitle(title);
-    }
-
-    @Override
-    protected void onClick(View v, int which) {
     }
 }

@@ -47,9 +47,8 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".dialogs.AboutDialogActivity"
-            android:label="@string/about"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:name=".AboutActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             />
 
         <activity

@@ -30,5 +30,5 @@
         android:id="@+id/action_about"
         android:showAsAction="never"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/about" />
+        android:title="@string/about_freeotp" />
 </menu>
