@@ -21,14 +21,20 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
+        android:id="@+id/action_scan"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/qrcode"
+        android:title="@string/scan_qr_code" />
+
+    <item
         android:id="@+id/action_add"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_new_account"
-        android:title="@string/add" />
+        android:title="@string/add_token" />
 
     <item
         android:id="@+id/action_about"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about_freeotp" />
 </menu>

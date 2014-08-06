@@ -64,18 +64,29 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
         }
     }
 
+    public static boolean haveCamera() {
+        return findCamera(new CameraInfo()) >= 0;
+    }
+
+    private static int findCamera(CameraInfo cameraInfo) {
+        int cameraId = Camera.getNumberOfCameras() - 1;
+
+        // Find a back-facing camera, otherwise use the first camera.
+        for (; cameraId > 0; cameraId--) {
+            Camera.getCameraInfo(cameraId, cameraInfo);
+            if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK)
+                break;
+        }
+
+        return cameraId;
+    }
+
     public CameraDialogActivity() {
         super(R.layout.camera,
               android.R.string.cancel, R.string.manual_entry, 0);
 
-        // Find a back-facing camera, otherwise use the first camera.
-        int cameraId;
-        for (cameraId = Camera.getNumberOfCameras() - 1; cameraId > 0; cameraId--) {
-            Camera.getCameraInfo(cameraId, mCameraInfo);
-            if (mCameraInfo.facing == CameraInfo.CAMERA_FACING_BACK)
-                break;
-        }
-        mCameraId = cameraId;
+        mCameraId = findCamera(mCameraInfo);
+        assert mCameraId >= 0;
 
         // Create the decoder thread
         mDecodeAsyncTask = new CameraDecodeAsyncTask() {
@@ -91,13 +102,6 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // If we have no cameras, open the manual dialog
-        if (mCameraId < 0) {
-            startActivity(new Intent(this, ManualDialogActivity.class));
-            finish();
-            return;
-        }
 
         mDecodeAsyncTask.execute();
     }
