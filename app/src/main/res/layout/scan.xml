@@ -18,38 +18,50 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/black"
     >
-    <FrameLayout
+    <SurfaceView
+        android:id="@+id/surfaceview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/black" >
-        <SurfaceView
-            android:id="@+id/camera_surfaceview"
+        />
+
+    <org.fedorahosted.freeotp.add.ScanWindowFrameLayout
+        android:id="@+id/window"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="64dp">
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/camera_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="invisible"
-            android:textColor="@android:color/primary_text_dark"
-            android:text="@string/error_camera_open"/>
-    </FrameLayout>
-
-    <View style="@style/Divider" />
-
-    <LinearLayout style="@style/Dialog.Button.Layout">
-        <Button
-            style="@style/Dialog.Button"
-            android:id="@+id/cancel"
-            android:text="@android:string/cancel"
+            android:scaleType="fitCenter"
+            android:src="@drawable/scan"
+            android:alpha=".6"
             />
-    </LinearLayout>
-</LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:indeterminate="true"
+            />
+    </org.fedorahosted.freeotp.add.ScanWindowFrameLayout>
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:textColor="@android:color/primary_text_dark"
+        android:text="@string/error_camera_open"
+        />
+</FrameLayout>

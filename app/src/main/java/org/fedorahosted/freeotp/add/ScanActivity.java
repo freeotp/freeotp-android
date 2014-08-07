@@ -35,7 +35,6 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
 
 public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback {
     private final CameraInfo    mCameraInfo  = new CameraInfo();
@@ -100,14 +99,6 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan);
-
-        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         mScanAsyncTask.execute();
     }
 
@@ -120,8 +111,7 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     @Override
     protected void onStart() {
         super.onStart();
-        SurfaceView sv = (SurfaceView) findViewById(R.id.camera_surfaceview);
-        sv.getHolder().addCallback(this);
+        ((SurfaceView) findViewById(R.id.surfaceview)).getHolder().addCallback(this);
     }
 
     @Override
@@ -182,10 +172,10 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
             surfaceDestroyed(holder);
 
             // Show error message
-            SurfaceView sv = (SurfaceView) findViewById(R.id.camera_surfaceview);
-            TextView tv = (TextView) findViewById(R.id.camera_textview);
-            sv.setVisibility(View.INVISIBLE);
-            tv.setVisibility(View.VISIBLE);
+            findViewById(R.id.surfaceview).setVisibility(View.INVISIBLE);
+            findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+            findViewById(R.id.window).setVisibility(View.INVISIBLE);
+            findViewById(R.id.textview).setVisibility(View.VISIBLE);
             return;
         }
 

@@ -106,6 +106,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         switch (item.getItemId()) {
         case R.id.action_scan:
             startActivity(new Intent(this, ScanActivity.class));
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             return true;
 
         case R.id.action_add:

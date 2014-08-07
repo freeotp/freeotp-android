@@ -53,8 +53,7 @@
 
         <activity
             android:name=".add.ScanActivity"
-            android:label="@string/scan_qr_code"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             />
 
         <activity
