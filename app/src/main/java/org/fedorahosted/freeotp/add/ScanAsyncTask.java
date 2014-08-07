@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -38,7 +38,7 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
-public class CameraDecodeAsyncTask extends AsyncTask<Void, Void, String> implements PreviewCallback {
+public class ScanAsyncTask extends AsyncTask<Void, Void, String> implements PreviewCallback {
     private static class Data {
         public byte[] data;
         Camera.Size   size;
@@ -47,7 +47,7 @@ public class CameraDecodeAsyncTask extends AsyncTask<Void, Void, String> impleme
     private final BlockingQueue<Data> mBlockingQueue;
     private final Reader              mReader;
 
-    public CameraDecodeAsyncTask() {
+    public ScanAsyncTask() {
         mBlockingQueue = new LinkedBlockingQueue<Data>(5);
         mReader = new QRCodeReader();
     }

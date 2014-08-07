@@ -18,28 +18,30 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
 import org.fedorahosted.freeotp.R;
 
+import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ManualTextWatcher implements TextWatcher {
+
+public class AddTextWatcher implements TextWatcher {
     private final Button   mButton;
     private final EditText mIssuer;
     private final EditText mLabel;
     private final EditText mSecret;
     private final EditText mInterval;
 
-    public ManualTextWatcher(BaseDialogActivity bda) {
-        mButton = bda.getButton(BaseDialogActivity.BUTTON_POSITIVE);
-        mIssuer = (EditText) bda.findViewById(R.id.issuer);
-        mLabel = (EditText) bda.findViewById(R.id.label);
-        mSecret = (EditText) bda.findViewById(R.id.secret);
-        mInterval = (EditText) bda.findViewById(R.id.interval);
+    public AddTextWatcher(Activity activity) {
+        mButton = (Button) activity.findViewById(R.id.add);
+        mIssuer = (EditText) activity.findViewById(R.id.issuer);
+        mLabel = (EditText) activity.findViewById(R.id.label);
+        mSecret = (EditText) activity.findViewById(R.id.secret);
+        mInterval = (EditText) activity.findViewById(R.id.interval);
     }
 
     @Override

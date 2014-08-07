@@ -52,22 +52,22 @@
             />
 
         <activity
-            android:name=".dialogs.CameraDialogActivity"
+            android:name=".add.ScanActivity"
             android:label="@string/scan_qr_code"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            />
+
+        <activity
+            android:name=".add.AddActivity"
+            android:label="@string/add_token"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             />
 
         <activity
             android:name=".dialogs.DeleteDialogActivity"
             android:label="@string/delete"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
-            />
-
-        <activity
-            android:name=".dialogs.ManualDialogActivity"
-            android:label="@string/add_token"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
-            android:windowSoftInputMode="stateVisible"
             />
 
         <activity

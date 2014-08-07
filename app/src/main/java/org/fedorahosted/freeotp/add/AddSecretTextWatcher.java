@@ -18,13 +18,14 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
+import android.app.Activity;
 import android.text.Editable;
 
-public class ManualSecretTextWatcher extends ManualTextWatcher {
-    public ManualSecretTextWatcher(BaseDialogActivity bda) {
-        super(bda);
+public class AddSecretTextWatcher extends AddTextWatcher {
+    public AddSecretTextWatcher(Activity activity) {
+        super(activity);
     }
 
     @Override

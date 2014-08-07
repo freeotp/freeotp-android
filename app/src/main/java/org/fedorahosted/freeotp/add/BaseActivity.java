@@ -18,24 +18,22 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 import org.fedorahosted.freeotp.TokenPersistence;
 
+import android.app.Activity;
 import android.widget.Toast;
 
 
-public abstract class BaseAddTokenDialogActivity extends BaseDialogActivity {
-    public BaseAddTokenDialogActivity(int layout, int negative, int neutral, int positive) {
-        super(layout, negative, neutral, positive);
-    }
-
+public abstract class BaseActivity extends Activity {
     protected void onTokenURI(String uri) {
         try {
             if (uri != null)
                 new TokenPersistence(this).add(uri);
+            finish();
         } catch (TokenUriInvalidException e) {
             Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
             e.printStackTrace();

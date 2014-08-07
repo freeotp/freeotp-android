@@ -13,7 +13,6 @@
     <string name="no_keys">No OTP keys installed.</string>
     <string name="add_token">Add Token</string>
     <string name="scan_qr_code">Scan QR Code</string>
-    <string name="manual_entry">Manual Entry</string>
     <string name="interval">Interval</string>
     <string name="counter">Counter</string>
     <string name="issuer">Issuer</string>

@@ -18,13 +18,14 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
 import java.util.Locale;
 
 import org.fedorahosted.freeotp.R;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +35,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ManualDialogActivity extends BaseAddTokenDialogActivity implements OnItemSelectedListener {
+public class AddActivity extends BaseActivity implements OnItemSelectedListener, View.OnClickListener {
     private static final String DEFAULT_INTERVAL = "30";
     private static final String DEFAULT_COUNTER  = "0";
 
@@ -47,13 +48,10 @@ public class ManualDialogActivity extends BaseAddTokenDialogActivity implements 
     private Spinner             mAlgorithm;
     private Spinner             mType;
 
-    public ManualDialogActivity() {
-        super(R.layout.manual, android.R.string.cancel, 0, R.string.add);
-    }
-
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.add);
 
         mIssuer = (EditText) findViewById(R.id.issuer);
         mLabel = (EditText) findViewById(R.id.label);
@@ -68,21 +66,25 @@ public class ManualDialogActivity extends BaseAddTokenDialogActivity implements 
         // Setup the Interval / Counter toggle
         mType.setOnItemSelectedListener(this);
 
-        // Disable the Add button
-        getButton(BUTTON_POSITIVE).setEnabled(false);
+        // Setup the buttons
+        findViewById(R.id.cancel).setOnClickListener(this);
+        findViewById(R.id.add).setOnClickListener(this);
+        findViewById(R.id.add).setEnabled(false);
 
         // Set constraints on when the Add button is enabled
-        TextWatcher tw = new ManualTextWatcher(this);
+        TextWatcher tw = new AddTextWatcher(this);
         mIssuer.addTextChangedListener(tw);
         mLabel.addTextChangedListener(tw);
-        mSecret.addTextChangedListener(new ManualSecretTextWatcher(this));
+        mSecret.addTextChangedListener(new AddSecretTextWatcher(this));
         mInterval.addTextChangedListener(tw);
     }
 
     @Override
-    public void onClick(View view, int which) {
-        if (which != BUTTON_POSITIVE)
+    public void onClick(View view) {
+        if (view != findViewById(R.id.add)) {
+            finish();
             return;
+        }
 
         // Get the fields
         String issuer = Uri.encode(mIssuer.getText().toString());

@@ -18,14 +18,13 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.dialogs;
+package org.fedorahosted.freeotp.add;
 
 import java.util.List;
 
 import org.fedorahosted.freeotp.R;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
@@ -38,12 +37,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
-public class CameraDialogActivity extends BaseAddTokenDialogActivity implements SurfaceHolder.Callback {
-    private final CameraInfo            mCameraInfo  = new CameraInfo();
-    private final CameraDecodeAsyncTask mDecodeAsyncTask;
-    private final int                   mCameraId;
-    private Handler                     mHandler;
-    private Camera                      mCamera;
+public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback {
+    private final CameraInfo    mCameraInfo  = new CameraInfo();
+    private final ScanAsyncTask mScanAsyncTask;
+    private final int           mCameraId;
+    private Handler             mHandler;
+    private Camera              mCamera;
 
     private static class AutoFocusHandler extends Handler implements Camera.AutoFocusCallback {
         private final Camera mCamera;
@@ -81,20 +80,18 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
         return cameraId;
     }
 
-    public CameraDialogActivity() {
-        super(R.layout.camera,
-              android.R.string.cancel, R.string.manual_entry, 0);
+    public ScanActivity() {
+        super();
 
         mCameraId = findCamera(mCameraInfo);
         assert mCameraId >= 0;
 
         // Create the decoder thread
-        mDecodeAsyncTask = new CameraDecodeAsyncTask() {
+        mScanAsyncTask = new ScanAsyncTask() {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 onTokenURI(result);
-                finish();
             }
         };
     }
@@ -102,14 +99,22 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.scan);
 
-        mDecodeAsyncTask.execute();
+        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mScanAsyncTask.execute();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDecodeAsyncTask.cancel(true);
+        mScanAsyncTask.cancel(true);
     }
 
     @Override
@@ -117,14 +122,6 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
         super.onStart();
         SurfaceView sv = (SurfaceView) findViewById(R.id.camera_surfaceview);
         sv.getHolder().addCallback(this);
-    }
-
-    @Override
-    public void onClick(View view, int which) {
-        if (which != BUTTON_NEUTRAL)
-            return;
-
-        startActivity(new Intent(CameraDialogActivity.this, ManualDialogActivity.class));
     }
 
     @Override
@@ -179,7 +176,7 @@ public class CameraDialogActivity extends BaseAddTokenDialogActivity implements 
             // Open the camera
             mCamera = Camera.open(mCameraId);
             mCamera.setPreviewDisplay(holder);
-            mCamera.setPreviewCallback(mDecodeAsyncTask);
+            mCamera.setPreviewCallback(mScanAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
             surfaceDestroyed(holder);

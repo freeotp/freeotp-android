@@ -37,9 +37,8 @@
 package org.fedorahosted.freeotp;
 
 import org.fedorahosted.freeotp.adapters.TokenUIMenuAdapter;
-import org.fedorahosted.freeotp.AboutActivity;
-import org.fedorahosted.freeotp.dialogs.CameraDialogActivity;
-import org.fedorahosted.freeotp.dialogs.ManualDialogActivity;
+import org.fedorahosted.freeotp.add.AddActivity;
+import org.fedorahosted.freeotp.add.ScanActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -95,7 +94,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        menu.findItem(R.id.action_scan).setVisible(CameraDialogActivity.haveCamera());
+        menu.findItem(R.id.action_scan).setVisible(ScanActivity.haveCamera());
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
@@ -106,11 +105,11 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.action_scan:
-            startActivity(new Intent(this, CameraDialogActivity.class));
+            startActivity(new Intent(this, ScanActivity.class));
             return true;
 
         case R.id.action_add:
-            startActivity(new Intent(this, ManualDialogActivity.class));
+            startActivity(new Intent(this, AddActivity.class));
             return true;
 
         case R.id.action_about:
