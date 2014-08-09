@@ -64,15 +64,14 @@
             />
 
         <activity
-            android:name=".dialogs.DeleteDialogActivity"
-            android:label="@string/delete"
+            android:name=".edit.DeleteActivity"
+            android:label="@string/delete_question"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
             />
 
         <activity
-            android:name=".dialogs.RenameDialogActivity"
-            android:label="@string/rename"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:name=".edit.RenameActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateVisible"
             />
 

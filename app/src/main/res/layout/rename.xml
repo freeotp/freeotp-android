@@ -18,12 +18,44 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     >
-    <include
-        layout="@layout/issuerlabel"
-        />
-</TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        >
+        <include layout="@layout/issuerlabel" />
+        <TableRow>
+            <Button
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_span="2"
+                android:text="@string/restore_defaults"
+                android:id="@+id/restore"
+                />
+        </TableRow>
+    </TableLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout style="@style/Dialog.Button.Layout">
+        <Button
+            style="@style/Dialog.Button"
+            android:id="@+id/cancel"
+            android:text="@android:string/cancel"
+            />
+
+        <Button
+            style="@style/Dialog.Button"
+            android:id="@+id/save"
+            android:text="@string/save"
+            />
+    </LinearLayout>
+</LinearLayout>

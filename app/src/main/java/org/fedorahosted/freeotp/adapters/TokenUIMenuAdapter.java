@@ -2,10 +2,12 @@ package org.fedorahosted.freeotp.adapters;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.dialogs.DeleteDialogActivity;
-import org.fedorahosted.freeotp.dialogs.RenameDialogActivity;
+import org.fedorahosted.freeotp.edit.DeleteActivity;
+import org.fedorahosted.freeotp.edit.RenameActivity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,15 +35,20 @@ public class TokenUIMenuAdapter extends TokenUIClickAdapter {
                 pm.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Context ctx = code.getContext();
+                        Intent i;
+
                         switch (item.getItemId()) {
                         case R.id.action_rename:
-                            RenameDialogActivity.startActivity(code.getContext(), position,
-                                                               RenameDialogActivity.class);
+                            i = new Intent(ctx, RenameActivity.class);
+                            i.putExtra(RenameActivity.EXTRA_POSITION, position);
+                            ctx.startActivity(i);
                             break;
 
                         case R.id.action_delete:
-                            DeleteDialogActivity.startActivity(code.getContext(), position,
-                                                               DeleteDialogActivity.class);
+                            i = new Intent(ctx, DeleteActivity.class);
+                            i.putExtra(DeleteActivity.EXTRA_POSITION, position);
+                            ctx.startActivity(i);
                             break;
                         }
 

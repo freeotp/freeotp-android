@@ -3,70 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     >
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/delete_summary"
-        />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:padding="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
         >
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:text="@string/delete_summary"
+            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center_vertical|right"
-                android:paddingRight="8dp"
-                android:text="@string/issuer"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:id="@+id/issuer"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:text="jdoe@example.com"
-                />
-        </TableRow>
-
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
             >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center_vertical|right"
-                android:paddingRight="8dp"
-                android:text="@string/id"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:id="@+id/label"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:text="18c5d06cfcbd4927"
-                />
-        </TableRow>
-    </TableLayout>
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="8dp"
+                    android:text="@string/issuer"
+                    android:textStyle="bold"
+                    />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_question"
-        />
+                <TextView
+                    android:id="@+id/issuer"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:text="jdoe@example.com"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="8dp"
+                    android:text="@string/id"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:text="18c5d06cfcbd4927"
+                    />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout style="@style/Dialog.Button.Layout">
+        <Button
+            style="@style/Dialog.Button"
+            android:id="@+id/cancel"
+            android:text="@android:string/cancel"
+            />
+
+        <Button
+            style="@style/Dialog.Button"
+            android:id="@+id/delete"
+            android:text="@string/delete"
+            />
+    </LinearLayout>
 </LinearLayout>

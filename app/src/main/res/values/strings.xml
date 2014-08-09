@@ -21,6 +21,7 @@
     <string name="type">Type</string>
     <string name="algorithm">Algorithm</string>
     <string name="digits">Digits</string>
+    <string name="save">Save</string>
 
     <string name="about_freeotp">About FreeOTP</string>
     <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
@@ -38,7 +39,7 @@
     <string name="error_camera_open">Error while opening camera!</string>
 
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
-    <string name="delete_question">Would you like to delete this token?</string>
+    <string name="delete_question">Delete this token?</string>
 
     <plurals name="tokens_selected">
         <item quantity="one">%d token selected</item>
