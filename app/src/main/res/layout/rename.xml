@@ -38,6 +38,7 @@
                 android:layout_weight="1"
                 android:layout_span="2"
                 android:text="@string/restore_defaults"
+                android:enabled="false"
                 android:id="@+id/restore"
                 />
         </TableRow>
@@ -56,6 +57,7 @@
             style="@style/Dialog.Button"
             android:id="@+id/save"
             android:text="@string/save"
+            android:enabled="false"
             />
     </LinearLayout>
 </LinearLayout>
