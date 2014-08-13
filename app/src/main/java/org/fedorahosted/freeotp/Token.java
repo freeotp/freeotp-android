@@ -42,26 +42,26 @@ public class Token {
         HOTP, TOTP
     }
 
-    private final String mIssuerInt;
-    private final String mIssuerExt;
-    private String       mIssuerAlt;
-    private final String mLabel;
-    private String       mLabelAlt;
-    private TokenType    mType;
-    private String       mAlgorithm;
-    private byte[]       mSecret;
-    private int          mDigits;
-    private long         mCounter;
-    private int          mPeriod;
+    private String issuerInt;
+    private String issuerExt;
+    private String issuerAlt;
+    private String label;
+    private String labelAlt;
+    private TokenType type;
+    private String algo;
+    private byte[] secret;
+    private int digits;
+    private long counter;
+    private int period;
 
     private Token(Uri uri, boolean internal) throws TokenUriInvalidException {
         if (!uri.getScheme().equals("otpauth"))
             throw new TokenUriInvalidException();
 
         if (uri.getAuthority().equals("totp"))
-            mType = TokenType.TOTP;
+            type = TokenType.TOTP;
         else if (uri.getAuthority().equals("hotp"))
-            mType = TokenType.HOTP;
+            type = TokenType.HOTP;
         else
             throw new TokenUriInvalidException();
 
@@ -76,16 +76,16 @@ public class Token {
             throw new TokenUriInvalidException();
 
         int i = path.indexOf(':');
-        mIssuerExt = i < 0 ? "" : path.substring(0, i);
-        mIssuerInt = uri.getQueryParameter("issuer");
-        mLabel = path.substring(i >= 0 ? i + 1 : 0);
+        issuerExt = i < 0 ? "" : path.substring(0, i);
+        issuerInt = uri.getQueryParameter("issuer");
+        label = path.substring(i >= 0 ? i + 1 : 0);
 
-        mAlgorithm = uri.getQueryParameter("algorithm");
-        if (mAlgorithm == null)
-            mAlgorithm = "sha1";
-        mAlgorithm = mAlgorithm.toUpperCase(Locale.US);
+        algo = uri.getQueryParameter("algorithm");
+        if (algo == null)
+            algo = "sha1";
+        algo = algo.toUpperCase(Locale.US);
         try {
-            Mac.getInstance("Hmac" + mAlgorithm);
+            Mac.getInstance("Hmac" + algo);
         } catch (NoSuchAlgorithmException e1) {
             throw new TokenUriInvalidException();
         }
@@ -94,8 +94,8 @@ public class Token {
             String d = uri.getQueryParameter("digits");
             if (d == null)
                 d = "6";
-            mDigits = Integer.parseInt(d);
-            if (mDigits != 6 && mDigits != 8)
+            digits = Integer.parseInt(d);
+            if (digits != 6 && digits != 8)
                 throw new TokenUriInvalidException();
         } catch (NumberFormatException e) {
             throw new TokenUriInvalidException();
@@ -105,17 +105,17 @@ public class Token {
             String p = uri.getQueryParameter("period");
             if (p == null)
                 p = "30";
-            mPeriod = Integer.parseInt(p);
+            period = Integer.parseInt(p);
         } catch (NumberFormatException e) {
             throw new TokenUriInvalidException();
         }
 
-        if (mType == TokenType.HOTP) {
+        if (type == TokenType.HOTP) {
             try {
                 String c = uri.getQueryParameter("counter");
                 if (c == null)
                     c = "0";
-                mCounter = Long.parseLong(c) - 1;
+                counter = Long.parseLong(c) - 1;
             } catch (NumberFormatException e) {
                 throw new TokenUriInvalidException();
             }
@@ -123,7 +123,7 @@ public class Token {
 
         try {
             String s = uri.getQueryParameter("secret");
-            mSecret = Base32String.decode(s);
+            secret = Base32String.decode(s);
         } catch (DecodingException e) {
             throw new TokenUriInvalidException();
         }
@@ -141,13 +141,13 @@ public class Token {
 
         // Create digits divisor
         int div = 1;
-        for (int i = mDigits; i > 0; i--)
+        for (int i = digits; i > 0; i--)
             div *= 10;
 
         // Create the HMAC
         try {
-            Mac mac = Mac.getInstance("Hmac" + mAlgorithm);
-            mac.init(new SecretKeySpec(mSecret, "Hmac" + mAlgorithm));
+            Mac mac = Mac.getInstance("Hmac" + algo);
+            mac.init(new SecretKeySpec(secret, "Hmac" + algo));
 
             // Do the hashing
             byte[] digest = mac.doFinal(bb.array());
@@ -155,15 +155,15 @@ public class Token {
             // Truncate
             int binary;
             int off = digest[digest.length - 1] & 0xf;
-            binary = (digest[off + 0] & 0x7f) << 0x18;
+            binary = (digest[off] & 0x7f) << 0x18;
             binary |= (digest[off + 1] & 0xff) << 0x10;
             binary |= (digest[off + 2] & 0xff) << 0x08;
-            binary |= (digest[off + 3] & 0xff) << 0x00;
+            binary |= (digest[off + 3] & 0xff);
             binary = binary % div;
 
             // Zero pad
             String hotp = Integer.toString(binary);
-            while (hotp.length() != mDigits)
+            while (hotp.length() != digits)
                 hotp = "0" + hotp;
 
             return hotp;
@@ -180,88 +180,91 @@ public class Token {
         this(Uri.parse(uri), internal);
     }
 
+    public Token(Uri uri) throws TokenUriInvalidException {
+        this(uri, false);
+    }
+
+    public Token(String uri) throws TokenUriInvalidException {
+        this(Uri.parse(uri));
+    }
+
     public String getID() {
         String id;
-        if (mIssuerInt != null && !mIssuerInt.equals(""))
-            id = mIssuerInt + ":" + mLabel;
-        else if (mIssuerExt != null && !mIssuerExt.equals(""))
-            id = mIssuerExt + ":" + mLabel;
+        if (issuerInt != null && !issuerInt.equals(""))
+            id = issuerInt + ":" + label;
+        else if (issuerExt != null && !issuerExt.equals(""))
+            id = issuerExt + ":" + label;
         else
-            id = mLabel;
+            id = label;
 
         return id;
     }
 
     // NOTE: This changes internal data. You MUST save the token immediately.
     public void setIssuer(String issuer) {
-        mIssuerAlt = issuer;
+        issuerAlt = (issuer == null || issuer.equals(this.issuerExt)) ? null : issuer;
     }
 
     public String getIssuer() {
-        if (mIssuerAlt != null)
-            return mIssuerAlt;
-        return mIssuerExt != null ? mIssuerExt : "";
+        if (issuerAlt != null)
+            return issuerAlt;
+        return issuerExt != null ? issuerExt : "";
     }
 
     // NOTE: This changes internal data. You MUST save the token immediately.
     public void setLabel(String label) {
-        mLabelAlt = label;
+        labelAlt = (label == null || label.equals(this.label)) ? null : label;
     }
 
     public String getLabel() {
-        if (mLabelAlt != null)
-            return mLabelAlt;
-        return mLabel != null ? mLabel : "";
+        if (labelAlt != null)
+            return labelAlt;
+        return label != null ? label : "";
     }
 
     public int getDigits() {
-        return mDigits;
+        return digits;
     }
 
     // NOTE: This may change internal data. You MUST save the token immediately.
     public TokenCode generateCodes() {
         long cur = System.currentTimeMillis();
 
-        switch (mType) {
+        switch (type) {
         case HOTP:
-            return new TokenCode(getHOTP(mCounter++), cur, cur + (mPeriod * 1000));
+            return new TokenCode(getHOTP(counter++), cur, cur + (period * 1000));
 
         case TOTP:
-            long counter = cur / 1000 / mPeriod;
+            long counter = cur / 1000 / period;
             return new TokenCode(getHOTP(counter + 0),
-                                 (counter + 0) * mPeriod * 1000,
-                                 (counter + 1) * mPeriod * 1000,
+                                 (counter + 0) * period * 1000,
+                                 (counter + 1) * period * 1000,
                    new TokenCode(getHOTP(counter + 1),
-                                 (counter + 1) * mPeriod * 1000,
-                                 (counter + 2) * mPeriod * 1000));
+                                 (counter + 1) * period * 1000,
+                                 (counter + 2) * period * 1000));
         }
 
         return null;
     }
 
     public TokenType getType() {
-        return mType;
+        return type;
     }
 
     public Uri toUri() {
-        String issuerLabel = !mIssuerExt.equals("") ? mIssuerExt + ":" + mLabel : mLabel;
+        String issuerLabel = !issuerExt.equals("") ? issuerExt + ":" + label : label;
 
         Uri.Builder builder = new Uri.Builder().scheme("otpauth").path(issuerLabel)
-                .appendQueryParameter("secret", Base32String.encode(mSecret))
-                .appendQueryParameter("issuer", mIssuerInt == null ? mIssuerExt : mIssuerInt)
-                .appendQueryParameter("algorithm", mAlgorithm)
-                .appendQueryParameter("digits", Integer.toString(mDigits))
-                .appendQueryParameter("period", Integer.toString(mPeriod));
+                .appendQueryParameter("secret", Base32String.encode(secret))
+                .appendQueryParameter("issuer", issuerInt == null ? issuerExt : issuerInt)
+                .appendQueryParameter("algorithm", algo)
+                .appendQueryParameter("digits", Integer.toString(digits))
+                .appendQueryParameter("period", Integer.toString(period));
 
-        if (mIssuerAlt != null)
-            builder.appendQueryParameter("issueralt", mIssuerAlt);
-        if (mLabelAlt != null)
-            builder.appendQueryParameter("labelalt", mLabelAlt);
-
-        switch (mType) {
+        switch (type) {
         case HOTP:
             builder.authority("hotp");
-            builder.appendQueryParameter("counter", Long.toString(mCounter + 1));
+            builder.appendQueryParameter("counter", Long.toString(counter + 1));
             break;
         case TOTP:
             builder.authority("totp");

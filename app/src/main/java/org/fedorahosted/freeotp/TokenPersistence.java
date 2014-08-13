@@ -1,44 +1,38 @@
 package org.fedorahosted.freeotp;
 
+import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
 public class TokenPersistence {
-    private static final String     NAME  = "tokens";
-    private static final String     ORDER = "tokenOrder";
+    private static final String NAME  = "tokens";
+    private static final String ORDER = "tokenOrder";
     private final SharedPreferences prefs;
+    private final Gson gson;
 
     private List<String> getTokenOrder() {
-        try {
-            JSONArray array = new JSONArray(prefs.getString(ORDER, null));
-            List<String> out = new LinkedList<String>();
-            for (int i = 0; i < array.length(); i++)
-                out.add(array.getString(i));
-            return out;
-        } catch (JSONException e) {
-        } catch (NullPointerException e) {
-        }
-
-        return new LinkedList<String>();
+        Type type = new TypeToken<List<String>>(){}.getType();
+        String str = prefs.getString(ORDER, "[]");
+        List<String> order = gson.fromJson(str, type);
+        return order == null ? new LinkedList<String>() : order;
     }
 
     private SharedPreferences.Editor setTokenOrder(List<String> order) {
-        JSONArray array = new JSONArray();
-        for (String key : order)
-            array.put(key);
-
-        return prefs.edit().putString(ORDER, array.toString());
+        return prefs.edit().putString(ORDER, gson.toJson(order));
     }
 
     public TokenPersistence(Context ctx) {
         prefs = ctx.getApplicationContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        gson = new Gson();
     }
 
     public int length() {
@@ -46,19 +40,24 @@ public class TokenPersistence {
     }
 
     public Token get(int position) {
+        String key = getTokenOrder().get(position);
+        String str = prefs.getString(key, null);
+
         try {
-            return new Token(prefs.getString(getTokenOrder().get(position), null), true);
-        } catch (TokenUriInvalidException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+            return gson.fromJson(str, Token.class);
+        } catch (JsonSyntaxException jse) {
+            // Backwards compatibility for URL-based persistence.
+            try {
+                return new Token(str, true);
+            } catch (TokenUriInvalidException tuie) {
+                tuie.printStackTrace();
+            }
         }
 
         return null;
     }
 
-    public void add(String uri) throws TokenUriInvalidException {
-        Token token = new Token(uri, false);
+    public void add(Token token) throws TokenUriInvalidException {
         String key = token.getID();
 
         if (prefs.contains(key))
@@ -66,7 +65,7 @@ public class TokenPersistence {
 
         List<String> order = getTokenOrder();
         order.add(0, key);
-        setTokenOrder(order).putString(key, token.toString()).apply();
+        setTokenOrder(order).putString(key, gson.toJson(token)).apply();
     }
 
     public void move(int fromPosition, int toPosition) {
@@ -90,6 +89,6 @@ public class TokenPersistence {
     }
 
     public void save(Token token) {
-        prefs.edit().putString(token.getID(), token.toString()).apply();
+        prefs.edit().putString(token.getID(), gson.toJson(token)).apply();
     }
 }

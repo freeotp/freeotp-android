@@ -21,6 +21,7 @@
 package org.fedorahosted.freeotp.add;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 import org.fedorahosted.freeotp.TokenPersistence;
 
@@ -32,7 +33,7 @@ public abstract class BaseActivity extends Activity {
     protected void onTokenURI(String uri) {
         try {
             if (uri != null)
-                new TokenPersistence(this).add(uri);
+                new TokenPersistence(this).add(new Token(uri));
             finish();
         } catch (TokenUriInvalidException e) {
             Toast.makeText(this, R.string.invalid_token, Toast.LENGTH_SHORT).show();
