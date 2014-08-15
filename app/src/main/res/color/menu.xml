@@ -4,7 +4,7 @@
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
    -
-   - Copyright (C) 2013  Nathaniel McCallum, Red Hat
+   - Copyright (C) 2014  Nathaniel McCallum, Red Hat
    -
    - Licensed under the Apache License, Version 2.0 (the "License");
    - you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<resources>
-    <declare-styleable name="ProgressCircle">
-        <attr name="max" format="integer" />
-        <attr name="outer" format="boolean" />
-        <attr name="hollow" format="boolean" />
-    </declare-styleable>
-</resources>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@android:color/holo_blue_dark" android:state_selected="true" />
+    <item android:color="@android:color/holo_blue_dark" android:state_pressed="true" />
+    <item android:color="@android:color/holo_blue_dark" android:state_focused="true" />
+    <item android:color="#99333333" />
+</selector>

@@ -36,7 +36,6 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.adapters.TokenUIMenuAdapter;
 import org.fedorahosted.freeotp.add.AddActivity;
 import org.fedorahosted.freeotp.add.ScanActivity;
 
@@ -52,15 +51,15 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
-    private TokenUIMenuAdapter mTokenAdapter;
-    private DataSetObserver    mDataSetObserver;
+    private TokenAdapter mTokenAdapter;
+    private DataSetObserver mDataSetObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        mTokenAdapter = new TokenUIMenuAdapter(this);
+        mTokenAdapter = new TokenAdapter(this);
         ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
 
         // Don't permit screenshots since these might contain OTP codes.

@@ -4,7 +4,7 @@
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
    -
-   - Copyright (C) 2013  Nathaniel McCallum, Red Hat
+   - Copyright (C) 2014  Nathaniel McCallum, Red Hat
    -
    - Licensed under the Apache License, Version 2.0 (the "License");
    - you may not use this file except in compliance with the License.
@@ -20,19 +20,22 @@
    -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:dither="true" android:shape="rectangle">
-            <solid android:color="#CCCCCC" />
-            <corners android:radius="2dp" />
+    <item android:top="3dp" android:bottom="15dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/menu" />
+            <size android:width="4dp" android:height="4dp" />
         </shape>
     </item>
-    <item android:bottom="2dp">
-        <shape android:dither="true" android:shape="rectangle">
-            <solid android:color="#FFFFFF" />
-            <corners android:radius="2dp" />
-            <padding
-                android:bottom="2dp"
-                />
+    <item android:top="9dp" android:bottom="9dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/menu" />
+            <size android:width="4dp" android:height="4dp" />
+        </shape>
+    </item>
+    <item android:top="15dp" android:bottom="3dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/menu" />
+            <size android:width="4dp" android:height="4dp" />
         </shape>
     </item>
 </layer-list>

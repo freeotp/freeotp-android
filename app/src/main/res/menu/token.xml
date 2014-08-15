@@ -20,12 +20,14 @@
    -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/action_rename"
+        android:id="@+id/action_edit"
         android:icon="@drawable/ic_action_edit"
-        android:title="@string/rename" />
+        android:title="@string/edit"
+        />
 
     <item
         android:id="@+id/action_delete"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/delete" />
+        android:title="@string/delete"
+        />
 </menu>

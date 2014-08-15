@@ -18,19 +18,20 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.adapters;
-
-import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPersistence;
+package org.fedorahosted.freeotp;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-public abstract class TokenPersistenceAdapter extends ReorderableBaseAdapter {
+public class TokenAdapter extends BaseReorderableAdapter {
     private final TokenPersistence mTokenPersistence;
+    private final LayoutInflater mLayoutInflater;
 
-    public TokenPersistenceAdapter(Context ctx) {
+    public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
+        mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -56,8 +57,11 @@ public abstract class TokenPersistenceAdapter extends ReorderableBaseAdapter {
 
     @Override
     protected void bindView(View view, int position) {
-        bindView(view, position, getItem(position));
+        ((TokenLayout) view).setToken(position, getItem(position));
     }
 
-    protected abstract void bindView(View view, int position, Token token);
+    @Override
+    protected View createView(ViewGroup parent, int type) {
+        return mLayoutInflater.inflate(R.layout.token, parent, false);
+    }
 }

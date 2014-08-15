@@ -47,6 +47,8 @@ public class Token {
     private String issuerAlt;
     private String label;
     private String labelAlt;
+    private String image;
+    private String imageAlt;
     private TokenType type;
     private String algo;
     private byte[] secret;
@@ -277,5 +279,24 @@ public class Token {
     @Override
     public String toString() {
         return toUri().toString();
+    }
+
+    public void setImage(Uri image) {
+        imageAlt = null;
+        if (image == null)
+            return;
+
+        if (this.image == null || !Uri.parse(this.image).equals(image))
+            imageAlt = image.toString();
+    }
+
+    public Uri getImage() {
+        if (imageAlt != null)
+            return Uri.parse(imageAlt);
+
+        if (image != null)
+            return Uri.parse(image);
+
+        return null;
     }
 }

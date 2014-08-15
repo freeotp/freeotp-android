@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.adapters;
+package org.fedorahosted.freeotp;
 
 import android.content.ClipData;
 import android.view.DragEvent;
@@ -29,8 +29,8 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public abstract class ReorderableBaseAdapter extends BaseAdapter {
-    private static final int KEY = ReorderableBaseAdapter.class.hashCode();
+public abstract class BaseReorderableAdapter extends BaseAdapter {
+    private static final int KEY = BaseReorderableAdapter.class.hashCode();
 
     private class Reference<T> {
         public Reference(T t) {

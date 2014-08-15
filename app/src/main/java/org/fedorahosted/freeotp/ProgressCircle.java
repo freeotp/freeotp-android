@@ -29,17 +29,19 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 
 public class ProgressCircle extends View {
-    private Paint   mPaintInner;
-    private Paint   mPaintOuter;
+    private Paint   mPaint;
     private RectF   mRectF;
     private Rect    mRect;
-    private int     mProgressInner;
-    private int     mProgressOuter;
+    private int     mProgress;
     private int     mMax;
-    private boolean mOuter;
+    private boolean mHollow;
+    private float   mPadding;
+    private float   mStrokeWidth;
 
     public ProgressCircle(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -57,41 +59,29 @@ public class ProgressCircle extends View {
     }
 
     private void setup(Context context, AttributeSet attrs) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        mPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, dm);
+        mStrokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, dm);
+
+        mRectF = new RectF();
+        mRect = new Rect();
+
+        mPaint = new Paint();
+        mPaint.setARGB(0x99, 0x33, 0x33, 0x33);
+        mPaint.setAntiAlias(true);
+        mPaint.setStrokeCap(Paint.Cap.BUTT);
+
         if (attrs != null) {
             Theme t = context.getTheme();
             TypedArray a = t.obtainStyledAttributes(attrs, R.styleable.ProgressCircle, 0, 0);
 
             try {
-                mMax = a.getInteger(R.styleable.ProgressCircle_max, 100);
-                mOuter = a.getBoolean(R.styleable.ProgressCircle_outer, false);
+                setMax(a.getInteger(R.styleable.ProgressCircle_max, 100));
+                setHollow(a.getBoolean(R.styleable.ProgressCircle_hollow, false));
             } finally {
                 a.recycle();
             }
         }
-
-        mRectF = new RectF();
-        mRect = new Rect();
-
-        mPaintInner = new Paint();
-        mPaintInner.setARGB(0x99, 0x33, 0x33, 0x33);
-        mPaintInner.setAntiAlias(true);
-        mPaintInner.setStyle(Style.FILL_AND_STROKE);
-        mPaintInner.setStrokeCap(Paint.Cap.BUTT);
-
-        mPaintOuter = new Paint();
-        mPaintOuter.setARGB(0x99, 0x33, 0x33, 0x33);
-        mPaintOuter.setAntiAlias(true);
-        mPaintOuter.setStyle(Style.STROKE);
-        mPaintOuter.setStrokeCap(Paint.Cap.BUTT);
-        mPaintOuter.setStrokeWidth(8);
-    }
-
-    public void setOuter(boolean outer) {
-        this.mOuter = outer;
-    }
-
-    public boolean getOuter() {
-        return mOuter;
     }
 
     public void setMax(int max) {
@@ -102,41 +92,38 @@ public class ProgressCircle extends View {
         return mMax;
     }
 
-    public void setProgress(int inner) {
-        mProgressInner = inner;
-
-        int percent = mProgressInner * 100 / getMax();
-        if (percent > 25 || mProgressInner == 0)
-            mPaintInner.setARGB(0x99, 0x33, 0x33, 0x33);
-        else
-            mPaintInner.setARGB(0x99, 0xff, 0xe0 * percent / 25, 0x00);
-
-        invalidate();
+    public void setHollow(boolean hollow) {
+        mHollow = hollow;
+        mPaint.setStyle(hollow ? Style.STROKE : Style.FILL);
+        mPaint.setStrokeWidth(hollow ? mStrokeWidth : 0);
     }
 
-    public void setProgress(int inner, int outer) {
-        mProgressOuter = outer;
-        setProgress(inner);
+    public boolean getHollow() {
+        return mHollow;
+    }
+
+    public void setProgress(int progress) {
+        mProgress = progress;
+
+        int percent = mProgress * 100 / getMax();
+        if (percent > 25 || mProgress == 0)
+            mPaint.setARGB(0x99, 0x33, 0x33, 0x33);
+        else
+            mPaint.setARGB(0x99, 0xff, 0xe0 * percent / 25, 0x00);
+
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         getDrawingRect(mRect);
 
-        mRect.left += getPaddingLeft() + 2;
-        mRect.top += getPaddingTop() + 2;
-        mRect.right -= getPaddingRight() + 2;
-        mRect.bottom -= getPaddingBottom() + 2;
+        mRect.left += getPaddingLeft() + mPadding;
+        mRect.top += getPaddingTop() + mPadding;
+        mRect.right -= getPaddingRight() + mPadding;
+        mRect.bottom -= getPaddingBottom() + mPadding;
         mRectF.set(mRect);
-        if (mOuter) {
-            canvas.drawArc(mRectF, -90, mProgressOuter * 360 / getMax(), false, mPaintOuter);
 
-            mRect.left += 8;
-            mRect.top += 8;
-            mRect.right -= 8;
-            mRect.bottom -= 8;
-            mRectF.set(mRect);
-        }
-        canvas.drawArc(mRectF, -90, mProgressInner * 360 / getMax(), true, mPaintInner);
+        canvas.drawArc(mRectF, -90, mProgress * 360 / getMax(), !mHollow, mPaint);
     }
 }
