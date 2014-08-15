@@ -132,6 +132,8 @@ public class Token {
             throw new TokenUriInvalidException();
         }
 
+        image = uri.getQueryParameter("image");
+
         if (internal) {
             setIssuer(uri.getQueryParameter("issueralt"));
             setLabel(uri.getQueryParameter("labelalt"));

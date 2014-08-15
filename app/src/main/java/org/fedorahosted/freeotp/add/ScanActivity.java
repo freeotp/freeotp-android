@@ -23,6 +23,7 @@ package org.fedorahosted.freeotp.add;
 import java.util.List;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.annotation.TargetApi;
@@ -37,6 +38,11 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class ScanActivity extends Activity implements SurfaceHolder.Callback {
     private final CameraInfo    mCameraInfo  = new CameraInfo();
@@ -92,8 +98,34 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                if (TokenPersistence.addWithToast(ScanActivity.this, result))
+                Token token = TokenPersistence.addWithToast(ScanActivity.this, result);
+                if (token == null) {
                     finish();
+                    return;
+                }
+
+                final ImageView image = (ImageView) findViewById(R.id.image);
+                Picasso.with(ScanActivity.this)
+                        .load(token.getImage())
+                        .placeholder(R.drawable.scan)
+                        .into(image, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+                                image.setAlpha(0.9f);
+                                image.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, 2000);
+                            }
+
+                            @Override
+                            public void onError() {
+                                finish();
+                            }
+                        });
             }
         };
     }

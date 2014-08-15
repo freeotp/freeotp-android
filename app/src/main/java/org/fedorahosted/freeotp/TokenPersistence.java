@@ -32,17 +32,17 @@ public class TokenPersistence {
         return prefs.edit().putString(ORDER, gson.toJson(order));
     }
 
-    public static boolean addWithToast(Context ctx, String uri) {
+    public static Token addWithToast(Context ctx, String uri) {
         try {
-            if (uri != null)
-                new TokenPersistence(ctx).add(new Token(uri));
-            return true;
+            Token token = new Token(uri);
+            new TokenPersistence(ctx).add(token);
+            return token;
         } catch (TokenUriInvalidException e) {
             Toast.makeText(ctx, R.string.invalid_token, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 
     public TokenPersistence(Context ctx) {

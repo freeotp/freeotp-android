@@ -106,7 +106,7 @@ public class AddActivity extends Activity implements OnItemSelectedListener, Vie
             uri = uri.concat(String.format("&counter=%d", interval));
 
         // Add the token
-        if (TokenPersistence.addWithToast(this, uri))
+        if (TokenPersistence.addWithToast(this, uri) != null)
             finish();
     }
 
