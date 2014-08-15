@@ -59,7 +59,7 @@ public class AddTextWatcher implements TextWatcher {
         if (mLabel.getText().length() == 0)
             return;
 
-        if (mSecret.getText().length() == 0 || mSecret.getText().length() % 8 != 0)
+        if (mSecret.getText().length() < 8)
             return;
 
         if (mInterval.getText().length() == 0)
