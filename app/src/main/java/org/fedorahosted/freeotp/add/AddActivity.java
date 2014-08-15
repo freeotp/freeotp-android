@@ -23,7 +23,9 @@ package org.fedorahosted.freeotp.add;
 import java.util.Locale;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.TokenPersistence;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextWatcher;
@@ -35,7 +37,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AddActivity extends BaseActivity implements OnItemSelectedListener, View.OnClickListener {
+public class AddActivity extends Activity implements OnItemSelectedListener, View.OnClickListener {
     private static final String DEFAULT_INTERVAL = "30";
     private static final String DEFAULT_COUNTER  = "0";
 
@@ -104,7 +106,8 @@ public class AddActivity extends BaseActivity implements OnItemSelectedListener,
             uri = uri.concat(String.format("&counter=%d", interval));
 
         // Add the token
-        onTokenURI(uri);
+        if (TokenPersistence.addWithToast(this, uri))
+            finish();
     }
 
     @Override

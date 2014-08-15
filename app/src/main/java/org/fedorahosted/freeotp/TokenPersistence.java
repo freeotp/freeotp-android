@@ -8,6 +8,8 @@ import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -28,6 +30,19 @@ public class TokenPersistence {
 
     private SharedPreferences.Editor setTokenOrder(List<String> order) {
         return prefs.edit().putString(ORDER, gson.toJson(order));
+    }
+
+    public static boolean addWithToast(Context ctx, String uri) {
+        try {
+            if (uri != null)
+                new TokenPersistence(ctx).add(new Token(uri));
+            return true;
+        } catch (TokenUriInvalidException e) {
+            Toast.makeText(ctx, R.string.invalid_token, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public TokenPersistence(Context ctx) {

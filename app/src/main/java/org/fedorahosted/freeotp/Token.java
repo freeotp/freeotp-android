@@ -128,6 +128,8 @@ public class Token {
             secret = Base32String.decode(s);
         } catch (DecodingException e) {
             throw new TokenUriInvalidException();
+        } catch (NullPointerException e) {
+            throw new TokenUriInvalidException();
         }
 
         if (internal) {

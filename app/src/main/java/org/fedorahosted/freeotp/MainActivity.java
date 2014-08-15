@@ -42,6 +42,7 @@ import org.fedorahosted.freeotp.add.ScanActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onNewIntent(getIntent());
         setContentView(R.layout.main);
 
         mTokenAdapter = new TokenAdapter(this);
@@ -118,5 +120,14 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         }
 
         return false;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Uri uri = intent.getData();
+        if (uri != null)
+            TokenPersistence.addWithToast(this, uri.toString());
     }
 }

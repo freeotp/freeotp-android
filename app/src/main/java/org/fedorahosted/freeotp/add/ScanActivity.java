@@ -23,8 +23,10 @@ package org.fedorahosted.freeotp.add;
 import java.util.List;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
@@ -36,7 +38,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback {
+public class ScanActivity extends Activity implements SurfaceHolder.Callback {
     private final CameraInfo    mCameraInfo  = new CameraInfo();
     private final ScanAsyncTask mScanAsyncTask;
     private final int           mCameraId;
@@ -90,7 +92,8 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                onTokenURI(result);
+                if (TokenPersistence.addWithToast(ScanActivity.this, result))
+                    finish();
             }
         };
     }
