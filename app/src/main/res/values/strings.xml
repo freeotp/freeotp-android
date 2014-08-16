@@ -46,11 +46,6 @@
         <item quantity="other">%d tokens selected</item>
     </plurals>
 
-    <string-array name="token_types">
-        <item>Time-based (TOTP)</item>
-        <item>Counter-based (HOTP)</item>
-    </string-array>
-
     <string-array name="algorithms">
         <item>MD5</item>
         <item>SHA1</item>

@@ -62,7 +62,7 @@
             android:name=".add.AddActivity"
             android:label="@string/add_token"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateVisible"
             />
 
         <activity

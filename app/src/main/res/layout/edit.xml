@@ -21,72 +21,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <FrameLayout
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        >
-        <ImageButton
-            android:id="@+id/image"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="104dp"
-            android:layout_height="104dp"
-            android:layout_gravity="left"
-            android:padding="4dp"
-            android:src="@drawable/logo"
-            android:scaleType="centerInside"
-            />
-
-        <EditText
-            android:id="@+id/issuer"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="104dp"
-            android:layout_marginTop="0dp"
-            android:inputType="textNoSuggestions"
-            android:hint="jdoe@example.com"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            />
-
-        <EditText
-            android:id="@+id/label"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="104dp"
-            android:layout_marginTop="48dp"
-            android:inputType="textNoSuggestions"
-            android:hint="18c5d06cfcbd4927"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            />
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+        <include layout="@layout/metadata" />
 
         <Button
-            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-            android:layout_height="48dp"
-            android:layout_width="match_parent"
-            android:layout_marginTop="96dp"
-            android:text="@string/restore_defaults"
-            android:enabled="false"
             android:id="@+id/restore"
-            />
-    </FrameLayout>
+            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:enabled="false"
+            android:text="@string/restore_defaults" />
+    </LinearLayout>
 
     <View style="@style/Divider" />
 
     <LinearLayout style="@style/Dialog.Button.Layout">
         <Button
-            style="@style/Dialog.Button"
             android:id="@+id/cancel"
-            android:text="@android:string/cancel"
-            />
+            style="@style/Dialog.Button"
+            android:text="@android:string/cancel" />
 
         <Button
-            style="@style/Dialog.Button"
             android:id="@+id/save"
-            android:text="@string/save"
+            style="@style/Dialog.Button"
             android:enabled="false"
-            />
+            android:text="@string/save" />
     </LinearLayout>
 </LinearLayout>
