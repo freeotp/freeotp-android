@@ -26,7 +26,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/token"
     >
-    <org.fedorahosted.freeotp.CardImageView
+    <ImageView
         android:id="@+id/image"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -58,54 +58,58 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="96dp"
-        android:layout_marginRight="32dp"
         android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:gravity="left|center"
         android:text="01234567"
-        android:textSize="38sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         android:typeface="monospace"
         />
 
-    <TextView
-        android:id="@+id/issuer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="96dp"
         android:layout_marginTop="48dp"
         android:paddingLeft="8dp"
-        android:ellipsize="end"
-        android:gravity="left|top"
-        android:singleLine="true"
-        android:text="example@example.com"
-        android:textColor="@android:color/primary_text_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        />
+        android:paddingRight="32dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/issuer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:singleLine="true"
+            android:text="example@example.com"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="72dp"
-        android:paddingLeft="8dp"
-        android:ellipsize="end"
-        android:gravity="left|top"
-        android:singleLine="true"
-        android:text="eb40924b-1d13-4807-9a76-30eb7ffa7eba"
-        android:textColor="@android:color/secondary_text_light"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        />
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:singleLine="true"
+            android:text="eb40924b-1d13-4807-9a76-30eb7ffa7eba"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/menu"
         android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="8dp"
-        android:padding="6dp"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom|right"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:src="@drawable/menu"
         />
 </org.fedorahosted.freeotp.TokenLayout>

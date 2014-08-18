@@ -20,9 +20,13 @@
    -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false"
-          android:drawable="@drawable/token_disabled" />
-    <item android:state_pressed="true"
-          android:drawable="@drawable/token_pressed" />
-    <item android:drawable="@drawable/token_normal" />
+    <item android:state_enabled="false">
+        <color android:color="#7FFFFFFF" />
+    </item>
+    <item android:state_pressed="true">
+        <color android:color="@android:color/transparent" />
+    </item>
+    <item>
+        <color android:color="#FFFFFFFF" />
+    </item>
 </selector>
