@@ -28,7 +28,7 @@
     <string name="about_icons">Some icons used by this application are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.</string>
 
     <string name="link_website">&lt;a href=&quot;http://freeotp.fedorahosted.org&quot;&gt;website&lt;/a&gt;</string>
-    <string name="link_report_a_problem">&lt;a href=&quot;http://fedorahosted.org/freeotp/newticket&quot;&gt;Report a Problem&lt;/a&gt;</string>
+    <string name="link_report_a_problem">&lt;a href=&quot;https://fedorahosted.org/freeotp/wiki/ProblemReport&quot;&gt;Report a Problem&lt;/a&gt;</string>
     <string name="link_ask_for_help">&lt;a href=&quot;http://lists.fedorahosted.org/mailman/listinfo/freeotp-devel&quot;&gt;Ask for Help&lt;/a&gt;</string>
     <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
 
