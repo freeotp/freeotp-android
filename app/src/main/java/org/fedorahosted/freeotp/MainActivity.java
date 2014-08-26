@@ -87,6 +87,12 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mTokenAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);

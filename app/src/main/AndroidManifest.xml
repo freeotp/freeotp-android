@@ -82,6 +82,7 @@
             android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
