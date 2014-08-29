@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import org.fedorahosted.freeotp.edit.DeleteActivity;
 import org.fedorahosted.freeotp.edit.EditActivity;
@@ -123,6 +124,9 @@ public class TokenAdapter extends BaseReorderableAdapter {
 
                 // Copy code to clipboard.
                 mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
+                Toast.makeText(v.getContext().getApplicationContext(),
+                        R.string.code_copied,
+                        Toast.LENGTH_SHORT).show();
 
                 mTokenCodes.put(token.getID(), codes);
                 ((TokenLayout) v).start(token.getType(), codes, true);

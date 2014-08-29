@@ -18,6 +18,7 @@
     <string name="algorithm">Algorithm</string>
     <string name="digits">Digits</string>
     <string name="save">Save</string>
+    <string name="code_copied">Code copied to clipboard.</string>
 
     <string name="about_freeotp">About FreeOTP</string>
     <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
