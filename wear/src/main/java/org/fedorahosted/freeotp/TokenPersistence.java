@@ -1,33 +1,23 @@
 package org.fedorahosted.freeotp;
 
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
-import org.fedorahosted.freeotp.wear.TokenSyncService;
-
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.IBinder;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+
+import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
+
+import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TokenPersistence {
     private static final String NAME = "tokens";
@@ -126,11 +116,9 @@ public class TokenPersistence {
     }
 
     public void sync(Token token, GoogleApiClient mGoogleClient) {
-        PutDataMapRequest dataMapRequest = PutDataMapRequest.create("/tokens/" + token.getID());
-        DataMap dataMap = dataMapRequest.getDataMap();
-        dataMap.putLong("time", new Date().getTime());
-        dataMap.putString(TOKEN_KEY, new Gson().toJson(token));
-        PutDataRequest request = dataMapRequest.asPutDataRequest();
+        PutDataMapRequest dataMap = PutDataMapRequest.create("/tokens/" + token.getWearTokenCategory().name());
+        dataMap.getDataMap().putString(TOKEN_KEY, new Gson().toJson(token));
+        PutDataRequest request = dataMap.asPutDataRequest();
         Wearable.DataApi.putDataItem(mGoogleClient, request);
     }
 }
