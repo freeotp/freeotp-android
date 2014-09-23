@@ -24,6 +24,11 @@
         android:icon="@drawable/ic_action_edit"
         android:title="@string/edit"
         />
+    <item
+        android:id="@+id/action_wear"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="@string/send_to_wear"
+        />
 
     <item
         android:id="@+id/action_delete"

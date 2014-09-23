@@ -20,6 +20,11 @@
 
 package org.fedorahosted.freeotp;
 
+import android.net.Uri;
+
+import com.google.android.apps.authenticator.Base32String;
+import com.google.android.apps.authenticator.Base32String.DecodingException;
+
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -27,11 +32,6 @@ import java.util.Locale;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import android.net.Uri;
-
-import com.google.android.apps.authenticator.Base32String;
-import com.google.android.apps.authenticator.Base32String.DecodingException;
 
 public class Token {
     public static class TokenUriInvalidException extends Exception {
