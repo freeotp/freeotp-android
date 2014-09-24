@@ -9,6 +9,7 @@
     app:rectLayout="@layout/rect_activity_fetch_auth_token"
     app:roundLayout="@layout/round_activity_fetch_auth_token"
     android:background="@drawable/logo"
+    android:keepScreenOn="false"
     tools:context=".FetchAuthToken"
     tools:deviceIds="wear">
 </android.support.wearable.view.WatchViewStub>
