@@ -10,13 +10,19 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.data.FreezableUtils;
 import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Wearable;
+import com.google.gson.Gson;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
+
+import java.util.List;
 
 
 public class FetchAuthToken extends Activity implements DataApi.DataListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -56,15 +62,23 @@ public class FetchAuthToken extends Activity implements DataApi.DataListener, Go
     }
 
     @Override
-    public void onDataChanged(DataEventBuffer dataEvents) {
+    public void onDataChanged(final DataEventBuffer dataEvents) {
         final TokenPersistence persistence = new TokenPersistence(getApplicationContext());
+        final List<DataEvent> events = FreezableUtils
+                .freezeIterable(dataEvents);
+
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
 
+
+
                 if (persistence.length() > 0) {
-                    Token token = persistence.get(0);
+                    DataMapItem dataMapItem = DataMapItem.fromDataItem(events.get(0).getDataItem());
+                    String tokenJson = dataMapItem.getDataMap().getString(TokenPersistence.TOKEN_KEY);
+                    Token token = new Gson().fromJson(tokenJson, Token.class);
                     mTextView.setText(token.generateCodes().getCurrentCode());
+                    dataEvents.release();
                 } else {
                     mTextView.setText("--- ---");
                 }
