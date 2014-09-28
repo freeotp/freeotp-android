@@ -46,5 +46,6 @@
     </string-array>
 
     <string name="title_activity_manage_tokens">ManageTokens</string>
+    <string name="edit_on_phone">Edit On Phone</string>
 
 </resources>

@@ -83,6 +83,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
     @Override
     protected void move(int fromPosition, int toPosition) {
         mTokenPersistence.move(fromPosition, toPosition);
+        mTokenPersistence.sync(mGoogleClient);
         notifyDataSetChanged();
     }
 
@@ -113,7 +114,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
                     case R.id.action_wear:
                         if (mGoogleClient != null) {
                             token.setWearTokenCategory(Token.WearTokenCategory.VPN);
-                            new TokenPersistence(ctx).sync(token, mGoogleClient);
+                            new TokenPersistence(ctx).sync( mGoogleClient);
                         } else {
                             Toast.makeText(ctx, "Google Play Services not connected", Toast.LENGTH_LONG).show();
                         }
@@ -134,6 +135,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 Token token = tp.get(position);
                 TokenCode codes = token.generateCodes();
                 tp.save(token);
+                tp.sync(mGoogleClient);
 
                 // Copy code to clipboard.
                 mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));

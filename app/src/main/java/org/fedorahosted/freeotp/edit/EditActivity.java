@@ -156,6 +156,7 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
                 token.setLabel(mLabel.getText().toString());
                 token.setImage(mImageDisplay);
                 tp.save(token);
+                tp.sync(mGoogleApiClient);
 
             case R.id.cancel:
                 finish();
