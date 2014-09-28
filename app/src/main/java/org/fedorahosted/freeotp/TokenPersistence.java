@@ -125,12 +125,20 @@ public class TokenPersistence {
         prefs.edit().putString(token.getID(), gson.toJson(token)).apply();
     }
 
-    public void sync(Token token, GoogleApiClient mGoogleClient) {
-        PutDataMapRequest dataMapRequest = PutDataMapRequest.create("/tokens/" + token.getID());
-        DataMap dataMap = dataMapRequest.getDataMap();
-        dataMap.putLong("time", new Date().getTime());
-        dataMap.putString(TOKEN_KEY, new Gson().toJson(token));
-        PutDataRequest request = dataMapRequest.asPutDataRequest();
+
+    public void sync(GoogleApiClient mGoogleClient) {
+        PutDataMapRequest dataMap = PutDataMapRequest.create("/tokens");
+        int length = length();
+        for (int index = 0; index < length; index++) {
+            Token token = get(index);
+            dataMap.getDataMap().putString(token.getID(), new Gson().toJson(token));
+        }
+        dataMap.getDataMap().putString(ORDER, prefs.getString(ORDER, "[]"));
+        dataMap.getDataMap().putLong("time", new Date().getTime());
+
+        PutDataRequest request = dataMap.asPutDataRequest();
         Wearable.DataApi.putDataItem(mGoogleClient, request);
+
     }
+
 }

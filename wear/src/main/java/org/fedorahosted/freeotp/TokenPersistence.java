@@ -21,8 +21,9 @@ import java.util.List;
 
 public class TokenPersistence {
     private static final String NAME = "tokens";
-    private static final String ORDER = "tokenOrder";
+    public static final String ORDER = "tokenOrder";
     public static final String TOKEN_KEY = "org.jboss.aerogear.Token";
+    private static final String DEFAULT_TOKEN = "org.jboss.aerogear.DefaultTokenId";
     private final SharedPreferences prefs;
     private final Gson gson;
     private final Context ctx;
@@ -116,9 +117,42 @@ public class TokenPersistence {
     }
 
     public void sync(Token token, GoogleApiClient mGoogleClient) {
-        PutDataMapRequest dataMap = PutDataMapRequest.create("/tokens/" + token.getWearTokenCategory().name());
-        dataMap.getDataMap().putString(TOKEN_KEY, new Gson().toJson(token));
+        PutDataMapRequest dataMap = PutDataMapRequest.create("/tokens");
+        int length = length();
+        dataMap.getDataMap().putString(token.getID(), new Gson().toJson(token));
+
         PutDataRequest request = dataMap.asPutDataRequest();
         Wearable.DataApi.putDataItem(mGoogleClient, request);
+
+    }
+
+    public String getDefaultTokenId() {
+        return prefs.getString(DEFAULT_TOKEN, "");
+    }
+
+    public void setDefaultTokenId(String tokenId) {
+        prefs.edit().putString(DEFAULT_TOKEN, tokenId).apply();
+    }
+
+    public Token getDefaultToken() {
+        String str = prefs.getString(getDefaultTokenId(), null);
+        if (str == null) {
+            Token token = get(0);
+            setDefaultTokenId(token.getID());
+            return token;
+        }
+        return gson.fromJson(str, Token.class);
+    }
+
+    public void setOrder(String order) {
+        prefs.edit().putString(ORDER, order).apply();
+    }
+
+    public void clear() {
+        int length = length();
+        for (int i = 0; i < length; i++) {
+            delete(0);
+        }
+
     }
 }

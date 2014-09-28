@@ -26,8 +26,6 @@
             android:name="net.sagaoftherealms.wearauthenticator.FetchAuthToken"
             android:label="Display my token" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

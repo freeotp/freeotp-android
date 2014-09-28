@@ -7,5 +7,22 @@
     tools:context=".FetchAuthToken"
     tools:deviceIds="wear_square">
 
+    <RelativeLayout style="@style/TokenContainer">
 
+        <TextView
+            android:id="@+id/label"
+            style="@style/OTPText"
+            android:textSize="14dp"
+            android:shadowColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/button"
+            android:text="Show when launched with voice" />
+        <ImageView
+            android:id="@+id/button"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/star_big_off"
+            />
+    </RelativeLayout>
 </RelativeLayout>

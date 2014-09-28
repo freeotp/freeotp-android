@@ -51,8 +51,9 @@ public class FetchAuthToken extends Activity implements DataApi.DataListener, Go
                 mTextView = (TextView) stub.findViewById(R.id.token_text);
                 TokenPersistence persistence = new TokenPersistence(getApplicationContext());
                 if (persistence.length() > 0) {
-                    Token token = persistence.get(0);
+                    Token token = persistence.getDefaultToken();
                     mTextView.setText(token.generateCodes().getCurrentCode());
+                    persistence.sync(token, mGoogleApiClient);
                 } else {
                     mTextView.setText("--- ---");
                 }
