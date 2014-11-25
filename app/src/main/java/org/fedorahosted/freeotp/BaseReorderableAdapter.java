@@ -30,8 +30,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public abstract class BaseReorderableAdapter extends BaseAdapter {
-    private static final int KEY = BaseReorderableAdapter.class.hashCode();
-
     private class Reference<T> {
         public Reference(T t) {
             reference = t;
@@ -57,8 +55,8 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
                         srcView.setVisibility(View.VISIBLE);
                         dstView.setVisibility(View.INVISIBLE);
 
-                        move(((Integer) srcView.getTag(KEY)).intValue(),
-                             ((Integer) dstView.getTag(KEY)).intValue());
+                        move(((Integer) srcView.getTag(R.id.reorder_key)).intValue(),
+                             ((Integer) dstView.getTag(R.id.reorder_key)).intValue());
                         ref.reference = dstView;
                         break;
 
@@ -98,7 +96,7 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
             });
         }
 
-        convertView.setTag(KEY, Integer.valueOf(position));
+        convertView.setTag(R.id.reorder_key, Integer.valueOf(position));
         bindView(convertView, position);
         return convertView;
     }
