@@ -75,12 +75,12 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
     }
 
     private static int findCamera(CameraInfo cameraInfo) {
-        int cameraId = Camera.getNumberOfCameras() - 1;
+        int cameraId = Camera.getNumberOfCameras();
 
-        // Find a back-facing camera, otherwise use the first camera.
-        for (; cameraId > 0; cameraId--) {
+        // Find a back-facing camera. Otherwise, use the first camera.
+        while (cameraId-- > 0) {
             Camera.getCameraInfo(cameraId, cameraInfo);
-            if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK)
+            if (cameraId == 0 || cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK)
                 break;
         }
 
