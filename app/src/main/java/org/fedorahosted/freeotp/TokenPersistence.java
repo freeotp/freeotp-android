@@ -8,7 +8,6 @@ import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -16,7 +15,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class TokenPersistence {
-    private static final String NAME  = "tokens";
+    protected static final String NAME  = "tokens";
     private static final String ORDER = "tokenOrder";
     private final SharedPreferences prefs;
     private final Gson gson;
