@@ -117,7 +117,7 @@ public class Token {
                 String c = uri.getQueryParameter("counter");
                 if (c == null)
                     c = "0";
-                counter = Long.parseLong(c) - 1;
+                counter = Long.parseLong(c);
             } catch (NumberFormatException e) {
                 throw new TokenUriInvalidException();
             }
