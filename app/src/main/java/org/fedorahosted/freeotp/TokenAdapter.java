@@ -43,9 +43,11 @@ public class TokenAdapter extends BaseReorderableAdapter {
     private final LayoutInflater mLayoutInflater;
     private final ClipboardManager mClipMan;
     private final Map<String, TokenCode> mTokenCodes;
+    private final OffsetPersistence mOffsetPersistence;
 
     public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
+        mOffsetPersistence = new OffsetPersistence(ctx);
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mClipMan = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
         mTokenCodes = new HashMap<String, TokenCode>();
@@ -119,7 +121,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
 
                 // Increment the token.
                 Token token = tp.get(position);
-                TokenCode codes = token.generateCodes();
+                TokenCode codes = token.generateCodes(mOffsetPersistence.getInMillis());
                 tp.save(token);
 
                 // Copy code to clipboard.

@@ -20,6 +20,11 @@
 
 package org.fedorahosted.freeotp;
 
+import android.net.Uri;
+
+import com.google.android.apps.authenticator.Base32String;
+import com.google.android.apps.authenticator.Base32String.DecodingException;
+
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -27,11 +32,6 @@ import java.util.Locale;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import android.net.Uri;
-
-import com.google.android.apps.authenticator.Base32String;
-import com.google.android.apps.authenticator.Base32String.DecodingException;
 
 public class Token {
     public static class TokenUriInvalidException extends Exception {
@@ -233,21 +233,21 @@ public class Token {
     }
 
     // NOTE: This may change internal data. You MUST save the token immediately.
-    public TokenCode generateCodes() {
-        long cur = System.currentTimeMillis();
-
+    public TokenCode generateCodes(long offsetInMillis) {
+        long timeInMillis = System.currentTimeMillis();
         switch (type) {
         case HOTP:
-            return new TokenCode(getHOTP(counter++), cur, cur + (period * 1000));
+            return new TokenCode(getHOTP(counter++), timeInMillis, timeInMillis + (period * 1000));
 
         case TOTP:
-            long counter = cur / 1000 / period;
-            return new TokenCode(getHOTP(counter + 0),
-                                 (counter + 0) * period * 1000,
-                                 (counter + 1) * period * 1000,
-                   new TokenCode(getHOTP(counter + 1),
-                                 (counter + 1) * period * 1000,
-                                 (counter + 2) * period * 1000));
+            long timeInMillisWithOffset = timeInMillis - offsetInMillis;
+            long counter = timeInMillisWithOffset / 1000 / period;
+            return new TokenCode(getHOTP(counter),
+                    timeInMillis,
+                    timeInMillis + (period * 1000),
+                    new TokenCode(getHOTP(counter + 1),
+                            timeInMillis + 2 * (period * 1000),
+                            timeInMillis + 3 * period * 1000));
         }
 
         return null;

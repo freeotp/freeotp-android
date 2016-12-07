@@ -33,6 +33,12 @@
         android:title="@string/add_token" />
 
     <item
+        android:id="@+id/action_offset"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_timer"
+        android:title="@string/set_offset" />
+
+    <item
         android:id="@+id/action_about"
         android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_info_details"

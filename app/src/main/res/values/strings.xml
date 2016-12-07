@@ -8,6 +8,7 @@
     <string name="restore_defaults">Restore Defaults</string>
     <string name="no_keys">No OTP keys installed.</string>
     <string name="add_token">Add Token</string>
+    <string name="set_offset">Define Offset</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="interval">Interval</string>
     <string name="counter">Counter</string>
@@ -37,6 +38,9 @@
 
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>
+    <string name="offset_dialog_text">Define your offset (in seconds):</string>
+    <string name="offset_accepts_only_digits">Please only enter a number</string>
+    <string name="offset_dialog_save">Save</string>
 
     <string-array name="algorithms">
         <item>MD5</item>

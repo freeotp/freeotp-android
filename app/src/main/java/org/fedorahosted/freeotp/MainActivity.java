@@ -36,9 +36,6 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.add.AddActivity;
-import org.fedorahosted.freeotp.add.ScanActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -50,6 +47,9 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
+
+import org.fedorahosted.freeotp.add.AddActivity;
+import org.fedorahosted.freeotp.add.ScanActivity;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
@@ -105,6 +105,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
+        menu.findItem(R.id.action_offset).setOnMenuItemClickListener(this);
         return true;
     }
 
@@ -122,6 +123,10 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 
         case R.id.action_about:
             startActivity(new Intent(this, AboutActivity.class));
+            return true;
+
+        case R.id.action_offset:
+            OffsetAlertDialogBuilder.create(this).show();
             return true;
         }
 

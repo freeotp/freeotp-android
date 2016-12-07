@@ -1,19 +1,18 @@
 package org.fedorahosted.freeotp;
 
-import java.lang.reflect.Type;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
+
+import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TokenPersistence {
     private static final String NAME  = "tokens";
