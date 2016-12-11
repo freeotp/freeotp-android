@@ -138,7 +138,7 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image:
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), 0);
                 break;
 
