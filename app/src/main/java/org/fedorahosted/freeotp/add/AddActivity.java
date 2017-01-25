@@ -20,6 +20,9 @@
 
 package org.fedorahosted.freeotp.add;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Locale;
@@ -29,8 +32,10 @@ import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -147,11 +152,25 @@ public class AddActivity extends Activity implements View.OnClickListener, Compo
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            mImageURL = data.getData();
-            Picasso.with(this)
-                    .load(mImageURL)
-                    .placeholder(R.drawable.logo)
-                    .into(mImage);
+            Uri imageUri = data.getData();
+            try {
+                int i = 0;
+                File f;
+                String filename;
+                do {
+                    filename = getApplicationInfo().dataDir + "/img_" + i++ + ".png";
+                    f = new File(filename);
+                } while (f.exists());
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                FileOutputStream out = new FileOutputStream(filename);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                Picasso.with(this)
+                        .load(Uri.fromFile(f))
+                        .placeholder(R.drawable.logo)
+                        .into(mImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
