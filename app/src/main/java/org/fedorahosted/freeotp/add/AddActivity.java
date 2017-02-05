@@ -24,10 +24,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+import org.fedorahosted.freeotp.GPSActivity;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.TokenPersistence;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,7 +41,7 @@ import android.widget.Spinner;
 
 import com.squareup.picasso.Picasso;
 
-public class AddActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class AddActivity extends GPSActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private final int SHA1_OFFSET = 1;
     private ImageButton mImage;
     private EditText mIssuer;
@@ -130,8 +130,10 @@ public class AddActivity extends Activity implements View.OnClickListener, Compo
                 }
 
                 // Add the token
-                if (TokenPersistence.addWithToast(this, uri) != null)
+                if (TokenPersistence.addWithToast(this, uri) != null) {
+                    new TokenPersistence(getApplicationContext()).sync(mGoogleApiClient);
                     finish();
+                }
 
                 break;
         }

@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.fedorahosted.freeotp.edit.DeleteActivity;
 import org.fedorahosted.freeotp.edit.EditActivity;
 
@@ -43,6 +45,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
     private final LayoutInflater mLayoutInflater;
     private final ClipboardManager mClipMan;
     private final Map<String, TokenCode> mTokenCodes;
+    private GoogleApiClient mGoogleClient;
 
     public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
@@ -80,6 +83,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
     @Override
     protected void move(int fromPosition, int toPosition) {
         mTokenPersistence.move(fromPosition, toPosition);
+        mTokenPersistence.sync(mGoogleClient);
         notifyDataSetChanged();
     }
 
@@ -87,7 +91,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
     protected void bindView(View view, final int position) {
         final Context ctx = view.getContext();
         TokenLayout tl = (TokenLayout) view;
-        Token token = getItem(position);
+        final Token token = getItem(position);
 
         tl.bind(token, R.menu.token, new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -106,6 +110,16 @@ public class TokenAdapter extends BaseReorderableAdapter {
                         i.putExtra(DeleteActivity.EXTRA_POSITION, position);
                         ctx.startActivity(i);
                         break;
+
+                    case R.id.action_wear:
+                        if (mGoogleClient != null) {
+                            token.setWearTokenCategory(Token.WearTokenCategory.VPN);
+                            new TokenPersistence(ctx).sync( mGoogleClient);
+                        } else {
+                            Toast.makeText(ctx, "Google Play Services not connected", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
                 }
 
                 return true;
@@ -121,6 +135,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 Token token = tp.get(position);
                 TokenCode codes = token.generateCodes();
                 tp.save(token);
+                tp.sync(mGoogleClient);
 
                 // Copy code to clipboard.
                 mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
@@ -141,5 +156,13 @@ public class TokenAdapter extends BaseReorderableAdapter {
     @Override
     protected View createView(ViewGroup parent, int type) {
         return mLayoutInflater.inflate(R.layout.token, parent, false);
+    }
+
+    public GoogleApiClient getmGoogleClient() {
+        return mGoogleClient;
+    }
+
+    public void setmGoogleClient(GoogleApiClient mGoogleClient) {
+        this.mGoogleClient = mGoogleClient;
     }
 }

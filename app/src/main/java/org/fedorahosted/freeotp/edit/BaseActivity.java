@@ -3,7 +3,9 @@ package org.fedorahosted.freeotp.edit;
 import android.app.Activity;
 import android.os.Bundle;
 
-public abstract class BaseActivity extends Activity {
+import org.fedorahosted.freeotp.GPSActivity;
+
+public abstract class BaseActivity extends GPSActivity {
     public static final String EXTRA_POSITION = "position";
     private int mPosition;
 

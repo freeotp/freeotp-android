@@ -36,11 +36,10 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.add.AddActivity;
-import org.fedorahosted.freeotp.add.ScanActivity;
-
-import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,9 +50,19 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
 
-public class MainActivity extends Activity implements OnMenuItemClickListener {
+import org.fedorahosted.freeotp.add.AddActivity;
+import org.fedorahosted.freeotp.add.ScanActivity;
+
+public class MainActivity extends GPSActivity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
     private DataSetObserver mDataSetObserver;
+
+    private BroadcastReceiver tokenUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            tokensUpdated();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +87,24 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         };
         mTokenAdapter.registerDataSetObserver(mDataSetObserver);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        registerReceiver(tokenUpdateReceiver, IntentFilter.create("newData", "vnd.android.wear/token"));
         mTokenAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(tokenUpdateReceiver);
+        mTokenAdapter.notifyDataSetChanged();
+    }
+
+    protected void tokensUpdated() {
         mTokenAdapter.notifyDataSetChanged();
     }
 
@@ -97,6 +113,18 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         super.onDestroy();
         mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);
     }
+
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mTokenAdapter.setmGoogleClient(mGoogleApiClient);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mTokenAdapter.setmGoogleClient(null);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,5 +163,13 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         Uri uri = intent.getData();
         if (uri != null)
             TokenPersistence.addWithToast(this, uri.toString());
+            new TokenPersistence(getApplicationContext()).sync(mGoogleApiClient);
     }
+
+    @Override
+    protected void onStop() {
+        mTokenAdapter.setmGoogleClient(null);
+        super.onStop();
+    }
+
 }

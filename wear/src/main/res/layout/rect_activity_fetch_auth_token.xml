@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FetchAuthToken"
+    tools:deviceIds="wear_square">
+
+    <LinearLayout style="@style/TokenContainer">
+
+        <TextView
+            android:id="@+id/token_text"
+            style="@style/OTPText"
+            android:shadowColor="@color/white"
+            android:text="--- ---" />
+
+        <TextView
+            android:id="@+id/issuer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:paddingTop="4dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+</RelativeLayout>
