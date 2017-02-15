@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.fedorahosted.freeotp" >
 
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="20" />
+
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
