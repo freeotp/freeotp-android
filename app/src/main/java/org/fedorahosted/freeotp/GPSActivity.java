@@ -62,10 +62,6 @@ public abstract class GPSActivity extends Activity implements GoogleApiClient.Co
                 // There was an error with the resolution intent. Try again.
                 mGoogleApiClient.connect();
             }
-        } else {
-            // Show dialog using GooglePlayServicesUtil.getErrorDialog()
-            showErrorDialog(result.getErrorCode());
-            mResolvingError = true;
         }
     }
 
