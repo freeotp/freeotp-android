@@ -95,7 +95,7 @@ public class ManageTokens extends Activity implements GoogleApiClient.Connection
 
 
             @Override
-            protected Object instantiateItem(ViewGroup viewGroup, int row, int col) {
+            public Object instantiateItem(ViewGroup viewGroup, int row, int col) {
                 final View view;
                 if (persistence.length() == 0) {
                     view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.no_tokens, viewGroup, false);
@@ -142,7 +142,7 @@ public class ManageTokens extends Activity implements GoogleApiClient.Connection
             }
 
             @Override
-            protected void destroyItem(ViewGroup viewGroup, int row, int col, Object o) {
+            public void destroyItem(ViewGroup viewGroup, int row, int col, Object o) {
                 viewGroup.removeView((View) o);
             }
 
