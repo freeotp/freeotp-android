@@ -103,7 +103,9 @@
 
         <service android:name=".wear.TokenSyncService">
             <intent-filter>
-                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <action android:name="com.google.android.gms.wearable.PEER_CONNECTED" />
+                <action android:name="com.google.android.gms.wearable.PEER_DISCONNECTED" />
             </intent-filter>
         </service>
 
