@@ -36,6 +36,7 @@ public class DeleteActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 new TokenPersistence(DeleteActivity.this).delete(getPosition());
+                new TokenPersistence(getApplicationContext()).sync(mGoogleApiClient);
                 finish();
             }
         });

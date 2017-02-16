@@ -22,6 +22,7 @@ package org.fedorahosted.freeotp.add;
 
 import java.util.List;
 
+import org.fedorahosted.freeotp.GPSActivity;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
@@ -44,7 +45,7 @@ import android.widget.ProgressBar;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class ScanActivity extends Activity implements SurfaceHolder.Callback {
+public class ScanActivity extends GPSActivity implements SurfaceHolder.Callback {
     private final CameraInfo    mCameraInfo  = new CameraInfo();
     private final ScanAsyncTask mScanAsyncTask;
     private final int           mCameraId;
@@ -103,6 +104,7 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
                     finish();
                     return;
                 }
+                new TokenPersistence(getApplicationContext()).sync(mGoogleApiClient);
 
                 final ImageView image = (ImageView) findViewById(R.id.image);
                 Picasso.with(ScanActivity.this)

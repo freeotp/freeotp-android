@@ -4,7 +4,12 @@ dependencies {
     compile 'com.google.zxing:core:3.+'
     compile 'com.google.code.gson:gson:2.+'
     compile 'com.squareup.picasso:picasso:2.+'
+    wearApp project(':wear')
+    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.google.android.gms:play-services-wearable:10.0.1'
 }
+
+
 
 android {
     compileSdkVersion 25

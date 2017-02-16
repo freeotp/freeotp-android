@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FetchAuthToken"
+    tools:deviceIds="wear_square">
+
+    <LinearLayout
+        style="@style/TokenContainer">
+
+        <TextView
+            android:id="@+id/token_text"
+            style="@style/OTPText"
+            android:shadowColor="@color/white"
+            android:text="No tokens are installed." />
+    </LinearLayout>
+</RelativeLayout>

@@ -38,6 +38,10 @@ public class Token {
         private static final long serialVersionUID = -1108624734612362345L;
     }
 
+    public static enum WearTokenCategory {
+        VPN, WORK, GOOGLE, NONE
+    }
+
     public static enum TokenType {
         HOTP, TOTP
     }
@@ -55,6 +59,7 @@ public class Token {
     private int digits;
     private long counter;
     private int period;
+    private WearTokenCategory wearTokenCategory = WearTokenCategory.NONE;
 
     private Token(Uri uri, boolean internal) throws TokenUriInvalidException {
         if (!uri.getScheme().equals("otpauth"))
@@ -278,6 +283,17 @@ public class Token {
         }
 
         return builder.build();
+    }
+
+    public WearTokenCategory getWearTokenCategory() {
+        return wearTokenCategory;
+    }
+
+    public void setWearTokenCategory(WearTokenCategory wearTokenCategory) {
+        if (wearTokenCategory == null) {
+            throw new IllegalArgumentException("Wear token may not be null");
+        }
+        this.wearTokenCategory = wearTokenCategory;
     }
 
     @Override
