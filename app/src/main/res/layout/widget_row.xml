@@ -35,6 +35,7 @@
             android:layout_below="@+id/widget_code"
             android:textColor="#000000"
             android:maxLines="1"
+            android:ellipsize="end"
             android:textStyle="bold"/>
 
     <TextView
