@@ -1,5 +1,6 @@
 package org.fedorahosted.freeotp.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -12,13 +13,50 @@ import org.fedorahosted.freeotp.R;
  * Created by root on 13/04/17.
  */
 public class OtpListWidgetProvider extends AppWidgetProvider {
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.list_widget);
-        final Intent serviceIntent = new Intent(context, OtpListWidgetService.class);
-        serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        widget.setRemoteAdapter(R.id.list_widget, serviceIntent);
-        appWidgetManager.updateAppWidget(appWidgetIds, widget);
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+        for (final int widgetId : appWidgetIds) {
+            final RemoteViews widget = getFirstWidget(context, widgetId);
+            appWidgetManager.updateAppWidget(widgetId, widget);
+        }
+    }
+
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        super.onReceive(context, intent);
+        final String action = intent.getAction();
+        if (OtpListWidgetService.ACTION_SHOW_CODE.equals(action) ||
+                OtpListWidgetService.ACTION_HIDE_CODE.equals(action)) {
+            int widgetId = intent.getIntExtra(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            final int codePosition = intent.getIntExtra(OtpListWidgetService.EXTRA_CODE_POSITION, 0);
+            final OtpListWidgetViewModel model = OtpListWidgetViewModel.getInstance(widgetId);
+            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+            if (OtpListWidgetService.ACTION_SHOW_CODE.equals(action)) {
+                model.addCodePositionToShow(codePosition);
+            } else {
+                model.removeCodePositionToShow(codePosition);
+            }
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.list_widget);
+        }
+    }
+
+    private RemoteViews getFirstWidget(Context context, int widgetId) {
+        final Intent serviceIntent = new Intent(context, OtpListWidgetService.class)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.list_widget);
+        widget.setRemoteAdapter(R.id.list_widget, serviceIntent);
+        widget.setEmptyView(R.id.list_widget, android.R.id.empty);
+
+        final Intent showCodeIntent = new Intent(context, OtpListWidgetProvider.class)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        showCodeIntent.setData(Uri.parse(showCodeIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        final PendingIntent showCodeIntentTemplate =
+                PendingIntent.getBroadcast(context, 0, showCodeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        widget.setPendingIntentTemplate(R.id.list_widget, showCodeIntentTemplate);
+        return widget;
     }
 }
