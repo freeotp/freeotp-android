@@ -1,12 +1,14 @@
 package org.fedorahosted.freeotp.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import com.squareup.picasso.Picasso;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
+import org.fedorahosted.freeotp.TokenPlaceholderGenerator;
 import org.fedorahosted.freeotp.TokenPersistence;
 
 import java.io.IOException;
@@ -18,25 +20,12 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
 
     private final Context context;
     private final TokenPersistence persistence;
+    private final int widgetId;
 
-    public OtpListWidgetViewsFactory(final Context context) {
+    OtpListWidgetViewsFactory(final Context context, final int widgetId) {
         this.context = context;
+        this.widgetId = widgetId;
         persistence = new TokenPersistence(context);
-    }
-
-    @Override
-    public void onCreate() {
-        // no-op
-    }
-
-    @Override
-    public void onDataSetChanged() {
-        // no-op
-    }
-
-    @Override
-    public void onDestroy() {
-        // no-op
     }
 
     @Override
@@ -60,15 +49,32 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
             e.printStackTrace();
         }
 
-        row.setTextViewText(R.id.widget_code, token.generateCodes().getCurrentCode());
         row.setTextViewText(R.id.widget_issuer, token.getIssuer());
         row.setTextViewText(R.id.widget_label, token.getLabel());
+
+        final OtpListWidgetViewModel model = OtpListWidgetViewModel.getInstance(widgetId);
+        final String code;
+        final String intentAction;
+        if (model.shouldShowCodeInPosition(position)) {
+            code = token.generateCodes().getCurrentCode();
+            persistence.save(token);
+            intentAction = OtpListWidgetService.ACTION_HIDE_CODE;
+        } else {
+            code = TokenPlaceholderGenerator.generate(token);
+            intentAction = OtpListWidgetService.ACTION_SHOW_CODE;
+        }
+        row.setTextViewText(R.id.widget_code, code);
+
+        final Intent intent = new Intent()
+                .setAction(intentAction)
+                .putExtra(OtpListWidgetService.EXTRA_CODE_POSITION, position);
+        row.setOnClickFillInIntent(R.id.widget_row_container, intent);
         return row;
     }
 
     @Override
-    public RemoteViews getLoadingView() {
-        return null;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -77,8 +83,23 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public void onCreate() {
+        // no-op
+    }
+
+    @Override
+    public void onDataSetChanged() {
+        // no-op
+    }
+
+    @Override
+    public void onDestroy() {
+        // no-op
+    }
+
+    @Override
+    public RemoteViews getLoadingView() {
+        return null;
     }
 
     @Override

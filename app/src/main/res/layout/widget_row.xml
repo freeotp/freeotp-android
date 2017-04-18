@@ -2,6 +2,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="70dp"
+        android:id="@+id/widget_row_container"
         android:layout_width="match_parent">
 
     <ImageView
