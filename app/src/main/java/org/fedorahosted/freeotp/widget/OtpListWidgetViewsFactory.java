@@ -36,6 +36,7 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
     @Override
     public RemoteViews getViewAt(int position) {
         final Token token = persistence.get(position);
+        final String tokenId = token.getID();
         final RemoteViews row = new RemoteViews(context.getPackageName(), R.layout.widget_row);
 
         try {
@@ -55,7 +56,7 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
         final OtpListWidgetViewModel model = OtpListWidgetViewModel.getInstance(widgetId);
         final String code;
         final String intentAction;
-        if (model.shouldShowCodeInPosition(position)) {
+        if (model.shouldShowCodeForTokenId(tokenId)) {
             code = token.generateCodes().getCurrentCode();
             persistence.save(token);
             intentAction = OtpListWidgetService.ACTION_HIDE_CODE;
@@ -67,7 +68,7 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
 
         final Intent intent = new Intent()
                 .setAction(intentAction)
-                .putExtra(OtpListWidgetService.EXTRA_CODE_POSITION, position);
+                .putExtra(OtpListWidgetService.EXTRA_TOKEN_ID, tokenId);
         row.setOnClickFillInIntent(R.id.widget_row_container, intent);
         return row;
     }

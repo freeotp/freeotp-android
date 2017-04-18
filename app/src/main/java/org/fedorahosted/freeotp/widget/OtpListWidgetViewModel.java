@@ -11,7 +11,7 @@ import java.util.Set;
 final class OtpListWidgetViewModel {
     private final static SparseArray<OtpListWidgetViewModel> models = new SparseArray<>();
 
-    private final Set<Integer> codePositionsToShow = new HashSet<>();
+    private final Set<String> tokenIdsToShow = new HashSet<>();
 
     private OtpListWidgetViewModel() {
     }
@@ -25,15 +25,15 @@ final class OtpListWidgetViewModel {
         return model;
     }
 
-    void addCodePositionToShow(int position) {
-        codePositionsToShow.add(position);
+    void addTokenIdToShow(final String tokenId) {
+        tokenIdsToShow.add(tokenId);
     }
 
-    void removeCodePositionToShow(int position) {
-        codePositionsToShow.remove(position);
+    void removeTokenIdToShow(final String tokenId) {
+        tokenIdsToShow.remove(tokenId);
     }
 
-    boolean shouldShowCodeInPosition(int position) {
-        return codePositionsToShow.contains(position);
+    boolean shouldShowCodeForTokenId(final String tokenId) {
+        return tokenIdsToShow.contains(tokenId);
     }
 }

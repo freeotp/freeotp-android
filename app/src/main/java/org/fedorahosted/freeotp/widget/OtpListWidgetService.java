@@ -10,7 +10,7 @@ import android.widget.RemoteViewsService;
 public class OtpListWidgetService extends RemoteViewsService {
     static final String ACTION_SHOW_CODE = "org.fedorahosted.freeotp.widget.ACTION_SHOW_CODE";
     static final String ACTION_HIDE_CODE = "org.fedorahosted.freeotp.widget.ACTION_HIDE_CODE";
-    static final String EXTRA_CODE_POSITION = "EXTRA_CODE_POSITION";
+    static final String EXTRA_TOKEN_ID = "EXTRA_TOKEN_ID";
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
