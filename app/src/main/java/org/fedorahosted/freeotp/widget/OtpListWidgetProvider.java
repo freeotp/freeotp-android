@@ -31,14 +31,14 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
                 OtpListWidgetService.ACTION_HIDE_CODE.equals(action)) {
             int widgetId = intent.getIntExtra(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            final int codePosition = intent.getIntExtra(OtpListWidgetService.EXTRA_CODE_POSITION, 0);
+            final String tokenId = intent.getStringExtra(OtpListWidgetService.EXTRA_TOKEN_ID);
             final OtpListWidgetViewModel model = OtpListWidgetViewModel.getInstance(widgetId);
             final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
             if (OtpListWidgetService.ACTION_SHOW_CODE.equals(action)) {
-                model.addCodePositionToShow(codePosition);
+                model.addTokenIdToShow(tokenId);
             } else {
-                model.removeCodePositionToShow(codePosition);
+                model.removeTokenIdToShow(tokenId);
             }
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.list_widget);
         }
