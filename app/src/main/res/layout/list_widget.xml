@@ -33,5 +33,5 @@
             android:divider="#E5E5E5"
             android:dividerHeight="1dp"
             android:id="@+id/list_widget"
-            android:background="#FFFFFF"/>
+            android:background="@android:color/white"/>
 </LinearLayout>

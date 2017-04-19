@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +18,16 @@ import org.fedorahosted.freeotp.TokenPersistence;
  * Created by root on 13/04/17.
  */
 public class OtpListWidgetProvider extends AppWidgetProvider {
+
+    /**
+     * Should be called whenever the {@link Token}s in the {@link TokenPersistence} are changed.
+     */
+    public static void notifyWidgetDataChanged(final Context context){
+        final AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        final ComponentName providerComponentName = new ComponentName(context, OtpListWidgetProvider.class);
+        final int[] widgetIds = manager.getAppWidgetIds(providerComponentName);
+        manager.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_widget);
+    }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
