@@ -9,10 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
-import org.fedorahosted.freeotp.ClipboardManagerUtil;
-import org.fedorahosted.freeotp.R;
-import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPersistence;
+import org.fedorahosted.freeotp.*;
 
 /**
  * Created by root on 13/04/17.
@@ -22,7 +19,7 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
     /**
      * Should be called whenever the {@link Token}s in the {@link TokenPersistence} are changed.
      */
-    public static void notifyWidgetDataChanged(final Context context){
+    public static void notifyWidgetDataChanged(final Context context) {
         final AppWidgetManager manager = AppWidgetManager.getInstance(context);
         final ComponentName providerComponentName = new ComponentName(context, OtpListWidgetProvider.class);
         final int[] widgetIds = manager.getAppWidgetIds(providerComponentName);
@@ -70,6 +67,8 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
         widget.setRemoteAdapter(R.id.list_widget, serviceIntent);
         widget.setEmptyView(R.id.list_widget, android.R.id.empty);
 
+        setTitleIntent(context, widget);
+
         final Intent showCodeIntent = new Intent(context, OtpListWidgetProvider.class)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         showCodeIntent.setData(Uri.parse(showCodeIntent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -77,6 +76,13 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
                 PendingIntent.getBroadcast(context, 0, showCodeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setPendingIntentTemplate(R.id.list_widget, showCodeIntentTemplate);
         return widget;
+    }
+
+    private void setTitleIntent(final Context context, final RemoteViews widget) {
+        final Intent intent = new Intent(context, MainActivity.class)
+                .setAction(Intent.ACTION_MAIN);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        widget.setOnClickPendingIntent(R.id.widget_title_container, pendingIntent);
     }
 
     private String getCodeForTokenId(final Context context, final String id) {
