@@ -3,11 +3,15 @@ package org.fedorahosted.freeotp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import org.fedorahosted.freeotp.ClipboardManagerUtil;
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.Token;
+import org.fedorahosted.freeotp.TokenPersistence;
 
 /**
  * Created by root on 13/04/17.
@@ -37,6 +41,10 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
 
             if (OtpListWidgetService.ACTION_SHOW_CODE.equals(action)) {
                 model.addTokenIdToShow(tokenId);
+                final ClipboardManager clipboardManager =
+                        (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                final String code = getCodeForTokenId(context, tokenId);
+                ClipboardManagerUtil.copyToClipboard(context, clipboardManager, code);
             } else {
                 model.removeTokenIdToShow(tokenId);
             }
@@ -58,5 +66,16 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
                 PendingIntent.getBroadcast(context, 0, showCodeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setPendingIntentTemplate(R.id.list_widget, showCodeIntentTemplate);
         return widget;
+    }
+
+    private String getCodeForTokenId(final Context context, final String id) {
+        final TokenPersistence persistence = new TokenPersistence(context);
+        for (int i = 0; i <= persistence.length(); i++) {
+            final Token token = persistence.get(i);
+            if (token.getID().equals(id)) {
+                return token.generateCodes().getCurrentCode();
+            }
+        }
+        return null;
     }
 }

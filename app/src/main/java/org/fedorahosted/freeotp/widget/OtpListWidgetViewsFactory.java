@@ -8,8 +8,8 @@ import android.widget.RemoteViewsService;
 import com.squareup.picasso.Picasso;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPlaceholderGenerator;
 import org.fedorahosted.freeotp.TokenPersistence;
+import org.fedorahosted.freeotp.TokenPlaceholderGenerator;
 
 import java.io.IOException;
 

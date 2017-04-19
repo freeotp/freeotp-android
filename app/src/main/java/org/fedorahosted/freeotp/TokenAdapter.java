@@ -20,7 +20,6 @@
 
 package org.fedorahosted.freeotp;
 
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toast;
-
 import org.fedorahosted.freeotp.edit.DeleteActivity;
 import org.fedorahosted.freeotp.edit.EditActivity;
 
@@ -123,11 +120,11 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 //save token. Image wasn't changed here, so just save it in sync
                 new TokenPersistence(ctx).save(token);
 
+                Context applicationContext = v.getContext().getApplicationContext();
+                String currentCode = codes.getCurrentCode();
+
                 // Copy code to clipboard.
-                mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
-                Toast.makeText(v.getContext().getApplicationContext(),
-                        R.string.code_copied,
-                        Toast.LENGTH_SHORT).show();
+                ClipboardManagerUtil.copyToClipboard(applicationContext, mClipMan, currentCode);
 
                 mTokenCodes.put(token.getID(), codes);
                 ((TokenLayout) v).start(token.getType(), codes, true);
