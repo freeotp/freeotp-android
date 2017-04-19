@@ -68,13 +68,7 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
         widget.setEmptyView(R.id.list_widget, android.R.id.empty);
 
         setTitleIntent(context, widget);
-
-        final Intent showCodeIntent = new Intent(context, OtpListWidgetProvider.class)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        showCodeIntent.setData(Uri.parse(showCodeIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        final PendingIntent showCodeIntentTemplate =
-                PendingIntent.getBroadcast(context, 0, showCodeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        widget.setPendingIntentTemplate(R.id.list_widget, showCodeIntentTemplate);
+        setCodeClickPendingIntentTemplate(context, widget, widgetId);
         return widget;
     }
 
@@ -83,6 +77,15 @@ public class OtpListWidgetProvider extends AppWidgetProvider {
                 .setAction(Intent.ACTION_MAIN);
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         widget.setOnClickPendingIntent(R.id.widget_title_container, pendingIntent);
+    }
+
+    private void setCodeClickPendingIntentTemplate(Context context, RemoteViews widget, int widgetId) {
+        final Intent codeClickIntent = new Intent(context, OtpListWidgetProvider.class)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        codeClickIntent.setData(Uri.parse(codeClickIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        final PendingIntent showCodeIntentTemplate =
+                PendingIntent.getBroadcast(context, 0, codeClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        widget.setPendingIntentTemplate(R.id.list_widget, showCodeIntentTemplate);
     }
 
     private String getCodeForTokenId(final Context context, final String id) {
