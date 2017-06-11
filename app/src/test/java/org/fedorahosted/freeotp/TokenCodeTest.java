@@ -56,16 +56,20 @@ public class TokenCodeTest {
 
     // Who tests the test utils?
     public static Token mockToken(String authority, String counter){
+       return mockToken(authority,counter,"FreeOTP:joe@google.com");
+    }
+
+    public static Token mockToken(String authority, String counter, String id) {
         // https://github.com/google/google-authenticator/wiki/Key-Uri-Format
         Uri mMockUri = Mockito.mock(Uri.class);
 
         when(mMockUri.getScheme()).thenReturn("otpauth");
         when(mMockUri.getAuthority()).thenReturn(authority);
-        when(mMockUri.getPath()).thenReturn("FreeOTP:joe@google.com");
+        when(mMockUri.getPath()).thenReturn(id);
         when(mMockUri.getQueryParameter("issuer")).thenReturn("FreeOTP");
         when(mMockUri.getQueryParameter("secret")).thenReturn("JBSWY3DPEHPK3PXP");
 
-        if(authority.equals("otpauth")){
+        if (authority.equals("hotp")) {
             when(mMockUri.getQueryParameter("counter")).thenReturn(counter);
         }
 
@@ -77,5 +81,4 @@ public class TokenCodeTest {
 
         return null;
     }
-
 }
