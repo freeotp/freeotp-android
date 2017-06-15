@@ -43,6 +43,11 @@ public class Token {
         HOTP, TOTP
     }
 
+    private static char[] STEAMCHARS = new char[] {
+            '2', '3', '4', '5', '6', '7', '8', '9', 'B', 'C',
+            'D', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q',
+            'R', 'T', 'V', 'W', 'X', 'Y'};
+
     private String issuerInt;
     private String issuerExt;
     private String issuerAlt;
@@ -87,7 +92,7 @@ public class Token {
             if (d == null)
                 d = "6";
             digits = Integer.parseInt(d);
-            if (digits != 6 && digits != 8)
+            if (!issuerExt.equals("Steam") && digits != 6 && digits != 8)
                 throw new TokenUriInvalidException();
         } catch (NumberFormatException e) {
             throw new TokenUriInvalidException();
@@ -176,12 +181,21 @@ public class Token {
             binary |= (digest[off + 1] & 0xff) << 0x10;
             binary |= (digest[off + 2] & 0xff) << 0x08;
             binary |= (digest[off + 3] & 0xff);
-            binary = binary % div;
 
-            // Zero pad
-            String hotp = Integer.toString(binary);
-            while (hotp.length() != digits)
-                hotp = "0" + hotp;
+            String hotp = "";
+            if (issuerExt.equals("Steam")) {
+                for (int i = 0; i < digits; i++) {
+                    hotp += STEAMCHARS[binary % STEAMCHARS.length];
+                    binary /= STEAMCHARS.length;
+                }
+            } else {
+                binary = binary % div;
+
+                // Zero pad
+                hotp = Integer.toString(binary);
+                while (hotp.length() != digits)
+                    hotp = "0" + hotp;
+            }
 
             return hotp;
         } catch (InvalidKeyException e) {
