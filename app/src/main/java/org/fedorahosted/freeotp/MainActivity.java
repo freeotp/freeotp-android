@@ -40,10 +40,14 @@ import org.fedorahosted.freeotp.add.AddActivity;
 import org.fedorahosted.freeotp.add.ScanActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -54,9 +58,20 @@ import android.widget.GridView;
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
     private DataSetObserver mDataSetObserver;
+    boolean isNightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //check last saved app mode(night/light) and set app to this mode
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        isNightMode = sharedPref.getBoolean("NIGHT_MODE", false);
+        if (isNightMode) {
+            setTheme(R.style.MainActivityThemeDark);
+        }else{
+            setTheme(R.style.MainActivityThemeLight);
+        }
+
         super.onCreate(savedInstanceState);
         onNewIntent(getIntent());
         setContentView(R.layout.main);
@@ -104,6 +119,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         menu.findItem(R.id.action_scan).setVisible(ScanActivity.haveCamera());
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
+        menu.findItem(R.id.action_dark_mode).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
         return true;
     }
@@ -118,6 +134,18 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 
         case R.id.action_add:
             startActivity(new Intent(this, AddActivity.class));
+            return true;
+
+        case R.id.action_dark_mode: //change app light/night mode
+            if (isNightMode) {
+                writeSharedPrefs(false);
+            }else{
+                writeSharedPrefs(true);
+            }
+            //refresh activity
+            finish();
+            startActivity(getIntent());
+
             return true;
 
         case R.id.action_about:
@@ -135,5 +163,16 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         Uri uri = intent.getData();
         if (uri != null)
             TokenPersistence.addWithToast(this, uri.toString());
+    }
+
+    /**
+     * save last used mode to SharedPreferences
+     * @param isDarkMode boolean value
+     */
+    private void writeSharedPrefs(boolean isDarkMode){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("NIGHT_MODE", isDarkMode);
+        editor.commit();
     }
 }
