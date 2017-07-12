@@ -46,6 +46,7 @@
 	    android:padding="8dp"
 	    android:stretchMode="columnWidth"
 	    android:verticalSpacing="8dp"
-	    android:background="#E5E5E5"
-	    />
+	    android:background="?attr/backgroundWindowColor"
+        />
+
 </LinearLayout>

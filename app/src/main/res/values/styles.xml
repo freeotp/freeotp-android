@@ -17,6 +17,34 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- Light mode colors. -->
+    <style name="ActivityTheme.Primary.Base.Light" parent="android:Theme.Holo">
+        <item name="primaryTextColor">#000000</item>
+        <item name="secondaryTextColor">@android:color/secondary_text_light</item>
+        <item name="backgroundCardColor">#FFFF</item>
+        <item name="backgroundCardColorEnabled">#7FFFFFFF</item>
+        <item name="backgroundWindowColor">#F4F4F6</item>
+        <item name="dividerColor">#F2F2F3</item>
+    </style>
+
+    <!-- Night mode colors. -->
+    <style name="ActivityTheme.Primary.Base.Dark" parent="android:Theme.Holo">
+        <item name="primaryTextColor">#F4F4F6</item>
+        <item name="secondaryTextColor">#7FFFFFFF</item>
+        <item name="backgroundCardColor">#28292e</item>
+        <item name="backgroundCardColorEnabled">#7FFFFFFF</item>
+        <item name="backgroundWindowColor">#33343B</item>
+        <item name="dividerColor">#F2F2F3</item>
+    </style>
+
+    <!-- Specific Feed activity theme -->
+    <style name="MainActivityThemeLight" parent="ActivityTheme.Primary.Base.Light">
+        <item name="android:windowBackground">?attr/backgroundWindowColor</item>
+    </style>
+    <style name="MainActivityThemeDark" parent="ActivityTheme.Primary.Base.Dark">
+        <item name="android:windowBackground">?attr/backgroundWindowColor</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

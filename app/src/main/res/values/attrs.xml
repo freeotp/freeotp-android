@@ -24,4 +24,13 @@
         <attr name="outer" format="boolean" />
         <attr name="hollow" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="CTAppTheme">
+        <attr name="primaryTextColor" format="color"/>
+        <attr name="secondaryTextColor" format="color"/>
+        <attr name="dividerColor" format="color"/>
+        <attr name="backgroundCardColor" format="color"/>
+        <attr name="backgroundCardColorEnabled" format="color"/>
+        <attr name="backgroundWindowColor" format="color"/>
+    </declare-styleable>
 </resources>
