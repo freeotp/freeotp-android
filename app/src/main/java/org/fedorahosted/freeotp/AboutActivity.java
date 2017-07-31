@@ -64,12 +64,5 @@ public class AboutActivity extends Activity {
         tv = (TextView) findViewById(R.id.about_website);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setText(Html.fromHtml(swebsite));
-
-        String problem = res.getString(R.string.link_report_a_problem);
-        String help = res.getString(R.string.link_ask_for_help);
-        String feedback = res.getString(R.string.about_feedback, problem, help);
-        tv = (TextView) findViewById(R.id.about_feedback);
-        tv.setMovementMethod(LinkMovementMethod.getInstance());
-        tv.setText(Html.fromHtml(feedback));
     }
 }

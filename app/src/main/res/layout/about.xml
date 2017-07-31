@@ -54,13 +54,6 @@
             android:text="@string/about_website" />
 
         <TextView
-            android:id="@+id/about_feedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/about_feedback" />
-
-        <TextView
             android:id="@+id/about_icons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
