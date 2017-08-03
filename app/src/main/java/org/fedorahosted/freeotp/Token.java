@@ -108,6 +108,7 @@ public class Token {
             if (p == null)
                 p = "30";
             period = Integer.parseInt(p);
+            period = (period > 0) ? period : 30; // Avoid divide-by-zero
         } catch (NumberFormatException e) {
             throw new TokenUriInvalidException();
         }

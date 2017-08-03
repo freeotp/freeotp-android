@@ -18,7 +18,7 @@ import org.mockito.stubbing.Answer;
 
 import java.util.LinkedHashMap;
 
-import static org.fedorahosted.freeotp.TokenCodeTest.mockToken;
+import static org.fedorahosted.freeotp.TokenTestUtils.mockToken;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
