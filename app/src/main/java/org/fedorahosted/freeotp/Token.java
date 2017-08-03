@@ -105,9 +105,11 @@ public class Token {
 
         try {
             String p = uri.getQueryParameter("period");
-            if (p == null)
+            if (p == null) {
                 p = "30";
+            }
             period = Integer.parseInt(p);
+            period = (period > 0) ? period : 30; // correct the divide by zero opportunity
         } catch (NumberFormatException e) {
             throw new TokenUriInvalidException();
         }
