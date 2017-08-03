@@ -57,7 +57,7 @@ public class Token {
     private int period;
 
     private Token(Uri uri, boolean internal) throws TokenUriInvalidException {
-        if (!uri.getScheme().equals("otpauth"))
+        if (uri == null || !uri.getScheme().equals("otpauth"))
             throw new TokenUriInvalidException();
 
         if (uri.getAuthority().equals("totp"))
