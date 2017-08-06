@@ -57,23 +57,12 @@ public class Token {
     private int period;
 
     private Token(Uri uri, boolean internal) throws TokenUriInvalidException {
-        if (uri == null || !uri.getScheme().equals("otpauth"))
-            throw new TokenUriInvalidException();
-
-        if (uri.getAuthority().equals("totp"))
-            type = TokenType.TOTP;
-        else if (uri.getAuthority().equals("hotp"))
-            type = TokenType.HOTP;
-        else
-            throw new TokenUriInvalidException();
+        validateTokenURI(uri);
 
         String path = uri.getPath();
-        if (path == null)
-            throw new TokenUriInvalidException();
-
         // Strip the path of its leading '/'
-        for (int i = 0; path.charAt(i) == '/'; i++)
-            path = path.substring(1);
+        path = path.replaceFirst("/","");
+
         if (path.length() == 0)
             throw new TokenUriInvalidException();
 
@@ -139,6 +128,26 @@ public class Token {
             setIssuer(uri.getQueryParameter("issueralt"));
             setLabel(uri.getQueryParameter("labelalt"));
         }
+    }
+
+    private void validateTokenURI(Uri uri) throws TokenUriInvalidException{
+        if (uri == null) throw new TokenUriInvalidException();
+
+        if (uri.getScheme() == null || !uri.getScheme().equals("otpauth")){
+            throw new TokenUriInvalidException();
+        }
+
+        if (uri.getAuthority() == null) throw new TokenUriInvalidException();
+
+        if (uri.getAuthority().equals("totp")) {
+            type = TokenType.TOTP;
+        } else if (uri.getAuthority().equals("hotp"))
+            type = TokenType.HOTP;
+        else {
+            throw new TokenUriInvalidException();
+        }
+
+        if (uri.getPath() == null) throw new TokenUriInvalidException();
     }
 
     private String getHOTP(long counter) {
