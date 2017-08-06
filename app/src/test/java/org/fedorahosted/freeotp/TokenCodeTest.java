@@ -45,7 +45,6 @@ public class TokenCodeTest {
     @Test
     public void getCurrentCode_hotpToken_returnsFixedHOTP() throws Exception {
         String code = hotpToken.generateCodes().getCurrentCode();
-        System.out.println(code);
         assertTrue(code.length() == 6);
         assertEquals("282760", code);
     }
