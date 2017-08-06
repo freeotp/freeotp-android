@@ -140,6 +140,7 @@ public class AddActivity extends Activity implements View.OnClickListener, Compo
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         findViewById(R.id.counter_row).setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        findViewById(R.id.interval_row).setVisibility(isChecked ? View.GONE : View.VISIBLE);
     }
 
     @Override

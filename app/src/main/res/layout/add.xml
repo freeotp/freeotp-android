@@ -161,8 +161,10 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/interval_row"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:layout_height="48dp"
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
