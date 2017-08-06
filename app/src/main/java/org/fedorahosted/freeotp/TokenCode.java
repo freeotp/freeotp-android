@@ -32,11 +32,6 @@ public class TokenCode {
         mUntil = until;
     }
 
-    public TokenCode(TokenCode prev, String code, long start, long until) {
-        this(code, start, until);
-        prev.mNext = this;
-    }
-
     public TokenCode(String code, long start, long until, TokenCode next) {
         this(code, start, until);
         mNext = next;

@@ -17,84 +17,91 @@
    - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    - See the License for the specific language governing permissions and
    - limitations under the License.
-   -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.fedorahosted.freeotp"
     android:versionCode="17"
-    android:versionName="1.5" >
+    android:versionName="1.5">
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="20" />
 
     <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
-        android:anyDensity="true" />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".AboutActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-            />
-
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
         <activity
             android:name=".add.ScanActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-            />
-
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity
             android:name=".add.AddActivity"
             android:label="@string/add_token"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-            android:windowSoftInputMode="stateVisible"
-            />
-
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".edit.DeleteActivity"
             android:label="@string/delete_question"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
-            />
-
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name=".edit.EditActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-            android:windowSoftInputMode="stateVisible"
-            />
-
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
-            android:launchMode="singleTask"
             android:configChanges="orientation|screenSize"
-            >
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="otpauth" android:host="totp" />
-                <data android:scheme="otpauth" android:host="hotp" />
+
+                <data
+                    android:host="totp"
+                    android:scheme="otpauth" />
+                <data
+                    android:host="hotp"
+                    android:scheme="otpauth" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PrefActivity"
+            android:label="@string/title_activity_preference"
+            android:theme="@android:style/Theme.DeviceDefault"/>
     </application>
+
 </manifest>

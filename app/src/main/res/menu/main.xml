@@ -19,10 +19,12 @@
    - limitations under the License.
    -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:freeotp="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/action_scan"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:icon="@drawable/qrcode"
         android:title="@string/scan_qr_code" />
 
@@ -32,9 +34,14 @@
         android:icon="@drawable/ic_action_new_account"
         android:title="@string/add_token" />
 
+    <item android:id="@+id/action_preferences"
+        android:showAsAction="never"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/preferences"/>
+
     <item
         android:id="@+id/action_about"
-        android:showAsAction="ifRoom"
+        freeotp:showAsAction="never"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about_freeotp" />
 </menu>
