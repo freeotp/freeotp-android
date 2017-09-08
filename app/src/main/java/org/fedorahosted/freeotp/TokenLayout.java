@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.fedorahosted.freeotp.edit.DeleteActivity;
-import org.fedorahosted.freeotp.edit.EditActivity;
-
 public class TokenLayout extends FrameLayout implements View.OnClickListener, Runnable {
     private ProgressCircle mProgressInner;
     private ProgressCircle mProgressOuter;
