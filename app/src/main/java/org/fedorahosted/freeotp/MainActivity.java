@@ -36,20 +36,22 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.add.AddActivity;
-import org.fedorahosted.freeotp.add.ScanActivity;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
+
+import org.fedorahosted.freeotp.add.AddActivity;
+import org.fedorahosted.freeotp.add.ScanActivity;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
@@ -106,6 +108,17 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_preferences:
+                startActivity(new Intent(this, PrefActivity.class));
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override

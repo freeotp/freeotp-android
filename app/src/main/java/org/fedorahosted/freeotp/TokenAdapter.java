@@ -24,7 +24,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,13 +44,16 @@ public class TokenAdapter extends BaseReorderableAdapter {
     private final TokenPersistence mTokenPersistence;
     private final LayoutInflater mLayoutInflater;
     private final ClipboardManager mClipMan;
+    private final SharedPreferences mSharedPreferences;
     private final Map<String, TokenCode> mTokenCodes;
 
     public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mClipMan = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-        mTokenCodes = new HashMap<String, TokenCode>();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+        mTokenCodes = new HashMap<>();
         registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -122,11 +127,13 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 TokenCode codes = token.generateCodes();
                 tp.save(token);
 
-                // Copy code to clipboard.
-                mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
-                Toast.makeText(v.getContext().getApplicationContext(),
-                        R.string.code_copied,
-                        Toast.LENGTH_SHORT).show();
+                // Copy code to clipboard if feature enabled
+                if(mSharedPreferences.getBoolean(PrefActivity.KEY_PREF_ENABLE_CLIPBOARD, Boolean.TRUE)) {
+                    mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
+                    Toast.makeText(v.getContext().getApplicationContext(),
+                            R.string.code_copied,
+                            Toast.LENGTH_SHORT).show();
+                }
 
                 mTokenCodes.put(token.getID(), codes);
                 ((TokenLayout) v).start(token.getType(), codes, true);

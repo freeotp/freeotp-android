@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <CheckBoxPreference
+            android:key="pref_clipboardEnabled"
+            android:title="Enable Copy/Paste"
+            android:summary="When a token is selected, FreeOTP will copy it to the Global Clipboard.\n\nTo improve security disabling this is recommended."
+            android:defaultValue="true" />
+</PreferenceScreen>
