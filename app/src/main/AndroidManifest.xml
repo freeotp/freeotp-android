@@ -95,6 +95,18 @@
                 <data android:scheme="otpauth" android:host="totp" />
                 <data android:scheme="otpauth" android:host="hotp" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="otpauth" android:host="totp" />
+                <data android:scheme="otpauth" android:host="hotp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="otpauth" android:host="totp" />
+                <data android:scheme="otpauth" android:host="hotp" />
+            </intent-filter>
         </activity>
     </application>
 </manifest>
