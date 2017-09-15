@@ -30,7 +30,9 @@
     <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
     <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
 
-    <string name="error_camera_open">Error while opening camera!</string>
+    <string name="camera_justification">FreeOTP needs access to the camera to be able to scan QR codes</string>
+    <string name="capture_description">Point the camera at the QR code</string>
+    <string name="error_camera_open">Error while opening the camera!</string>
 
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>

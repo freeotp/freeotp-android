@@ -26,15 +26,15 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="20" />
+        android:targetSdkVersion="26" />
 
     <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
-        android:anyDensity="true" />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -79,10 +79,10 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
-            android:launchMode="singleTask"
             android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,8 +92,13 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="otpauth" android:host="totp" />
-                <data android:scheme="otpauth" android:host="hotp" />
+
+                <data
+                    android:host="totp"
+                    android:scheme="otpauth" />
+                <data
+                    android:host="hotp"
+                    android:scheme="otpauth" />
             </intent-filter>
         </activity>
     </application>
