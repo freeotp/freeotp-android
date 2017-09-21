@@ -31,6 +31,7 @@
     <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
 
     <string name="error_camera_open">Error while opening camera!</string>
+    <string name="error_permission_camera_open">No permission to open the camera</string>
 
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>
