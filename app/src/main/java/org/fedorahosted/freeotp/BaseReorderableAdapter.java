@@ -46,6 +46,8 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
 
             convertView.setOnDragListener(new OnDragListener() {
                 @Override
+                @SuppressWarnings("unchecked")
+                //unavoidable generic type problems -> Reference<View>
                 public boolean onDrag(View dstView, DragEvent event) {
                     Reference<View> ref = (Reference<View>) event.getLocalState();
                     final View srcView = ref.reference;
@@ -55,8 +57,8 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
                         srcView.setVisibility(View.VISIBLE);
                         dstView.setVisibility(View.INVISIBLE);
 
-                        move(((Integer) srcView.getTag(R.id.reorder_key)).intValue(),
-                             ((Integer) dstView.getTag(R.id.reorder_key)).intValue());
+                        move(((Integer) srcView.getTag(R.id.reorder_key)),
+                             ((Integer) dstView.getTag(R.id.reorder_key)));
                         ref.reference = dstView;
                         break;
 
@@ -84,6 +86,8 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
                     // the above state reset to settle.
                     view.post(new Runnable() {
                         @Override
+                        @SuppressWarnings("deprecation")
+                        //startDrag() --> suppress deprecation because startDragAndDrop() requires minSdkVersion 24
                         public void run() {
                             ClipData data = ClipData.newPlainText("", "");
                             DragShadowBuilder sb = new View.DragShadowBuilder(view);
@@ -96,7 +100,7 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
             });
         }
 
-        convertView.setTag(R.id.reorder_key, Integer.valueOf(position));
+        convertView.setTag(R.id.reorder_key, position);
         bindView(convertView, position);
         return convertView;
     }
