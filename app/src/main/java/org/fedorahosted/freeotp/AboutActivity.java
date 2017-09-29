@@ -37,6 +37,8 @@ public class AboutActivity extends Activity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
+    //suppress because Html.fromHtml(String, int) requires minSdkVersion 24
     public void onStart() {
         super.onStart();
 

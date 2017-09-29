@@ -11,8 +11,6 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="interval">Interval</string>
     <string name="counter">Counter</string>
-    <string name="issuer">Issuer</string>
-    <string name="id">ID</string>
     <string name="secret">Secret</string>
     <string name="type">Type</string>
     <string name="algorithm">Algorithm</string>
