@@ -22,3 +22,12 @@ Play](https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp)
 ## Contributing
 
 Pull requests on GitHub are welcome under the Apache 2.0 license, see [COPYING](COPYING).
+
+## Permissions
+
+The FreeOTP app uses the following permissions
+
+| Permission | Usage                    | Required | Permission type |
+|------------|--------------------------|----------|-----------------|
+| Camera     | Recognition of QR codes  | No       | Dangerous       |
+| Internet   | Token image provisioning | No       | Normal          |
