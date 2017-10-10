@@ -1,18 +1,46 @@
+/*
+ * FreeOTP
+ *
+ * Authors: Nathaniel McCallum <npmccallum@redhat.com>
+ *
+ * Copyright (C) 2013  Nathaniel McCallum, Red Hat
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.fedorahosted.freeotp;
 
-import java.lang.reflect.Type;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
+
+import org.fedorahosted.freeotp.Token.TokenUriInvalidException;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 public class TokenPersistence {
     private static final String NAME  = "tokens";
@@ -31,19 +59,6 @@ public class TokenPersistence {
         return prefs.edit().putString(ORDER, gson.toJson(order));
     }
 
-    public static Token addWithToast(Context ctx, String uri) {
-        try {
-            Token token = new Token(uri);
-            new TokenPersistence(ctx).add(token);
-            return token;
-        } catch (TokenUriInvalidException e) {
-            Toast.makeText(ctx, R.string.invalid_token, Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     public TokenPersistence(Context ctx) {
         prefs = ctx.getApplicationContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         gson = new Gson();
@@ -51,6 +66,10 @@ public class TokenPersistence {
 
     public int length() {
         return getTokenOrder().size();
+    }
+
+    public boolean tokenExists(Token token) {
+        return prefs.contains(token.getID());
     }
 
     public Token get(int position) {
@@ -71,11 +90,14 @@ public class TokenPersistence {
         return null;
     }
 
-    public void add(Token token) throws TokenUriInvalidException {
+    public void save(Token token) {
         String key = token.getID();
 
-        if (prefs.contains(key))
+        //if token exists, just update it
+        if (prefs.contains(key)) {
+            prefs.edit().putString(token.getID(), gson.toJson(token)).apply();
             return;
+        }
 
         List<String> order = getTokenOrder();
         order.add(0, key);
@@ -102,7 +124,104 @@ public class TokenPersistence {
         setTokenOrder(order).remove(key).apply();
     }
 
-    public void save(Token token) {
-        prefs.edit().putString(token.getID(), gson.toJson(token)).apply();
+    /**
+     * Save token async, because Image needs to be downloaded/copied to storage
+     * @param context Application Context
+     * @param token Token (with Image, Image will be saved by the async task)
+     */
+    public static void saveAsync(Context context, final Token token) {
+        File outFile = null;
+        if(token.getImage() != null)
+            outFile = new File(context.getFilesDir(), "img_" + UUID.randomUUID().toString() + ".png");
+        new SaveTokenTask().execute(new TaskParams(token, outFile, context));
+    }
+
+    /**
+     * Data class for SaveTokenTask
+     */
+    private static class ReturnParams {
+        private final Token token;
+        private final Context context;
+
+        public ReturnParams(Token token, Context context) {
+            this.token = token;
+            this.context = context;
+        }
+
+        public Token getToken() {
+            return token;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+    }
+
+    /**
+     * Data class for SaveTokenTask
+     */
+    private static class TaskParams {
+        private final File outFile;
+        private final Context mContext;
+        private final Token token;
+
+        public TaskParams(Token token, File outFile, Context mContext) {
+            this.token = token;
+            this.outFile = outFile;
+            this.mContext = mContext;
+        }
+
+        public Context getContext() {
+            return mContext;
+        }
+
+        public Token getToken() {
+            return token;
+        }
+
+        public File getOutFile() {
+            return outFile;
+        }
+    }
+
+    /**
+     * Downloads/copies images to FreeOTP storage
+     * Saves token in PostExecute
+     */
+    private static class SaveTokenTask extends AsyncTask<TaskParams, Void, ReturnParams> {
+        protected ReturnParams doInBackground(TaskParams... params) {
+            final TaskParams taskParams = params[0];
+            if(taskParams.getToken().getImage() != null) {
+                try {
+                    Bitmap bitmap = Picasso.with(taskParams.getContext())
+                            .load(taskParams.getToken()
+                            .getImage())
+                            .resize(200, 200)   // it's just an icon
+                            .onlyScaleDown()    //resize image, if bigger than 200x200
+                            .get();
+                    File outFile = taskParams.getOutFile();
+                    //saveAsync image
+                    FileOutputStream out = new FileOutputStream(outFile);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, out);
+                    out.close();
+                    taskParams.getToken().setImage(Uri.fromFile(outFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //set image to null to prevent internet link in image, in case image
+                    //was scanned, when no connection existed
+                    taskParams.getToken().setImage(null);
+                }
+            }
+            return new ReturnParams(taskParams.getToken(), taskParams.getContext());
+        }
+
+        @Override
+        protected void onPostExecute(ReturnParams returnParams) {
+            super.onPostExecute(returnParams);
+            //we downloaded the image, now save it normally
+            new TokenPersistence(returnParams.getContext()).save(returnParams.getToken());
+            //refresh TokenAdapter
+            returnParams.context.sendBroadcast(new Intent(MainActivity.ACTION_IMAGE_SAVED));
+        }
     }
 }

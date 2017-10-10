@@ -20,6 +20,8 @@
 
 package org.fedorahosted.freeotp.edit;
 
+import android.widget.Toast;
+
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
@@ -50,6 +52,8 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
     private Uri mImageCurrent;
     private Uri mImageDefault;
     private Uri mImageDisplay;
+    private Token token;
+    private final int REQUEST_IMAGE_OPEN = 1;
 
     private void showImage(Uri uri) {
         mImageDisplay = uri;
@@ -73,13 +77,10 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
         setContentView(R.layout.edit);
 
         // Get token values.
-        Token token = new TokenPersistence(this).get(getPosition());
+        token = new TokenPersistence(this).get(getPosition());
         mIssuerCurrent = token.getIssuer();
         mLabelCurrent = token.getLabel();
         mImageCurrent = token.getImage();
-        token.setIssuer(null);
-        token.setLabel(null);
-        token.setImage(null);
         mIssuerDefault = token.getIssuer();
         mLabelDefault = token.getLabel();
         mImageDefault = token.getImage();
@@ -112,8 +113,16 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK)
-            showImage(data.getData());
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_OPEN) {
+                //mImageDisplay is set in showImage
+                showImage(data.getData());
+                token.setImage(mImageDisplay);
+            }
+            else {
+                Toast.makeText(EditActivity.this, R.string.error_image_open, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -138,8 +147,10 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image:
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), 0);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.setType("image/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, REQUEST_IMAGE_OPEN);
                 break;
 
             case R.id.restore:
@@ -155,7 +166,7 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
                 token.setIssuer(mIssuer.getText().toString());
                 token.setLabel(mLabel.getText().toString());
                 token.setImage(mImageDisplay);
-                tp.save(token);
+                TokenPersistence.saveAsync(this, token);
 
             case R.id.cancel:
                 finish();

@@ -20,6 +20,7 @@
 
 package org.fedorahosted.freeotp;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -295,7 +296,22 @@ public class Token {
         return toUri().toString();
     }
 
+    /**
+     * delete image, which is attached to the token from storage
+     */
+    public void deleteImage() {
+        Uri imageUri = getImage();
+        if (imageUri != null) {
+            File image = new File(imageUri.getPath());
+            if (image.exists())
+                image.delete();
+        }
+    }
+
     public void setImage(Uri image) {
+        //delete old token image, before assigning the new one
+        deleteImage();
+
         imageAlt = null;
         if (image == null)
             return;

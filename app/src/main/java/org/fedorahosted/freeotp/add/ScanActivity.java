@@ -53,6 +53,7 @@ public class ScanActivity extends Activity {
 
     public class ScanBroadcastReceiver extends BroadcastReceiver {
         public static final String ACTION = "org.fedorahosted.freeotp.ACTION_CODE_SCANNED";
+
         @Override
         public void onReceive(Context context, Intent intent) {
             String text = intent.getStringExtra("scanResult");
@@ -66,13 +67,29 @@ public class ScanActivity extends Activity {
     }
 
     private void addTokenAndFinish(String text) {
-        Token token = TokenPersistence.addWithToast(ScanActivity.this, text);
+        Token token = null;
+        try {
+            token = new Token(text);
+        } catch (Token.TokenUriInvalidException e) {
+            e.printStackTrace();
+        }
+
+        //do not receive any more broadcasts
+        this.unregisterReceiver(receiver);
+
+        //check if token already exists
+        if (new TokenPersistence(ScanActivity.this).tokenExists(token)) {
+            finish();
+            return;
+        }
+
+        TokenPersistence.saveAsync(ScanActivity.this, token);
         if (token == null || token.getImage() == null) {
             finish();
             return;
         }
 
-        final ImageView image = findViewById(R.id.image);
+        final ImageView image = (ImageView) findViewById(R.id.image);
         Picasso.with(ScanActivity.this)
                 .load(token.getImage())
                 .placeholder(R.drawable.scan)
@@ -99,7 +116,13 @@ public class ScanActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.unregisterReceiver(receiver);
+        try {
+            this.unregisterReceiver(receiver);
+        }
+        catch (IllegalArgumentException e) {
+            // catch exception, when trying to unregister receiver again
+            // there seems to be no way to check, if receiver if registered
+        }
     }
 
     @Override

@@ -120,7 +120,8 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 // Increment the token.
                 Token token = tp.get(position);
                 TokenCode codes = token.generateCodes();
-                tp.save(token);
+                //save token. Image wasn't changed here, so just save it in sync
+                new TokenPersistence(ctx).save(token);
 
                 // Copy code to clipboard.
                 mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));

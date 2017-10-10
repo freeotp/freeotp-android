@@ -96,7 +96,7 @@ public class TokenPersistenceTest {
     @Test
     public void add_sameTokenTwice_isIdempotent() throws Exception {
         int sizeBefore = mockStore.size();
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         assertEquals(sizeBefore + 2, mockStore.size());
 
         JsonObject token = new JsonObject();
@@ -119,14 +119,14 @@ public class TokenPersistenceTest {
         assertEquals(order, new JsonParser().parse(mockStore.get("tokenOrder")));
 
         sizeBefore = mockStore.size();
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         assertEquals(sizeBefore, mockStore.size());
     }
 
     @Test
     public void length_ofStoreWith1Token_returns1() throws Exception {
         int sizeBefore = mockStore.size();
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         assertEquals(sizeBefore + 2, mockStore.size());
 
         assertEquals(sizeBefore + 1, tokenPersistence.length());
@@ -134,9 +134,9 @@ public class TokenPersistenceTest {
 
     @Test
     public void get_WithValidPosition_returnsToken() throws Exception {
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         Token hotpMockToken = mockToken("hotp", "1", "FreeOTP:mail@google.com");
-        tokenPersistence.add(hotpMockToken);
+        tokenPersistence.save(hotpMockToken);
 
         assertEquals(mockToken.getType(), tokenPersistence.get(1).getType());
         assertEquals(mockToken.getID(), tokenPersistence.get(1).getID());
@@ -160,9 +160,9 @@ public class TokenPersistenceTest {
 
     @Test
     public void move_fromSamePosition_DoesNothing() throws Exception {
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         Token hotpMockToken = mockToken("hotp", "1", "FreeOTP:mail@google.com");
-        tokenPersistence.add(hotpMockToken);
+        tokenPersistence.save(hotpMockToken);
 
         tokenPersistence.move(0, 0);
         assertEquals(mockToken.getID(), tokenPersistence.get(1).getID());
@@ -171,9 +171,9 @@ public class TokenPersistenceTest {
 
     @Test
     public void move_twoValidTokens_SwitchesTokenOrder() throws Exception {
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         Token hotpMockToken = mockToken("hotp", "1", "FreeOTP:mail@google.com");
-        tokenPersistence.add(hotpMockToken);
+        tokenPersistence.save(hotpMockToken);
 
         assertEquals(mockToken.getID(), tokenPersistence.get(1).getID());
         assertEquals(hotpMockToken.getID(), tokenPersistence.get(0).getID());
@@ -185,9 +185,9 @@ public class TokenPersistenceTest {
 
     @Test
     public void delete_tokenFromValidPosition_removesIt() throws Exception {
-        tokenPersistence.add(mockToken);
+        tokenPersistence.save(mockToken);
         Token hotpMockToken = mockToken("hotp", "1", "FreeOTP:mail@google.com");
-        tokenPersistence.add(hotpMockToken);
+        tokenPersistence.save(hotpMockToken);
 
         assertEquals(hotpMockToken.getID(), tokenPersistence.get(0).getID());
         assertEquals(2, tokenPersistence.length());
@@ -200,7 +200,7 @@ public class TokenPersistenceTest {
     @Test
     public void save_updatingExistingToken_changesCounter() throws Exception {
         Token hotpMockToken = mockToken("hotp", "1", "FreeOTP:mail@google.com");
-        tokenPersistence.add(hotpMockToken);
+        tokenPersistence.save(hotpMockToken);
 
         Token hotpMockTokenUpdated = mockToken("totp", "1", "FreeOTP:mail@google.com");
         tokenPersistence.save(hotpMockTokenUpdated);
