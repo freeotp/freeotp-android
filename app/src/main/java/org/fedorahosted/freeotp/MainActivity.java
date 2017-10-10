@@ -44,8 +44,11 @@ import android.widget.Toast;
 import org.fedorahosted.freeotp.add.ScanActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,8 +61,17 @@ import android.widget.GridView;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
+    public static final String ACTION_IMAGE_SAVED = "org.fedorahosted.freeotp.ACTION_IMAGE_SAVED";
     private DataSetObserver mDataSetObserver;
     private final int PERMISSIONS_REQUEST_CAMERA = 1;
+    private RefreshListBroadcastReceiver receiver;
+
+    private class RefreshListBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mTokenAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,8 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         setContentView(R.layout.main);
 
         mTokenAdapter = new TokenAdapter(this);
+        receiver = new RefreshListBroadcastReceiver();
+        registerReceiver(receiver, new IntentFilter(ACTION_IMAGE_SAVED));
         ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
 
         // Don't permit screenshots since these might contain OTP codes.
@@ -102,6 +116,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     protected void onDestroy() {
         super.onDestroy();
         mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);
+        unregisterReceiver(receiver);
     }
 
     @Override
@@ -164,7 +179,13 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         super.onNewIntent(intent);
 
         Uri uri = intent.getData();
-        if (uri != null)
-            TokenPersistence.addWithToast(this, uri.toString());
+        if (uri != null) {
+            try {
+                TokenPersistence.saveAsync(this, new Token(uri));
+            } catch (Token.TokenUriInvalidException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
