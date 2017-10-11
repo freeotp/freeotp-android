@@ -22,15 +22,18 @@ package org.fedorahosted.freeotp.add;
 
 import java.util.List;
 
+import org.fedorahosted.freeotp.MainActivity;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -98,34 +101,51 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                Token token = TokenPersistence.addWithToast(ScanActivity.this, result);
-                if (token == null || token.getImage() == null) {
-                    finish();
-                    return;
+                try {
+                    final Token token = new Token(Uri.parse(result));
+                    new TokenPersistence() {
+                        @Override
+                        protected void onPostExecute(TokenPersistence tokenPersistence) {
+                            super.onPostExecute(tokenPersistence);
+                            try {
+                                tokenPersistence.add(token);
+                                ScanActivity.this.sendBroadcast(new Intent(MainActivity.ACTION_CODE_SCANNED));
+                            }
+                            catch (Token.TokenUriInvalidException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.execute(ScanActivity.this);
+                    if (token.getImage() == null) {
+                        finish();
+                        return;
+                    }
+
+                    final ImageView image = (ImageView) findViewById(R.id.image);
+                    Picasso.with(ScanActivity.this)
+                            .load(token.getImage())
+                            .placeholder(R.drawable.scan)
+                            .into(image, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+                                    image.setAlpha(0.9f);
+                                    image.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    }, 2000);
+                                }
+
+                                @Override
+                                public void onError() {
+                                    finish();
+                                }
+                            });
+                } catch (Token.TokenUriInvalidException e) {
+                    e.printStackTrace();
                 }
-
-                final ImageView image = (ImageView) findViewById(R.id.image);
-                Picasso.with(ScanActivity.this)
-                        .load(token.getImage())
-                        .placeholder(R.drawable.scan)
-                        .into(image, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                findViewById(R.id.progress).setVisibility(View.INVISIBLE);
-                                image.setAlpha(0.9f);
-                                image.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        finish();
-                                    }
-                                }, 2000);
-                            }
-
-                            @Override
-                            public void onError() {
-                                finish();
-                            }
-                        });
             }
         };
     }

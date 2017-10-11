@@ -25,6 +25,7 @@ import java.net.URLEncoder;
 import java.util.Locale;
 
 import org.fedorahosted.freeotp.R;
+import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.app.Activity;
@@ -130,9 +131,25 @@ public class AddActivity extends Activity implements View.OnClickListener, Compo
                 }
 
                 // Add the token
-                if (TokenPersistence.addWithToast(this, uri) != null)
-                    finish();
-
+                try {
+                    final Token token = new Token(uri);
+                    new TokenPersistence() {
+                        @Override
+                        protected void onPostExecute(TokenPersistence tokenPersistence) {
+                            super.onPostExecute(tokenPersistence);
+                            try {
+                                tokenPersistence.add(token);
+                            }
+                            catch (Token.TokenUriInvalidException e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    }.execute(this);
+                }
+                catch (Token.TokenUriInvalidException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

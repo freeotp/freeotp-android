@@ -25,8 +25,8 @@
     android:versionName="1.5" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="20" />
+        android:minSdkVersion="23"
+        android:targetSdkVersion="26" />
 
     <supports-screens
         android:smallScreens="true"
