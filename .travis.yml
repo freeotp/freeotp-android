@@ -4,5 +4,8 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-26.0.1
+    - build-tools-26.0.2
     - android-26
+
+script:
+  - ./gradlew clean build check test
