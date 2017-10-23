@@ -36,11 +36,11 @@
 
 package org.fedorahosted.freeotp;
 
-import org.fedorahosted.freeotp.add.AddActivity;
-import org.fedorahosted.freeotp.add.ScanActivity;
-
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,9 +51,21 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
 
+import org.fedorahosted.freeotp.add.AddActivity;
+import org.fedorahosted.freeotp.add.ScanActivity;
+
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
     private DataSetObserver mDataSetObserver;
+    public static final String ACTION_CODE_SCANNED = "org.fedorahosted.freeotp.ACTION_CODE_SCANNED";
+    private RefreshListBroadcastReceiver receiver;
+
+    private class RefreshListBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mTokenAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +73,17 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         onNewIntent(getIntent());
         setContentView(R.layout.main);
 
-        mTokenAdapter = new TokenAdapter(this);
-        ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
-
         // Don't permit screenshots since these might contain OTP codes.
         getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
+
+        initializeListView();
+    }
+
+    private void initializeListView() {
+        mTokenAdapter = new TokenAdapter(this);
+        receiver = new RefreshListBroadcastReceiver();
+        registerReceiver(receiver, new IntentFilter(ACTION_CODE_SCANNED));
+        ((GridView) findViewById(R.id.grid)).setAdapter(mTokenAdapter);
 
         mDataSetObserver = new DataSetObserver() {
             @Override
@@ -95,6 +113,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(receiver);
         mTokenAdapter.unregisterDataSetObserver(mDataSetObserver);
     }
 
@@ -132,8 +151,20 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Uri uri = intent.getData();
-        if (uri != null)
-            TokenPersistence.addWithToast(this, uri.toString());
+        final Uri uri = intent.getData();
+        if (uri != null) {
+            new TokenPersistence() {
+                @Override
+                protected void onPostExecute(TokenPersistence tokenPersistence) {
+                    super.onPostExecute(tokenPersistence);
+                    try {
+                        tokenPersistence.add(new Token(uri));
+                    }
+                    catch (Token.TokenUriInvalidException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.execute();
+        }
     }
 }

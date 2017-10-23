@@ -35,8 +35,14 @@ public class DeleteActivity extends BaseActivity {
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TokenPersistence(DeleteActivity.this).delete(getPosition());
-                finish();
+                new TokenPersistence() {
+                    @Override
+                    protected void onPostExecute(TokenPersistence tokenPersistence) {
+                        super.onPostExecute(tokenPersistence);
+                        tokenPersistence.delete(getPosition());
+                        finish();
+                    }
+                }.execute(DeleteActivity.this);
             }
         });
     }
