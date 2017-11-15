@@ -43,13 +43,13 @@ public class TokenLayout extends FrameLayout implements View.OnClickListener, Ru
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mProgressInner = (ProgressCircle) findViewById(R.id.progressInner);
-        mProgressOuter = (ProgressCircle) findViewById(R.id.progressOuter);
-        mImage = (ImageView) findViewById(R.id.image);
-        mCode = (TextView) findViewById(R.id.code);
-        mIssuer = (TextView) findViewById(R.id.issuer);
-        mLabel = (TextView) findViewById(R.id.label);
-        mMenu = (ImageView) findViewById(R.id.menu);
+        mProgressInner = findViewById(R.id.progressInner);
+        mProgressOuter = findViewById(R.id.progressOuter);
+        mImage = findViewById(R.id.image);
+        mCode = findViewById(R.id.code);
+        mIssuer = findViewById(R.id.issuer);
+        mLabel = findViewById(R.id.label);
+        mMenu = findViewById(R.id.menu);
 
         mPopupMenu = new PopupMenu(getContext(), mMenu);
         mMenu.setOnClickListener(this);

@@ -48,9 +48,7 @@ import static io.fotoapparat.parameter.selector.Selectors.firstAvailable;
 import static io.fotoapparat.parameter.selector.SizeSelectors.biggestSize;
 
 public class ScanActivity extends Activity {
-    private CameraView cameraView;
     private Fotoapparat fotoapparat;
-    private ScanFrameProcessor scanFrameProcessor;
     private static ScanBroadcastReceiver receiver;
 
     public class ScanBroadcastReceiver extends BroadcastReceiver {
@@ -110,21 +108,20 @@ public class ScanActivity extends Activity {
         receiver = new ScanBroadcastReceiver();
         this.registerReceiver(receiver, new IntentFilter(ScanBroadcastReceiver.ACTION));
         setContentView(R.layout.scan);
-        cameraView = findViewById(R.id.camera_view);
-        scanFrameProcessor = new ScanFrameProcessor(this);
+        CameraView cameraView = findViewById(R.id.camera_view);
 
         fotoapparat = Fotoapparat
                 .with(this)
-                .into(cameraView)           // view which will draw the camera preview
-                .previewScaleType(ScaleType.CENTER_CROP)  // we want the preview to fill the view
-                .photoSize(biggestSize())   // we want to have the biggest photo possible
-                .lensPosition(back())       // we want back camera
-                .focusMode(firstAvailable(  // (optional) use the first focus mode which is supported by device
+                .into(cameraView)
+                .previewScaleType(ScaleType.CENTER_CROP)
+                .photoSize(biggestSize())
+                .lensPosition(back())
+                .focusMode(firstAvailable(
                         FocusModeSelectors.continuousFocus(),
-                        autoFocus(),        // in case if continuous focus is not available on device, auto focus will be used
-                        fixed()             // if even auto focus is not available - fixed focus mode will be used
+                        autoFocus(),
+                        fixed()
                 ))
-                .frameProcessor(scanFrameProcessor)   // (optional) receives each frame from preview stream
+                .frameProcessor(new ScanFrameProcessor(this))
                 .build();
     }
 

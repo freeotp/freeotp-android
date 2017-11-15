@@ -85,11 +85,11 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
         mImageDefault = token.getImage();
 
         // Get references to widgets.
-        mIssuer = (EditText) findViewById(R.id.issuer);
-        mLabel = (EditText) findViewById(R.id.label);
-        mImage = (ImageButton) findViewById(R.id.image);
-        mRestore = (Button) findViewById(R.id.restore);
-        mSave = (Button) findViewById(R.id.save);
+        mIssuer = findViewById(R.id.issuer);
+        mLabel = findViewById(R.id.label);
+        mImage = findViewById(R.id.image);
+        mRestore = findViewById(R.id.restore);
+        mSave = findViewById(R.id.save);
 
         // Setup text changed listeners.
         mIssuer.addTextChangedListener(this);

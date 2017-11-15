@@ -48,7 +48,7 @@ public class TokenAdapter extends BaseReorderableAdapter {
         mTokenPersistence = new TokenPersistence(ctx);
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mClipMan = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-        mTokenCodes = new HashMap<String, TokenCode>();
+        mTokenCodes = new HashMap<>();
         registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {

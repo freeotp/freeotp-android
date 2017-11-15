@@ -91,7 +91,7 @@ public abstract class BaseReorderableAdapter extends BaseAdapter {
                         public void run() {
                             ClipData data = ClipData.newPlainText("", "");
                             DragShadowBuilder sb = new View.DragShadowBuilder(view);
-                            view.startDrag(data, sb, new Reference<View>(view), 0);
+                            view.startDrag(data, sb, new Reference<>(view), 0);
                         }
                     });
 
