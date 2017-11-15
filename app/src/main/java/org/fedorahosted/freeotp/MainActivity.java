@@ -40,7 +40,7 @@ package org.fedorahosted.freeotp;
 
 import android.Manifest;
 import android.widget.Toast;
-import org.fedorahosted.freeotp.add.AddActivity;
+
 import org.fedorahosted.freeotp.add.ScanActivity;
 
 import android.app.Activity;
@@ -109,7 +109,6 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         getMenuInflater().inflate(R.menu.main, menu);
         menu.findItem(R.id.action_scan).setVisible(ScanActivity.hasCamera(this));
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
-        menu.findItem(R.id.action_add).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
         return true;
     }
@@ -134,10 +133,6 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         switch (item.getItemId()) {
         case R.id.action_scan:
             tryOpenCamera();
-            return true;
-
-        case R.id.action_add:
-            startActivity(new Intent(this, AddActivity.class));
             return true;
 
         case R.id.action_about:
