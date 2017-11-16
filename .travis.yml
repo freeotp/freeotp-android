@@ -6,3 +6,7 @@ android:
     - platform-tools
     - build-tools-26.0.1
     - android-26
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
