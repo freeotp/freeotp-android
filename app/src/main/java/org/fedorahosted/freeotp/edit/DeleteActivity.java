@@ -22,7 +22,7 @@ public class DeleteActivity extends BaseActivity {
         ((TextView) findViewById(R.id.label)).setText(token.getLabel());
         Picasso.with(this)
                 .load(token.getImage())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.mipmap.ic_freeotp_logo_foreground)
                 .into((ImageView) findViewById(R.id.image));
 
         findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
