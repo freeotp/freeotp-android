@@ -101,7 +101,7 @@ public class TokenLayout extends FrameLayout implements View.OnClickListener, Ru
         // Show the image.
         Picasso.with(getContext())
                 .load(token.getImage())
-                .placeholder(R.drawable.ic_freeotp)
+                .placeholder(R.mipmap.ic_freeotp_logo_foreground)
                 .fit()
                 .into(mImage);
 

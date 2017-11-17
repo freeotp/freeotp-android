@@ -24,14 +24,14 @@
     xmlns:freeotp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/token_background"
+    android:background="@drawable/token"
     >
     <ImageView
         android:id="@+id/image"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_gravity="left"
-        android:src="@drawable/ic_freeotp"
+        android:src="@mipmap/ic_freeotp_logo_foreground"
         android:scaleType="fitCenter"
         />
 

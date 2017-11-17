@@ -60,7 +60,7 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
         onTextChanged(null, 0, 0, 0);
         Picasso.with(this)
                 .load(uri)
-                .placeholder(R.drawable.ic_freeotp)
+                .placeholder(R.mipmap.ic_freeotp_logo_foreground)
                 .into(mImage);
     }
 
