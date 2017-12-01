@@ -1,5 +1,11 @@
 package org.fedorahosted.freeotp;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import java.lang.Exception;
 import java.lang.UnsupportedOperationException;
@@ -16,6 +22,7 @@ public class CredentialManager {
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
     }
+    private Context mAppContext = null;
 
     // 설정값 저장하는 변수
     private boolean mEnable = false;
@@ -28,22 +35,27 @@ public class CredentialManager {
      * 기능 : 초기화
      * 호출시점 : 앱 실행 시 1회. MainActivity의 onCreate 또는 객체 생성 시
      */
-    public int init() {
+    public int init(Context appContext) {
+        mAppContext = appContext;
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
         }
         else {
             saveConfig();
         }
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     /*
      * OTP 접근 가능 여부를 검사
      */
     public boolean check() {
+        //기능 완성시까지 true 리턴
+        //unreachable statement 에러 방지 위해 if문 사용
+        if(true) return true;
+
         if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
-            return  true;
+            return true;
         else {
             //TODO : 설정에 따라 지문 혹은 패턴 혹은 패스워드 요구
             //TODO : 성공시 mLastCheckPass 갱신. 성공여부를 리턴
@@ -55,21 +67,21 @@ public class CredentialManager {
      * 기존 설정이 SharedPreference에 존재하는지 확인
      */
     private boolean isConfigExist() {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     /*
      * SharedPreference의 기존 설정이 안전한 데이터인지 확인
      */
     private boolean isConfigValid() {
-        throw new UnsupportedOperationException();
+        return true;
     }
 
     /*
      * 기존 설정을 불러와서 변수에 저장
      */
     private  void loadConfig() {
-
+        //TODO : 지문 사용 설정이지만 사용자가 권한을 철회한 경우 지문 사용 설정 false로
     }
 
     /*
@@ -88,15 +100,18 @@ public class CredentialManager {
      * USE_FINGERPRINT 권한 확인
      */
     private boolean isPermission() {
-        throw new UnsupportedOperationException();
+        final int PERMISSION = ContextCompat.checkSelfPermission(mAppContext,
+                                        Manifest.permission.USE_FINGERPRINT);
+        return  PERMISSION == PackageManager.PERMISSION_GRANTED;
     }
 
     /*
      * USE_FINGERPRINT 권한 요청
      */
-    private  boolean tryPermission() {
-        throw new UnsupportedOperationException();
+    private  void tryPermission(Activity mainActivity) {
+        ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.USE_FINGERPRINT}, 2);
     }
+
 
     public boolean getEnable() {
         return mEnable;
@@ -123,10 +138,11 @@ public class CredentialManager {
         return saveConfig();
     }
 
-    public boolean setUseFingerprint(boolean value) {
-        if(value && !isPermission() && !tryPermission())
+    public boolean setUseFingerprint(Activity mainActivity, boolean value) {
+        if(value && !isPermission()) {
+            tryPermission(mainActivity);
             return false;
-
+        }
         mUseFingerprint = value;
         return saveConfig();
     }

@@ -98,6 +98,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         };
         mTokenAdapter.registerDataSetObserver(mDataSetObserver);
+        CredentialManager.getInstance().init(this);
     }
 
     @Override
