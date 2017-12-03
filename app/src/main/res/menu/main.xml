@@ -31,4 +31,9 @@
         android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about_freeotp" />
+    <item
+        android:id="@+id/action_setting"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Setting" />
 </menu>
