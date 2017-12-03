@@ -30,4 +30,9 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/delete"
         />
+    <item
+        android:id="@+id/action_setting"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Setting"
+        />
 </menu>
