@@ -96,10 +96,18 @@ public class CredentialManager {
 
     /*
      * 기존 설정을 불러와서 변수에 저장
+     * mEnable : Lock기능 on(true) / off(false)
+     *
      */
     private  void loadConfig() {
+        mEnable = saveSetting.getBoolean("Enable",false);
 
-        //TODO : 지문 사용 설정이지만 사용자가 권한을 철회한 경우 지문 사용 설정 false로
+            if(mEnable == true)
+                mUseFingerprint = saveSetting.getBoolean("UseFingerPrint",false);
+            else
+                saveSetting.edit().putBoolean("UseFingerPrint",false);
+
+        mTime = saveSetting.getInt("Time_type",60);
     }
 
     /*
@@ -107,6 +115,9 @@ public class CredentialManager {
      */
     private  boolean saveConfig() {
         try {
+            saveSetting.edit().putBoolean("Enable",mEnable);
+            saveSetting.edit().putBoolean("UseFingerPrint",mUseFingerprint);
+            saveSetting.edit().putInt("Time_type",mTime);
             return true;
         } catch (Exception e) {
             loadConfig();
