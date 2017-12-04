@@ -6,13 +6,18 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
 import java.lang.UnsupportedOperationException;
 import java.util.Date;
 
+import static android.content.Context.MODE_PRIVATE;
+
+
 public class CredentialManager {
     private static final CredentialManager ourInstance = new CredentialManager();
+    private SharedPreferences saveSetting;
 
     public static CredentialManager getInstance() {
         return ourInstance;
@@ -37,6 +42,7 @@ public class CredentialManager {
      */
     public int init(Context appContext) {
         mAppContext = appContext;
+        saveSetting = mAppContext.getSharedPreferences("Setting",MODE_PRIVATE);
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
         }
@@ -67,20 +73,32 @@ public class CredentialManager {
      * 기존 설정이 SharedPreference에 존재하는지 확인
      */
     private boolean isConfigExist() {
-        return false;
+        if(saveSetting.contains("Enable") && saveSetting.contains("Time_type"))
+            return true;
+        else
+            return false;
     }
 
     /*
      * SharedPreference의 기존 설정이 안전한 데이터인지 확인
+     * timetype이 10,30,60이 아닌 경우 false
+     * 없는 경우에도
      */
     private boolean isConfigValid() {
-        return true;
+        int tempTimeType = 0;
+        tempTimeType = saveSetting.getInt("Time_type",-1);
+
+        if(tempTimeType != 10 || tempTimeType !=20 || tempTimeType !=30)
+            return false;
+        else
+            return true;
     }
 
     /*
      * 기존 설정을 불러와서 변수에 저장
      */
     private  void loadConfig() {
+
         //TODO : 지문 사용 설정이지만 사용자가 권한을 철회한 경우 지문 사용 설정 false로
     }
 
