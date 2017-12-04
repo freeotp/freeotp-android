@@ -1,11 +1,7 @@
 package org.fedorahosted.freeotp;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
@@ -58,6 +54,8 @@ public class CredentialManager {
     public boolean check() {
         //기능 완성시까지 true 리턴
         //unreachable statement 에러 방지 위해 if문 사용
+        
+
         if(true) return true;
 
         if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
@@ -125,23 +123,6 @@ public class CredentialManager {
         }
     }
 
-    /*
-     * USE_FINGERPRINT 권한 확인
-     */
-    private boolean isPermission() {
-        final int PERMISSION = ContextCompat.checkSelfPermission(mAppContext,
-                                        Manifest.permission.USE_FINGERPRINT);
-        return  PERMISSION == PackageManager.PERMISSION_GRANTED;
-    }
-
-    /*
-     * USE_FINGERPRINT 권한 요청
-     */
-    private  void tryPermission(Activity mainActivity) {
-        ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.USE_FINGERPRINT}, 2);
-    }
-
-
     public boolean getEnable() {
         return mEnable;
     }
@@ -168,10 +149,6 @@ public class CredentialManager {
     }
 
     public boolean setUseFingerprint(Activity mainActivity, boolean value) {
-        if(value && !isPermission()) {
-            tryPermission(mainActivity);
-            return false;
-        }
         mUseFingerprint = value;
         return saveConfig();
     }
