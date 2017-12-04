@@ -1,7 +1,9 @@
 package org.fedorahosted.freeotp;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
@@ -19,11 +21,13 @@ public class CredentialManager {
         return ourInstance;
     }
 
+    public static final int CREDENTIAL_CHECK = 2;
     // 사용자가 설정할 수 있는 시간값
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
     }
     private Context mAppContext = null;
+    private KeyguardManager mKeyguardManager;
 
     // 설정값 저장하는 변수
     private boolean mEnable = false;
@@ -31,13 +35,14 @@ public class CredentialManager {
     private int mTime = 30;
 
     // 마지막 인증 통과 시점을 저장하는 변수
-    private long mLastCheckPass = Long.MIN_VALUE;
+    private long mLastCheckPass = 0;
     /*
      * 기능 : 초기화
      * 호출시점 : 앱 실행 시 1회. MainActivity의 onCreate 또는 객체 생성 시
      */
     public int init(Context appContext) {
         mAppContext = appContext;
+        mKeyguardManager = (KeyguardManager)mAppContext.getSystemService(Context.KEYGUARD_SERVICE);
         saveSetting = mAppContext.getSharedPreferences("Setting",MODE_PRIVATE);
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
@@ -52,19 +57,21 @@ public class CredentialManager {
      * OTP 접근 가능 여부를 검사
      */
     public boolean check() {
-        //기능 완성시까지 true 리턴
-        //unreachable statement 에러 방지 위해 if문 사용
-        
-
-        if(true) return true;
-
         if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
             return true;
         else {
-            //TODO : 설정에 따라 지문 혹은 패턴 혹은 패스워드 요구
-            //TODO : 성공시 mLastCheckPass 갱신. 성공여부를 리턴
-            throw new UnsupportedOperationException();
+            Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null,null);
+            ((Activity) mAppContext).startActivityForResult(intent, CREDENTIAL_CHECK);
+            return false;
         }
+    }
+
+    /*
+     * screenLock 해제 성공 시 호출됨
+     * MainActivity의 onActivityResult에서만 호출되어야 함
+     */
+    public void pass() {
+        mLastCheckPass = new Date().getTime();
     }
 
     /*

@@ -189,4 +189,14 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == CredentialManager.CREDENTIAL_CHECK) {
+            if(resultCode == RESULT_OK) {
+                CredentialManager.getInstance().pass();
+            }
+        }
+    }
 }
