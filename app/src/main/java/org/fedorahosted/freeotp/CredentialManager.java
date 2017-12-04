@@ -107,7 +107,7 @@ public class CredentialManager {
             else
                 saveSetting.edit().putBoolean("UseFingerPrint",false);
 
-        mTime = saveSetting.getInt("Time_type",60);
+        mTime = saveSetting.getInt("Time_type",30);
     }
 
     /*
@@ -115,9 +115,13 @@ public class CredentialManager {
      */
     private  boolean saveConfig() {
         try {
-            saveSetting.edit().putBoolean("Enable",mEnable);
-            saveSetting.edit().putBoolean("UseFingerPrint",mUseFingerprint);
-            saveSetting.edit().putInt("Time_type",mTime);
+            if(mEnable != saveSetting.getBoolean("Enable",false))
+                saveSetting.edit().putBoolean("Enable",mEnable);
+            if(mUseFingerprint != saveSetting.getBoolean("UseFingerPrint",false))
+                saveSetting.edit().putBoolean("UseFingerPrint",mUseFingerprint);
+            if(mTime != saveSetting.getInt("Time_type",30))
+                saveSetting.edit().putInt("Time_type",mTime);
+
             return true;
         } catch (Exception e) {
             loadConfig();
