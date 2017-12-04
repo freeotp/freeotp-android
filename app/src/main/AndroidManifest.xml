@@ -58,13 +58,13 @@
             />
 
         <activity
-            android:name=".edit.DeleteActivity"
+            android:name=".DeleteTokenActivity"
             android:label="@string/delete_question"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
             />
 
         <activity
-            android:name=".edit.EditActivity"
+            android:name=".EditTokenActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateVisible"
             />

@@ -32,9 +32,6 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import org.fedorahosted.freeotp.edit.DeleteActivity;
-import org.fedorahosted.freeotp.edit.EditActivity;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,14 +93,14 @@ public class TokenAdapter extends BaseReorderableAdapter {
 
                 switch (item.getItemId()) {
                     case R.id.action_edit:
-                        i = new Intent(ctx, EditActivity.class);
-                        i.putExtra(EditActivity.EXTRA_POSITION, position);
+                        i = new Intent(ctx, EditTokenActivity.class);
+                        i.putExtra(EditTokenActivity.EXTRA_POSITION, position);
                         ctx.startActivity(i);
                         break;
 
                     case R.id.action_delete:
-                        i = new Intent(ctx, DeleteActivity.class);
-                        i.putExtra(DeleteActivity.EXTRA_POSITION, position);
+                        i = new Intent(ctx, DeleteTokenActivity.class);
+                        i.putExtra(DeleteTokenActivity.EXTRA_POSITION, position);
                         ctx.startActivity(i);
                         break;
                 }

@@ -1,8 +1,4 @@
-package org.fedorahosted.freeotp.edit;
-
-import org.fedorahosted.freeotp.R;
-import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPersistence;
+package org.fedorahosted.freeotp;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +7,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class DeleteActivity extends BaseActivity {
+public class DeleteTokenActivity extends BaseTokenActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +32,7 @@ public class DeleteActivity extends BaseActivity {
             public void onClick(View v) {
                 //delete the image that was copied to storage, before deleting the token
                 token.deleteImage();
-                new TokenPersistence(DeleteActivity.this).delete(getPosition());
+                new TokenPersistence(DeleteTokenActivity.this).delete(getPosition());
                 finish();
             }
         });
