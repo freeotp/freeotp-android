@@ -1,7 +1,9 @@
 package org.fedorahosted.freeotp;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
@@ -19,25 +21,32 @@ public class CredentialManager {
         return ourInstance;
     }
 
+    public static final int CREDENTIAL_CHECK = 2;
     // 사용자가 설정할 수 있는 시간값
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
     }
+
+    public enum LockType{
+        NONE, PATTERN, FINGER_PRINT, PASSWORD
+    }
     private Context mAppContext = null;
+    private KeyguardManager mKeyguardManager;
 
     // 설정값 저장하는 변수
     private boolean mEnable = false;
-    private boolean mUseFingerprint = false;
+    private int mLockType = 0;
     private int mTime = 30;
 
     // 마지막 인증 통과 시점을 저장하는 변수
-    private long mLastCheckPass = Long.MIN_VALUE;
+    private long mLastCheckPass = 0;
     /*
      * 기능 : 초기화
      * 호출시점 : 앱 실행 시 1회. MainActivity의 onCreate 또는 객체 생성 시
      */
     public int init(Context appContext) {
         mAppContext = appContext;
+        mKeyguardManager = (KeyguardManager)mAppContext.getSystemService(Context.KEYGUARD_SERVICE);
         saveSetting = mAppContext.getSharedPreferences("Setting",MODE_PRIVATE);
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
@@ -52,19 +61,21 @@ public class CredentialManager {
      * OTP 접근 가능 여부를 검사
      */
     public boolean check() {
-        //기능 완성시까지 true 리턴
-        //unreachable statement 에러 방지 위해 if문 사용
-        
-
-        if(true) return true;
-
         if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
             return true;
         else {
-            //TODO : 설정에 따라 지문 혹은 패턴 혹은 패스워드 요구
-            //TODO : 성공시 mLastCheckPass 갱신. 성공여부를 리턴
-            throw new UnsupportedOperationException();
+            Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null,null);
+            ((Activity) mAppContext).startActivityForResult(intent, CREDENTIAL_CHECK);
+            return false;
         }
+    }
+
+    /*
+     * screenLock 해제 성공 시 호출됨
+     * MainActivity의 onActivityResult에서만 호출되어야 함
+     */
+    public void pass() {
+        mLastCheckPass = new Date().getTime();
     }
 
     /*
@@ -86,10 +97,10 @@ public class CredentialManager {
         int tempTimeType = 0;
         tempTimeType = saveSetting.getInt("Time_type",-1);
 
-        if(tempTimeType != 10 || tempTimeType !=20 || tempTimeType !=30)
-            return false;
-        else
+        if(tempTimeType == 10 || tempTimeType ==30 || tempTimeType ==60)
             return true;
+        else
+            return false;
     }
 
     /*
@@ -100,10 +111,10 @@ public class CredentialManager {
     private  void loadConfig() {
         mEnable = saveSetting.getBoolean("Enable",false);
 
-            if(mEnable == true)
-                mUseFingerprint = saveSetting.getBoolean("UseFingerPrint",false);
-            else
-                saveSetting.edit().putBoolean("UseFingerPrint",false);
+        if(mEnable == true)
+            mLockType = saveSetting.getInt("LockType",0);
+        else
+            saveSetting.edit().putBoolean("LockType",false);
 
         mTime = saveSetting.getInt("Time_type",30);
     }
@@ -115,8 +126,8 @@ public class CredentialManager {
         try {
             if(mEnable != saveSetting.getBoolean("Enable",false))
                 saveSetting.edit().putBoolean("Enable",mEnable);
-            if(mUseFingerprint != saveSetting.getBoolean("UseFingerPrint",false))
-                saveSetting.edit().putBoolean("UseFingerPrint",mUseFingerprint);
+            if(mLockType != saveSetting.getInt("LockType",0))
+                saveSetting.edit().putInt("LockType",mLockType);
             if(mTime != saveSetting.getInt("Time_type",30))
                 saveSetting.edit().putInt("Time_type",mTime);
 
@@ -131,8 +142,18 @@ public class CredentialManager {
         return mEnable;
     }
 
-    public boolean getUseFingerprint() {
-        return mUseFingerprint;
+    public LockType getLockType() {
+        switch(mLockType) {
+            case 0:
+                return LockType.NONE;
+            case 1:
+                return LockType.PATTERN;
+            case 2:
+                return LockType.FINGER_PRINT;
+            case 3:
+                return LockType.PASSWORD;
+        }
+        throw new UnsupportedOperationException();
     }
 
     public TimeType getTime() {
@@ -152,8 +173,23 @@ public class CredentialManager {
         return saveConfig();
     }
 
-    public boolean setUseFingerprint(Activity mainActivity, boolean value) {
-        mUseFingerprint = value;
+    public boolean setLockType(Activity mainActivity, LockType value) {
+        switch(value) {
+            case NONE:
+                mLockType = 0;
+                break;
+            case PATTERN:
+                mLockType = 1;
+                break;
+            case FINGER_PRINT:
+                mLockType = 2;
+                break;
+            case PASSWORD:
+                mLockType = 3;
+                break;
+            default :
+                return false;
+        }
         return saveConfig();
     }
 
