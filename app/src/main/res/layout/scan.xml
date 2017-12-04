@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         />
 
-    <org.fedorahosted.freeotp.add.ScanWindowFrameLayout
+    <org.fedorahosted.freeotp.ScanWindowFrameLayout
         android:id="@+id/window"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,7 +54,7 @@
             android:layout_margin="16dp"
             android:indeterminate="true"
             />
-    </org.fedorahosted.freeotp.add.ScanWindowFrameLayout>
+    </org.fedorahosted.freeotp.ScanWindowFrameLayout>
 
     <TextView
         android:id="@+id/textview"

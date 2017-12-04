@@ -20,11 +20,7 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.add;
-
-import org.fedorahosted.freeotp.R;
-import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPersistence;
+package org.fedorahosted.freeotp;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

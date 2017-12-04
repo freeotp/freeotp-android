@@ -53,7 +53,7 @@
             />
 
         <activity
-            android:name=".add.ScanActivity"
+            android:name=".ScanActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             />
 
