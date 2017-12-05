@@ -18,22 +18,21 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/action_scan"
-        android:showAsAction="ifRoom"
-        android:icon="@drawable/qrcode"
-        android:title="@string/scan_qr_code" />
-
-    <item
-        android:id="@+id/action_about"
-        android:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/about_freeotp" />
-    <item
-        android:id="@+id/action_setting"
-        android:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="Setting" />
-</menu>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp" >
+        <TextView
+            android:id="@+id/about_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Setting"/>
+        //여기에다 setting ui를 추가
+    </LinearLayout>
+</ScrollView>

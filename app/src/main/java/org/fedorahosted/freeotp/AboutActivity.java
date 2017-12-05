@@ -56,15 +56,15 @@ public class AboutActivity extends Activity {
         }
 
         String apache2 = res.getString(R.string.link_apache2);
-        String license = res.getString(R.string.about_license, apache2);
+    String license = res.getString(R.string.about_license, apache2);
         tv = findViewById(R.id.about_license);
-        tv.setMovementMethod(LinkMovementMethod.getInstance());
-        tv.setText(Html.fromHtml(license));
+                tv.setMovementMethod(LinkMovementMethod.getInstance());
+                tv.setText(Html.fromHtml(license));
 
-        String lwebsite = res.getString(R.string.link_website);
-        String swebsite = res.getString(R.string.about_website, lwebsite);
-        tv = findViewById(R.id.about_website);
-        tv.setMovementMethod(LinkMovementMethod.getInstance());
-        tv.setText(Html.fromHtml(swebsite));
-    }
-}
+                String lwebsite = res.getString(R.string.link_website);
+                String swebsite = res.getString(R.string.about_website, lwebsite);
+                tv = findViewById(R.id.about_website);
+                tv.setMovementMethod(LinkMovementMethod.getInstance());
+                tv.setText(Html.fromHtml(swebsite));
+                }
+                }
