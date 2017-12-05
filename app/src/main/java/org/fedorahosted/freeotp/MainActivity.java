@@ -126,7 +126,6 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         menu.findItem(R.id.action_scan).setVisible(ScanActivity.hasCamera(this));
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
-        menu.findItem(R.id.action_setting).setOnMenuItemClickListener(this);
         return true;
     }
 
@@ -155,14 +154,6 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         case R.id.action_about:
             startActivity(new Intent(this, AboutActivity.class));
             return true;
-
-        case R.id.action_setting:
-            Log.v("설정","클릭되었습니다");
-            startActivity(new Intent(this, SettingActivity.class));
-            return true;
-
-
-
         }
 
         return false;
