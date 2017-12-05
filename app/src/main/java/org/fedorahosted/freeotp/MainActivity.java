@@ -1,4 +1,4 @@
-﻿/*
+/*
  * FreeOTP
  *
  * Authors: Nathaniel McCallum <npmccallum@redhat.com>
@@ -98,6 +98,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         };
         mTokenAdapter.registerDataSetObserver(mDataSetObserver);
+        CredentialManager.getInstance().init(this);
     }
 
     @Override
@@ -187,5 +188,15 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == CredentialManager.CREDENTIAL_CHECK) {
+            if(resultCode == RESULT_OK) {
+                CredentialManager.getInstance().pass();
+            }
+        }
     }
 }
