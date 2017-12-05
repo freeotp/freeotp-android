@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="org.fedorahosted.freeotp.SettingActivity"
-    tools:layout_editor_absoluteY="73dp">
 
-    <LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -29,12 +22,11 @@
 
         <Switch
             android:id="@+id/switch3"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2차 잠금 설정"
-            tools:layout_editor_absoluteX="48dp"
-            tools:layout_editor_absoluteY="91dp" />
+            android:text="2차 잠금 설정" />
 
         <RadioButton
             android:id="@+id/radioButton7"
@@ -98,6 +90,4 @@
             android:layout_height="wrap_content"
             android:text="설정 저장" />
 
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
