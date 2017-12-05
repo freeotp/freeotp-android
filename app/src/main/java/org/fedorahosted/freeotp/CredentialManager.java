@@ -40,6 +40,8 @@ public class CredentialManager {
     private boolean mEnable = false;
     private int mTime = 30;
 
+
+
     // 마지막 인증 통과 시점을 저장하는 변수
     private long mLastCheckPass = 0;
     /*
@@ -61,10 +63,13 @@ public class CredentialManager {
 
     /*
      * OTP 접근 가능 여부를 검사
+     * 기기시간을 과거로 돌렸을때 저장된 마지막 시간값 보다 현재 시간이 빠를시에,
+     * 비정상적인 동작이므로 토큰 생성을 막는다. 
      */
     public boolean check() {
-        if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
+        if (!mEnable || new Date().getTime() - mLastCheckPass< mTime * DateUtils.SECOND_IN_MILLIS && (mLastCheckPass  < new Date().getTime())) {
             return true;
+        }
         else {
             Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null,null);
             ((Activity) mAppContext).startActivityForResult(intent, CREDENTIAL_CHECK);
