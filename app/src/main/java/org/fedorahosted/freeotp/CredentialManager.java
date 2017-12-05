@@ -96,7 +96,7 @@ public class CredentialManager {
     private boolean isConfigValid() {
         int tempTimeType = 0;
         tempTimeType = mSaveSetting.getInt(SETTING_TIME_TYPE,-1);
-        if(tempTimeType != 10 || tempTimeType !=20 || tempTimeType !=30)
+        if(tempTimeType == 10 || tempTimeType ==30 || tempTimeType ==60)
             return false;
         else
             return true;
