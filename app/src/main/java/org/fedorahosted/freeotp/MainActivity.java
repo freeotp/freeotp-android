@@ -39,6 +39,7 @@
 package org.fedorahosted.freeotp;
 
 import android.Manifest;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.fedorahosted.freeotp.add.ScanActivity;
@@ -156,6 +157,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             return true;
 
             case R.id.action_setting:
+                Log.v("설정","클릭되었습니다");
                 startActivity(new Intent(this, SettingActivity.class));
                 return true;
 
