@@ -33,9 +33,6 @@ public class CredentialManager {
         SEC_10, SEC_30, SEC_60
     }
 
-    public enum LockType{
-        NONE, PATTERN, FINGER_PRINT, PASSWORD
-    }
     private Context mAppContext = null;
     private KeyguardManager mKeyguardManager;
 
