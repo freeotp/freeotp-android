@@ -27,9 +27,14 @@ public class CredentialManager {
     public static final int CREDENTIAL_CHECK = 2;
     public static final String SETTING_ENABLE = "Enable";
     public static final String SETTING_TIME_TYPE="Time_type";
+
     // 사용자가 설정할 수 있는 시간값
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
+    }
+
+    public enum LockType{
+        NONE, PATTERN, FINGER_PRINT, PASSWORD
     }
     private Context mAppContext = null;
     private KeyguardManager mKeyguardManager;
@@ -97,9 +102,9 @@ public class CredentialManager {
         int tempTimeType = 0;
         tempTimeType = mSaveSetting.getInt(SETTING_TIME_TYPE,-1);
         if(tempTimeType == 10 || tempTimeType ==30 || tempTimeType ==60)
-            return false;
-        else
             return true;
+        else
+            return false;
     }
 
     /*
@@ -119,8 +124,7 @@ public class CredentialManager {
         try {
             if(mEnable != mSaveSetting.getBoolean(SETTING_ENABLE,false))
                 mSaveSetting.edit().putBoolean(SETTING_ENABLE,mEnable);
-
-            if(mTime != mSaveSetting.getInt(SETTING_TIME_TYPE,30))
+            if(mTime != mSaveSetting.getInt(SETTING_TIME_TYPE,60))
                 mSaveSetting.edit().putInt(SETTING_TIME_TYPE,mTime);
 
             return true;
