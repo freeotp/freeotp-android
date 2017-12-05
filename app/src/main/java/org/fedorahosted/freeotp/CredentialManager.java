@@ -15,13 +15,18 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class CredentialManager {
     private static final CredentialManager ourInstance = new CredentialManager();
-    private SharedPreferences saveSetting;
+    private SharedPreferences mSaveSetting;
 
     public static CredentialManager getInstance() {
         return ourInstance;
     }
-
+    /*
+     *상수 값을 참조할 때, final로 정의함으로써, 값 참조의 효율성을 두었다.
+     */
     public static final int CREDENTIAL_CHECK = 2;
+    public static final String SETTING_ENABLE = "Enable";
+    public static final String SETTING_TIME_TYPE="Time_type";
+    public static final String SETTING_LOCK_TYPE="LockType";
     // 사용자가 설정할 수 있는 시간값
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
@@ -47,7 +52,7 @@ public class CredentialManager {
     public int init(Context appContext) {
         mAppContext = appContext;
         mKeyguardManager = (KeyguardManager)mAppContext.getSystemService(Context.KEYGUARD_SERVICE);
-        saveSetting = mAppContext.getSharedPreferences("Setting",MODE_PRIVATE);
+        mSaveSetting = ((Activity)mAppContext).getPreferences(MODE_PRIVATE);
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
         }
@@ -82,7 +87,7 @@ public class CredentialManager {
      * 기존 설정이 SharedPreference에 존재하는지 확인
      */
     private boolean isConfigExist() {
-        if(saveSetting.contains("Enable") && saveSetting.contains("Time_type"))
+        if(mSaveSetting.contains(SETTING_ENABLE) && mSaveSetting.contains(SETTING_TIME_TYPE))
             return true;
         else
             return false;
@@ -95,7 +100,7 @@ public class CredentialManager {
      */
     private boolean isConfigValid() {
         int tempTimeType = 0;
-        tempTimeType = saveSetting.getInt("Time_type",-1);
+        tempTimeType = mSaveSetting.getInt(SETTING_TIME_TYPE,-1);
 
         if(tempTimeType == 10 || tempTimeType ==30 || tempTimeType ==60)
             return true;
@@ -109,14 +114,14 @@ public class CredentialManager {
      *
      */
     private  void loadConfig() {
-        mEnable = saveSetting.getBoolean("Enable",false);
+        mEnable = mSaveSetting.getBoolean(SETTING_ENABLE,false);
 
         if(mEnable == true)
-            mLockType = saveSetting.getInt("LockType",0);
+            mLockType = mSaveSetting.getInt(SETTING_LOCK_TYPE,0);
         else
-            saveSetting.edit().putBoolean("LockType",false);
+            mSaveSetting.edit().putBoolean(SETTING_LOCK_TYPE,false);
 
-        mTime = saveSetting.getInt("Time_type",30);
+        mTime = mSaveSetting.getInt(SETTING_TIME_TYPE,30);
     }
 
     /*
@@ -124,12 +129,12 @@ public class CredentialManager {
      */
     private  boolean saveConfig() {
         try {
-            if(mEnable != saveSetting.getBoolean("Enable",false))
-                saveSetting.edit().putBoolean("Enable",mEnable);
-            if(mLockType != saveSetting.getInt("LockType",0))
-                saveSetting.edit().putInt("LockType",mLockType);
-            if(mTime != saveSetting.getInt("Time_type",30))
-                saveSetting.edit().putInt("Time_type",mTime);
+            if(mEnable != mSaveSetting.getBoolean(SETTING_ENABLE,false))
+                mSaveSetting.edit().putBoolean(SETTING_ENABLE,mEnable);
+            if(mLockType != mSaveSetting.getInt(SETTING_LOCK_TYPE,0))
+                mSaveSetting.edit().putInt(SETTING_LOCK_TYPE,mLockType);
+            if(mTime != mSaveSetting.getInt(SETTING_TIME_TYPE,30))
+                mSaveSetting.edit().putInt(SETTING_TIME_TYPE,mTime);
 
             return true;
         } catch (Exception e) {
