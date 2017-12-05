@@ -34,6 +34,14 @@
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>
 
+    <string name="setting_title">Setting</string>
+    <string name="setting_two_factor_authentication">2FA</string>
+    <string name="setting_duration">Duration</string>
+    <string name="setting_duration_10sec">10sec</string>
+    <string name="setting_duration_30sec">30sec</string>
+    <string name="setting_duration_60sec">60sec</string>
+    <string name="setting_apply">Save</string>
+
     <string-array name="algorithms">
         <item>MD5</item>
         <item>SHA1</item>
