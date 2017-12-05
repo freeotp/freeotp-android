@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FreeOTP
  *
  * Authors: Nathaniel McCallum <npmccallum@redhat.com>
@@ -156,10 +156,10 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             startActivity(new Intent(this, AboutActivity.class));
             return true;
 
-            case R.id.action_setting:
-                Log.v("설정","클릭되었습니다");
-                startActivity(new Intent(this, SettingActivity.class));
-                return true;
+        case R.id.action_setting:
+            Log.v("설정","클릭되었습니다");
+            startActivity(new Intent(this, SettingActivity.class));
+            return true;
 
 
 
