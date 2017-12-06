@@ -31,6 +31,9 @@
     <string name="error_permission_camera_open">No permission to open the camera</string>
     <string name="error_image_open">Error while opening image!</string>
 
+    <string name="authentication_error">Error occurs during authentication</string>
+    <string name="authentication_success">Authentication is successful</string>
+
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>
 

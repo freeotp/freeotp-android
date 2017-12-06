@@ -126,6 +126,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         menu.findItem(R.id.action_scan).setVisible(ScanActivity.hasCamera(this));
         menu.findItem(R.id.action_scan).setOnMenuItemClickListener(this);
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(this);
+        menu.findItem(R.id.action_setting).setOnMenuItemClickListener(this);
         return true;
     }
 
@@ -153,6 +154,10 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
 
         case R.id.action_about:
             startActivity(new Intent(this, AboutActivity.class));
+            return true;
+
+        case R.id.action_setting:
+            startActivity(new Intent(this, SettingActivity.class));
             return true;
         }
 
@@ -196,7 +201,10 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         if(requestCode == CredentialManager.CREDENTIAL_CHECK) {
             if(resultCode == RESULT_OK) {
                 CredentialManager.getInstance().pass();
+                Toast.makeText(MainActivity.this, R.string.authentication_success, Toast.LENGTH_LONG).show();
             }
+            else
+                Toast.makeText(MainActivity.this, R.string.authentication_error, Toast.LENGTH_LONG).show();
         }
     }
 }

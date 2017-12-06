@@ -59,6 +59,11 @@
             />
 
         <activity
+            android:name=".SettingActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            />
+
+        <activity
             android:name=".edit.DeleteActivity"
             android:label="@string/delete_question"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
@@ -89,6 +94,5 @@
                 <data android:scheme="otpauth" android:host="hotp" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity"></activity>
     </application>
 </manifest>

@@ -8,48 +8,45 @@ import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
 import java.lang.UnsupportedOperationException;
-import java.util.Date;
-
+import android.os.SystemClock;
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class CredentialManager {
     private static final CredentialManager ourInstance = new CredentialManager();
-    private SharedPreferences mSaveSetting;
 
     public static CredentialManager getInstance() {
         return ourInstance;
     }
 
-    /*
-     *상수 값을 참조할 때, final로 정의함으로써, 값 참조의 효율성을 두었다.
-     */
-    public static final int CREDENTIAL_CHECK = 2;
-    public static final String SETTING_ENABLE = "Enable";
-    public static final String SETTING_TIME_TYPE="Time_type";
-
-    // 사용자가 설정할 수 있는 시간값
+    // Time user can set
     public enum TimeType {
         SEC_10, SEC_30, SEC_60
     }
 
+    public static final int CREDENTIAL_CHECK = 2;
+    public static final String SETTING_ENABLE = "Enable";
+    public static final String SETTING_TIME_TYPE="Time_type";
+
     private Context mAppContext = null;
     private KeyguardManager mKeyguardManager;
+    private SharedPreferences mPreferences;
 
-    // 설정값 저장하는 변수
+    //Variable to store setting value
     private boolean mEnable = false;
     private int mTime = 30;
 
-    // 마지막 인증 통과 시점을 저장하는 변수
+    //variable that last authentication point
     private long mLastCheckPass = 0;
+
     /*
-     * 기능 : 초기화
-     * 호출시점 : 앱 실행 시 1회. MainActivity의 onCreate 또는 객체 생성 시
+     * init method => initialize
+     * point of call => execute one time when running app.
      */
     public int init(Context appContext) {
         mAppContext = appContext;
         mKeyguardManager = (KeyguardManager)mAppContext.getSystemService(Context.KEYGUARD_SERVICE);
-        mSaveSetting = ((Activity)mAppContext).getPreferences(MODE_PRIVATE);
+        mPreferences = ((Activity)mAppContext).getPreferences(MODE_PRIVATE);
         if(isConfigExist() && isConfigValid()) {
             loadConfig();
         }
@@ -60,10 +57,10 @@ public class CredentialManager {
     }
 
     /*
-     * OTP 접근 가능 여부를 검사
+     *  check method => check whether OTP is accessible.
      */
     public boolean check() {
-        if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
+        if (!mEnable || SystemClock.elapsedRealtime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
             return true;
         else {
             Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null,null);
@@ -73,31 +70,29 @@ public class CredentialManager {
     }
 
     /*
-     * screenLock 해제 성공 시 호출됨
-     * MainActivity의 onActivityResult에서만 호출되어야 함
+     * pass method => Called when screenLock is released successfully
+     * Should only be called on MainActivity's onActivityResult
      */
     public void pass() {
-        mLastCheckPass = new Date().getTime();
+        mLastCheckPass =SystemClock.elapsedRealtime();
     }
 
     /*
-     * 기존 설정이 SharedPreference에 존재하는지 확인
+     * isConfigExist method=> Check wheter existing settings exist in SharedPreference.
      */
     private boolean isConfigExist() {
-        if(mSaveSetting.contains(SETTING_ENABLE) && mSaveSetting.contains(SETTING_TIME_TYPE))
+        if(mPreferences.contains(SETTING_ENABLE) && mPreferences.contains(SETTING_TIME_TYPE))
             return true;
         else
             return false;
     }
 
     /*
-     * SharedPreference의 기존 설정이 안전한 데이터인지 확인
-     * timetype이 10,30,60이 아닌 경우 false
-     * 없는 경우에도
+     * isConfigValid method=> check whether existing SharedPreference's Settings are safe data.
      */
     private boolean isConfigValid() {
         int tempTimeType = 0;
-        tempTimeType = mSaveSetting.getInt(SETTING_TIME_TYPE,-1);
+        tempTimeType = mPreferences.getInt(SETTING_TIME_TYPE,-1);
         if(tempTimeType == 10 || tempTimeType ==30 || tempTimeType ==60)
             return true;
         else
@@ -105,24 +100,23 @@ public class CredentialManager {
     }
 
     /*
-     * 기존 설정을 불러와서 변수에 저장
-     * mEnable : Lock기능 on(true) / off(false)
-     *
+     * loadConfig method =>bring the existing settings and save the variable.
+     * mEnable : Lock  => on(true) / off(false)
      */
     private  void loadConfig() {
-        mEnable = mSaveSetting.getBoolean(SETTING_ENABLE,false);
-        mTime = mSaveSetting.getInt(SETTING_TIME_TYPE,30);
+        mEnable = mPreferences.getBoolean(SETTING_ENABLE,false);
+        mTime = mPreferences.getInt(SETTING_TIME_TYPE,30);
     }
 
     /*
-     * 변수의 설정을 SharedPreference로 저장
+     * saveConfig method => save variable's setting with SharedPreference.
      */
     private  boolean saveConfig() {
         try {
-            if(mEnable != mSaveSetting.getBoolean(SETTING_ENABLE,false))
-                mSaveSetting.edit().putBoolean(SETTING_ENABLE,mEnable);
-            if(mTime != mSaveSetting.getInt(SETTING_TIME_TYPE,60))
-                mSaveSetting.edit().putInt(SETTING_TIME_TYPE,mTime);
+            if(mEnable != mPreferences.getBoolean(SETTING_ENABLE,false))
+                mPreferences.edit().putBoolean(SETTING_ENABLE,mEnable);
+            if(mTime != mPreferences.getInt(SETTING_TIME_TYPE,60))
+                mPreferences.edit().putInt(SETTING_TIME_TYPE,mTime);
 
             return true;
         } catch (Exception e) {
