@@ -8,8 +8,7 @@ import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import java.lang.Exception;
 import java.lang.UnsupportedOperationException;
-import java.util.Date;
-
+import android.os.SystemClock;
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -63,7 +62,7 @@ public class CredentialManager {
      * OTP 접근 가능 여부를 검사
      */
     public boolean check() {
-        if (!mEnable || new Date().getTime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
+        if (!mEnable || SystemClock.elapsedRealtime() - mLastCheckPass < mTime * DateUtils.SECOND_IN_MILLIS)
             return true;
         else {
             Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null,null);
@@ -77,7 +76,7 @@ public class CredentialManager {
      * MainActivity의 onActivityResult에서만 호출되어야 함
      */
     public void pass() {
-        mLastCheckPass = new Date().getTime();
+        mLastCheckPass =SystemClock.elapsedRealtime();
     }
 
     /*
