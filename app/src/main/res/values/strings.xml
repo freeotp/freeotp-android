@@ -44,6 +44,8 @@
     <string name="setting_duration_30sec">30sec</string>
     <string name="setting_duration_60sec">60sec</string>
     <string name="setting_apply">Save</string>
+    <string name="UnuseLock">Unuse</string>
+    <string name="UseLock">Use</string>
 
     <string-array name="algorithms">
         <item>MD5</item>

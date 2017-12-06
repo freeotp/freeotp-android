@@ -22,7 +22,9 @@
 
         <Switch
             android:id="@+id/switch3"
-
+            android:checked="false"
+            android:textOn="@string/UseLock"
+            android:textOff="@string/UnuseLock"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
