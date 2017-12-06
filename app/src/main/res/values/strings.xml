@@ -38,7 +38,9 @@
     <string name="delete_question">Delete this token?</string>
 
     <string name="setting_title">Setting</string>
-    <string name="setting_two_factor_authentication">2FA</string>
+    <string name="setting_protection">Dual Protection</string>
+    <string name="setting_disable">Disable</string>
+    <string name="setting_usable">Usable</string>
     <string name="setting_duration">Duration</string>
     <string name="setting_duration_10sec">10sec</string>
     <string name="setting_duration_30sec">30sec</string>

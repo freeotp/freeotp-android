@@ -8,29 +8,70 @@
         <EditText
             android:id="@+id/editText3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/setting_title" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch3"
-
+        <EditText
+            android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:text="@string/setting_two_factor_authentication" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/setting_protection" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/switch1"
+                    android:layout_toStartOf="@+id/switch1"
+                    android:gravity="center"
+                    android:text="@string/setting_disable"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView2"
+                    android:layout_alignBottom="@+id/textView2"
+                    android:layout_centerHorizontal="true"
+                    android:thumb="@drawable/switch_thumb_selector"
+                    android:track="@drawable/switch_track_selector" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/switch1"
+                    android:gravity="center"
+                    android:text="@string/setting_usable"
+                    android:textColor="#FF0000"
+                    android:textSize="15dp" />
+
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -63,7 +104,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
             android:orientation="horizontal"></LinearLayout>
 
         <Button
