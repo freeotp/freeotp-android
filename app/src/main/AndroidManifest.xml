@@ -38,6 +38,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
@@ -55,6 +56,11 @@
         <activity
             android:name=".add.ScanActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+            />
+
+        <activity
+            android:name=".SettingActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             />
 
         <activity
