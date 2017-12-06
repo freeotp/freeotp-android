@@ -196,10 +196,10 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
         if(requestCode == CredentialManager.CREDENTIAL_CHECK) {
             if(resultCode == RESULT_OK) {
                 CredentialManager.getInstance().pass();
-                Toast.makeText(MainActivity.this, "Your Certification is Passed", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.authentication_success, Toast.LENGTH_LONG).show();
             }
             else
-                Toast.makeText(MainActivity.this, "Your Certification Is Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.authentication_error, Toast.LENGTH_LONG).show();
         }
     }
 }
