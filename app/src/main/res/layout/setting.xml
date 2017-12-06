@@ -52,6 +52,7 @@
                     android:layout_alignBaseline="@+id/textView2"
                     android:layout_alignBottom="@+id/textView2"
                     android:layout_centerHorizontal="true"
+                    android:checked="false"
                     android:thumb="@drawable/switch_thumb_selector"
                     android:track="@drawable/switch_track_selector" />
 
@@ -84,23 +85,34 @@
             android:inputType="textPersonName"
             android:text="@string/setting_duration" />
 
-        <RadioButton
-            android:id="@+id/radioButton10"
+        <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_duration_10sec" />
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/radioButton11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_duration_30sec" />
+                <RadioButton
+                    android:id="@+id/radioButton10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick_10sec"
+                    android:text="@string/setting_duration_10sec" />
 
-        <RadioButton
-            android:id="@+id/radioButton12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_duration_60sec" />
+                <RadioButton
+                    android:id="@+id/radioButton11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick_30sec"
+                    android:text="@string/setting_duration_30sec" />
+
+                <RadioButton
+                    android:id="@+id/radioButton12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick_60sec"
+                    android:text="@string/setting_duration_60sec" />
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,6 +123,7 @@
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/setting_apply" />
+            android:text="@string/setting_apply"
+            android:onClick="onClick_save"/>
 
 </LinearLayout>
