@@ -56,7 +56,8 @@
                     android:layout_centerHorizontal="true"
                     android:checked="false"
                     android:thumb="@drawable/switch_thumb_selector"
-                    android:track="@drawable/switch_track_selector" />
+                    android:track="@drawable/switch_track_selector"
+                    />
 
                 <TextView
                     android:id="@+id/textView2"

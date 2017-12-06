@@ -25,10 +25,7 @@ public class SettingActivity extends Activity {
 
         Switch enableLock = (Switch)findViewById(R.id.switch1);
         RadioGroup setTimeType = (RadioGroup)findViewById(R.id.radioGroup1);
-        RadioButton set10 = (RadioButton)findViewById(R.id.radioButton10);
-        RadioButton set30 = (RadioButton)findViewById(R.id.radioButton30);
-        RadioButton set60 = (RadioButton)findViewById(R.id.radioButton60);
-        Button saveSetting = (Button)findViewById(R.id.button4);
+
         enableLock.setChecked(mEnableLock);
         switch(mTimeType)
         {
@@ -49,7 +46,10 @@ public class SettingActivity extends Activity {
                 if(isChecked==true)
                 {
                     mEnableLock = true;
+                    Toast.makeText(SettingActivity.this, R.string.able_messgae, Toast.LENGTH_LONG).show();
                 }
+                else
+                    Toast.makeText(SettingActivity.this, R.string.disable_messgae, Toast.LENGTH_LONG).show();
             }
         });
 

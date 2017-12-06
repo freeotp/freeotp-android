@@ -50,6 +50,8 @@
     <string name="setting_30sec_message">Set to 30 seconds</string>
     <string name="setting_60sec_message">Set to 60 seconds</string>
     <string name="setting_save_message">Setting Completed</string>
+    <string name="able_messgae">Able to Lock</string>
+    <string name="disable_messgae">Disable to Lock</string>
 
 
     <string-array name="algorithms">
