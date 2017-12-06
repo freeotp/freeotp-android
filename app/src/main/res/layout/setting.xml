@@ -86,6 +86,7 @@
             android:text="@string/setting_duration" />
 
         <RadioGroup
+            android:id = "@+id/radioGroup1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -98,7 +99,7 @@
                     android:text="@string/setting_duration_10sec" />
 
                 <RadioButton
-                    android:id="@+id/radioButton11"
+                    android:id="@+id/radioButton30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -106,7 +107,7 @@
                     android:text="@string/setting_duration_30sec" />
 
                 <RadioButton
-                    android:id="@+id/radioButton12"
+                    android:id="@+id/radioButton60"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
