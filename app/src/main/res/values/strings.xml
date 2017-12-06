@@ -38,12 +38,19 @@
     <string name="delete_question">Delete this token?</string>
 
     <string name="setting_title">Setting</string>
-    <string name="setting_two_factor_authentication">2FA</string>
+    <string name="setting_protection">Dual Protection</string>
+    <string name="setting_disable">Disable</string>
+    <string name="setting_usable">Usable</string>
     <string name="setting_duration">Duration</string>
     <string name="setting_duration_10sec">10sec</string>
     <string name="setting_duration_30sec">30sec</string>
     <string name="setting_duration_60sec">60sec</string>
     <string name="setting_apply">Save</string>
+    <string name="setting_10sec_message">Set to 10 seconds</string>
+    <string name="setting_30sec_message">Set to 30 seconds</string>
+    <string name="setting_60sec_message">Set to 60 seconds</string>
+    <string name="setting_save_message">Setting Completed</string>
+
 
     <string-array name="algorithms">
         <item>MD5</item>
