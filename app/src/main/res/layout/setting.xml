@@ -11,7 +11,8 @@
             android:layout_height="55dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/setting_title" />
+            android:text="@string/setting_title"
+            android:focusableInTouchMode="false"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +28,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/setting_protection" />
+            android:text="@string/setting_protection"
+            android:focusableInTouchMode="false"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -83,7 +85,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/setting_duration" />
+            android:text="@string/setting_duration"
+            android:focusableInTouchMode="false"
+            />
 
         <RadioGroup
             android:id = "@+id/radioGroup1"
