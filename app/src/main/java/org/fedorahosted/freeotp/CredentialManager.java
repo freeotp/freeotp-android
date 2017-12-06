@@ -25,14 +25,13 @@ public class CredentialManager {
         SEC_10, SEC_30, SEC_60
     }
 
-    private SharedPreferences mPreferences;
-
     public static final int CREDENTIAL_CHECK = 2;
     public static final String SETTING_ENABLE = "Enable";
     public static final String SETTING_TIME_TYPE="Time_type";
 
     private Context mAppContext = null;
     private KeyguardManager mKeyguardManager;
+    private SharedPreferences mPreferences;
 
     //Variable to store setting value
     private boolean mEnable = false;
