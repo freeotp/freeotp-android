@@ -14,11 +14,14 @@ import android.view.View;
 public class SettingActivity extends Activity {
 
     private boolean mEnableLock = false;
-    private CredentialManager.TimeType mTimeType = CredentialManager.TimeType.SEC_60;
+    private CredentialManager.TimeType mTimeType = CredentialManager.TimeType.SEC_30;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting);
+        mEnableLock = CredentialManager.getInstance().getEnable();
+        mTimeType = CredentialManager.getInstance().getTime();
 
         Switch enableLock = (Switch)findViewById(R.id.switch1);
         RadioGroup setTimeType = (RadioGroup)findViewById(R.id.radioGroup1);
@@ -26,6 +29,19 @@ public class SettingActivity extends Activity {
         RadioButton set30 = (RadioButton)findViewById(R.id.radioButton30);
         RadioButton set60 = (RadioButton)findViewById(R.id.radioButton60);
         Button saveSetting = (Button)findViewById(R.id.button4);
+        enableLock.setChecked(mEnableLock);
+        switch(mTimeType)
+        {
+            case SEC_10:
+                setTimeType.check(R.id.radioButton10);
+                break;
+            case SEC_30:
+                setTimeType.check(R.id.radioButton30);
+                break;
+            case SEC_60:
+                setTimeType.check(R.id.radioButton60);
+                break;
+        }
 
         enableLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -41,14 +57,14 @@ public class SettingActivity extends Activity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
-                    case 0:
+                    case R.id.radioButton10:
                         mTimeType = CredentialManager.TimeType.SEC_10;
                         break;
-                    case 1:
+                    case R.id.radioButton30:
                         mTimeType = CredentialManager.TimeType.SEC_30;
                         break;
-                    case 2:
-                        mTimeType = CredentialManager.TimeType.SEC_30;
+                    case R.id.radioButton60:
+                        mTimeType = CredentialManager.TimeType.SEC_60;
                         break;
                     default:
                         break;
