@@ -98,6 +98,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         };
         mTokenAdapter.registerDataSetObserver(mDataSetObserver);
+        CredentialManager.getInstance().init(this);
     }
 
     @Override
@@ -192,5 +193,17 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CredentialManager.CREDENTIAL_CHECK) {
+            if(resultCode == RESULT_OK) {
+                CredentialManager.getInstance().pass();
+                Toast.makeText(MainActivity.this, R.string.authentication_success, Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(MainActivity.this, R.string.authentication_fail, Toast.LENGTH_LONG).show();
+        }
     }
 }
