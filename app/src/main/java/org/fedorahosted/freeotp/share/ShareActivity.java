@@ -22,6 +22,7 @@ public class ShareActivity extends BaseTokenActivity implements Discoverable.Dis
 
         mDiscoverables = new Discoverable[] {
             new Clipboard(this, this),
+            new Jelling(this, this),
         };
 
         RecyclerView rv = findViewById(R.id.list);
