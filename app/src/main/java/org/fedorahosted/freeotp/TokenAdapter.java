@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import org.fedorahosted.freeotp.share.ShareActivity;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +94,12 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 Intent i;
 
                 switch (item.getItemId()) {
+                    case R.id.action_share:
+                        i = new Intent(ctx, ShareActivity.class);
+                        i.putExtra(ShareActivity.EXTRA_POSITION, position);
+                        ctx.startActivity(i);
+                        break;
+
                     case R.id.action_edit:
                         i = new Intent(ctx, EditTokenActivity.class);
                         i.putExtra(EditTokenActivity.EXTRA_POSITION, position);
