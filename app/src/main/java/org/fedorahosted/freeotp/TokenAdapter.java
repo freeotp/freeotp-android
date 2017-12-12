@@ -20,8 +20,6 @@
 
 package org.fedorahosted.freeotp;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -30,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import org.fedorahosted.freeotp.share.ShareActivity;
 
@@ -40,13 +37,11 @@ import java.util.Map;
 public class TokenAdapter extends BaseReorderableAdapter {
     private final TokenPersistence mTokenPersistence;
     private final LayoutInflater mLayoutInflater;
-    private final ClipboardManager mClipMan;
     private final Map<String, TokenCode> mTokenCodes;
 
     public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mClipMan = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
         mTokenCodes = new HashMap<>();
         registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -127,12 +122,6 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 TokenCode codes = token.generateCodes();
                 //save token. Image wasn't changed here, so just save it in sync
                 new TokenPersistence(ctx).save(token);
-
-                // Copy code to clipboard.
-                mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
-                Toast.makeText(v.getContext().getApplicationContext(),
-                        R.string.code_copied,
-                        Toast.LENGTH_SHORT).show();
 
                 mTokenCodes.put(token.getID(), codes);
                 ((TokenLayout) v).start(token.getType(), codes, true);

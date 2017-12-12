@@ -21,6 +21,7 @@ public class ShareActivity extends BaseTokenActivity implements Discoverable.Dis
         setContentView(R.layout.share);
 
         mDiscoverables = new Discoverable[] {
+            new Clipboard(this, this),
         };
 
         RecyclerView rv = findViewById(R.id.list);
