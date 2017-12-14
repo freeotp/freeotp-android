@@ -20,8 +20,6 @@
 
 package org.fedorahosted.freeotp;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -30,10 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
-import org.fedorahosted.freeotp.edit.DeleteActivity;
-import org.fedorahosted.freeotp.edit.EditActivity;
+import org.fedorahosted.freeotp.share.ShareActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,13 +37,11 @@ import java.util.Map;
 public class TokenAdapter extends BaseReorderableAdapter {
     private final TokenPersistence mTokenPersistence;
     private final LayoutInflater mLayoutInflater;
-    private final ClipboardManager mClipMan;
     private final Map<String, TokenCode> mTokenCodes;
 
     public TokenAdapter(Context ctx) {
         mTokenPersistence = new TokenPersistence(ctx);
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mClipMan = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
         mTokenCodes = new HashMap<>();
         registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -95,15 +89,21 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 Intent i;
 
                 switch (item.getItemId()) {
+                    case R.id.action_share:
+                        i = new Intent(ctx, ShareActivity.class);
+                        i.putExtra(ShareActivity.EXTRA_POSITION, position);
+                        ctx.startActivity(i);
+                        break;
+
                     case R.id.action_edit:
-                        i = new Intent(ctx, EditActivity.class);
-                        i.putExtra(EditActivity.EXTRA_POSITION, position);
+                        i = new Intent(ctx, EditTokenActivity.class);
+                        i.putExtra(EditTokenActivity.EXTRA_POSITION, position);
                         ctx.startActivity(i);
                         break;
 
                     case R.id.action_delete:
-                        i = new Intent(ctx, DeleteActivity.class);
-                        i.putExtra(DeleteActivity.EXTRA_POSITION, position);
+                        i = new Intent(ctx, DeleteTokenActivity.class);
+                        i.putExtra(DeleteTokenActivity.EXTRA_POSITION, position);
                         ctx.startActivity(i);
                         break;
                 }
@@ -122,12 +122,6 @@ public class TokenAdapter extends BaseReorderableAdapter {
                 TokenCode codes = token.generateCodes();
                 //save token. Image wasn't changed here, so just save it in sync
                 new TokenPersistence(ctx).save(token);
-
-                // Copy code to clipboard.
-                mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
-                Toast.makeText(v.getContext().getApplicationContext(),
-                        R.string.code_copied,
-                        Toast.LENGTH_SHORT).show();
 
                 mTokenCodes.put(token.getID(), codes);
                 ((TokenLayout) v).start(token.getType(), codes, true);

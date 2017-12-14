@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.add;
+package org.fedorahosted.freeotp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +33,6 @@ import io.fotoapparat.preview.Frame;
 import io.fotoapparat.preview.FrameProcessor;
 
 public class ScanFrameProcessor implements FrameProcessor {
-
     private static Handler MAIN_THREAD_HANDLER = new Handler(Looper.getMainLooper());
     private Reader reader;
     private Context scanActivityContext;

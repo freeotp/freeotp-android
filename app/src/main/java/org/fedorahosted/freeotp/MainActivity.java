@@ -41,8 +41,6 @@ package org.fedorahosted.freeotp;
 import android.Manifest;
 import android.widget.Toast;
 
-import org.fedorahosted.freeotp.add.ScanActivity;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;

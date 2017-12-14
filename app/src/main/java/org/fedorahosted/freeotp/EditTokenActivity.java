@@ -18,13 +18,9 @@
  * limitations under the License.
  */
 
-package org.fedorahosted.freeotp.edit;
+package org.fedorahosted.freeotp;
 
 import android.widget.Toast;
-
-import org.fedorahosted.freeotp.R;
-import org.fedorahosted.freeotp.Token;
-import org.fedorahosted.freeotp.TokenPersistence;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -38,7 +34,7 @@ import android.widget.ImageButton;
 
 import com.squareup.picasso.Picasso;
 
-public class EditActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
+public class EditTokenActivity extends BaseTokenActivity implements TextWatcher, View.OnClickListener {
     private EditText           mIssuer;
     private EditText           mLabel;
     private ImageButton        mImage;
@@ -120,7 +116,7 @@ public class EditActivity extends BaseActivity implements TextWatcher, View.OnCl
                 token.setImage(mImageDisplay);
             }
             else {
-                Toast.makeText(EditActivity.this, R.string.error_image_open, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTokenActivity.this, R.string.error_image_open, Toast.LENGTH_LONG).show();
             }
         }
     }

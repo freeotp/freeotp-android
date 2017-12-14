@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 dependencies {
+    implementation 'com.android.support:recyclerview-v7:27.0.1'
     compile 'com.google.zxing:core:3.3.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.picasso:picasso:2.5.2'

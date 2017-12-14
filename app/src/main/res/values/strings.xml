@@ -4,6 +4,7 @@
     <string name="invalid_token">The token specified was invalid!</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="share">Share</string>
     <string name="restore_defaults">Restore Defaults</string>
     <string name="no_keys">No OTP keys installed.</string>
     <string name="add_token">Add Token</string>
@@ -16,6 +17,12 @@
     <string name="digits">Digits</string>
     <string name="save">Save</string>
     <string name="code_copied">Code copied to clipboard.</string>
+    <string name="copy_to">Copy to...</string>
+    <string name="clipboard">Clipboard</string>
+    <string name="send_to">Send to...</string>
+    <string name="scan_for">Scan for...</string>
+    <string name="scanning_for">Scanning for...</string>
+    <string name="bluetooth_devices">Bluetooth Devices</string>
 
     <string name="about_freeotp">About FreeOTP</string>
     <string name="about_version">FreeOTP Version %1$s (%2$d)</string>

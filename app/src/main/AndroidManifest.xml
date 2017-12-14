@@ -36,8 +36,12 @@
         android:resizeable="true"
         android:anyDensity="true" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
@@ -53,20 +57,25 @@
             />
 
         <activity
-            android:name=".add.ScanActivity"
+            android:name=".ScanActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             />
 
         <activity
-            android:name=".edit.DeleteActivity"
+            android:name=".DeleteTokenActivity"
             android:label="@string/delete_question"
             android:theme="@android:style/Theme.Holo.Light.Dialog"
             />
 
         <activity
-            android:name=".edit.EditActivity"
+            android:name=".EditTokenActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateVisible"
+            />
+
+        <activity
+            android:name=".share.ShareActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             />
 
         <activity

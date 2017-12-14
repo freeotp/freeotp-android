@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:orientation="horizontal"
+    android:layout_height="72dp"
+    >
+    <ProgressBar
+        style="@android:style/Widget.Holo.ProgressBar.Small"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:layout_height="32dp"
+        android:layout_width="32dp"
+        android:id="@+id/progress"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_height="32dp"
+        android:layout_width="32dp"
+        android:id="@+id/image"
+        />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:textAppearance="@android:style/TextAppearance.Holo.SearchResult.Title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:id="@+id/title"
+            android:lines="1"
+            />
+
+        <TextView
+            android:textAppearance="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:id="@+id/subtitle"
+            android:layout_weight="1"
+            android:lines="1"
+            />
+    </LinearLayout>
+</LinearLayout>
