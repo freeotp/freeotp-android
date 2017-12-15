@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_title"
+        android:textSize="40sp" />
+
+    <Switch
+        android:id="@+id/setting_enable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:checked="false"
+        android:text="@string/setting_lock"
+        android:textSize="20sp"
+        android:thumb="@drawable/switch_thumb"
+        android:track="@drawable/switch_track_selector" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/setting_duration"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/setting_durationGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/setting_duration10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/setting_duration_10sec" />
+
+        <RadioButton
+            android:id="@+id/setting_duration30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/setting_duration_30sec" />
+
+        <RadioButton
+            android:id="@+id/setting_duration60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/setting_duration_60sec" />
+    </RadioGroup>
+
+</LinearLayout>

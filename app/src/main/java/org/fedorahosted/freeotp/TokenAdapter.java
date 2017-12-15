@@ -115,22 +115,25 @@ public class TokenAdapter extends BaseReorderableAdapter {
         tl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TokenPersistence tp = new TokenPersistence(ctx);
+                CredentialManager credentialManager = CredentialManager.getInstance();
+                if(credentialManager.check()) {
+                    TokenPersistence tp = new TokenPersistence(ctx);
 
-                // Increment the token.
-                Token token = tp.get(position);
-                TokenCode codes = token.generateCodes();
-                //save token. Image wasn't changed here, so just save it in sync
-                new TokenPersistence(ctx).save(token);
+                    // Increment the token.
+                    Token token = tp.get(position);
+                    TokenCode codes = token.generateCodes();
+                    //save token. Image wasn't changed here, so just save it in sync
+                    new TokenPersistence(ctx).save(token);
 
-                // Copy code to clipboard.
-                mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
-                Toast.makeText(v.getContext().getApplicationContext(),
-                        R.string.code_copied,
-                        Toast.LENGTH_SHORT).show();
+                    // Copy code to clipboard.
+                    mClipMan.setPrimaryClip(ClipData.newPlainText(null, codes.getCurrentCode()));
+                    Toast.makeText(v.getContext().getApplicationContext(),
+                            R.string.code_copied,
+                            Toast.LENGTH_SHORT).show();
 
-                mTokenCodes.put(token.getID(), codes);
-                ((TokenLayout) v).start(token.getType(), codes, true);
+                    mTokenCodes.put(token.getID(), codes);
+                    ((TokenLayout) v).start(token.getType(), codes, true);
+                }
             }
         });
 
