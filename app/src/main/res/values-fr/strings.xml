@@ -24,8 +24,8 @@
     <string name="about_website">Pour plus d'informations, voir notre %s.</string>
     <string name="about_icons">Certaines icônes utilisées dans cette application sont tirées du Android Open Source Project et utilisées selon les termes de la licence Creative Commons 2.5 Attribution.</string>
 
-    <string name="link_website"><a href="https://freeotp.github.io">site web</a></a>
-    <string name="link_apache2"><a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></a>
+    <string name="link_website"><a href="https://freeotp.github.io">site web</a></string>
+    <string name="link_apache2"><a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></string>
 
     <string name="error_camera_open">Erreur lors de l'accès à l'appareil photo !</string>
     <string name="error_permission_camera_open">Pas autorisé à accéder à l'appareil photo</string>
