@@ -1,0 +1,38 @@
+#  Copyright 2018 Red Hat. All rights reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+******************** Title in locale <en> ********************
+FreeOTP Authenticator
+******************** Short description in locale <en> ********************
+
+******************** Full description in locale <en> ********************
+FreeOTP adds a second layer of security for your online accounts. This works by generating one-time passwords on your mobile devices which can be used in conjunction with your normal password to make your login nearly impossible to hack. These passwords can be generated even when your phone is in airplane mode.
+
+FreeOTP works with many of the great online services you already use, including Google, Facebook, Evernote, GitHub and many more! FreeOTP also may work for your private corporate security if they implement the standardized TOTP or HOTP protocols. This includes great enterprise solutions like FreeIPA.
+
+FreeOTP is open source and free software! Licensed under the Apache 2.0 license, you can obtain the source code for FreeOTP at https://fedorahosted.org/freeotp for review or modification. Contributions are welcome!
+******************** Updates ********************
+Version 1.5 - UI overhaul. Image support (requires internet, storage permissions). Fixes.
+Version 1.4 - New menu UI. New TOTP UI. Rename support. Copy/paste support.
+Version 1.3 - Native camera/QR code support (requires camera permissions)
+Version 1.2 - Return of the progress circle
+Version 1.1 - Tablet support
+
+******************** Keywords ********************
+Two-factor authentication
+2FA
+HOTP
+TOTP
+Login
+Token
