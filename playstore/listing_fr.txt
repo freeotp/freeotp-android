@@ -21,4 +21,4 @@ FreeOTP ajoute une deuxième couche de sécurité à vos comptes en ligne. Des m
 
 FreeOTP fonctionne avec la plupart des grands services en ligne que vous utilisez déjà comme Google, Facebook, Evernote, GitHub et beaucoup d'autres ! FreeOTP peut également renforcer la sécurité d'entreprises privées si elles mettent en œuvre les protocoles normalisés TOTP ou HOTP. Ceci inclut de grandes solutions professionnelles comme FreeIPA.
 
-FreeOTP est un logiciel libre open-source ! Il est publié sous licence Apache 2.0, vous pouvez obtenir le code source de FreeOTP depuis https://fedorahosted.org/freeotp pour le vérifier ou le modifier. Les contributions sont les bienvenues !
+FreeOTP est un logiciel libre open-source ! Il est publié sous licence Apache 2.0, vous pouvez obtenir le code source de FreeOTP depuis https://freeotp.github.io pour le vérifier ou le modifier. Les contributions sont les bienvenues !
