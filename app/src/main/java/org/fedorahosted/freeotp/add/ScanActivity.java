@@ -39,13 +39,14 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.parameter.ScaleType;
-import io.fotoapparat.parameter.selector.FocusModeSelectors;
 import io.fotoapparat.view.CameraView;
-import static io.fotoapparat.parameter.selector.FocusModeSelectors.autoFocus;
-import static io.fotoapparat.parameter.selector.FocusModeSelectors.fixed;
-import static io.fotoapparat.parameter.selector.LensPositionSelectors.back;
-import static io.fotoapparat.parameter.selector.Selectors.firstAvailable;
-import static io.fotoapparat.parameter.selector.SizeSelectors.biggestSize;
+
+import static io.fotoapparat.selector.FocusModeSelectorsKt.autoFocus;
+import static io.fotoapparat.selector.FocusModeSelectorsKt.continuousFocusPicture;
+import static io.fotoapparat.selector.FocusModeSelectorsKt.fixed;
+import static io.fotoapparat.selector.LensPositionSelectorsKt.back;
+import static io.fotoapparat.selector.ResolutionSelectorsKt.highestResolution;
+import static io.fotoapparat.selector.SelectorsKt.firstAvailable;
 
 public class ScanActivity extends Activity {
     private Fotoapparat fotoapparat;
@@ -136,11 +137,10 @@ public class ScanActivity extends Activity {
         fotoapparat = Fotoapparat
                 .with(this)
                 .into(cameraView)
-                .previewScaleType(ScaleType.CENTER_CROP)
-                .photoSize(biggestSize())
+                .previewScaleType(ScaleType.CenterCrop)
                 .lensPosition(back())
                 .focusMode(firstAvailable(
-                        FocusModeSelectors.continuousFocus(),
+                        continuousFocusPicture(),
                         autoFocus(),
                         fixed()
                 ))
