@@ -43,15 +43,18 @@ public class ScanFrameProcessor implements FrameProcessor {
     }
 
     @Override
-    public void processFrame(final Frame frame) {
+    public void process(final Frame frame) {
         MAIN_THREAD_HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 try {
                     reader = new QRCodeReader();
+                    byte[] image = frame.getImage();
+                    int width = frame.getSize().width;
+                    int height = frame.getSize().height;
                     LuminanceSource ls = new PlanarYUVLuminanceSource(
-                            frame.image, frame.size.width, frame.size.height,
-                            0, 0, frame.size.width, frame.size.height, false);
+                            image, width, height,
+                            0, 0, width, height, false);
                     Result r = reader.decode(new BinaryBitmap(new HybridBinarizer(ls)));
                     sendTextToActivity(r.getText());
                 }
