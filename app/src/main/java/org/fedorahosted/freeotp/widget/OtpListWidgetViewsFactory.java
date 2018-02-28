@@ -58,8 +58,7 @@ public class OtpListWidgetViewsFactory implements RemoteViewsService.RemoteViews
         final String tokenId = token.getID();
         final RemoteViews row = new RemoteViews(context.getPackageName(), R.layout.widget_row);
 
-        RequestCreator b = Picasso.with(context).load(token.getImage()).error(R.drawable.logo);
-        b.into(row, R.layout.widget_row, null);
+        Picasso.with(context).load(token.getImage()).error(R.drawable.logo).into(row, R.layout.widget_row, null);
 
         row.setTextViewText(R.id.widget_issuer, token.getIssuer());
         row.setTextViewText(R.id.widget_label, token.getLabel());
