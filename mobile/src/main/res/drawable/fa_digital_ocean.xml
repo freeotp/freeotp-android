@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_digital_ocean">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M256,504v-96.1c101.8,0 180.8,-100.9 141.7,-208 -14.3,-39.6 -46.1,-71.4 -85.8,-85.7 -107.1,-38.8 -208.1,39.9 -208.1,141.7L8,255.9C8,93.7 164.9,-32.8 335,20.3c74.2,23.3 133.6,82.4 156.6,156.6C544.8,347.2 418.6,504 256,504zM256.3,312.6h-95.6v95.6h95.6v-95.6zM160.7,408.2L87,408.2v73.6h73.7v-73.6zM87,346.6L25.4,346.6v61.6L87,408.2v-61.6z"/>
+</vector>

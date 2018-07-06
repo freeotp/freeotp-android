@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="448dp"
+        android:height="512dp"
+        android:viewportWidth="448.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_twitch">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M40.1,32L10,108.9v314.3h107L117,480h60.2l56.8,-56.8h87l117,-117L438,32L40.1,32zM397.9,286.1L331,353L224,353l-56.8,56.8L167.2,353L76.9,353L76.9,72.1h321v214zM331,149v116.9h-40.1L290.9,149L331,149zM224,149v116.9h-40.1L183.9,149L224,149z"/>
+</vector>

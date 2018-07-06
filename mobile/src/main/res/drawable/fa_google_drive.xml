@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_google_drive">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M339,314.9L175.4,32h161.2l163.6,282.9L339,314.9zM201.5,338.5L120.9,480h310.5L512,338.5L201.5,338.5zM154.1,67.4L0,338.5 80.6,480 237,208.8 154.1,67.4z"/>
+</vector>

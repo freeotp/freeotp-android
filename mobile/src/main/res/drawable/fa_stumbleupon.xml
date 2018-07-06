@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_stumbleupon">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M502.9,266v69.7c0,62.1 -50.3,112.4 -112.4,112.4 -61.8,0 -112.4,-49.8 -112.4,-111.3v-70.2l34.3,16 51.1,-15.2L363.5,338c0,14.7 12,26.5 26.7,26.5S417,352.7 417,338v-72h85.9zM278.2,207.8l34.3,16 51.1,-15.2L363.6,173c0,-60.5 -51.1,-109 -112.1,-109 -60.8,0 -112.1,48.2 -112.1,108.2v162.4c0,14.9 -12,26.7 -26.7,26.7S86,349.5 86,334.6L86,266L0,266v69.7C0,397.7 50.3,448 112.4,448c61.6,0 112.4,-49.5 112.4,-110.8L224.8,176.9c0,-14.7 12,-26.7 26.7,-26.7s26.7,12 26.7,26.7v30.9z"/>
+</vector>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<resources>
+    <string name="app_name">FreeOTP</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="close">Close</string>
+    <string name="about">About</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="move_up">Move Up</string>
+    <string name="move_down">Move Down</string>
+    <string name="add_anyway">Add Anyway</string>
+    <string name="unknown_issuer">Unknown Issuer</string>
+    <string name="enable_lock_screen">Enable Lock Screen</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Send to…</string>
+    <string name="share_jelling_scan_for">Scan for…</string>
+    <string name="share_jelling_scanning_for">Scanning for…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth Devices</string>
+    <string name="share_clipboard_copy_to">Copy to…</string>
+    <string name="share_clipboard_clipboard">Clipboard</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Error while opening camera!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2018 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
+    <string name="main_welcome">Welcome to FreeOTP!\n\nScan a QR code to get started.</string>
+    <string name="main_deletion_title">Delete selected tokens?</string>
+    <string name="main_deletion_message">Deleting a token does not disable it on the server. If you continue, you may be locked out of your account. Deleting a token cannot be undone.</string>
+    <string name="main_unsafe_title">Token is unsafe!</string>
+    <string name="main_unsafe_message">The token you are attempting to add contains weak cryptographic parameters. Use of this token is strongly discouraged! Please alert your token provider.</string>
+    <string name="main_invalid_title">Token is invalid!</string>
+    <string name="main_invalid_message">The token you are attempting to add is invalid. Please alert your token provider.</string>
+    <string name="main_error_title">Error!</string>
+    <string name="main_error_message">An error occurred when trying to add a token.</string>
+    <string name="main_lock_message">This token requires you to authenticate on each use. This means that your device\'s lock screen must be enabled. Please enable lock screen security and add the token again.</string>
+    <string name="main_lock_title">Lock screen required!</string>
+    <string name="main_invalidated_title">Key invalidated!</string>
+    <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
+</resources>

@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="269dp"
+        android:height="512dp"
+        android:viewportWidth="269.66"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_fulcrum">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M70.75,164.14l-35.38,43.55L0,164.14l35.38,-43.55 35.37,43.55zM119.23,0L98.69,198.18 47.72,256l50.98,57.82L119.23,512L119.23,300.89L78.15,256l41.08,-44.89L119.23,0zM198.9,164.14l35.38,43.55 35.38,-43.55 -35.38,-43.55 -35.38,43.55zM150.42,211.11L191.5,256l-41.08,44.89L150.42,512l20.54,-198.18L221.94,256l-50.98,-57.82L150.42,0v211.11z"/>
+</vector>

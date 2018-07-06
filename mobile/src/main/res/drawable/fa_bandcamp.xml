@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="496dp"
+        android:height="512dp"
+        android:viewportWidth="496.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_bandcamp">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M248,8C111,8 0,119 0,256s111,248 248,248 248,-111 248,-248S385,8 248,8zM296.2,334.1h-181L199.9,178h181l-84.7,156.1z"/>
+</vector>

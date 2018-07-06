@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="355dp"
+        android:height="512dp"
+        android:viewportWidth="355.52"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_nimblr">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M232.6,299.3c15.6,0 27.1,11.5 27.1,27 0,15.6 -11.6,27 -27.1,27 -15.7,0 -27.1,-11.6 -27.1,-27 0,-15.5 11.6,-27 27.1,-27zM99,326.3c0,-15.6 11.7,-27 27.1,-27 15.6,0 27.1,11.5 27.1,27 0,15.4 -11.5,27 -27.1,27 -15.4,0 -27.1,-11.3 -27.1,-27m78.8,-167.3C143,158.9 75.4,178.8 45.3,227L0,0v335.5C0,433.1 79.6,512 177.8,512c98.2,0 177.8,-78.9 177.8,-176.5 0,-97.5 -79.4,-176.5 -177.8,-176.5zM99,634.4c-73.3,0 -132.5,-58.9 -132.5,-131.6 0,-72.7 59.2,-131.6 132.5,-131.6 73.3,0 132.5,58.9 132.5,131.6s-59.3,131.6 -132.5,131.6z"/>
+</vector>

@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="320dp"
+        android:height="512dp"
+        android:viewportWidth="320.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_bluetooth_b">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M196.5,260l92.6,-103.3L143.1,0v206.3l-86.1,-86.1 -31.4,31.4 108.1,108.4L25.6,368.4l31.4,31.4 86.1,-86.1L145.8,512l148.6,-148.6 -97.9,-103.3zM237.3,157l-50,50 -0.3,-100.3 50.3,50.3zM187.4,313l50,50 -50.3,50.3 0.3,-100.3z"/>
+</vector>
