@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_wpbeginner">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M462.8,322.4C519,386.7 467,480 370.9,480c-39.6,0 -78.8,-17.7 -100.1,-50 -6.9,0.4 -22.7,0.4 -29.6,0C219.8,462.4 180.6,480 141.1,480c-95.5,0 -148.3,-93 -91.9,-157.6C-29.9,190.5 80.5,32 256,32c175.6,0 285.9,158.6 206.8,290.4zM123.2,239.4h41.5v-58.1h-41.5v58.1zM340.3,325.5v-23.8c-60.5,20.9 -132.4,9.2 -187.6,-34l0.2,24.9c51.1,46.4 131.7,57.9 187.3,32.9zM189.6,239.4h166.1v-58.1L189.6,181.3v58.1z"/>
+</vector>

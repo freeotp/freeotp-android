@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_product_hunt">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M326.3,218.8c0,20.5 -16.7,37.2 -37.2,37.2h-70.3v-74.4h70.3c20.5,0 37.2,16.7 37.2,37.2zM504,256c0,137 -111,248 -248,248S8,393 8,256 119,8 256,8s248,111 248,248zM375.9,218.8c0,-47.9 -38.9,-86.8 -86.8,-86.8L169.2,132v248h49.6v-74.4h70.3c47.9,0 86.8,-38.9 86.8,-86.8z"/>
+</vector>

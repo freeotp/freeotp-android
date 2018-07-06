@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_gitlab">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M29.8,199.7L256,493.7 8.1,309.7c-6.9,-5.1 -9.7,-14 -7.1,-22l28.8,-88zM105.2,24.9c-3.1,-8.9 -15.7,-8.9 -18.9,0L29.8,199.7h132L105.2,24.9zM161.7,199.7L256,493.7l94.3,-294L161.7,199.7zM511.1,287.7l-28.8,-88L256,493.7l247.9,-184c6.9,-5.1 9.7,-14 7.1,-22zM425.7,24.9c-3.1,-8.9 -15.7,-8.9 -18.9,0l-56.6,174.8h132L425.7,24.9z"/>
+</vector>

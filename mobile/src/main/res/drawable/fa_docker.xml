@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="640dp"
+        android:height="512dp"
+        android:viewportWidth="640.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_docker">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M349.9,236.3h-66.1v-59.4h66.1v59.4zM349.9,32h-66.1v60.7h66.1L349.9,32zM428.1,176.8L362,176.8v59.4h66.1v-59.4zM271.8,104.7h-66.1v60.1h66.1v-60.1zM349.9,104.7h-66.1v60.1h66.1v-60.1zM626.7,204.7c-14.4,-9.7 -47.6,-13.2 -73.1,-8.4 -3.3,-24 -16.7,-44.9 -41.1,-63.7l-14,-9.3 -9.3,14c-18.4,27.8 -23.4,73.6 -3.7,103.8 -8.7,4.7 -25.8,11.1 -48.4,10.7L2.4,251.8c-8.7,50.8 5.8,116.8 44,162.1 37.1,43.9 92.7,66.2 165.4,66.2 157.4,0 273.9,-72.5 328.4,-204.2 21.4,0.4 67.6,0.1 91.3,-45.2 1.5,-2.5 6.6,-13.2 8.5,-17.1l-13.3,-8.9zM115.6,176.8h-66v59.4h66.1v-59.4zM193.7,176.8h-66.1v59.4h66.1v-59.4zM271.8,176.8h-66.1v59.4h66.1v-59.4zM193.7,104.7h-66.1v60.1h66.1v-60.1z"/>
+</vector>

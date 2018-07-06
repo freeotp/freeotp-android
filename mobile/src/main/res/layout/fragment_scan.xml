@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2013-2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<org.fedorahosted.freeotp.utils.SquareFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+    <io.fotoapparat.view.CameraView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/camera"
+        android:alpha="0.0"
+        />
+
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:id="@+id/image"
+        android:alpha="0.0"
+        />
+
+    <ProgressBar
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/margin"
+        android:layout_height="32dp"
+        android:layout_width="32dp"
+        android:indeterminate="true"
+        android:id="@+id/progress"
+        />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:textColor="@android:color/white"
+        android:text="@string/error_camera_open"
+        />
+</org.fedorahosted.freeotp.utils.SquareFrameLayout>

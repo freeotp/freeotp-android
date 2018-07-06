@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="384dp"
+        android:height="512dp"
+        android:viewportWidth="384.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_etsy">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M384,348c-1.8,10.8 -13.8,110 -15.5,132 -117.9,-4.3 -219.9,-4.7 -368.5,0v-25.5c45.5,-8.9 60.6,-8 61,-35.3 1.8,-72.3 3.5,-244.1 0,-322 -1,-28.5 -12.1,-26.8 -61,-36v-25.5c73.9,2.4 255.9,8.6 363,-3.8 -3.5,38.3 -7.8,126.5 -7.8,126.5H332C320.9,115.7 313.2,68 277.3,68h-137c-10.3,0 -10.8,3.5 -10.8,9.8V241.5c58,0.5 88.5,-2.5 88.5,-2.5 29.8,-1 27.6,-8.5 40.8,-65.3h25.8c-4.4,101.4 -3.9,61.8 -1.8,160.3H257c-9.2,-40.1 -9.1,-61 -39.5,-61.5 0,0 -21.5,-2 -88,-2v139c0,26 14.3,38.3 44.3,38.3H263c63.6,0 66.6,-25 98.8,-99.8H384z"/>
+</vector>

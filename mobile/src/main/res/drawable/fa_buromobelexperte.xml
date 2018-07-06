@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="448dp"
+        android:height="512dp"
+        android:viewportWidth="448.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_buromobelexperte">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M0,32v128h128L128,32L0,32zM120,152L8,152L8,40h112v112zM160,32v128h128L288,32L160,32zM280,152L168,152L168,40h112v112zM320,32v128h128L448,32L320,32zM440,152L328,152L328,40h112v112zM0,192v128h128L128,192L0,192zM120,312L8,312L8,200h112v112zM160,192v128h128L288,192L160,192zM280,312L168,312L168,200h112v112zM320,192v128h128L448,192L320,192zM440,312L328,312L328,200h112v112zM0,352v128h128L128,352L0,352zM120,472L8,472L8,360h112v112zM160,352v128h128L288,352L160,352zM280,472L168,472L168,360h112v112zM320,352v128h128L448,352L320,352z"/>
+</vector>

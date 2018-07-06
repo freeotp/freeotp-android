@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="448dp"
+        android:height="512dp"
+        android:viewportWidth="448.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_hacker_news">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M0,32v448h448L448,32L0,32zM21.2,229.2L21,229.2c0.1,-0.1 0.2,-0.3 0.3,-0.4 0,0.1 0,0.3 -0.1,0.4zM239.2,283.1L239.2,384h-31.4L207.8,281.3L128,128h37.3c52.5,98.3 49.2,101.2 59.3,125.6 12.3,-27 5.8,-24.4 60.6,-125.6L320,128l-80.8,155.1z"/>
+</vector>

@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="448dp"
+        android:height="512dp"
+        android:viewportWidth="448.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_trello">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M392,32L56,32C25.1,32 0,57.1 0,88v336c0,30.9 25.1,56 56,56h336c30.9,0 56,-25.1 56,-56L448,88c0,-30.9 -25.1,-56 -56,-56zM194.9,371.4c0,14.8 -12,26.9 -26.9,26.9L85.1,398.3c-14.8,0 -26.9,-12 -26.9,-26.9L58.2,117.1c0,-14.8 12,-26.9 26.9,-26.9L168,90.2c14.8,0 26.9,12 26.9,26.9v254.3zM389.8,259.4c0,14.8 -12,26.9 -26.9,26.9L280,286.3c-14.8,0 -26.9,-12 -26.9,-26.9L253.1,117.1c0,-14.8 12,-26.9 26.9,-26.9h82.9c14.8,0 26.9,12 26.9,26.9v142.3z"/>
+</vector>
