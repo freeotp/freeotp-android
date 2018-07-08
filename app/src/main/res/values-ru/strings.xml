@@ -13,7 +13,7 @@
     <string name="secret">Секрет</string>
     <string name="type">Тип</string>
     <string name="algorithm">Алгоритм</string>
-    <string name="digits">Цыфр</string>
+    <string name="digits">Цифр</string>
     <string name="save">Сохранить</string>
     <string name="code_copied">Код скопирован в буфер обмена.</string>
 
