@@ -20,10 +20,10 @@
 
 package org.fedorahosted.freeotp.utils;
 
-import android.support.v7.widget.RecyclerView;
-
 import java.util.NavigableSet;
 import java.util.TreeSet;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     public interface EventListener {
