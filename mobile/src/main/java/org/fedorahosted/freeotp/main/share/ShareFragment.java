@@ -24,13 +24,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import org.fedorahosted.freeotp.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ShareFragment extends BottomSheetDialogFragment implements Discoverable.DiscoveryCallback {
     public static final String CODE_ID = "CODE";

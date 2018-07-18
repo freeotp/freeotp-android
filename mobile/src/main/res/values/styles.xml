@@ -20,7 +20,7 @@
    -->
 
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -31,7 +31,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <style name="AppTheme.AppBar.Toolbar">
         <item name="android:layout_height">?android:attr/actionBarSize</item>
@@ -39,7 +39,7 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="AppTheme.AppBar.Toolbar.Popup" parent="ThemeOverlay.AppCompat.Light">
+    <style name="AppTheme.AppBar.Toolbar.Popup" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 </resources>

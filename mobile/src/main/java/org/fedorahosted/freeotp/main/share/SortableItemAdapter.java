@@ -20,11 +20,11 @@
 
 package org.fedorahosted.freeotp.main.share;
 
-import android.support.v7.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class SortableItemAdapter<T extends SortableItem<T>, VH extends RecyclerView.ViewHolder>
     extends RecyclerView.Adapter<VH> implements SortableItem.OnChangeListener<T> {

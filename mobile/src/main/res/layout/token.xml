@@ -19,7 +19,7 @@
    - limitations under the License.
    -->
 
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_height="72dp"
@@ -71,7 +71,7 @@
             android:alpha="0.6"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:textAppearance="?android:textAppearanceListItem"
             android:ellipsize="middle"
             android:singleLine="true"
@@ -89,7 +89,7 @@
             android:layout_marginEnd="@dimen/margin"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:textAppearance="?android:textAppearanceListItemSecondary"
             android:ellipsize="middle"
             android:singleLine="true"
@@ -146,7 +146,7 @@
             android:layout_height="72dp"
             />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             xmlns:app="http://schemas.android.com/apk/res-auto"
 
             android:textStyle="bold"
@@ -166,4 +166,4 @@
             app:autoSizeTextType="uniform"
             />
     </RelativeLayout>
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

@@ -25,7 +25,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -44,6 +43,8 @@ import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 
 import java.util.Locale;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class ViewHolder extends RecyclerView.ViewHolder {
     interface EventListener {

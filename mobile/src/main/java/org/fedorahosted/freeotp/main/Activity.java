@@ -32,12 +32,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Pair;
 import android.view.Menu;
@@ -45,6 +39,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
@@ -62,6 +58,12 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 
 import javax.crypto.SecretKey;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class Activity extends AppCompatActivity
     implements SelectableAdapter.EventListener, View.OnClickListener, View.OnLongClickListener {
