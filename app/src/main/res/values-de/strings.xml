@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">Der angegebene Token ist ungültig.</string>
+    <string name="delete">Löschen</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="restore_defaults">Auf Standard zurücksetzen</string>
+    <string name="no_keys">Keine OTP Schlüssel installiert.</string>
+    <string name="add_token">Token hinzufügen</string>
+    <string name="scan_qr_code">QR-Code scannen</string>
+    <string name="interval">Intervall</string>
+    <string name="counter">Zähler</string>
+    <string name="secret">Secret</string>
+    <string name="type">Type</string>
+    <string name="algorithm">Algorithmus</string>
+    <string name="digits">Ziffern</string>
+    <string name="save">Speichern</string>
+    <string name="code_copied">Code in die Zwischenablage kopiert.</string>
+
+    <string name="about_freeotp">Über FreeOTP</string>
+    <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP ist lizenziert unter %1$s.</string>
+    <string name="about_website">Für weitere Information bitte %s betrachten.</string>
+
+    <string name="link_website"><a href="http://freeotp.github.io">website</a></string>
+    <string name="link_apache2"><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></string>
+
+    <string name="error_camera_open">Fehler beim Öffnen der Kamera!</string>
+    <string name="error_permission_camera_open">Keine Berechtigung zum Öffnen der Kamera vorhanden.</string>
+    <string name="error_image_open">Fehler beim Öffnen des Bildes!</string>
+
+    <string name="delete_summary">Dies ist die letzte Chance. Wenn dieser Token gelöscht wird, ist er für immer weg. Er wird nicht auf dem Server deaktiviert.</string>
+    <string name="delete_question">Diesen Token löschen?</string>
+
+</resources>
