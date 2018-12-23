@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class TokenPersistence {
-    private static final String NAME  = "tokens";
+    protected static final String NAME  = "tokens";
     private static final String ORDER = "tokenOrder";
     private final SharedPreferences prefs;
     private final Gson gson;

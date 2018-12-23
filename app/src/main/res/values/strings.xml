@@ -34,6 +34,16 @@
     <string name="delete_summary">This is your last chance: if you delete this token, it will be gone forever. It will not be disabled on the server.</string>
     <string name="delete_question">Delete this token?</string>
 
+    <string name="attention">Attention</string>
+    <string name="error">Error</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="default_appname">An unspecified app</string>
+    <string name="request_code">" has requested a code for token "</string>
+    <string name="request_install_token">" has requested to install a token for "</string>
+    <string name="bad_token_uri">"Bad token uri: "</string>
+    <string name="token_already_exists">Token \"%s\" already exists</string>
+
     <string-array name="algorithms">
         <item>MD5</item>
         <item>SHA1</item>

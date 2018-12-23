@@ -39,25 +39,30 @@
 package org.fedorahosted.freeotp;
 
 import android.Manifest;
-import android.widget.Toast;
-
-import org.fedorahosted.freeotp.add.ScanActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.GridView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.fedorahosted.freeotp.add.ScanActivity;
 
 public class MainActivity extends Activity implements OnMenuItemClickListener {
     private TokenAdapter mTokenAdapter;
@@ -178,14 +183,113 @@ public class MainActivity extends Activity implements OnMenuItemClickListener {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Uri uri = intent.getData();
+        final Uri uri = intent.getData();
         if (uri != null) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_VIEW)) {
+                try {
+                    TokenPersistence.saveAsync(this, new Token(uri));
+                } catch (Token.TokenUriInvalidException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                TokenPersistence.saveAsync(this, new Token(uri));
+                final Token token = new Token(uri);
+                final String key = token.getID();
+                final Intent out = new Intent();
+                out.putExtra("key", key);
+                String appname = intent.getStringExtra("appname");
+                if (appname == null) {
+                    appname = getString(R.string.default_appname);
+                }
+                final SharedPreferences prefs = getSharedPreferences(TokenPersistence.NAME, Context.MODE_PRIVATE);
+                switch (action) {
+                    case Intent.ACTION_GET_CONTENT:
+                        if (prefs.contains(key)) {
+                            new AlertDialog.Builder(this)
+                                    .setTitle(R.string.attention)
+                                    .setMessage(appname + getString(R.string.request_code) + "\"" + key + "\"")
+                                    .setCancelable(false)
+                                    .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            out.putExtra("currentCode", new Gson().fromJson(prefs.getString(key, null), Token.class).generateCodes().getCurrentCode());
+                                            setResult(Activity.RESULT_OK, out);
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.deny, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            setResult(Activity.RESULT_CANCELED, out);
+                                            finish();
+                                        }
+                                    })
+                                    .show()
+                            ;
+                        } else {
+                            setResult(Activity.RESULT_CANCELED, out);
+                            finish();
+                        }
+                        break;
+                    case Intent.ACTION_INSERT:
+                        if (prefs.contains(key)) {
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle(R.string.error)
+                                    .setMessage(String.format(getString(R.string.token_already_exists), key))
+                                    .setCancelable(false)
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            setResult(Activity.RESULT_CANCELED, out);
+                                            finish();
+                                        }
+                                    })
+                                    .show()
+                            ;
+                        } else {
+                            new AlertDialog.Builder(this)
+                                    .setTitle(R.string.attention)
+                                    .setMessage(appname + getString(R.string.request_install_token) + "\"" + key + "\"")
+                                    .setCancelable(false)
+                                    .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            TokenPersistence.saveAsync(MainActivity.this, token);
+                                            out.putExtra("currentCode", token.generateCodes().getCurrentCode());
+                                            out.putExtra("secret", uri.getQueryParameter("secret"));
+                                            setResult(Activity.RESULT_OK, out);
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.deny, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            setResult(Activity.RESULT_CANCELED, out);
+                                            finish();
+                                        }
+                                    })
+                                    .show()
+                            ;
+                        }
+                        break;
+                    default:
+                        Log.e("LOG", "bad action: " + action);
+                }
             } catch (Token.TokenUriInvalidException e) {
-                e.printStackTrace();
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.error)
+                        .setMessage(getString(R.string.bad_token_uri) + uri.toString())
+                        .setCancelable(false)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .show()
+                ;
             }
         }
-
     }
 }
