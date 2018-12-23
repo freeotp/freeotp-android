@@ -24,10 +24,6 @@
     android:versionCode="17"
     android:versionName="1.5" >
 
-    <uses-sdk
-        android:minSdkVersion="23"
-        android:targetSdkVersion="26" />
-
     <supports-screens
         android:smallScreens="true"
         android:normalScreens="true"
@@ -84,6 +80,18 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="otpauth" android:host="totp" />
+                <data android:scheme="otpauth" android:host="hotp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="otpauth" android:host="totp" />
+                <data android:scheme="otpauth" android:host="hotp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="otpauth" android:host="totp" />
                 <data android:scheme="otpauth" android:host="hotp" />
             </intent-filter>
