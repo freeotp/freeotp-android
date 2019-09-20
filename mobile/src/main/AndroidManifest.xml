@@ -45,7 +45,7 @@
         android:roundIcon="@drawable/ic_freeotp"
         android:icon="@drawable/ic_freeotp"
         android:theme="@style/AppTheme"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:supportsRtl="true"
         android:label="@string/app_name">
 
@@ -55,10 +55,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -66,6 +62,18 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="otpauth" android:host="hotp" />
                 <data android:scheme="otpauth" android:host="totp" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".PasswordActivity"
+            android:label="Master Recovery Password"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
