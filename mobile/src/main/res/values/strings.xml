@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
    - FreeOTP
    -
    - Authors: Nathaniel McCallum <npmccallum@redhat.com>
@@ -24,6 +23,7 @@
 
     <!-- Buttons -->
     <string name="ok">Ok</string>
+    <string name="done">Done</string>
     <string name="close">Close</string>
     <string name="about">About</string>
     <string name="cancel">Cancel</string>
@@ -61,4 +61,11 @@
     <string name="main_lock_title">Lock screen required!</string>
     <string name="main_invalidated_title">Key invalidated!</string>
     <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm Password</string>
+    <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.</string>
+    <string name="password_weak">Password is too weak!</string>
+    <string name="password_match">Passwords do not match!</string>
 </resources>
