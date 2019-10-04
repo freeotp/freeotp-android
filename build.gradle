@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.5.1'
     }
 }
 
@@ -13,5 +13,8 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        // Android studio requires google m2 to obtain support libraries, even though
+        // we are not directly referencing them at present.
+        google()
     }
 }
