@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">¡El código de seguridad proveido es inválido!</string>
+    <string name="delete">Borrar</string>
+    <string name="edit">Editar</string>
+    <string name="restore_defaults">Restaurar configuración original</string>
+    <string name="no_keys">No hay ningún código de seguridad OTP instalado</string>
+    <string name="add_token">Agregar código de seguridad</string>
+    <string name="scan_qr_code">Escanear código QR</string>
+    <string name="interval">Intérvalo</string>
+    <string name="counter">Contador</string>
+    <string name="secret">Secreto</string>
+    <string name="type">Tipo</string>
+    <string name="algorithm">Algoritmo</string>
+    <string name="digits">Dígitos</string>
+    <string name="save">Guardar</string>
+    <string name="code_copied">Código copiado</string>
+
+    <string name="about_freeotp">Información sobre FreeOTP</string>
+    <string name="about_version">Versión de FreeOTP %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP es distribuido bajo la licencia %1$s.</string>
+    <string name="about_website">Para más información, ver nuestra página %s.</string>
+    <string name="about_icons">Algunas imágenes usadas en esta aplicación han sido reproducidas a partir del trabajo creado por el proyecto Android Open Source Project, y proveido bajo los términos de la licencia Creative Commons 2.5.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">¡Hubieron problemas abriendo la cámara!</string>
+    <string name="error_permission_camera_open">No tenemos permiso para usar la cámara</string>
+    <string name="error_image_open">¡Hubieron problemas abriendo la imagen!</string>
+
+    <string name="delete_summary">Esta es su última oportunidad: si borra este código de seguridad, no lo podrá restaurar. No será borrado del servidor.</string>
+    <string name="delete_question">¿Borrar código de seguridad?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
