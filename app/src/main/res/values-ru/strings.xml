@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">The token specified was invalid!</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="restore_defaults">Восстановить значения по умолчанию</string>
+    <string name="no_keys">Не установлены OTP-ключи.</string>
+    <string name="add_token">Добавить токен</string>
+    <string name="scan_qr_code">Сканировать QR код</string>
+    <string name="interval">Интервал</string>
+    <string name="counter">Счетчик</string>
+    <string name="secret">Секрет</string>
+    <string name="type">Тип</string>
+    <string name="algorithm">Алгоритм</string>
+    <string name="digits">Цифр</string>
+    <string name="save">Сохранить</string>
+    <string name="code_copied">Код скопирован в буфер обмена.</string>
+
+    <string name="about_freeotp">О FreeOTP</string>
+    <string name="about_version">Версия FreeOTP %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP распространяется на условиях личензии %1$s.</string>
+    <string name="about_website">Для получения дополнительной информации см. наш %s.</string>
+    <string name="about_icons">Некоторые изображения, используемые этим приложением, созданы на основе работ, созданных и предоставленных в рамках проекта Android Open Source Project, и используются в соответствии с условиями, описанными в Creative Commons 2.5 Attribution License.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;сайт&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">Ошибка при открытии камеры!</string>
+    <string name="error_permission_camera_open">Нет прав на открытие камеры</string>
+    <string name="error_image_open">Ошибка при открытии изображения!</string>
+
+    <string name="delete_summary">Это ваш последний шанс: если вы удалите этот токен, он исчезнет навсегда. Он не будет отключен на сервере.</string>
+    <string name="delete_question">Удалить этот токен?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>

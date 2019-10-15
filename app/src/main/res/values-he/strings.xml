@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">הקוד שהוזן לא תקין!</string>
+    <string name="delete">מחק</string>
+    <string name="edit">ערוך</string>
+    <string name="restore_defaults">שחזר ברירת מחדל</string>
+    <string name="no_keys">מפתחות OTP לא הותקנו.</string>
+    <string name="add_token">הוסף Token</string>
+    <string name="scan_qr_code">סרוק ברקוד</string>
+    <string name="interval">הפוגה</string>
+    <string name="counter">מונה</string>
+    <string name="secret">קוד סודי</string>
+    <string name="type">סוג</string>
+    <string name="algorithm">אלגוריתם</string>
+    <string name="digits">ספרות</string>
+    <string name="save">שמור</string>
+    <string name="code_copied">הקוד הועתק ללוח.</string>
+
+    <string name="about_freeotp">אודות FreeOTP</string>
+    <string name="about_version">FreeOTP גרסא  %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP ברשיון  %1$s.</string>
+    <string name="about_website">למידע נוסף, ראה %s.</string>
+    <string name="about_icons">אייקונים מסוימים אשר בשימוש על ידי האפלקציה נלקחו מעבודה שנוצרה ושותפה בפרויקט קוד פתוח אנדרואיד ונמצאים בשימוש לפי התנאים המפורטים ברשיון Creative Commons 2.5.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">שגיאה בעת פתיחת המצלמה!</string>
+    <string name="error_permission_camera_open">אין הרשאה לפתוח את המצלמה</string>
+    <string name="error_image_open">שגיאה בעת פתיחת התמונה!</string>
+
+    <string name="delete_summary">זהו הנסיון האחרון שלך: אם תמחק token זה, הוא יעלם לתמיד. הוא לא יבוטל בשרת.</string>
+    <string name="delete_question">למחוק את ה token?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
