@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'com.google.zxing:core:3.3.0'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'io.fotoapparat.fotoapparat:library:1.4.1'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'io.fotoapparat.fotoapparat:library:1.4.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
 }
 
 allprojects {
@@ -28,9 +28,9 @@ android {
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 29
     }
 
-    compileSdkVersion 26       // NOTE: update build-tools-* in .travis.yml
-    buildToolsVersion '26.0.2' // NOTE: update build-tools-* in .travis.yml
+    compileSdkVersion 29       // NOTE: update build-tools-* in .travis.yml
+    buildToolsVersion '29.0.2' // NOTE: update build-tools-* in .travis.yml
 }
