@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">Belirtilen jeton geçersiz!</string>
+    <string name="delete">Sil</string>
+    <string name="edit">Düzenle</string>
+    <string name="restore_defaults">Öntanımlıları Geri Yükle</string>
+    <string name="no_keys">Hiçbir OTP anahtarı kurulmadı.</string>
+    <string name="add_token">Jeton Ekle</string>
+    <string name="scan_qr_code">QR Kodunu Tara</string>
+    <string name="interval">Aralık</string>
+    <string name="counter">Sayaç</string>
+    <string name="secret">Güvenlik</string>
+    <string name="type">Tipi</string>
+    <string name="algorithm">Algoritma</string>
+    <string name="digits">Basamak</string>
+    <string name="save">Kaydet</string>
+    <string name="code_copied">Kod kopyalandı.</string>
+
+    <string name="about_freeotp">FreeOTP Hakkında</string>
+    <string name="about_version">FreeOTP Sürüm %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP %1$s ile lisanslanmıştır.</string>
+    <string name="about_website">Daha fazla bilgi için bakınız: %s</string>
+    <string name="about_icons">Bu uygulamada kullanılan bazı simgeler Android Açık Kaynak Projesi tarafından oluşturulan ve paylaşılan işlerden türetilmiş ve Creative Commons 2.5 Attribution License içerisinde belirtilen şartlara bağlı olarak kullanılmıştır.</string>
+
+    <string name="link_website"><a href="http://freeotp.fedorahosted.org">ağ sayfası</a></string>
+    <string name="link_apache2"><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></string>
+
+    <string name="error_camera_open">Kameranın açılmasında hata!</string>
+
+    <string name="delete_summary">Bu son şansınız: eğer bu jetonu silerseniz tamamen gidecek. Sunucu üzerinden devre dışı bırakılmayacak.</string>
+    <string name="delete_question">Bu jeton silinsin mi?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+    <string name="error_image_open">Resmi açarken hata!</string>
+    <string name="error_permission_camera_open">Kamera açmak için izin yok</string>
+</resources>
