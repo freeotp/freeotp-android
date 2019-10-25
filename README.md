@@ -19,10 +19,6 @@ that implements these standards.
 Play](https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp)
 * [F-Droid](https://f-droid.org/packages/org.fedorahosted.freeotp/)
 
-## Contributing
-
-Pull requests on GitHub are welcome under the Apache 2.0 license, see [COPYING](COPYING).
-
 ## Permissions
 
 The FreeOTP app uses the following permissions
@@ -31,3 +27,8 @@ The FreeOTP app uses the following permissions
 |------------|--------------------------|----------|-----------------|
 | Camera     | Recognition of QR codes  | No       | Dangerous       |
 | Internet   | Token image provisioning | No       | Normal          |
+
+## Contributing
+
+Pull requests on GitHub are welcome under the Apache 2.0 license, see
+[CONTRIBUTING](CONTRIBUTING.md) for more details.
