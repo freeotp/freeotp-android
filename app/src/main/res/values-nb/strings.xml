@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">Den angitte nøkkelen var ugyldig!</string>
+    <string name="delete">Slett</string>
+    <string name="edit">Rediger</string>
+    <string name="restore_defaults">Gjenopprett Standardverdier</string>
+    <string name="no_keys">Ingen OTP-nøkler installert.</string>
+    <string name="add_token">Legg til nøkkel</string>
+    <string name="scan_qr_code">Skann QR-kode</string>
+    <string name="interval">Intervall</string>
+    <string name="counter">Teller</string>
+    <string name="secret">Hemmelighet</string>
+    <string name="type">Type</string>
+    <string name="algorithm">Algoritme</string>
+    <string name="digits">Sifre</string>
+    <string name="save">Lagre</string>
+    <string name="code_copied">Koden kopiert til utklippstavlen.</string>
+
+    <string name="about_freeotp">Om FreeOTP</string>
+    <string name="about_version">FreeOTP Versjon %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP er lisensiert under %1$s.</string>
+    <string name="about_website">For mer informasjon, se vår %s.</string>
+    <string name="about_icons">Noen ikoner som brukes av denne applikasjonen, er reprodusert fra arbeid opprettet og delt av Android Open Source Project og brukt i henhold til vilkår beskrevet i Creative Commons 2.5 Attribution License.</string>
+
+    <string name="link_website">&lt;a href=&quot;https://freeotp.github.io&quot;&gt;nettsted&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">Feil under åpning av kamera!</string>
+    <string name="error_permission_camera_open">Ingen tillatelse til å åpne kameraet</string>
+    <string name="error_image_open">Feil under åpning av bilde!</string>
+
+    <string name="delete_summary">Dette er din siste sjanse: hvis du sletter denne nøkkelen, vil den bli borte for alltid. Den blir ikke deaktivert der den må oppgis.</string>
+    <string name="delete_question">Slett denne nøkkelen?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
