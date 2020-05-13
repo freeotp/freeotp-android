@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">올바른 토큰이 아닙니다!</string>
+    <string name="delete">삭제</string>
+    <string name="edit">편집</string>
+    <string name="restore_defaults">기본값 복원</string>
+    <string name="no_keys">OTP 키가 없습니다.</string>
+    <string name="add_token">토큰 추가</string>
+    <string name="scan_qr_code">QR 코드 인식</string>
+    <string name="interval">주기</string>
+    <string name="counter">카운터</string>
+    <string name="secret">비밀</string>
+    <string name="type">입력</string>
+    <string name="algorithm">알고리즘</string>
+    <string name="digits">숫자</string>
+    <string name="save">저장</string>
+    <string name="code_copied">코드가 복사되었습니다.</string>
+
+    <string name="about_freeotp">FreeOTP에 관하여</string>
+    <string name="about_version">FreeOTP 버전 %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat</string>
+    <string name="about_license">FreeOTP는 %1$s(으)로 라이선싱 되었습니다.</string>
+    <string name="about_website">더 많은 정보는 저희의 %s를 참고하세요.</string>
+    <string name="about_icons">이 응용 프로그램에서 사용되는 일부 아이콘은 Android 오픈 소스 프로젝트에서 생성 및 공유 한 저작물에서 재생산되며 Creative Commons 2.5 Attribution License에 설명 된 조건에 따라 사용됩니다.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;웹사이트&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">카메라 실행 실패!</string>
+    <string name="error_permission_camera_open">카메라를 실행할 권한이 없습니다.</string>
+    <string name="error_image_open">사진을 여는데 문제가 발생했습니다!</string>
+
+    <string name="delete_summary">당신의 마지막 기회입니다. 이 토큰을 삭제하면 영구적으로 이용할 수 없습니다. 단, 서버에서는 비활성화 되지 않습니다.</string>
+    <string name="delete_question">토큰을 삭제할까요?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
