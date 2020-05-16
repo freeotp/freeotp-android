@@ -41,12 +41,14 @@ import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import org.fedorahosted.freeotp.widget.OtpListWidgetProvider;
 
 public class TokenPersistence {
     private static final String NAME  = "tokens";
     private static final String ORDER = "tokenOrder";
     private final SharedPreferences prefs;
     private final Gson gson;
+    private final Context context;
 
     private List<String> getTokenOrder() {
         Type type = new TypeToken<List<String>>(){}.getType();
@@ -60,6 +62,7 @@ public class TokenPersistence {
     }
 
     public TokenPersistence(Context ctx) {
+        context = ctx;
         prefs = ctx.getApplicationContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         gson = new Gson();
     }
@@ -102,6 +105,7 @@ public class TokenPersistence {
         List<String> order = getTokenOrder();
         order.add(0, key);
         setTokenOrder(order).putString(key, gson.toJson(token)).apply();
+        OtpListWidgetProvider.notifyWidgetDataChanged(context);
     }
 
     public void move(int fromPosition, int toPosition) {
@@ -116,12 +120,14 @@ public class TokenPersistence {
 
         order.add(toPosition, order.remove(fromPosition));
         setTokenOrder(order).apply();
+        OtpListWidgetProvider.notifyWidgetDataChanged(context);
     }
 
     public void delete(int position) {
         List<String> order = getTokenOrder();
         String key = order.remove(position);
         setTokenOrder(order).remove(key).apply();
+        OtpListWidgetProvider.notifyWidgetDataChanged(context);
     }
 
     /**

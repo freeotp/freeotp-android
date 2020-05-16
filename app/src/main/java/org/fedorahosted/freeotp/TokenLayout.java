@@ -93,10 +93,7 @@ public class TokenLayout extends FrameLayout implements View.OnClickListener, Ru
         mProgressOuter.setVisibility(View.GONE);
 
         // Get the code placeholder.
-        char[] placeholder = new char[token.getDigits()];
-        for (int i = 0; i < placeholder.length; i++)
-            placeholder[i] = '-';
-        mPlaceholder = new String(placeholder);
+        mPlaceholder = TokenPlaceholderGenerator.generate(token);
 
         // Show the image.
         Picasso.with(getContext())
