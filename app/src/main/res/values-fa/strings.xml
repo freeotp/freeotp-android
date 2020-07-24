@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">توکن مشخص شده نامعتبر بود !</string>
+    <string name="delete">حذف</string>
+    <string name="edit">ویرایش</string>
+    <string name="restore_defaults">بازگرداندن به حالت پیش فرض</string>
+    <string name="no_keys">هیچ کلید OTP نصب نشده است.</string>
+    <string name="add_token">اضافه کردن Token</string>
+    <string name="scan_qr_code">اسکن  QR Code</string>
+    <string name="interval">فاصله</string>
+    <string name="counter">شمارنده</string>
+    <string name="secret">مخفی</string>
+    <string name="type">نوع</string>
+    <string name="algorithm">الگوریتم</string>
+    <string name="digits">ارقام</string>
+    <string name="save">ذخیره</string>
+    <string name="code_copied">کد در کلیپ بورد ذخیره شد.</string>
+
+    <string name="about_freeotp">درباره ی  FreeOTP</string>
+    <string name="about_version">FreeOTP نسخه ی %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP تحت مجوز است  %1$s.</string>
+    <string name="about_website">برای اطلاعت بیشتر, مارا ببینید %s.</string><!--    <string name="about_website">For more information, see our %s.</string>-->
+    <string name="about_icons">برخی از نمادهای مورد استفاده توسط این برنامه از کار ایجاد شده و به اشتراک گذاشته شده توسط پروژه منبع باز آندروید تکثیر می شوند و طبق اصطلاحاتی که در مجوز Attribution در Creative Commons 2.5 شرح داده شده است ، استفاده می شوند.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">خطا هنگام باز کردن دوربین!</string>
+    <string name="error_permission_camera_open">اجازه باز کردن دوربین وجود ندارد</string>
+    <string name="error_image_open">خطا هنگام باز کردن تصویر!</string>
+
+    <string name="delete_summary">این آخرین فرصت شماست: اگر این نشانه را حذف کنید ، برای همیشه از بین خواهد رفت. در سرور غیرفعال نخواهد شد.</string>
+    <string name="delete_question">حذف توکن ؟</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
