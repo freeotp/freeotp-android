@@ -72,6 +72,9 @@ public class ScanActivity extends Activity {
             token = new Token(text);
         } catch (Token.TokenUriInvalidException e) {
             e.printStackTrace();
+            // Do not proceed with adding token with Invalid URI
+            finish();
+            return;
         }
 
         //do not receive any more broadcasts
