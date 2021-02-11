@@ -1,43 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="invalid_token">Tunniste on virheellinen!</string>
     <string name="delete">Poista</string>
-    <string name="edit">Muokkaa</string>
-    <string name="restore_defaults">Palauta oletukset</string>
-    <string name="no_keys">Tunnistelista on tyhjä.</string>
-    <string name="add_token">Lisää tunniste</string>
-    <string name="scan_qr_code">Skannaa QR-koodi</string>
-    <string name="interval">Intervalli</string>
-    <string name="counter">Laskuri</string>
-    <string name="secret">Salaisuus</string>
-    <string name="type">Tyyppi</string>
-    <string name="algorithm">Algoritmi</string>
-    <string name="digits">Pituus</string>
-    <string name="save">Tallenna</string>
-    <string name="code_copied">Koodi kopioitu leikepöydälle.</string>
-
-    <string name="about_freeotp">About FreeOTP</string>
-    <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
-    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
-    <string name="about_license">FreeOTP is licensed under %1$s.</string>
-    <string name="about_website">For more information, see our %s.</string>
-    <string name="about_icons">Some icons used by this application are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.</string>
-
-    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
-    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
 
     <string name="error_camera_open">Kameran avaaminen ei onnistunut!</string>
-    <string name="error_permission_camera_open">Sovelluksella ei ole oikeutta käyttää kameraa</string>
-    <string name="error_image_open">Kuvan avaaminen ei onnistunut!</string>
 
-    <string name="delete_summary">Viimeinen varoitus: tunnisteen poistaminen on peruuttamaton, et voi palauttaa sitä. Tunnistetta ei poisteta palvelimelta.</string>
-    <string name="delete_question">Poistetaanko tunniste?</string>
-
-    <string-array name="algorithms">
-        <item>MD5</item>
-        <item>SHA1</item>
-        <item>SHA256</item>
-        <item>SHA512</item>
-    </string-array>
 </resources>

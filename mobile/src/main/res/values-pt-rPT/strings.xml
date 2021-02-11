@@ -1,38 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="invalid_token">O Símbolo especificado é inválido!</string>
     <string name="delete">Eliminar</string>
-    <string name="edit">Editar</string>
-    <string name="restore_defaults">Restaurar configurações originais</string>
-    <string name="no_keys">Sem Chaves OTP instaladas.</string>
-    <string name="add_token">Adicionar Símbolo</string>
-    <string name="scan_qr_code">Ler código QR</string>
-    <string name="interval">Intervalo</string>
-    <string name="counter">Contador</string>
-    <string name="secret">Segredo</string>
-    <string name="type">Tipo</string>
-    <string name="algorithm">Algoritmo</string>
-    <string name="digits">Dígitos</string>
-    <string name="save">Guardar</string>
-    <string name="code_copied">Código copiado para a área de transferência.</string>
-
-    <string name="about_freeotp">Sobre o FreeOTP</string>
-    <string name="about_version">FreeOTP Versão %1$s (%2$d)</string>
-    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
-    <string name="about_license">FreeOTP tem a licença %1$s.</string>
-    <string name="about_website">Para mais informação, consulte %s.</string>
-    <string name="about_icons">Alguns dos ícones desta aplicação são reproduções de trabalho criado e partilhado pelo projecto Android Open Source e são utilizados de acordo com os termos descritos pela licença Creative Commons 2.5 Attribution.</string>
-
-    <string name="link_website"><a href="http://freeotp.github.io">Sítio na Internet</a></string>
-    <string name="link_apache2"><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></string>
 
     <string name="error_camera_open">Erro ao abrir a câmara!</string>
-    <string name="error_permission_camera_open">Sem permissão para abrir a câmara</string>
-    <string name="error_image_open">Erro ao abrir imagem!</string>
-
-    <string name="delete_summary">Última oportunidade: se eliminar este Símbolo, ele desaparecerá para sempre. Ele não será desabilitado no servidor.</string>
-    <string name="delete_question">Eliminar este Símbolo?</string>
 
 </resources>
 
