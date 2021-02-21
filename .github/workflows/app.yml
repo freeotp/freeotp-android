@@ -1,4 +1,4 @@
-name: Java CI
+name: Build APK
 
 on: [push]
 
@@ -14,4 +14,4 @@ jobs:
         - run: ./gradlew build
         - uses: actions/upload-artifact@v2
           with:
-            path: app/build/outputs
+            path: app/build/outputs/apk
