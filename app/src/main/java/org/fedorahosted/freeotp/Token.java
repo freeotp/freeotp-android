@@ -89,8 +89,12 @@ public class Token {
 
         try {
             String d = uri.getQueryParameter("digits");
-            if (d == null)
-                d = "6";
+            if (d == null) {
+                if (issuerExt.equals("Steam"))
+                    d = "5";
+                else
+                    d = "6";
+            }
             digits = Integer.parseInt(d);
             if (!issuerExt.equals("Steam") && digits != 6 && digits != 8)
                 throw new TokenUriInvalidException();
