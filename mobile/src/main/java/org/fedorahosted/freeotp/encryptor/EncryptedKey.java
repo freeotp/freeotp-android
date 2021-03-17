@@ -33,6 +33,9 @@ public final class EncryptedKey {
     public static EncryptedKey encrypt(SecretKey key, SecretKey plaintext)
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, IOException {
+        if (key == null) {
+            throw new InvalidKeyException("Key is null");
+        }
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         return new EncryptedKey(cipher, plaintext);

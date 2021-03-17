@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Looper;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Pair;
 
 import junit.framework.TestCase;
@@ -25,7 +26,6 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
 import java.util.NavigableSet;
 import java.util.UUID;
 
@@ -267,11 +267,6 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
 
         Adapter a = new Adapter(mContext, this);
 
-        for (Map.Entry<String, ?> e: old.getAll().entrySet()) {
-            System.out.println(String.format("%s = %s", e.getKey(), e.getValue().toString()));
-            System.out.flush();
-        }
-
         // Ensure the migration happened.
         assertEquals(0, old.getAll().size());
         assertEquals(2, cur.getAll().size());
@@ -298,6 +293,60 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
         assertEquals(mLabel, token.getLabel());
         assertEquals(mImage, token.getImage());
         assertTrue(token.getCode(key) != null);
+    }
+
+    @Test
+    public void tokenCompatBackupRestore() throws GeneralSecurityException, IOException,
+            JSONException, TokenPersistence.BadPasswordException {
+        TokenPersistence tokenBackup = new TokenPersistence(mContext);
+        String pwd = "MyM4sterPassw0rd";
+
+        SharedPreferences old = mContext.getSharedPreferences("tokens", Context.MODE_PRIVATE);
+        SharedPreferences cur = mContext.getSharedPreferences("tokenStore", Context.MODE_PRIVATE);
+        SharedPreferences bkp = mContext.getSharedPreferences("tokenBackup", Context.MODE_PRIVATE);
+        old.edit()
+                .clear()
+                .putString("tokenOrder", "[\"foo\"]")
+                .putString("foo", makeUri().toString())
+                .commit();
+
+        tokenBackup.provision(pwd);
+        Adapter a = new Adapter(mContext, this);
+
+        // Backup stores masterKey and token data
+        assertEquals(3, bkp.getAll().size());
+
+        // Delete token
+        cur.edit().clear().commit();
+        assertEquals(0, cur.getAll().size());
+
+        // Perform restore
+        Adapter a2 = new Adapter(mContext, this);
+        a2.restoreTokens(pwd);
+
+        // Make sure tokenOrder is well formed.
+        JSONArray order = new JSONArray(cur.getString("tokenOrder", null));
+        assertEquals(1, order.length());
+        UUID uuid = UUID.fromString(order.getString(0));
+
+        // Make sure the secret is stored in the key store.
+        KeyStore ks = KeyStore.getInstance("AndroidKeyStore");
+        ks.load(null);
+        assertTrue(ks.containsAlias(uuid.toString()));
+        Key key = ks.getKey(uuid.toString(), null);
+
+        // Make sure that the token is valid.
+        Token token = Token.deserialize(cur.getString(uuid.toString(), null));
+        // Check token values.
+        assertEquals(Token.Type.valueOf(mType.toUpperCase()), token.getType());
+        assertEquals(mLayout == TokenCompatTest.Layout.NONE ? null : mIssuer, token.getIssuer());
+        assertEquals(mLabel, token.getLabel());
+        assertEquals(mImage, token.getImage());
+        try {
+            assertTrue(token.getCode(key) != null);
+        } catch (UserNotAuthenticatedException e) {
+
+        }
     }
 
     @Override

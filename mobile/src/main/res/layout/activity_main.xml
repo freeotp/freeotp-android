@@ -67,6 +67,9 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
         android:id="@+id/fab"
+        app:borderWidth="0dp"
+        android:backgroundTint="@color/colorAccent"
+        app:tint="@color/colorSurface"
 
         app:srcCompat="@drawable/ic_scan"
         />
