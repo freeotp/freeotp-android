@@ -20,9 +20,11 @@
    -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#cfd8dc</color>
+    <color name="colorPrimary">@color/md_deep_orange_500</color>
     <color name="colorPrimaryDark">#546e7a</color>
     <color name="colorAccent">@color/md_deep_orange_500</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorPrimaryVariant">#E0E0E0</color>
 
     <color name="md_red_500">#F44336</color>
     <color name="md_deep_purple_500">#673AB7</color>
@@ -66,4 +68,6 @@
     <color name="brand_gitlab_com" tools:keep="@color/brand_gitlab_com">#292961</color>
     <color name="brand_reddit" tools:keep="@color/brand_reddit">#FF4500</color>
     <color name="brand_steam" tools:keep="@color/brand_steam">#242424</color>
+    <color name="brand_redhat" tools:keep="@color/brand_redhat">#FF0000</color>
+    <color name="brand_fedora" tools:keep="@color/brand_fedora">#3c6eb4</color>
 </resources>

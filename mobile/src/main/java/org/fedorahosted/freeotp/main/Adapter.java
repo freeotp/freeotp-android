@@ -40,6 +40,9 @@ import com.google.gson.reflect.TypeToken;
 import org.fedorahosted.freeotp.Code;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
+import org.fedorahosted.freeotp.TokenPersistence;
+import org.fedorahosted.freeotp.encryptor.EncryptedKey;
+import org.fedorahosted.freeotp.encryptor.Encryptor;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
 
 import java.io.IOException;
@@ -49,6 +52,7 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.crypto.SecretKey;
@@ -61,6 +65,8 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
 
     private final LongSparseArray<Code> mActive = new LongSparseArray<>();
     private final Handler mHandler = new Handler();
+    private final Encryptor mEncryptor;
+    private TokenPersistence mTokenBackup;
 
     private final SharedPreferences mSharedPreferences;
     private final List<String> mItems;
@@ -87,7 +93,8 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
 
             try {
                 Pair<SecretKey, Token> pair = Token.compat(val);
-                add(pair.first, pair.second, false);
+                add(pair.first, pair.second, false, null);
+
             } catch (GeneralSecurityException | IOException | Token.InvalidUriException e) {
                 items.add(i - 1, key);
                 e.printStackTrace();
@@ -116,6 +123,14 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         Type type = new TypeToken<LinkedList<String>>(){}.getType();
         String str = mSharedPreferences.getString(ORDER, "[]");
         mItems = GSON.fromJson(str, type);
+
+        mEncryptor = new Encryptor(context);
+
+        try {
+            mTokenBackup = new TokenPersistence(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         compat(context);
     }
@@ -151,9 +166,12 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         return mItems.size();
     }
 
-    private int add(SecretKey key, Token token, boolean lock) throws GeneralSecurityException, IOException {
-        String uuid = UUID.randomUUID().toString();
-
+    private int add(SecretKey key, Token token, boolean lock, String existingUuid) throws
+            GeneralSecurityException, IOException {
+        String uuid = existingUuid;
+        if (existingUuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
         // Save key.
         mKeyStore.setEntry(uuid, new KeyStore.SecretKeyEntry(key),
             new KeyProtection.Builder(KeyProperties.PURPOSE_SIGN)
@@ -169,12 +187,22 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             throw new IOException();
         }
 
+        // Save to Backup
+        if (mTokenBackup.isProvisioned()) {
+            try {
+                Map<String, EncryptedKey> data = mEncryptor.encryptToken(key);
+                mTokenBackup.save(uuid, token.serialize(), data.get("key"), false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         this.notifyItemInserted(mItems.size() - 1);
         return mItems.size() - 1;
     }
 
     public int add(SecretKey key, Token token) throws GeneralSecurityException, IOException {
-        return add(key, token, true);
+        return add(key, token, true, null);
     }
 
     public void delete(int position) throws GeneralSecurityException, IOException {
@@ -182,6 +210,10 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         if (!storeItems().remove(uuid).commit()) {
             mItems.add(position, uuid);
             throw new IOException();
+        }
+
+        if (mTokenBackup.isProvisioned()) {
+            mTokenBackup.remove(uuid);
         }
 
         notifyItemRemoved(position);
@@ -205,6 +237,21 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         boolean selected = !isSelected(holder.getAdapterPosition());
         setSelected(holder.getAdapterPosition(), selected);
         return selected;
+    }
+
+    public void restoreTokens(String pwd) throws TokenPersistence.BadPasswordException {
+        if (mTokenBackup.isProvisioned()) {
+            try {
+                List<TokenPersistence.RestoredData> list = mTokenBackup.restore(pwd);
+                for (TokenPersistence.RestoredData item : list) {
+                    add(item.key, item.token, item.token.getLock(), item.uuid);
+                }
+            } catch (TokenPersistence.BadPasswordException pe) {
+                throw pe;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Code getCode(int position)

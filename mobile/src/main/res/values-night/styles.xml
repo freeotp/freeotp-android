@@ -2,9 +2,9 @@
 <!--
    - FreeOTP
    -
-   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   - Authors: Justin Stephenson <jstephen@redhat.com>
    -
-   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   - Copyright (C) 2021  Justin Stephenson, Red Hat
    -
    - Licensed under the Apache License, Version 2.0 (the "License");
    - you may not use this file except in compliance with the License.
@@ -18,31 +18,19 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-
 <resources>
-    <style name="Base.AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.FreeOTPDark" parent="Base.AppTheme">
     </style>
-
-    <style name="Theme.FreeOTPLight" parent="Base.AppTheme">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar" parent="Theme.FreeOTPLight">
+    <style name="AppTheme.NoActionBar" parent="Theme.FreeOTPDark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-
     <style name="AppTheme.AppBar.Toolbar">
         <item name="android:layout_height">?android:attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimaryDark</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:layout_width">match_parent</item>
     </style>
-
     <style name="AppTheme.AppBar.Toolbar.Popup" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 </resources>

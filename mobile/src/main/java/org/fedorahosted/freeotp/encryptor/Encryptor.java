@@ -4,83 +4,56 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.fedorahosted.freeotp.Token;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Encryptor {
-    private static final String PREFERENCES = "tokenBackup";
     private static final String MASTER = "masterKey";
-
-    private interface Invalid {
-        boolean isProvisioned();
-        void fix(String pwd) throws GeneralSecurityException, IOException;
-    }
-
-    private SharedPreferences mSharedPreferences;
     private KeyStore mKeyStore;
 
-    public Encryptor(Context ctx) throws KeyStoreException {
-        mSharedPreferences = ctx.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+    public Encryptor(Context ctx) throws KeyStoreException, CertificateException,
+            NoSuchAlgorithmException, IOException {
         mKeyStore = KeyStore.getInstance("AndroidKeyStore");
+        mKeyStore.load(null);
     }
 
-    public Invalid getInvalid() {
-        final boolean backup = false;
-        boolean keystore = false;
+    public Map<String, EncryptedKey> encryptToken(SecretKey key) throws
+            NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException,
+            BadPaddingException, NoSuchPaddingException, IOException {
+        Map<String, EncryptedKey> data = new HashMap<>();
 
+        Key mk = null;
         try {
-            if (mKeyStore.getKey(MASTER, null) != null)
-                return null;
-        } catch (GeneralSecurityException ignored) {}
+            mk = mKeyStore.getKey(MASTER, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return new Invalid() {
-            @Override
-            public boolean isProvisioned() {
-                return mSharedPreferences.getString(MASTER, null) != null;
-            }
+        // Encrypt token key
+        EncryptedKey ekc = EncryptedKey.encrypt((SecretKey) mk, key);
 
-            @Override
-            public void fix(String pwd) throws GeneralSecurityException, IOException {
-                String s = mSharedPreferences.getString(MASTER, null);
-                if (s == null) {
-                    s = new Gson().toJson(MasterKey.generate(pwd));
-                    mSharedPreferences.edit().putString(MASTER, s).apply();
-                }
-
-                MasterKey mk = new Gson().fromJson(s, MasterKey.class);
-                SecretKey sk = mk.decrypt(pwd);
-
-                KeyProtection kp = new KeyProtection.Builder(KeyProperties.PURPOSE_ENCRYPT)
-                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                        .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                        .build();
-
-                mKeyStore.setEntry(MASTER, new KeyStore.SecretKeyEntry(sk), kp);
-
-                for (Map.Entry<String, ?> item : mSharedPreferences.getAll().entrySet()) {
-                    String k = item.getKey();
-                    Object v = item.getValue();
-
-                    if (k.equals(MASTER))
-                        continue;
-
-                    if (!(v instanceof String))
-                        continue;
-
-                    EncryptedKey ek = new Gson().fromJson(s, EncryptedKey.class);
-                    SecretKey k = ek.decrypt(sk);
-
-
-                }
-            }
-        };
+        data.put("key", ekc);
+        return data;
     }
 }

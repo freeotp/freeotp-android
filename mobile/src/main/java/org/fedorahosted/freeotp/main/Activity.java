@@ -19,31 +19,39 @@
  */
 
 package org.fedorahosted.freeotp.main;
-
 import android.Manifest;
 import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.text.Html;
+import android.text.InputType;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager.LayoutParams;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
+import org.fedorahosted.freeotp.TokenPersistence;
 import org.fedorahosted.freeotp.main.share.ShareFragment;
 import org.fedorahosted.freeotp.utils.GridLayoutItemDecoration;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
@@ -75,6 +83,10 @@ public class Activity extends AppCompatActivity
     private Adapter mTokenAdapter;
     private TextView mEmpty;
     private Menu mMenu;
+    private String mRestorePwd = "";
+    private SharedPreferences mBackups;
+    static final String BACKUP = "tokenBackup";
+    static final String RESTORED = "restoreComplete";
 
     private final RecyclerView.AdapterDataObserver mAdapterDataObserver =
         new RecyclerView.AdapterDataObserver() {
@@ -139,7 +151,9 @@ public class Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         // Don't let other apps screenshot token codes...
-        getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
+        mBackups = getApplicationContext().getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
 
         mFloatingActionButton = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recycler);
@@ -191,6 +205,14 @@ public class Activity extends AppCompatActivity
         mTokenAdapter.registerAdapterDataObserver(mAdapterDataObserver);
         mAdapterDataObserver.onChanged();
 
+        if (mBackups.getBoolean(RESTORED, false)) {
+            mBackups.edit().remove(RESTORED).apply();
+            final EditText input = new EditText(this);
+            input.setTypeface(Typeface.SERIF);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+            showRestoreAlert(input);
+        }
         onNewIntent(getIntent());
     }
 
@@ -201,13 +223,71 @@ public class Activity extends AppCompatActivity
         int p = ContextCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT);
         if (p != PackageManager.PERMISSION_GRANTED)
             requestPermissions(new String[] { Manifest.permission.USE_FINGERPRINT }, 0);
+
+        mBackups = getApplicationContext().getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mMenu = menu;
+
         return true;
+    }
+
+    private void showRestoreCancelAlert(final EditText input) {
+        new AlertDialog.Builder(Activity.this)
+                .setTitle(R.string.main_restore_cancel_title)
+                .setMessage(R.string.main_restore_cancel_message)
+                .setCancelable(false)
+                .setNegativeButton(R.string.main_restore_go_back, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(input.getParent() != null) {
+                            ((ViewGroup)input.getParent()).removeView(input); // <- fix
+                        }
+                        showRestoreAlert(input);
+                    }
+                })
+                .setPositiveButton(R.string.main_restore_proceed, null)
+                .show();
+    }
+
+    private void showRestoreAlert(final EditText input) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.main_restore_title)
+                .setMessage(R.string.main_restore_message)
+                .setCancelable(false)
+                .setView(input)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showRestoreCancelAlert(input);
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (input != null) {
+                            mRestorePwd = input.getText().toString();
+
+                            try {
+                                mTokenAdapter.restoreTokens(mRestorePwd);
+                            } catch (TokenPersistence.BadPasswordException e) {
+                                Toast badpwd = Toast.makeText(getApplicationContext(),
+                                        R.string.main_restore_bad_password,Toast.LENGTH_SHORT);
+                                badpwd.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+                                badpwd.show();
+                                dialog.dismiss();
+                                if(input.getParent() != null) {
+                                    ((ViewGroup)input.getParent()).removeView(input); // <- fix
+                                }
+                                input.setText("");
+                                showRestoreAlert(input);
+                            }
+                        }
+                    }
+                }).show();
     }
 
     @Override

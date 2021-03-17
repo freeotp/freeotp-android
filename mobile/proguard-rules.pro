@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Address GSON crash
+# https://stackoverflow.com/questions/15543607/assertionerror-in-gson-enumtypeadapter-when-using-proguard-obfuscation
+-keepclassmembers enum * {*;}

@@ -25,6 +25,7 @@
     <string name="ok">Ok</string>
     <string name="done">Done</string>
     <string name="close">Close</string>
+    <string name="restore">Restore from Backup</string>
     <string name="about">About</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
@@ -47,7 +48,7 @@
 
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2018 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
+    <string name="main_about_message">© 2013–2021 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
     <string name="main_welcome">Welcome to FreeOTP!\n\nScan a QR code to get started.</string>
     <string name="main_deletion_title">Delete selected tokens?</string>
     <string name="main_deletion_message">Deleting a token does not disable it on the server. If you continue, you may be locked out of your account. Deleting a token cannot be undone.</string>
@@ -61,6 +62,15 @@
     <string name="main_lock_title">Lock screen required!</string>
     <string name="main_invalidated_title">Key invalidated!</string>
     <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
+    <string name="main_restore_title">Restore from backup</string>
+    <string name="main_backup_android_title">Android Backup</string>
+    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.\n\nFor more information, see <a href="https://developer.android.com/guide/topics/data/backup">Data Backup Overview</a> and <a href="https://support.google.com/android/answer/2819582?hl=en">Android Backups</a></string>
+    <string name="main_restore_message">Please enter backup password</string>
+    <string name="main_restore_bad_password">Invalid password</string>
+    <string name="main_restore_cancel_title">Cancel Restore?</string>
+    <string name="main_restore_cancel_message">You will lose all previously backed up tokens!</string>
+    <string name="main_restore_proceed">Proceed without Restoring</string>
+    <string name="main_restore_go_back">Go Back</string>
 
     <!-- Strings for the password activity. -->
     <string name="password">Password</string>

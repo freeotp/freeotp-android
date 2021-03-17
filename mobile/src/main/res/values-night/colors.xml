@@ -2,9 +2,9 @@
 <!--
    - FreeOTP
    -
-   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   - Authors: Justin Stephenson <jstephen@redhat.com>
    -
-   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   - Copyright (C) 2021  Justin Stephenson, Red Hat
    -
    - Licensed under the Apache License, Version 2.0 (the "License");
    - you may not use this file except in compliance with the License.
@@ -18,13 +18,10 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryVariant">#373737</color>
+    <color name="colorSurface">#212121</color>
+    <color name="colorAccent">#bb86fc</color>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@android:id/progress">
-        <clip android:clipOrientation="horizontal" android:gravity="start">
-            <shape android:shape="rectangle">
-                <solid android:color="@color/colorPrimaryVariant" />
-            </shape>
-        </clip>
-    </item>
-</layer-list>
+</resources>

@@ -6,12 +6,13 @@ import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
+import org.fedorahosted.freeotp.encryptor.EncryptedKey;
 import org.fedorahosted.freeotp.encryptor.MasterKey;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -20,9 +21,9 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -30,32 +31,27 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 public class TokenPersistence {
+    public class RestoredData {
+        public SecretKey key;
+        public Token token;
+        public String uuid;
+    }
+
+    public class BadPasswordException extends Exception {
+        public BadPasswordException() {
+            super("Invalid password");
+        }
+    }
+
     private static final String BACKUP = "tokenBackup";
     private static final String STORE = "tokenStore";
-
     private static final String MASTER = "masterKey";
-    private static final String ORDER = "tokenOrder";
-
-    private static final String CIPHER = "AES/GCM/NoPadding";
-
-    private static final int ITERATIONS = 100000;
-    private static final int KEY_BITS = 256;
 
     private final SharedPreferences mBackups;
     private final SharedPreferences mTokens;
     private final KeyStore mKeyStore;
 
-    private List<String> getItems() {
-        Type type = new TypeToken<LinkedList<String>>(){}.getType();
-        String str = mTokens.getString("tokenOrder", "[]");
-        new Gson().fromJson(str, type);
-    }
-
-    private SharedPreferences.Editor setItems(List<String> items) {
-        return mTokens.edit().putString(ORDER, new Gson().toJson(items));
-    }
-
-    TokenPersistence(Context ctx)
+    public TokenPersistence(Context ctx)
             throws KeyStoreException, NoSuchAlgorithmException, IOException, CertificateException {
         mBackups = ctx.getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
         mTokens = ctx.getSharedPreferences(STORE, Context.MODE_PRIVATE);
@@ -88,66 +84,110 @@ public class TokenPersistence {
         return mBackups.edit().putString(MASTER, new Gson().toJson(mk)).commit();
     }
 
-    public boolean needsRestore() {
+    private boolean needsRestore(String restore_uuid) {
         for (String key : mTokens.getAll().keySet()) {
-            UUID uuid = UUID.fromString(key);
-            if (uuid == null)
+            if (key == null)
                 continue;
 
-            mKeyStore
-        }
-    }
-
-    public void restore(String password) {
-    }
-
-    private int add(SecretKey key, Token token, boolean lock)
-            throws GeneralSecurityException, IOException {
-        String uuid = UUID.randomUUID().toString();
-
-        // Save key.
-        mKeyStore.setEntry(uuid, new KeyStore.SecretKeyEntry(key),
-                new KeyProtection.Builder(KeyProperties.PURPOSE_SIGN)
-                        .setUserAuthenticationValidityDurationSeconds(token.getPeriod())
-                        .setUserAuthenticationRequired(token.getLock() && lock)
-                        .build());
-
-        // Save everything else.
-        mItems.add(uuid);
-        if (!storeItems().putString(uuid, token.serialize()).commit()) {
-            mItems.remove(mItems.size() - 1);
-            mKeyStore.deleteEntry(uuid);
-            throw new IOException();
+            if (key == restore_uuid) {
+                return false;
+            }
         }
 
-        return mItems.size() - 1;
+        return true;
     }
 
-    public int add(SecretKey key, Token token)
-            throws GeneralSecurityException, IOException {
-        return add(key, token, true);
-    }
+    // Save backup data to SharedPreferences
+    // (Token data)
+    //   key: $UUID-token
+    //   value: token
+    //
+    // and
+    //
+    // (OTP key)
+    //   key: UUID
+    //   val: JSON Object with format
+    //   {
+    //       key: encrypted secret key
+    //   }
+    public void save(String uuid, String token, EncryptedKey key, Boolean tokendata_only) throws JSONException {
+        if (!tokendata_only) {
+            String encryptedCodeKey = new Gson().toJson(key);
 
-    public void delete(int position)
-            throws GeneralSecurityException, IOException {
-        String uuid = mItems.remove(position);
-        if (!storeItems().remove(uuid).commit()) {
-            mItems.add(position, uuid);
-            throw new IOException();
+            JSONObject obj = new JSONObject().put("key", encryptedCodeKey);
+
+            mBackups.edit().putString(uuid, obj.toString()).apply();
         }
 
-        mKeyStore.deleteEntry(uuid);
+        mBackups.edit().putString(uuid.concat("-token"), token).apply();
     }
 
-    public boolean move(int fromPosition, int toPosition) {
-        String uuid = mItems.remove(fromPosition);
-        mItems.add(toPosition, uuid);
-        if (storeItems().commit()) {
-            return true;
+    public void remove(String uuid) {
+        mBackups.edit().remove(uuid).apply();
+        mBackups.edit().remove(uuid.concat("-token")).apply();
+    }
+
+    public List<RestoredData> restore(String pwd) throws GeneralSecurityException,
+            IOException, JSONException, BadPasswordException  {
+
+        ArrayList<RestoredData> tokensList = new ArrayList<>();
+
+        String s = mBackups.getString(MASTER, null);
+        if (s == null) {
+            s = new Gson().toJson(MasterKey.generate(pwd));
+            mBackups.edit().putString(MASTER, s).apply();
         }
 
-        uuid = mItems.remove(toPosition);
-        mItems.add(fromPosition, uuid);
-        return false;
+        MasterKey mk = new Gson().fromJson(s, MasterKey.class);
+        SecretKey sk;
+        try {
+            sk = mk.decrypt(pwd);
+        } catch (Exception e) {
+            throw new BadPasswordException();
+        }
+
+        KeyProtection kp = new KeyProtection.Builder(KeyProperties.PURPOSE_ENCRYPT)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .build();
+
+        mKeyStore.setEntry(MASTER, new KeyStore.SecretKeyEntry(sk), kp);
+
+        for (Map.Entry<String, ?> item : mBackups.getAll().entrySet()) {
+            JSONObject obj;
+            String uuid = item.getKey();
+            Object v = item.getValue();
+            RestoredData bkp = new RestoredData();
+
+            if (uuid.equals(MASTER) || !needsRestore(uuid) || item.getKey().contains("-token"))
+                continue;
+
+            if (!(v instanceof String))
+                continue;
+
+            try {
+                obj = new JSONObject(v.toString());
+            } catch (JSONException e) {
+                // Invalid JSON backup data
+                continue;
+            }
+
+            // Retrieve encrypted backup data from shared preferences
+            String tokenData = mBackups.getString(uuid.concat("-token"), null);
+            EncryptedKey ekKey = new Gson().fromJson(obj.getString("key"), EncryptedKey.class);
+
+            // Decrypt the token
+            SecretKey skKey = ekKey.decrypt(sk);
+
+            // Deserialize token
+            Token token = Token.deserialize(tokenData);
+
+            bkp.key = skKey;
+            bkp.token = token;
+            bkp.uuid = uuid;
+            tokensList.add(bkp);
+        }
+
+        return tokensList;
     }
 }
