@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">無効なトークンです！</string>
+    <string name="delete">削除</string>
+    <string name="edit">編集</string>
+    <string name="restore_defaults">デフォルトの復元</string>
+    <string name="no_keys">OTPキーがインストールされていません。</string>
+    <string name="add_token">トークンの追加</string>
+    <string name="scan_qr_code">QRコードをスキャン</string>
+    <string name="interval">Interval</string>
+    <string name="counter">Counter</string>
+    <string name="secret">Secret</string>
+    <string name="type">Type</string>
+    <string name="algorithm">Algorithm</string>
+    <string name="digits">Digits</string>
+    <string name="save">保存</string>
+    <string name="code_copied">コードをクリップボードにコピーしました。</string>
+
+    <string name="about_freeotp">FreeOTPについて</string>
+    <string name="about_version">FreeOTP Version %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP is licensed under %1$s.</string>
+    <string name="about_website">詳細はこちら。 %s.</string>
+    <string name="about_icons">このアプリケーションで使用されている一部のアイコンは、Android オープンソースプロジェクトで作成・共有されているアイコンを利用したもので、クリエイティブコモンズライセンス表示 2.5 一般 に記載されている条件に基づいて使用さてています。</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">カメラを開く際に問題が発生しました。</string>
+    <string name="error_permission_camera_open">カメラを開く権限がありません</string>
+    <string name="error_image_open">画像を開く際にエラーが発生しました。</string>
+
+    <string name="delete_summary">これが最後のチャンスです。このトークンを削除すると、復元することは出来ません。サーバー上では無効化されません。</string>
+    <string name="delete_question">トークンを削除しますか？</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
