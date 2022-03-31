@@ -1,7 +1,6 @@
 package org.fedorahosted.freeotp;
 
-import android.support.test.runner.AndroidJUnit4;
-
+import androidx.test.runner.AndroidJUnit4;
 import junit.framework.TestCase;
 
 import org.fedorahosted.freeotp.encryptor.EncryptedKey;

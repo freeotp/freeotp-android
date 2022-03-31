@@ -1,8 +1,7 @@
 package org.fedorahosted.freeotp;
 
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;

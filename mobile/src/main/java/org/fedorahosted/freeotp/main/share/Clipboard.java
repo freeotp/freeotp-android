@@ -23,7 +23,7 @@ package org.fedorahosted.freeotp.main.share;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.fedorahosted.freeotp.R;
 
