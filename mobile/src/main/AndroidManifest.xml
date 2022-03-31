@@ -54,6 +54,7 @@
 
         <activity
             android:name=".main.Activity"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"
@@ -69,6 +70,7 @@
 
         <activity
             android:name=".PasswordActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"

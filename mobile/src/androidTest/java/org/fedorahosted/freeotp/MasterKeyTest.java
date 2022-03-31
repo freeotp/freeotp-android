@@ -1,7 +1,6 @@
 package org.fedorahosted.freeotp;
 
-import android.support.test.runner.AndroidJUnit4;
-import android.util.Pair;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -1,7 +1,4 @@
 package org.fedorahosted.freeotp;
-
-
-import android.support.test.runner.AndroidJUnit4;
 import android.util.Pair;
 
 import junit.framework.TestCase;
@@ -9,6 +6,7 @@ import junit.framework.TestCase;
 import org.fedorahosted.freeotp.utils.Base32;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import androidx.test.runner.AndroidJUnit4;
 
 import java.security.InvalidKeyException;
 

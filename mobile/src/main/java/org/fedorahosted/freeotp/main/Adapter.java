@@ -27,7 +27,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.LongSparseArray;
 import android.util.Pair;
 import android.view.LayoutInflater;

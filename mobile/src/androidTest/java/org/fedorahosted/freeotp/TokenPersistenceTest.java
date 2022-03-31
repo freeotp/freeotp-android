@@ -3,7 +3,7 @@ package org.fedorahosted.freeotp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Looper;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import android.util.Pair;
 
 import org.fedorahosted.freeotp.main.Adapter;
