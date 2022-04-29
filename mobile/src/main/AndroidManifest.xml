@@ -23,62 +23,78 @@
     package="org.fedorahosted.freeotp">
 
     <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
-        android:anyDensity="true" />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
-        android:roundIcon="@drawable/ic_freeotp"
-        android:icon="@drawable/ic_freeotp"
-        android:theme="@style/Base.AppTheme"
         android:allowBackup="true"
-        android:fullBackupOnly="true"
-        android:fullBackupContent="@xml/backup_rules"
         android:backupAgent=".TokenBackupAgent"
+        android:fullBackupContent="@xml/backup_rules"
+        android:fullBackupOnly="true"
+        android:icon="@drawable/ic_freeotp"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_freeotp"
         android:supportsRtl="true"
-        android:label="@string/app_name">
-
+        android:theme="@style/Base.AppTheme">
+        <activity
+            android:name=".ManualAdd"
+            android:exported="false"
+            android:parentActivityName="org.fedorahosted.freeotp.main.Activity"
+            android:theme="@style/AppTheme.NoActionBar"
+        />
         <activity
             android:name=".main.Activity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="otpauth" android:host="hotp" />
-                <data android:scheme="otpauth" android:host="totp" />
+
+                <data
+                    android:host="hotp"
+                    android:scheme="otpauth" />
+                <data
+                    android:host="totp"
+                    android:scheme="otpauth" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PasswordActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

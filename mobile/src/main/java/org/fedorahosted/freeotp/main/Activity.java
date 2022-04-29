@@ -36,6 +36,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.text.Html;
 import android.text.InputType;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -49,6 +50,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.fedorahosted.freeotp.ManualAdd;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
@@ -67,6 +69,8 @@ import java.util.TreeSet;
 
 import javax.crypto.SecretKey;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -83,6 +87,7 @@ public class Activity extends AppCompatActivity
     private Adapter mTokenAdapter;
     private TextView mEmpty;
     private Menu mMenu;
+    ActivityResultLauncher<Intent> mManualAddLauncher;
     private String mRestorePwd = "";
     private SharedPreferences mBackups;
     static final String BACKUP = "tokenBackup";
@@ -155,6 +160,19 @@ public class Activity extends AppCompatActivity
 
         mBackups = getApplicationContext().getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
 
+        /* Callback for Manual Add activity result */
+        mManualAddLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent intent = result.getData();
+                Uri uri = intent.getData();
+                if (uri != null) {
+                    addToken(uri, true);
+                }
+            }
+        });
+
         mFloatingActionButton = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recycler);
         mEmpty = findViewById(android.R.id.empty);
@@ -214,6 +232,8 @@ public class Activity extends AppCompatActivity
             showRestoreAlert(input);
         }
         onNewIntent(getIntent());
+
+
     }
 
     @Override
@@ -290,6 +310,8 @@ public class Activity extends AppCompatActivity
                 }).show();
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -309,6 +331,12 @@ public class Activity extends AppCompatActivity
                     e.printStackTrace();
                     return false;
                 }
+
+                return true;
+
+            case R.id.action_add:
+                Intent intent = new Intent(this, ManualAdd.class);
+                mManualAddLauncher.launch(intent);
 
                 return true;
 
@@ -365,6 +393,7 @@ public class Activity extends AppCompatActivity
             MenuItem mi = mMenu.getItem(i);
 
             switch (mi.getItemId()) {
+                case R.id.action_add:
                 case R.id.action_about:
                     mi.setVisible(selected.size() == 0);
                     break;

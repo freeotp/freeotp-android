@@ -27,6 +27,7 @@
     <string name="close">Close</string>
     <string name="restore">Restore from Backup</string>
     <string name="about">About</string>
+    <string name="manual_add">Manual Add</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="move_up">Move Up</string>
@@ -78,4 +79,38 @@
     <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.</string>
     <string name="password_weak">Password is too weak!</string>
     <string name="password_match">Passwords do not match!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Example Inc</string>
+    <string name="manual_secret_text">Secret</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Type</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Digits</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algorithm</string>
+    <string name="manual_interval">Interval</string>
+    <string name="manual_add_token">Add Token</string>
+    <string name="manual_accessibility_algorithm">Token algorithm</string>
+    <string name="manual_accessibility_interval">Token Interval</string>
+    <string name="manual_invalid_title">Token is invalid!</string>
+    <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key Uri Format.</string>
 </resources>
