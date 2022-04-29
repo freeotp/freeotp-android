@@ -50,6 +50,13 @@
         />
 
     <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add"
+        android:orderInCategory="100"
+        android:title="@string/manual_add"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
         android:visible="true"
         android:id="@+id/action_about"
         android:orderInCategory="100"
@@ -57,5 +64,7 @@
         android:title="@string/about"
         app:showAsAction="always"
         />
+
+
 
 </menu>
