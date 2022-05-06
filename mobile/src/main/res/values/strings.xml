@@ -27,6 +27,7 @@
     <string name="close">Close</string>
     <string name="restore">Restore from Backup</string>
     <string name="about">About</string>
+    <string name="auto_copy_clipboard">Auto Clipboard</string>
     <string name="manual_add">Manual Add</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
