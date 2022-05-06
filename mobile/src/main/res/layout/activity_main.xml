@@ -34,7 +34,6 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:popupTheme="@style/AppTheme.AppBar.Toolbar.Popup"
             style="@style/AppTheme.AppBar.Toolbar"
             />
     </com.google.android.material.appbar.AppBarLayout>
