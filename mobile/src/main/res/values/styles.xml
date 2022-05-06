@@ -34,11 +34,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark" />
 
-    <style name="AppTheme.AppBar.Toolbar">
+    <style name="AppTheme.AppBar.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark">
+    </style>
+
+    <style name="ToolbarStyle">
         <item name="android:layout_height">?android:attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimaryDark</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
