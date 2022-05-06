@@ -22,6 +22,8 @@ package org.fedorahosted.freeotp.main;
 import android.Manifest;
 import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,7 +51,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.fedorahosted.freeotp.Code;
 import org.fedorahosted.freeotp.ManualAdd;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
@@ -92,6 +96,11 @@ public class Activity extends AppCompatActivity
     private SharedPreferences mBackups;
     static final String BACKUP = "tokenBackup";
     static final String RESTORED = "restoreComplete";
+    /* Generic settings preferences file */
+    private SharedPreferences mSettings;
+    static final String SETTINGS = "settings";
+    static final String AUTO_COPY_CLIPBOARD = "copyClipboard";
+
 
     private final RecyclerView.AdapterDataObserver mAdapterDataObserver =
         new RecyclerView.AdapterDataObserver() {
@@ -113,7 +122,15 @@ public class Activity extends AppCompatActivity
 
     private void onActivate(ViewHolder vh) {
         try {
-            vh.displayCode(mTokenAdapter.getCode(vh.getAdapterPosition()));
+            Code code = mTokenAdapter.getCode(vh.getAdapterPosition());
+            if (mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false)) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("code", code.getCode());
+                clipboard.setPrimaryClip(clip);
+            }
+
+            vh.displayCode(code);
+
         } catch (UserNotAuthenticatedException e) {
             KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
             Intent i = km.createConfirmDeviceCredentialIntent(vh.getIssuer(), vh.getLabel());
@@ -159,6 +176,7 @@ public class Activity extends AppCompatActivity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         mBackups = getApplicationContext().getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
+        mSettings = getApplicationContext().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 
         /* Callback for Manual Add activity result */
         mManualAddLauncher = registerForActivityResult(
@@ -379,6 +397,17 @@ public class Activity extends AppCompatActivity
 
                 return true;
 
+            case R.id.action_clipboard:
+                boolean copy_clipboard = mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false);
+
+                mSettings.edit().putBoolean(AUTO_COPY_CLIPBOARD, !copy_clipboard).apply();
+                String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
+                Snackbar.make(findViewById(R.id.action_clipboard), s,
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -394,6 +423,7 @@ public class Activity extends AppCompatActivity
 
             switch (mi.getItemId()) {
                 case R.id.action_add:
+                case R.id.action_clipboard:
                 case R.id.action_about:
                     mi.setVisible(selected.size() == 0);
                     break;
