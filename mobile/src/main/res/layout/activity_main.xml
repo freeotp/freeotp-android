@@ -33,8 +33,9 @@
         android:theme="@style/AppTheme.AppBar">
 
         <androidx.appcompat.widget.Toolbar
+            style="@style/ToolbarStyle"
             android:id="@+id/toolbar"
-            style="@style/AppTheme.AppBar.Toolbar"
+            android:theme="@style/AppTheme.AppBar.Toolbar"
             />
     </com.google.android.material.appbar.AppBarLayout>
 
