@@ -1,5 +1,7 @@
 package org.fedorahosted.freeotp.encryptor;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;

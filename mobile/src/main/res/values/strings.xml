@@ -25,6 +25,7 @@
     <string name="ok">Ok</string>
     <string name="done">Done</string>
     <string name="close">Close</string>
+    <string name="save">Save</string>
     <string name="restore">Restore from Backup</string>
     <string name="about">About</string>
     <string name="auto_copy_clipboard">Auto Clipboard</string>
@@ -114,4 +115,5 @@
     <string name="manual_accessibility_interval">Token Interval</string>
     <string name="manual_invalid_title">Token is invalid!</string>
     <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key Uri Format.</string>
+    <string name="edit_token">Edit Token</string>
 </resources>

@@ -22,12 +22,17 @@ package org.fedorahosted.freeotp.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
 import android.security.keystore.UserNotAuthenticatedException;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -38,24 +43,33 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.fedorahosted.freeotp.Code;
+import org.fedorahosted.freeotp.TokenIcon;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 import org.fedorahosted.freeotp.encryptor.EncryptedKey;
 import org.fedorahosted.freeotp.encryptor.Encryptor;
+import org.fedorahosted.freeotp.utils.Base32;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder.EventListener {
     private static final String COMPAT = "tokens";
@@ -71,6 +85,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
     private final SharedPreferences mSharedPreferences;
     private final List<String> mItems;
     private final KeyStore mKeyStore;
+    private Context mContext;
 
     private SharedPreferences.Editor storeItems() {
         return mSharedPreferences.edit().putString(ORDER, new Gson().toJson(mItems));
@@ -158,7 +173,16 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         String uuid = mItems.get(position);
         Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
-        holder.bind(token, mActive.get(getItemId(position)), isSelected(position));
+        TokenIcon token_icon = new TokenIcon(token, mContext);
+        Pair <Integer, String> image = token_icon.mImage;
+        holder.bind(token, token_icon.mColor, image.first, image.second,
+                mActive.get(getItemId(position)), isSelected(position));
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mContext = recyclerView.getContext();
     }
 
     @Override
@@ -290,6 +314,41 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         return code;
     }
 
+    public Pair<String, String> getLabel(int position) {
+        String uuid = mItems.get(position);
+        Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+
+        Pair<String, String> label = new Pair<String, String>(token.getLabel(), token.getIssuer());
+        return label;
+    }
+    public TokenIcon getTokenIcon(int position) {
+        String uuid = mItems.get(position);
+        Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+
+        return new TokenIcon(token, mContext);
+    }
+
+    public void setLabel(int position, String account, String issuer) throws IOException {
+        String uuid = mItems.get(position);
+        Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+
+        token.setIssuer(issuer);
+        token.setLabel(account);
+
+        // Save everything else.
+        if (!storeItems().putString(uuid, token.serialize()).commit()) {
+            throw new IOException();
+        }
+
+        // Save to Backup
+        if (mTokenBackup.isProvisioned()) {
+            try {
+                mTokenBackup.save(uuid, token.serialize(), null, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     public void onActivated(ViewHolder holder) {
     }

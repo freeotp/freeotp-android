@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.fedorahosted.freeotp.utils.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/icons"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/fragment_icon_image_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_freeotp" />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/fragment_edit_text_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/manual_account_hint"
+            android:inputType="textPersonName"
+            android:minHeight="72dp" />
+
+        <EditText
+            android:id="@+id/fragment_edit_text_issuer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/manual_issuer_hint"
+            android:inputType="textPersonName"
+            android:minHeight="72dp" />
+
+        <Button
+            android:id="@+id/fragment_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/save"/>
+
+    </LinearLayout>
+
+</org.fedorahosted.freeotp.utils.SquareFrameLayout>
