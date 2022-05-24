@@ -54,6 +54,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.fedorahosted.freeotp.Code;
+import org.fedorahosted.freeotp.TokenIcon;
 import org.fedorahosted.freeotp.ManualAdd;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
@@ -75,10 +76,12 @@ import javax.crypto.SecretKey;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Activity extends AppCompatActivity
@@ -241,6 +244,22 @@ public class Activity extends AppCompatActivity
         mTokenAdapter.registerAdapterDataObserver(mAdapterDataObserver);
         mAdapterDataObserver.onChanged();
 
+        /* EditTokenDialogFragment listener */
+        getSupportFragmentManager().setFragmentResultListener("requestKey", this, (requestKey, bundle) -> {
+            String account = bundle.getString("account");
+            String issuer = bundle.getString("issuer");
+
+            int selected = mTokenAdapter.getSelected().first();
+
+            try {
+                mTokenAdapter.setLabel(selected, account, issuer);
+                mTokenAdapter.notifyItemChanged(selected);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // ensure viewholder in recyclerview is refreshed
+        });
+
         if (mBackups.getBoolean(RESTORED, false)) {
             mBackups.edit().remove(RESTORED).apply();
             final EditText input = new EditText(this);
@@ -328,8 +347,6 @@ public class Activity extends AppCompatActivity
                 }).show();
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -366,6 +383,19 @@ public class Activity extends AppCompatActivity
                     mTokenAdapter.move(i, i + 1);
 
                 mRecyclerView.scrollToPosition(mTokenAdapter.getSelected().first());
+                return true;
+
+            case R.id.action_edit:
+                int selected = mTokenAdapter.getSelected().first();
+                TokenIcon token_icon = mTokenAdapter.getTokenIcon(selected);
+                Pair<String, String> label = mTokenAdapter.getLabel(selected);
+                Pair<Integer, String> image = token_icon.mImage;
+                int color = token_icon.mColor;
+
+                EditTokenDialogFragment edit = EditTokenDialogFragment.newInstance(label.first,
+                        label.second, image.first, image.second, color);
+                edit.show(getSupportFragmentManager(), edit.getTag());
+
                 return true;
 
             case R.id.action_up:
@@ -436,6 +466,9 @@ public class Activity extends AppCompatActivity
                 case R.id.action_down:
                     mi.setVisible(selected.size() > 0);
                     mi.setEnabled(!mTokenAdapter.isSelected(mTokenAdapter.getItemCount() - 1));
+                    break;
+                case R.id.action_edit:
+                    mi.setVisible(selected.size() > 0);
                     break;
 
                 case R.id.action_delete:

@@ -72,13 +72,13 @@ public class Token {
     private final String mAlgorithm;
 
     @SerializedName("issuerExt")
-    private final String mIssuer;
+    private String mIssuer;
 
     @SerializedName("issuerInt")
     private final String mIssuerParam;
 
     @SerializedName("label")
-    private final String mLabel;
+    private String mLabel;
 
     @SerializedName("image")
     private final String mImage;
@@ -336,8 +336,12 @@ public class Token {
         return Code.Factory.fromIssuer(mIssuer).makeCode(code, mDigits, getPeriod());
     }
 
-    public Uri toUri() {
-        return toUri(null);
+    public void setIssuer(String issuer) {
+        mIssuer = issuer;
+    }
+
+    public void setLabel(String label) {
+        mLabel = label;
     }
 
     public Uri toUri(SecretKey key) {

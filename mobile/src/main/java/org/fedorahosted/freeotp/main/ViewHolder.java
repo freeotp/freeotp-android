@@ -214,55 +214,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mView.setOnClickListener(mViewClick);
     }
 
-    private int getIdentifier(String type, String prefix, Token token) {
-        String issuer = token.getIssuer();
-        if (issuer == null)
-            return 0;
 
-        String name = prefix + issuer.toLowerCase(Locale.US).replaceAll("[^a-z0-9]+", "_");
-        String pkg = mView.getContext().getPackageName();
-
-        return mView.getResources().getIdentifier(name, type, pkg);
-    }
-
-    private void setBackgroundColor(Token token) {
-        try {
-            // If the token specified a color, use it.
-            mImage.setBackgroundColor(Color.parseColor("#" + token.getColor()));
-        } catch (NumberFormatException e) {
-            Resources r = mView.getResources();
-            try {
-                // If the token didn't specify a color but we know the Issuer's color, use it.
-                mImage.setBackgroundColor(r.getColor(getIdentifier("color", "brand_", token)));
-            } catch (Resources.NotFoundException f) {
-                // Otherwise, pick a color that will be constant for the same Issuer string.
-                int[] backgrounds = r.getIntArray(R.array.backgrounds);
-                int idx = 0;
-
-                try { idx = Math.abs(token.getIssuer().hashCode()); }
-                catch (NullPointerException g) { }
-
-                mImage.setBackgroundColor(backgrounds[idx % backgrounds.length]);
-            }
-        }
-    }
-
-    private void setImage(Token token) {
-        int id = getIdentifier("drawable", "fa_", token);
-        if (id == 0) {
-            switch (token.getType()) {
-                case HOTP: id = R.drawable.ic_hotp; break;
-                case TOTP: id = R.drawable.ic_totp; break;
-            }
-        }
-
-        String url = token.getImage();
-        if (url == null) {
-            mImage.setImageResource(id);
-        } else {
-            Picasso.get().load(url).error(id).into(mImage);
-        }
-    }
 
     private void setSelected(boolean selected) {
         mImage.setVisibility(selected ? View.INVISIBLE : View.VISIBLE);
@@ -273,7 +225,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.cancel();
     }
 
-    void bind(Token token, Code code, boolean selected) {
+    void bind(Token token, int color, int image_id, String image_url, Code code, boolean selected) {
         reset();
 
         String issuer = token.getIssuer();
@@ -283,8 +235,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mLock.setVisibility(token.getLock() ? View.VISIBLE : View.GONE);
         mIssuer.setText(issuer);
         mLabel.setText(token.getLabel());
-        setBackgroundColor(token);
-        setImage(token);
+        mImage.setBackgroundColor(color);
+
+        if (image_url == null) {
+            mImage.setImageResource(image_id);
+        } else {
+            Picasso.get().load(image_url).error(image_id).into(mImage);
+        }
 
         setSelected(selected);
         if (code != null)
