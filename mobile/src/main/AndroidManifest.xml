@@ -50,6 +50,7 @@
         android:backupAgent=".TokenBackupAgent"
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@drawable/ic_freeotp"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_freeotp"
