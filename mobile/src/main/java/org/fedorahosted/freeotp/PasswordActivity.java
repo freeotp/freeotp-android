@@ -2,12 +2,18 @@ package org.fedorahosted.freeotp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -61,14 +67,23 @@ public class PasswordActivity extends AppCompatActivity {
     private TokenPersistence mTokenBackup;
 
     void showAlert() {
-        new AlertDialog.Builder(this)
+        Resources r = getResources();
+
+        final SpannableString msg = new SpannableString(r.getString(R.string.main_backup_android_alert));
+        Linkify.addLinks(msg, Linkify.ALL);
+
+        final AlertDialog d = new AlertDialog.Builder(this)
                 .setTitle("Android Backup")
-                .setMessage(R.string.main_backup_android_alert)
+                .setMessage(Html.fromHtml(r.getString(R.string.main_backup_android_alert)))
                 .setPositiveButton("Ok", (dialog, which) -> {
                     Intent myIntent = new Intent(PasswordActivity.this, Activity.class);
                     startActivity(myIntent);
                     finish();
-                }).show();
+                }).create();
+
+        d.show();
+
+        ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
