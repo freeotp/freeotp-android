@@ -38,6 +38,9 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.text.Html;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
@@ -355,13 +358,19 @@ public class Activity extends AppCompatActivity
                     Resources r = getResources();
                     PackageManager pm = getPackageManager();
                     PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
+                    final SpannableString msg = new SpannableString(r.getString(R.string.main_about_message));
+                    Linkify.addLinks(msg, Linkify.ALL);
 
-                    new AlertDialog.Builder(this)
-                        .setTitle(r.getString(R.string.main_about_title,
-                                info.versionName, info.versionCode))
-                        .setMessage(Html.fromHtml(r.getString(R.string.main_about_message)))
-                        .setPositiveButton(R.string.close, null)
-                        .show();
+                    final AlertDialog dialog = new AlertDialog.Builder(this)
+                            .setTitle(r.getString(R.string.main_about_title,
+                                    info.versionName, info.versionCode))
+                            .setMessage(Html.fromHtml(r.getString(R.string.main_about_message)))
+                            .setPositiveButton(R.string.close, null)
+                            .create();
+
+                    dialog.show();
+
+                    ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                     return false;
@@ -410,20 +419,20 @@ public class Activity extends AppCompatActivity
 
             case R.id.action_delete:
                 new AlertDialog.Builder(this)
-                    .setTitle(R.string.main_deletion_title)
-                    .setMessage(R.string.main_deletion_message)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            for (Integer i : new TreeSet<>(mTokenAdapter.getSelected().descendingSet())) {
-                                try { mTokenAdapter.delete(i); }
-                                catch (GeneralSecurityException | IOException e) { }
-                            }
+                        .setTitle(R.string.main_deletion_title)
+                        .setMessage(R.string.main_deletion_message)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                for (Integer i : new TreeSet<>(mTokenAdapter.getSelected().descendingSet())) {
+                                    try { mTokenAdapter.delete(i); }
+                                    catch (GeneralSecurityException | IOException e) { }
+                                }
 
-                            mFloatingActionButton.show();
-                        }
-                    }).show();
+                                mFloatingActionButton.show();
+                            }
+                        }).show();
 
                 return true;
 
@@ -433,7 +442,7 @@ public class Activity extends AppCompatActivity
                 mSettings.edit().putBoolean(AUTO_COPY_CLIPBOARD, !copy_clipboard).apply();
                 String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
                 Snackbar.make(findViewById(R.id.action_clipboard), s,
-                        Snackbar.LENGTH_SHORT)
+                                Snackbar.LENGTH_SHORT)
                         .show();
 
                 return true;

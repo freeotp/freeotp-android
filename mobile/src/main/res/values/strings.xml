@@ -67,7 +67,7 @@
     <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
     <string name="main_restore_title">Restore from backup</string>
     <string name="main_backup_android_title">Android Backup</string>
-    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.\n\nFor more information, see <a href="https://developer.android.com/guide/topics/data/backup">Data Backup Overview</a> and <a href="https://support.google.com/android/answer/2819582?hl=en">Android Backups</a></string>
+    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.&lt;br/&gt;&lt;br/&gt;For more information, see &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Data Backup Overview&lt;/a&gt; and &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en"&gt;Android Backups&lt;/a&gt;</string>
     <string name="main_restore_message">Please enter backup password</string>
     <string name="main_restore_bad_password">Invalid password</string>
     <string name="main_restore_cancel_title">Cancel Restore?</string>
