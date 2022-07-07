@@ -25,6 +25,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.ColorMatrixColorFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -44,6 +45,7 @@ import org.fedorahosted.freeotp.Token;
 
 import java.util.Locale;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,7 +64,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
     private ViewGroup mActive;
     private ViewGroup mIcons;
     private ImageView mCheck;
+    private ImageView mCheckActive;
     private ImageView mImage;
+    private ImageView mImageActive;
     private ImageView mLock;
     private TextView mIssuer;
     private TextView mLabel;
@@ -183,7 +187,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mLabel = itemView.findViewById(R.id.label);
         mIcons = itemView.findViewById(R.id.icons);
         mCheck = itemView.findViewById(R.id.check);
+        mCheckActive = itemView.findViewById(R.id.check_active);
         mImage = itemView.findViewById(R.id.image);
+        mImageActive = itemView.findViewById(R.id.image_active);
         mLock = itemView.findViewById(R.id.lock);
         mShare = itemView.findViewById(R.id.share);
         mCode = itemView.findViewById(R.id.code);
@@ -210,6 +216,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         });
 
         mIcons.setOnClickListener(mSelectClick);
+        mImageActive.setOnClickListener(mSelectClick);
         mShare.setOnClickListener(mShareClick);
         mView.setOnClickListener(mViewClick);
     }
@@ -218,7 +225,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     private void setSelected(boolean selected) {
         mImage.setVisibility(selected ? View.INVISIBLE : View.VISIBLE);
+        mImageActive.setVisibility(selected ? View.INVISIBLE : View.VISIBLE);
         mCheck.setVisibility(selected ? View.VISIBLE : View.INVISIBLE);
+        mCheckActive.setVisibility(selected ? View.VISIBLE : View.INVISIBLE);
     }
 
     void reset() {
@@ -236,11 +245,14 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mIssuer.setText(issuer);
         mLabel.setText(token.getLabel());
         mImage.setBackgroundColor(color);
+        mImageActive.setBackgroundColor(color);
 
         if (image_url == null) {
             mImage.setImageResource(image_id);
+            mImageActive.setImageResource(image_id);
         } else {
             Picasso.get().load(image_url).error(image_id).into(mImage);
+            Picasso.get().load(image_url).error(image_id).into(mImageActive);
         }
 
         setSelected(selected);
