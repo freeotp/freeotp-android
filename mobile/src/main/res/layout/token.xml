@@ -28,7 +28,8 @@
     <RelativeLayout
         android:id="@+id/passive"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <FrameLayout
             android:id="@+id/icons"
@@ -107,24 +108,52 @@
     <RelativeLayout
         android:id="@+id/active"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:alpha="0"
         android:visibility="gone">
+
+        <FrameLayout
+            android:id="@+id/icons_active"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/check_active"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimaryDark"
+                android:padding="8dp"
+
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_check" />
+
+            <ImageView
+                android:id="@+id/image_active"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:alpha="0.6"
+                android:scaleType="fitCenter" />
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/share"
 
-            android:theme="@style/FreeOTP.Purple"
             style="@android:style/Widget.Material.Light.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="72dp"
             android:layout_alignParentTop="true"
-
             android:layout_alignParentEnd="true"
+
             android:layout_alignParentBottom="true"
             android:background="?buttoncolor"
             android:contentDescription="Share Code"
-            android:src="@drawable/ic_share" />
+            android:src="@drawable/ic_share"
+            android:theme="@style/FreeOTP.Purple" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -132,11 +161,11 @@
             style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:layout_alignParentStart="true"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_toStartOf="@id/share"
+            android:layout_toEndOf="@id/icons_active"
             android:max="100"
             android:progress="50"
             android:progressDrawable="@drawable/progress" />
@@ -146,13 +175,14 @@
             android:id="@+id/code"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:layout_alignParentStart="true"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_toStartOf="@id/share"
+            android:layout_toEndOf="@id/icons_active"
+
             android:gravity="center"
             android:text="012 345"
             android:textStyle="bold"
