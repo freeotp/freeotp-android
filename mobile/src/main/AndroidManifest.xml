@@ -55,12 +55,12 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_freeotp"
         android:supportsRtl="true"
-        android:theme="@style/Base.AppTheme">
+        android:theme="@style/FreeOTP.Purple.NoActionBar">
         <activity
             android:name=".ManualAdd"
             android:exported="false"
             android:parentActivityName="org.fedorahosted.freeotp.main.Activity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/FreeOTP.Purple.NoActionBar"
         />
         <activity
             android:name=".main.Activity"
@@ -68,7 +68,8 @@
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/FreeOTP.Purple.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -89,7 +90,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/FreeOTP.Purple.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

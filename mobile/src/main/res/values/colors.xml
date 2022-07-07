@@ -20,11 +20,21 @@
    -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">@color/md_deep_orange_500</color>
-    <color name="colorPrimaryDark">#546e7a</color>
-    <color name="colorAccent">@color/md_deep_orange_500</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorPrimaryVariant">#E0E0E0</color>
+    <!-- Baseline purple theme colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- Recommended dark theme surface color -->
+    <color name="dark_grey">#121212</color>
+    <!-- Other colors we use with the purple theme -->
+    <color name="freeotp_dark_primary">#1b1b1b</color>
+    <color name="freeotp_white_primary">#fafafa</color>
+    <color name="freeotp_grey_primary">#DDD8E5</color>
+    <color name="freeotp_grey_dark_primary">#7c7687</color>
 
     <color name="md_red_500">#F44336</color>
     <color name="md_deep_purple_500">#673AB7</color>

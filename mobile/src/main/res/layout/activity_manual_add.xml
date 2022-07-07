@@ -12,12 +12,14 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/Base.FreeOTP">
 
             <androidx.appcompat.widget.Toolbar
-                style="@style/ToolbarStyle"
                 android:id="@+id/toolbar"
-                android:theme="@style/AppTheme.AppBar.Toolbar"
+                 android:layout_height="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+                android:theme="@style/ToolbarStyle"
                 />
         </com.google.android.material.appbar.AppBarLayout>
 

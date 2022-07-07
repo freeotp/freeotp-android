@@ -23,7 +23,7 @@
     <item android:id="@android:id/progress">
         <clip android:clipOrientation="horizontal" android:gravity="start">
             <shape android:shape="rectangle">
-                <solid android:color="@color/colorPrimaryVariant" />
+                <solid android:color="?attr/colorPrimaryVariant" />
             </shape>
         </clip>
     </item>

@@ -63,21 +63,21 @@
         android:orderInCategory="100"
         android:title="@string/manual_add"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_clipboard"
         android:icon="@drawable/ic_copy_white"
         android:orderInCategory="100"
         android:title="@string/auto_copy_clipboard"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:visible="true"
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:icon="@drawable/ic_about"
         android:title="@string/about"
-        app:showAsAction="always"
+        app:showAsAction="never"
         />
 
 </menu>

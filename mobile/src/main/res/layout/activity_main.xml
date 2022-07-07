@@ -30,12 +30,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBar">
+        android:theme="@style/FreeOTP.Purple"
+        >
 
         <androidx.appcompat.widget.Toolbar
-            style="@style/ToolbarStyle"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
             android:id="@+id/toolbar"
-            android:theme="@style/AppTheme.AppBar.Toolbar"
+            android:theme="@style/ToolbarStyle"
+            app:popupTheme="@style/PopupMenuStyle"
             />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -67,10 +70,9 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
         android:id="@+id/fab"
+        app:tint="@color/white"
         app:borderWidth="0dp"
-        android:backgroundTint="@color/colorAccent"
-        app:tint="@color/colorSurface"
-
         app:srcCompat="@drawable/ic_scan"
         />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

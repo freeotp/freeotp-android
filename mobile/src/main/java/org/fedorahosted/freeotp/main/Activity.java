@@ -441,8 +441,7 @@ public class Activity extends AppCompatActivity
 
                 mSettings.edit().putBoolean(AUTO_COPY_CLIPBOARD, !copy_clipboard).apply();
                 String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
-                Snackbar.make(findViewById(R.id.action_clipboard), s,
-                                Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(R.id.toolbar), s, Snackbar.LENGTH_SHORT)
                         .show();
 
                 return true;
