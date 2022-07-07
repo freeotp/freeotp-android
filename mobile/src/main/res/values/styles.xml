@@ -20,31 +20,20 @@
    -->
 
 <resources>
-    <style name="Base.AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-    </style>
-
-    <style name="Theme.FreeOTPLight" parent="Base.AppTheme">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar" parent="Theme.FreeOTPLight">
+    <style name="FreeOTP.Purple.NoActionBar" parent="FreeOTP.Purple">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <attr name="buttoncolor" format="reference"/>
 
-    <style name="AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark" />
-
-    <style name="AppTheme.AppBar.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark">
+    <!-- Toolbar styles -->
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#fff</item>
     </style>
 
-    <style name="ToolbarStyle">
-        <item name="android:layout_height">?android:attr/actionBarSize</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
+    <style name="PopupMenuStyle" parent="android:Widget.Holo.Light.PopupMenu">
+        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
 
-    <style name="AppTheme.AppBar.Toolbar.Popup" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="android:background">?attr/colorPrimary</item>
     </style>
 </resources>

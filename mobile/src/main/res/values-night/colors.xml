@@ -19,9 +19,4 @@
    - limitations under the License.
    -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryVariant">#373737</color>
-    <color name="colorSurface">#212121</color>
-    <color name="colorAccent">#bb86fc</color>
-
 </resources>

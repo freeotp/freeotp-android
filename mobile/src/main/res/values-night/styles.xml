@@ -19,18 +19,19 @@
    - limitations under the License.
    -->
 <resources>
-    <style name="Theme.FreeOTPDark" parent="Base.AppTheme">
-    </style>
-    <style name="AppTheme.NoActionBar" parent="Theme.FreeOTPDark">
+    <style name="FreeOTP.Purple.NoActionBar" parent="FreeOTP.Purple">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.AppBar.Toolbar">
-        <item name="android:layout_height">?android:attr/actionBarSize</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:layout_width">match_parent</item>
+    <attr name="buttoncolor" format="reference"/>
+
+    <!-- Toolbar styles -->
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
-    <style name="AppTheme.AppBar.Toolbar.Popup" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="android:background">@color/colorPrimary</item>
+
+    <style name="PopupMenuStyle" parent="android:Widget.Holo.Light.PopupMenu">
+    <item name="android:textColorPrimary">@color/white</item>
     </style>
+
 </resources>

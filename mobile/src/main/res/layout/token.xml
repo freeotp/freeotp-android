@@ -19,11 +19,10 @@
    - limitations under the License.
    -->
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    card_view:cardBackgroundColor="@color/colorSurface"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
@@ -43,7 +42,7 @@
                 android:id="@+id/check"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="?attr/colorPrimaryDark"
                 android:padding="8dp"
 
                 android:scaleType="fitCenter"
@@ -115,6 +114,7 @@
         <ImageButton
             android:id="@+id/share"
 
+            android:theme="@style/FreeOTP.Purple"
             style="@android:style/Widget.Material.Light.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="72dp"
@@ -122,7 +122,7 @@
 
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/button"
+            android:background="?buttoncolor"
             android:contentDescription="Share Code"
             android:src="@drawable/ic_share" />
 
@@ -159,4 +159,4 @@
 
             app:autoSizeTextType="uniform" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
