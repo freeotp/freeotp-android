@@ -93,6 +93,8 @@ public class Activity extends AppCompatActivity
     private int mLongClickCount = 0;
 
     private FloatingActionButton mFloatingActionButton;
+    private FloatingActionButton mFABScan;
+    private FloatingActionButton mFABManual;
     private RecyclerView mRecyclerView;
     private Adapter mTokenAdapter;
     private TextView mEmpty;
@@ -198,6 +200,9 @@ public class Activity extends AppCompatActivity
         });
 
         mFloatingActionButton = findViewById(R.id.fab);
+        mFABScan = findViewById(R.id.fab_scan);
+        mFABManual = findViewById(R.id.fab_manual);
+        mFloatingActionButton = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recycler);
         mEmpty = findViewById(android.R.id.empty);
 
@@ -225,6 +230,29 @@ public class Activity extends AppCompatActivity
         mFloatingActionButton.setOnLongClickListener(this);
         if (!ScanDialogFragment.hasCamera(getApplicationContext()))
             mFloatingActionButton.hide();
+
+        /* Scan QR code listener */
+        mFABScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFABManual.hide();
+                mFABScan.hide();
+                ScanDialogFragment scan = new ScanDialogFragment();
+                scan.show(getSupportFragmentManager(), scan.getTag());
+            }
+        });
+
+        /* Manual entry listener */
+        mFABManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFABManual.hide();
+                mFABScan.hide();
+                Intent intent = new Intent(view.getContext(), ManualAdd.class);
+                mManualAddLauncher.launch(intent);
+            }
+        });
+
 
         int margin = getResources().getDimensionPixelSize(R.dimen.margin);
         mRecyclerView.setAdapter(mTokenAdapter);
@@ -378,12 +406,6 @@ public class Activity extends AppCompatActivity
 
                 return true;
 
-            case R.id.action_add:
-                Intent intent = new Intent(this, ManualAdd.class);
-                mManualAddLauncher.launch(intent);
-
-                return true;
-
             case R.id.action_down:
                 if (mTokenAdapter.isSelected(mTokenAdapter.getItemCount() - 1))
                     return true;
@@ -460,7 +482,6 @@ public class Activity extends AppCompatActivity
             MenuItem mi = mMenu.getItem(i);
 
             switch (mi.getItemId()) {
-                case R.id.action_add:
                 case R.id.action_clipboard:
                 case R.id.action_about:
                     mi.setVisible(selected.size() == 0);
@@ -525,8 +546,13 @@ public class Activity extends AppCompatActivity
             Pair<SecretKey, Token> pair = Token.random();
             addToken(pair.second.toUri(pair.first), true);
         } else {
-            ScanDialogFragment scan = new ScanDialogFragment();
-            scan.show(getSupportFragmentManager(), scan.getTag());
+            if (mFABManual.isShown()) {
+                mFABManual.hide();
+                mFABScan.hide();
+            } else {
+                mFABManual.show();
+                mFABScan.show();
+            }
         }
     }
 

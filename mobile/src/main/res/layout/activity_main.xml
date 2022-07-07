@@ -64,15 +64,51 @@
         app:spanCount="@integer/columns"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin"
-        android:id="@+id/fab"
-        app:tint="@color/white"
-        app:borderWidth="0dp"
-        app:srcCompat="@drawable/ic_scan"
-        />
+        android:orientation="vertical">
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:maxImageSize="16dp"
+            app:srcCompat="@drawable/ic_edit"
+            app:tint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            app:fabSize="mini"
+            app:maxImageSize="16dp"
+            app:srcCompat="@drawable/ic_scan"
+            app:tint="@color/white" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            app:borderWidth="0dp"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/white" />
+    </LinearLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
