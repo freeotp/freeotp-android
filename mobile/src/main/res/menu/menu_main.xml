@@ -42,7 +42,7 @@
 
     <item
         android:id="@+id/action_edit"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_edit"
         android:orderInCategory="100"
         android:title="@string/edit_token"
         android:visible="false"
@@ -56,14 +56,6 @@
         android:title="@string/delete"
         app:showAsAction="always"
         />
-
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_add"
-        android:orderInCategory="100"
-        android:title="@string/manual_add"
-        android:visible="true"
-        app:showAsAction="never" />
     <item
         android:id="@+id/action_clipboard"
         android:icon="@drawable/ic_copy_white"
