@@ -180,7 +180,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
         mEventListener = listener;
         mCountdown = new ObjectAnimator();
-        mProgress = itemView.findViewById(R.id.progress);
+        mProgress = itemView.findViewById(R.id.progress_linear);
         mPassive = itemView.findViewById(R.id.passive);
         mActive = itemView.findViewById(R.id.active);
         mIssuer = itemView.findViewById(R.id.issuer);
