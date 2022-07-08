@@ -105,6 +105,8 @@
             android:textAppearance="?android:textAppearanceListItemSecondary" />
     </RelativeLayout>
 
+
+
     <RelativeLayout
         android:id="@+id/active"
         android:layout_width="match_parent"
@@ -138,6 +140,8 @@
                 android:padding="8dp"
                 android:alpha="0.6"
                 android:scaleType="fitCenter" />
+
+
         </FrameLayout>
 
         <ImageButton
@@ -155,20 +159,6 @@
             android:src="@drawable/ic_share"
             android:theme="@style/FreeOTP.Purple" />
 
-        <ProgressBar
-            android:id="@+id/progress"
-
-            style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@id/share"
-            android:layout_toEndOf="@id/icons_active"
-            android:max="100"
-            android:progress="50"
-            android:progressDrawable="@drawable/progress" />
 
         <androidx.appcompat.widget.AppCompatTextView xmlns:app="http://schemas.android.com/apk/res-auto"
 
@@ -188,5 +178,21 @@
             android:textStyle="bold"
 
             app:autoSizeTextType="uniform" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@id/share"
+            android:layout_toEndOf="@id/icons_active"
+            android:max="100"
+            android:progress="50"
+            />
+
     </RelativeLayout>
+
+
 </com.google.android.material.card.MaterialCardView>
