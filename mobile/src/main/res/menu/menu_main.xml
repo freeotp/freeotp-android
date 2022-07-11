@@ -57,8 +57,19 @@
         app:showAsAction="always"
         />
     <item
+        android:id="@+id/action_backup"
+        android:orderInCategory="100"
+        android:title="@string/backup_title"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_restore"
+        android:orderInCategory="100"
+        android:title="Restore"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_clipboard"
-        android:icon="@drawable/ic_copy_white"
         android:orderInCategory="100"
         android:title="@string/auto_copy_clipboard"
         android:visible="true"

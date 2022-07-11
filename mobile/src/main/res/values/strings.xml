@@ -52,7 +52,7 @@
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
     <string name="main_about_message">© 2013–2021 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
-    <string name="main_welcome">Welcome to FreeOTP!\n\nScan a QR code to get started.</string>
+    <string name="main_welcome">Welcome to FreeOTP!\n\nAdd a token to get started.</string>
     <string name="main_deletion_title">Delete selected tokens?</string>
     <string name="main_deletion_message">Deleting a token does not disable it on the server. If you continue, you may be locked out of your account. Deleting a token cannot be undone.</string>
     <string name="main_unsafe_title">Token is unsafe!</string>
@@ -116,4 +116,9 @@
     <string name="manual_invalid_title">Token is invalid!</string>
     <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key Uri Format.</string>
     <string name="edit_token">Edit Token</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Backup</string>
+    <string name="restore_title">Restore</string>
+
 </resources>
