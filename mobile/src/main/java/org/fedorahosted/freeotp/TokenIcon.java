@@ -43,6 +43,9 @@ public class TokenIcon {
         if (issuer == null)
             return 0;
 
+        /* Remove spaces */
+        issuer = issuer.replaceAll(" ", "");
+
         String name = prefix + issuer.toLowerCase(Locale.US).replaceAll("[^a-z0-9]+", "_");
         String pkg = mContext.getPackageName();
 
