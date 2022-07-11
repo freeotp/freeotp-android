@@ -1,6 +1,5 @@
 package org.fedorahosted.freeotp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -155,10 +154,10 @@ public class PasswordActivity extends AppCompatActivity {
                     public void onResult(Result result) {
                         mProgress.setVisibility(View.INVISIBLE);
 
-                        String error = getResources().getString(R.string.password_weak);
                         boolean safe = result.isMinimumEntropyMet();
+                        String error = result.getFeedback().getWarning();
 
-                        mConfirmLayout.setVisibility(safe ? View.VISIBLE : View.INVISIBLE);
+                        mConfirmLayout.setVisibility(View.VISIBLE);
                         mPasswordLayout.setError(safe ? null : error);
                     }
                 });
