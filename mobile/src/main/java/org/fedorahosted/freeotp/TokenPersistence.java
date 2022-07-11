@@ -1,7 +1,11 @@
 package org.fedorahosted.freeotp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
 
@@ -12,7 +16,13 @@ import org.fedorahosted.freeotp.encryptor.MasterKey;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -49,12 +59,14 @@ public class TokenPersistence {
 
     private final SharedPreferences mBackups;
     private final SharedPreferences mTokens;
+    private final Context mContext;
     private final KeyStore mKeyStore;
 
     public TokenPersistence(Context ctx)
             throws KeyStoreException, NoSuchAlgorithmException, IOException, CertificateException {
-        mBackups = ctx.getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
-        mTokens = ctx.getSharedPreferences(STORE, Context.MODE_PRIVATE);
+        mBackups = ctx.getSharedPreferences(BACKUP, MODE_PRIVATE);
+        mTokens = ctx.getSharedPreferences(STORE, MODE_PRIVATE);
+        mContext = ctx;
 
         mKeyStore = KeyStore.getInstance("AndroidKeyStore");
         mKeyStore.load(null);
@@ -189,5 +201,57 @@ public class TokenPersistence {
         }
 
         return tokensList;
+    }
+
+    public void copyBackupToExternal(Uri uri) {
+        ObjectOutputStream output = null;
+        try {
+            ParcelFileDescriptor pfd = mContext.getContentResolver().openFileDescriptor(uri, "w");
+            FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
+            output = new ObjectOutputStream(fileOutputStream);
+
+            output.writeObject(mBackups.getAll());
+            fileOutputStream.close();
+            pfd.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restoreBackupFromExternal(Uri uri) {
+        ObjectInputStream input = null;
+        try {
+            InputStream inputStream = mContext.getContentResolver().openInputStream(uri);
+                input = new ObjectInputStream(inputStream);
+                SharedPreferences.Editor prefEdit = mBackups.edit();
+                prefEdit.clear();
+                Map<String, ?> entries = (Map<String, ?>) input.readObject();
+                for (Map.Entry<String, ?> entry : entries.entrySet()) {
+                    Object v = entry.getValue();
+                    String key = entry.getKey();
+
+                    if (v instanceof Boolean)
+                        prefEdit.putBoolean(key, (Boolean) v);
+                    else if (v instanceof Float)
+                        prefEdit.putFloat(key, (Float) v);
+                    else if (v instanceof Integer)
+                        prefEdit.putInt(key, (Integer) v);
+                    else if (v instanceof Long)
+                        prefEdit.putLong(key, (Long) v);
+                    else if (v instanceof String)
+                        prefEdit.putString(key, ((String) v));
+                }
+                prefEdit.commit();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (input != null) {
+                        input.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
     }
 }

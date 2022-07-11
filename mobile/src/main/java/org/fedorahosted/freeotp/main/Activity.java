@@ -41,7 +41,6 @@ import android.text.InputType;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -79,12 +78,10 @@ import javax.crypto.SecretKey;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Activity extends AppCompatActivity
@@ -100,8 +97,11 @@ public class Activity extends AppCompatActivity
     private TextView mEmpty;
     private Menu mMenu;
     ActivityResultLauncher<Intent> mManualAddLauncher;
+    ActivityResultLauncher<Intent> mBackupSaveLauncher;
+    ActivityResultLauncher<Intent> mRestoreSaveLauncher;
     private String mRestorePwd = "";
     private SharedPreferences mBackups;
+    private TokenPersistence mTokenBackup;
     static final String BACKUP = "tokenBackup";
     static final String RESTORED = "restoreComplete";
     /* Generic settings preferences file */
@@ -161,8 +161,8 @@ public class Activity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
 
         while (mViewHolders.size() > 0) {
             ViewHolder holder = mViewHolders.remove(requestCode).get();
@@ -170,6 +170,56 @@ public class Activity extends AppCompatActivity
             if (resultCode == Activity.RESULT_OK && holder != null)
                 onActivate(holder);
         }
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_SHORT).show();
+    }
+
+    interface LauncherCallback {
+        void execute(Uri uri);
+    }
+
+    public ActivityResultLauncher<Intent> registerLauncher(LauncherCallback callback) {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent intent = result.getData();
+                        Uri uri = intent.getData();
+                        if (uri != null) {
+                            callback.execute(uri);
+                        }
+                    }
+                });
+    }
+
+    private void initLaunchers() {
+        try {
+            mTokenBackup = new TokenPersistence(getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mManualAddLauncher = registerLauncher(uri -> addToken(uri, true));
+
+        mBackupSaveLauncher = registerLauncher(uri -> {
+            /* Copy tokenBackup to picked file on external storage */
+            mTokenBackup.copyBackupToExternal(uri);
+            showToast("Backup file saved to external storage");
+        });
+
+        mRestoreSaveLauncher = registerLauncher(uri -> {
+            final EditText input = new EditText(getApplicationContext());
+            input.setTypeface(Typeface.SERIF);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+            /* Copy chosen file (externalBackup.xml) over apps tokenBackup.xml SP file */
+            mTokenBackup.restoreBackupFromExternal(uri);
+
+            /* Prompt for restore */
+            showRestoreAlert(input);
+        });
     }
 
     @Override
@@ -186,20 +236,8 @@ public class Activity extends AppCompatActivity
         mBackups = getApplicationContext().getSharedPreferences(BACKUP, Context.MODE_PRIVATE);
         mSettings = getApplicationContext().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 
-        /* Callback for Manual Add activity result */
-        mManualAddLauncher = registerForActivityResult(
-        new ActivityResultContracts.StartActivityForResult(),
-        result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                Intent intent = result.getData();
-                Uri uri = intent.getData();
-                if (uri != null) {
-                    addToken(uri, true);
-                }
-            }
-        });
+        initLaunchers();
 
-        mFloatingActionButton = findViewById(R.id.fab);
         mFABScan = findViewById(R.id.fab_scan);
         mFABManual = findViewById(R.id.fab_manual);
         mFloatingActionButton = findViewById(R.id.fab);
@@ -232,25 +270,19 @@ public class Activity extends AppCompatActivity
             mFloatingActionButton.hide();
 
         /* Scan QR code listener */
-        mFABScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mFABManual.hide();
-                mFABScan.hide();
-                ScanDialogFragment scan = new ScanDialogFragment();
-                scan.show(getSupportFragmentManager(), scan.getTag());
-            }
+        mFABScan.setOnClickListener(view -> {
+            mFABManual.hide();
+            mFABScan.hide();
+            ScanDialogFragment scan = new ScanDialogFragment();
+            scan.show(getSupportFragmentManager(), scan.getTag());
         });
 
         /* Manual entry listener */
-        mFABManual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mFABManual.hide();
-                mFABScan.hide();
-                Intent intent = new Intent(view.getContext(), ManualAdd.class);
-                mManualAddLauncher.launch(intent);
-            }
+        mFABManual.setOnClickListener(view -> {
+            mFABManual.hide();
+            mFABScan.hide();
+            Intent intent = new Intent(view.getContext(), ManualAdd.class);
+            mManualAddLauncher.launch(intent);
         });
 
 
@@ -468,6 +500,25 @@ public class Activity extends AppCompatActivity
 
                 return true;
 
+            case R.id.action_backup:
+
+                Intent backupIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                backupIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                backupIntent.setType("application/xml");
+                backupIntent.putExtra(Intent.EXTRA_TITLE, "externalBackup");
+                mBackupSaveLauncher.launch(backupIntent);
+
+                return true;
+
+            case R.id.action_restore:
+
+                Intent restoreIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                restoreIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                restoreIntent.setType("*/*");
+                mRestoreSaveLauncher.launch(restoreIntent);
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -482,6 +533,8 @@ public class Activity extends AppCompatActivity
             MenuItem mi = mMenu.getItem(i);
 
             switch (mi.getItemId()) {
+                case R.id.action_backup:
+                case R.id.action_restore:
                 case R.id.action_clipboard:
                 case R.id.action_about:
                     mi.setVisible(selected.size() == 0);
