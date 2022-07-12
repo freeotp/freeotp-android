@@ -23,9 +23,6 @@ package org.fedorahosted.freeotp.main;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.ColorMatrixColorFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -43,9 +40,6 @@ import org.fedorahosted.freeotp.Code;
 import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.Token;
 
-import java.util.Locale;
-
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,12 +65,12 @@ class ViewHolder extends RecyclerView.ViewHolder {
     private TextView mIssuer;
     private TextView mLabel;
     private TextView mCode;
+
     private View mView;
 
     private final View.OnClickListener mViewClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int pos = getAdapterPosition();
             mEventListener.onActivated(ViewHolder.this);
         }
     };
@@ -121,27 +115,15 @@ class ViewHolder extends RecyclerView.ViewHolder {
             .setDuration(duration)
             .alpha(in ? 1f : 0f)
             .withLayer()
-            .setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    if (in)
-                        view.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (!in)
-                        view.setVisibility(View.GONE);
-                }
-            })
             .start();
     }
 
-    private void displayCode(Code code, int animationDuration) {
+    private void displayCode(Code code, Token.Type type, int animationDuration) {
         if (code == null)
             return;
 
         String text = code.getCode();
+        /* Add spaces for readability */
         for (int segment : new int[] { 7, 5, 4, 3 }) {
             if (text.length() % segment != 0)
                 continue;
@@ -165,12 +147,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
             break;
         }
 
-        mView.setEnabled(false);
-        fade(mPassive, false, animationDuration);
-        fade(mActive, true, animationDuration);
-
+        mCountdown.cancel();
         mCode.setText(text);
-        mCountdown.setDuration(code.timeLeft());
+        if (type == Token.Type.HOTP) {
+            mCountdown.setDuration(code.timeLeft());
+        } else {
+            mCountdown.setDuration(code.timeRemaining() * 1000);
+        }
         mCountdown.setIntValues(code.getProgress(mProgress.getMax()), 0);
         mCountdown.start();
     }
@@ -202,16 +185,22 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationCancel(Animator animation) {
-                mPassive.clearAnimation();
-                mActive.clearAnimation();
                 mView.setEnabled(true);
             }
 
             @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                /* Fade in */
+                fade(mPassive, false, 500);
+                fade(mActive, true, 500);
+            }
+
+            @Override
             public void onAnimationEnd(Animator animation) {
+                /* Fade out */
                 fade(mPassive, true, 500);
                 fade(mActive, false, 500);
-                mView.setEnabled(true);
             }
         });
 
@@ -234,9 +223,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.cancel();
     }
 
-    void bind(Token token, int color, int image_id, String image_url, Code code, boolean selected) {
-        reset();
-
+    void bind(Token token, int color, int image_id, String image_url, Code code, boolean selected, Token.Type type) {
         String issuer = token.getIssuer();
         if (issuer == null)
             issuer = mView.getResources().getString(R.string.unknown_issuer);
@@ -256,12 +243,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
         }
 
         setSelected(selected);
-        if (code != null)
-            displayCode(code, 0);
+        if (code != null) {
+            displayCode(code, type, 0);
+        }
     }
 
-    void displayCode(Code code) {
-        displayCode(code, 500);
+    void displayCode(Code code, Token.Type type) {
+        displayCode(code, type,500);
     }
 
     CharSequence getIssuer() {

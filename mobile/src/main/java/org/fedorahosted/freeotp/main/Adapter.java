@@ -22,17 +22,14 @@ package org.fedorahosted.freeotp.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Handler;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
 import android.security.keystore.UserNotAuthenticatedException;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -49,27 +46,19 @@ import org.fedorahosted.freeotp.Token;
 import org.fedorahosted.freeotp.TokenPersistence;
 import org.fedorahosted.freeotp.encryptor.EncryptedKey;
 import org.fedorahosted.freeotp.encryptor.Encryptor;
-import org.fedorahosted.freeotp.utils.Base32;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder.EventListener {
     private static final String COMPAT = "tokens";
@@ -176,7 +165,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         TokenIcon token_icon = new TokenIcon(token, mContext);
         Pair <Integer, String> image = token_icon.mImage;
         holder.bind(token, token_icon.mColor, image.first, image.second,
-                mActive.get(getItemId(position)), isSelected(position));
+                mActive.get(getItemId(position)), isSelected(position), token.getType());
     }
 
     @Override
@@ -326,6 +315,13 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
 
         return new TokenIcon(token, mContext);
+    }
+
+    public Token.Type getTokenType(int position) {
+        String uuid = mItems.get(position);
+        Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+
+        return token.getType();
     }
 
     public void setLabel(int position, String account, String issuer) throws IOException {

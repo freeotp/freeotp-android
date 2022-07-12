@@ -137,7 +137,8 @@ public class Activity extends AppCompatActivity
                 clipboard.setPrimaryClip(clip);
             }
 
-            vh.displayCode(code);
+            Token.Type type = mTokenAdapter.getTokenType(vh.getAdapterPosition());
+            vh.displayCode(code, type);
 
         } catch (UserNotAuthenticatedException e) {
             KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

@@ -97,6 +97,11 @@ public class Code {
         return mPeriod;
     }
 
+    public long timeRemaining() {
+        long time_remaining = mPeriod - mStart % mPeriod;
+        return time_remaining / 1000;
+    }
+
     public long timeLeft() {
         long now = Time.INSTANCE.current();
         long left = mStart + mPeriod - now;
