@@ -1,9 +1,11 @@
 package org.fedorahosted.freeotp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
@@ -65,38 +67,25 @@ public class PasswordActivity extends AppCompatActivity {
     private TextInputLayout mConfirmLayout;
     private TokenPersistence mTokenBackup;
 
-    void showAlert() {
-        Resources r = getResources();
-
-        final SpannableString msg = new SpannableString(r.getString(R.string.main_backup_android_alert));
-        Linkify.addLinks(msg, Linkify.ALL);
-
-        final AlertDialog d = new AlertDialog.Builder(this)
-                .setTitle("Android Backup")
-                .setMessage(Html.fromHtml(r.getString(R.string.main_backup_android_alert)))
-                .setPositiveButton("Ok", (dialog, which) -> {
-                    Intent myIntent = new Intent(PasswordActivity.this, Activity.class);
-                    startActivity(myIntent);
-                    finish();
-                }).create();
-
-        d.show();
-
-        ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             mTokenBackup = new TokenPersistence(getApplicationContext());
             if (mTokenBackup.isProvisioned()) {
-                Intent myIntent = new Intent(PasswordActivity.this, Activity.class);
+                Intent myIntent = new Intent(this, Activity.class);
                 startActivity(myIntent);
                 finish();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // Check if we need to display OnBoarding
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!sharedPreferences.getBoolean(OnBoardingActivity.COMPLETED_ONBOARDING, false)) {
+            startActivity(new Intent(this, OnBoardingActivity.class));
+        }
+
         setContentView(R.layout.activity_password);
 
         mPassword = findViewById(R.id.password);
@@ -118,7 +107,9 @@ public class PasswordActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                showAlert();
+                Intent myIntent = new Intent(PasswordActivity.this, Activity.class);
+                startActivity(myIntent);
+                finish();
             }
         });
 
