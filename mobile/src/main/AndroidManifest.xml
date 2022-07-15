@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-   - FreeOTP
-   -
-   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
-   -
-   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
-   -
-   - Licensed under the Apache License, Version 2.0 (the "License");
-   - you may not use this file except in compliance with the License.
-   - You may obtain a copy of the License at
-   -
-   -     http://www.apache.org/licenses/LICENSE-2.0
-   -
-   - Unless required by applicable law or agreed to in writing, software
-   - distributed under the License is distributed on an "AS IS" BASIS,
-   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   - See the License for the specific language governing permissions and
-   - limitations under the License.
-   -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.fedorahosted.freeotp">
 
@@ -38,8 +18,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -50,28 +28,29 @@
     <application
         android:allowBackup="true"
         android:backupAgent=".TokenBackupAgent"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@drawable/ic_freeotp"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_freeotp"
         android:supportsRtl="true"
         android:theme="@style/FreeOTP.Purple.NoActionBar">
         <activity
+            android:name=".OnBoardingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ManualAdd"
             android:exported="false"
-            android:parentActivityName="org.fedorahosted.freeotp.main.Activity"
-            android:theme="@style/FreeOTP.Purple.NoActionBar"
-        />
+            android:parentActivityName=".main.Activity"
+            android:theme="@style/FreeOTP.Purple.NoActionBar" />
         <activity
             android:name=".main.Activity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/FreeOTP.Purple.NoActionBar"
-            >
+            android:theme="@style/FreeOTP.Purple.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
