@@ -632,8 +632,7 @@ public class Activity extends AppCompatActivity
                 .setPositiveButton(R.string.ok, null)
                 .show();
         } catch (GeneralSecurityException | IOException e) {
-            if (!e.getClass().equals(KeyStoreException.class) ||
-                !e.getCause().getClass().equals(IllegalStateException.class)) {
+            if (!e.getClass().equals(KeyStoreException.class)) {
                 e.printStackTrace();
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.main_error_title)
