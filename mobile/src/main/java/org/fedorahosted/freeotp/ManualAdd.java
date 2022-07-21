@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.fedorahosted.freeotp.main.Activity;
 
@@ -101,7 +103,28 @@ public class ManualAdd extends AppCompatActivity {
         return builder.build();
     }
 
+    private boolean inputValid() {
+        String secret = mSecret.getText().toString();
+        Boolean valid = true;
+        String msg = "";
+
+        if (TextUtils.isEmpty(secret)) {
+            msg = "Secret must not be empty";
+            valid = false;
+        }
+
+        if (!valid) {
+            Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public void addToken(View view) {
+        if (!inputValid()) {
+            return;
+        }
         getSelected();
         Uri uri = makeUri();
 
