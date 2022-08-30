@@ -77,8 +77,14 @@ public class Token {
     @SerializedName("issuerInt")
     private final String mIssuerParam;
 
+    @SerializedName("issuerAlt")
+    private final String mIssuerAlt;
+
     @SerializedName("label")
     private String mLabel;
+
+    @SerializedName("labelAlt")
+    private String mLabelAlt;
 
     @SerializedName("image")
     private final String mImage;
@@ -112,6 +118,14 @@ public class Token {
     public static Pair<SecretKey, Token> compat(String str) throws InvalidUriException {
         try {
             Token t = Token.deserialize(str);
+            /* Migrate modified labels */
+            if (t.getIssuerAlt() != null) {
+                t.setIssuer(t.getIssuerAlt());
+            }
+            if (t.getLabelAlt() != null) {
+                t.setLabel(t.getLabelAlt());
+            }
+
             Secret s = new Gson().fromJson(str, Secret.class);
             SecretKey key = new SecretKeySpec(s.secret, "Hmac" + t.getAlgorithm());
             return new Pair<SecretKey, Token>(key, t);
@@ -182,10 +196,12 @@ public class Token {
 
     private Token(Random r) {
         mIssuer = r.nextInt(5) < 1 ? null : ISSUERS[r.nextInt(ISSUERS.length)];
+        mIssuerAlt = mIssuer;
         mIssuerParam = mIssuer;
         mAlgorithm = SAFE_ALGOS[r.nextInt(SAFE_ALGOS.length)];
         mType = r.nextBoolean() ? Type.TOTP : Type.HOTP;
         mLabel = UUID.randomUUID().toString();
+        mLabelAlt = mLabel;
         mPeriod = 5 + r.nextInt(55);
         mCounter = (long) r.nextInt(1000);
         mLock = r.nextBoolean();
@@ -219,6 +235,11 @@ public class Token {
         }
 
         mIssuerParam = uri.getQueryParameter("issuer");
+
+        /* FreeOTP 1.5 and lower Modified labels */
+        mIssuerAlt = uri.getQueryParameter("issuerAlt");
+
+        mLabelAlt = uri.getQueryParameter("mLabelAlt");
 
         try {
             mAlgorithm = uri.getQueryParameter("algorithm");
@@ -281,8 +302,16 @@ public class Token {
         return mIssuer == null ? mIssuerParam : mIssuer;
     }
 
+    public String getIssuerAlt() {
+        return mIssuerAlt;
+    }
+
     public String getLabel() {
         return mLabel;
+    }
+
+    public String getLabelAlt() {
+        return mLabelAlt;
     }
 
     public int getPeriod() {
