@@ -30,6 +30,7 @@ import android.security.keystore.UserNotAuthenticatedException;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -61,6 +62,7 @@ import java.util.UUID;
 import javax.crypto.SecretKey;
 
 public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder.EventListener {
+    private static final String LOGTAG = "Adapter";
     private static final String COMPAT = "tokens";
     private static final String ORDER = "tokenOrder";
     private static final String NAME  = "tokenStore";
@@ -101,14 +103,16 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
 
             } catch (GeneralSecurityException | IOException | Token.InvalidUriException e) {
                 items.add(i - 1, key);
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
                 continue;
             }
 
             if (!sp.edit().putString(ORDER, GSON.toJson(items)).remove(key).commit()) {
                 items.add(i - 1, key);
                 try { delete(0); }
-                catch (GeneralSecurityException | IOException e) { e.printStackTrace(); }
+                catch (GeneralSecurityException | IOException e) {
+                    Log.e(LOGTAG, "Exception", e);
+                }
             }
         }
 
@@ -133,7 +137,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         try {
             mTokenBackup = new TokenPersistence(context);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
 
         compat(context);
@@ -185,6 +189,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         if (existingUuid == null) {
             uuid = UUID.randomUUID().toString();
         }
+        Log.i(LOGTAG, String.format("Adding token uuid [%s]", uuid));
         // Save key.
         mKeyStore.setEntry(uuid, new KeyStore.SecretKeyEntry(key),
             new KeyProtection.Builder(KeyProperties.PURPOSE_SIGN)
@@ -206,9 +211,11 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
                 Map<String, EncryptedKey> data = mEncryptor.encryptToken(key);
                 mTokenBackup.save(uuid, token.serialize(), data.get("key"), false);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             }
         }
+
+        Log.i(LOGTAG, String.format("Token added uuid [%s]", uuid));
 
         this.notifyItemInserted(mItems.size() - 1);
         return mItems.size() - 1;
@@ -262,7 +269,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             } catch (TokenPersistence.BadPasswordException pe) {
                 throw pe;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             }
         }
     }
@@ -280,7 +287,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         } catch (UserNotAuthenticatedException | KeyPermanentlyInvalidatedException e) {
             throw e;
         } catch (GeneralSecurityException e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
             return new Code("ERROR", 15);
         }
 
@@ -341,7 +348,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             try {
                 mTokenBackup.save(uuid, token.serialize(), null, true);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             }
         }
     }

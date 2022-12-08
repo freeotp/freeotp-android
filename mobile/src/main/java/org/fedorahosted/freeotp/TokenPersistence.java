@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.KeyProtection;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -53,6 +54,7 @@ public class TokenPersistence {
         }
     }
 
+    private static final String LOGTAG = "TokenPersistence";
     private static final String BACKUP = "tokenBackup";
     private static final String STORE = "tokenStore";
     private static final String MASTER = "masterKey";
@@ -214,7 +216,7 @@ public class TokenPersistence {
             fileOutputStream.close();
             pfd.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
     }
 
@@ -243,14 +245,14 @@ public class TokenPersistence {
                 }
                 prefEdit.commit();
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             } finally {
                 try {
                     if (input != null) {
                         input.close();
                     }
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    Log.e(LOGTAG, "Exception", ex);
                 }
             }
     }

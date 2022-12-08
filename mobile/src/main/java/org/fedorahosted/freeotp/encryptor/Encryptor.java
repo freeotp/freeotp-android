@@ -29,6 +29,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Encryptor {
+    private static final String LOGTAG = "Encryptor";
+
     private static final String MASTER = "masterKey";
     private KeyStore mKeyStore;
 
@@ -47,7 +49,7 @@ public class Encryptor {
         try {
             mk = mKeyStore.getKey(MASTER, null);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
 
         // Encrypt token key
