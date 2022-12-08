@@ -34,6 +34,8 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +81,8 @@ import static io.fotoapparat.selector.SelectorsKt.firstAvailable;
 
 public class ScanDialogFragment extends AppCompatDialogFragment
         implements FrameProcessor, CameraErrorListener {
+    private static final String LOGTAG = "ScanDialogFragment";
+
     private Fotoapparat mFotoapparat;
     private ProgressBar mProgress;
     private CameraView mCamera;
@@ -228,7 +232,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment
                 }
             });
         } catch (NotFoundException | ChecksumException | FormatException | WriterException e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
     }
 

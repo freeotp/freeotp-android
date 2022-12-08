@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class PasswordActivity extends AppCompatActivity {
         }
     }
 
+    private static final String LOGTAG = "PasswordActivity";
+
     private AppCompatEditText mPassword;
     private AppCompatEditText mConfirm;
     private MaterialButton mDone;
@@ -78,7 +81,7 @@ public class PasswordActivity extends AppCompatActivity {
                 finish();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
         // Check if we need to display OnBoarding
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -104,7 +107,7 @@ public class PasswordActivity extends AppCompatActivity {
                 try {
                     mTokenBackup.provision(password);
                 } catch (Exception e){
-                    e.printStackTrace();
+                    Log.e(LOGTAG, "Exception", e);
                 }
 
                 Intent myIntent = new Intent(PasswordActivity.this, Activity.class);

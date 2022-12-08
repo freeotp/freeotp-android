@@ -41,6 +41,7 @@ import android.text.InputType;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -86,6 +87,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Activity extends AppCompatActivity
     implements SelectableAdapter.EventListener, View.OnClickListener, View.OnLongClickListener {
+    private static final String LOGTAG = "Activity";
+
     private List<WeakReference<ViewHolder>> mViewHolders = new LinkedList<>();
     private int mLongClickCount = 0;
 
@@ -141,16 +144,18 @@ public class Activity extends AppCompatActivity
             vh.displayCode(code, type);
 
         } catch (UserNotAuthenticatedException e) {
+            Log.e(LOGTAG, "Exception", e);
             KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
             Intent i = km.createConfirmDeviceCredentialIntent(vh.getIssuer(), vh.getLabel());
 
             mViewHolders.add(new WeakReference<ViewHolder>(vh));
             startActivityForResult(i, mViewHolders.size() - 1);
         } catch (KeyPermanentlyInvalidatedException e) {
+            Log.e(LOGTAG, "Exception", e);
             try {
                 mTokenAdapter.delete(vh.getAdapterPosition());
             } catch (GeneralSecurityException | IOException f) {
-                f.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             }
 
             new AlertDialog.Builder(this)
@@ -199,7 +204,7 @@ public class Activity extends AppCompatActivity
         try {
             mTokenBackup = new TokenPersistence(getApplicationContext());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOGTAG, "Exception", e);
         }
 
         mManualAddLauncher = registerLauncher(uri -> addToken(uri, true));
@@ -263,6 +268,7 @@ public class Activity extends AppCompatActivity
                 }
             };
         } catch (GeneralSecurityException | IOException e) {
+            Log.e(LOGTAG, "Exception", e);
         }
 
         mFloatingActionButton.setOnClickListener(this);
@@ -319,7 +325,7 @@ public class Activity extends AppCompatActivity
                 mTokenAdapter.setLabel(selected, account, issuer);
                 mTokenAdapter.notifyItemChanged(selected);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
             }
             // ensure viewholder in recyclerview is refreshed
         });
@@ -433,7 +439,7 @@ public class Activity extends AppCompatActivity
 
                     ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                 } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                    Log.e(LOGTAG, "Exception", e);
                     return false;
                 }
 
@@ -482,7 +488,9 @@ public class Activity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 for (Integer i : new TreeSet<>(mTokenAdapter.getSelected().descendingSet())) {
                                     try { mTokenAdapter.delete(i); }
-                                    catch (GeneralSecurityException | IOException e) { }
+                                    catch (GeneralSecurityException | IOException e) {
+                                        Log.e(LOGTAG, "Exception", e);
+                                    }
                                 }
 
                                 mFloatingActionButton.show();
@@ -633,7 +641,7 @@ public class Activity extends AppCompatActivity
                 .show();
         } catch (GeneralSecurityException | IOException e) {
             if (!e.getClass().equals(KeyStoreException.class)) {
-                e.printStackTrace();
+                Log.e(LOGTAG, "Exception", e);
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.main_error_title)
                         .setMessage(R.string.main_error_message)
