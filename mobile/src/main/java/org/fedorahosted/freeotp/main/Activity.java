@@ -133,6 +133,7 @@ public class Activity extends AppCompatActivity
 
     private void onActivate(ViewHolder vh) {
         try {
+            Log.i(LOGTAG, String.format("onActivate: adapter.getCode()"));
             Code code = mTokenAdapter.getCode(vh.getAdapterPosition());
             if (mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false)) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -141,6 +142,7 @@ public class Activity extends AppCompatActivity
             }
 
             Token.Type type = mTokenAdapter.getTokenType(vh.getAdapterPosition());
+            Log.i(LOGTAG, String.format("onActivate: vh.displayCode()"));
             vh.displayCode(code, type);
 
         } catch (UserNotAuthenticatedException e) {
