@@ -168,6 +168,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
         TokenIcon token_icon = new TokenIcon(token, mContext);
         Pair <Integer, String> image = token_icon.mImage;
+        Log.i(LOGTAG, String.format("Bind to view token [%s][%s]", token.getIssuer(), token.getLabel()));
         holder.bind(token, token_icon.mColor, image.first, image.second,
                 mActive.get(getItemId(position)), isSelected(position), token.getType());
     }
@@ -216,7 +217,6 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         }
 
         Log.i(LOGTAG, String.format("Token added uuid [%s]", uuid));
-
         this.notifyItemInserted(mItems.size() - 1);
         return mItems.size() - 1;
     }
@@ -280,11 +280,13 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         Code code;
 
         try {
+            Log.i(LOGTAG, String.format("getCode: deserialize token"));
             Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
             Key key = mKeyStore.getKey(uuid, null);
             code = token.getCode(key);
             mSharedPreferences.edit().putString(uuid, token.serialize()).apply();
         } catch (UserNotAuthenticatedException | KeyPermanentlyInvalidatedException e) {
+            Log.e(LOGTAG, "Exception", e);
             throw e;
         } catch (GeneralSecurityException e) {
             Log.e(LOGTAG, "Exception", e);
@@ -306,6 +308,8 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
                     mHandler.postDelayed(this, code.timeLeft());
             }
         }, code.timeLeft());
+
+        Log.i(LOGTAG, String.format("getCode: returning code"));
 
         return code;
     }

@@ -21,6 +21,7 @@
 package org.fedorahosted.freeotp;
 
 import android.net.Uri;
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.gson.Gson;
@@ -338,6 +339,7 @@ public class Token {
         Mac mac;
 
         // Prepare the input.
+        Log.i("Token", String.format("token.GetCode(): prepare input"));
         ByteBuffer bb = ByteBuffer.allocate(8);
         bb.order(ByteOrder.BIG_ENDIAN);
         switch (mType) {

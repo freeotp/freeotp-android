@@ -23,6 +23,7 @@ package org.fedorahosted.freeotp.main;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -48,6 +49,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         void onActivated(ViewHolder holder);
         void onShare(String code);
     }
+    private static final String LOGTAG = "Adapter";
 
     private EventListener mEventListener;
     private ObjectAnimator mCountdown;
@@ -123,6 +125,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
             return;
 
         String text = code.getCode();
+        Log.i(LOGTAG, String.format("displaying Code"));
         /* Add spaces for readability */
         for (int segment : new int[] { 7, 5, 4, 3 }) {
             if (text.length() % segment != 0)
@@ -191,13 +194,16 @@ class ViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
+
                 /* Fade in */
+                Log.i(LOGTAG, String.format("onAnimationStart: fade"));
                 fade(mPassive, false, 500);
                 fade(mActive, true, 500);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                Log.i(LOGTAG, String.format("onAnimationEnd: fade"));
                 /* Fade out */
                 fade(mPassive, true, 500);
                 fade(mActive, false, 500);
