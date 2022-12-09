@@ -78,7 +78,7 @@
     <!-- Strings for the password activity. -->
     <string name="password">Password</string>
     <string name="password_confirm">Confirm Password</string>
-    <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.</string>
+    <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.\n\nThe FreeOTP security model dictates this password CANNOT be changed at a later time. Please take this into consideration when choosing a password.</string>
     <string name="password_weak">Password is too weak!</string>
     <string name="password_match">Passwords do not match!</string>
 
