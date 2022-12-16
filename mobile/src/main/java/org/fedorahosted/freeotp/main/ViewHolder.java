@@ -23,6 +23,7 @@ package org.fedorahosted.freeotp.main;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     private EventListener mEventListener;
     private ObjectAnimator mCountdown;
+    private Handler mHandler;
 
     private ProgressBar mProgress;
     private ImageButton mShare;
@@ -152,20 +154,34 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
         mCountdown.cancel();
         mCode.setText(text);
+        Long timeLeft;
         if (type == Token.Type.HOTP) {
-            mCountdown.setDuration(code.timeLeft());
+            timeLeft = code.timeLeft();
+            mCountdown.setDuration(timeLeft);
         } else {
-            mCountdown.setDuration(code.timeRemaining() * 1000);
+            timeLeft = code.timeRemaining() * 1000;
+            mCountdown.setDuration(timeLeft);
         }
+
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler.postDelayed(() -> fadeOut(), timeLeft);
+
         mCountdown.setIntValues(code.getProgress(mProgress.getMax()), 0);
         mCountdown.start();
     }
 
+    void fadeOut() {
+        /* Fade out */
+        fade(mPassive, true, 500);
+        fade(mActive, false, 500);
+
+    }
     ViewHolder(View itemView, EventListener listener) {
         super(itemView);
 
         mEventListener = listener;
         mCountdown = new ObjectAnimator();
+        mHandler = new Handler();
         mProgress = itemView.findViewById(R.id.progress_linear);
         mPassive = itemView.findViewById(R.id.passive);
         mActive = itemView.findViewById(R.id.active);
@@ -199,14 +215,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
                 Log.i(LOGTAG, String.format("onAnimationStart: fade"));
                 fade(mPassive, false, 500);
                 fade(mActive, true, 500);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Log.i(LOGTAG, String.format("onAnimationEnd: fade"));
-                /* Fade out */
-                fade(mPassive, true, 500);
-                fade(mActive, false, 500);
             }
         });
 
