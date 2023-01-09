@@ -153,7 +153,7 @@ public class Token {
 
         boolean safeAlgo = false;
         for (String algo : SAFE_ALGOS) {
-            if (pair.second.getAlgorithm().equals(algo)) {
+            if (pair.second.getAlgorithm().equalsIgnoreCase(algo)) {
                 safeAlgo = true;
                 break;
             }
