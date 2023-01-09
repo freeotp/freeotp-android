@@ -248,7 +248,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mImage.setBackgroundColor(color);
         mImageActive.setBackgroundColor(color);
 
-        if (image_url == null) {
+        if (image_url == null || image_url.isEmpty()) {
             mImage.setImageResource(image_id);
             mImageActive.setImageResource(image_id);
         } else {
