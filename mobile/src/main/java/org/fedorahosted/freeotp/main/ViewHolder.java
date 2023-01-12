@@ -24,6 +24,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Handler;
+import android.text.BidiFormatter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     private EventListener mEventListener;
     private ObjectAnimator mCountdown;
     private Handler mHandler;
+    private BidiFormatter mBidiFormatter;
 
     private ProgressBar mProgress;
     private ImageButton mShare;
@@ -126,7 +128,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         if (code == null)
             return;
 
-        String text = code.getCode();
+        String text = mBidiFormatter.unicodeWrap(code.getCode());
         Log.i(LOGTAG, String.format("displaying Code"));
         /* Add spaces for readability */
         for (int segment : new int[] { 7, 5, 4, 3 }) {
@@ -179,6 +181,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     ViewHolder(View itemView, EventListener listener) {
         super(itemView);
 
+        mBidiFormatter = BidiFormatter.getInstance();
         mEventListener = listener;
         mCountdown = new ObjectAnimator();
         mHandler = new Handler();
