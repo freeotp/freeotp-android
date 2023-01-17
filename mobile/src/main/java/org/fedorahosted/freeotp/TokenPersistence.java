@@ -27,6 +27,7 @@ import java.io.ObjectOutputStream;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -125,6 +126,7 @@ public class TokenPersistence {
     //       key: encrypted secret key
     //   }
     public void save(String uuid, String token, EncryptedKey key, Boolean tokendata_only) throws JSONException {
+        Log.i(LOGTAG, String.format("Saving [%s] token backup", uuid.toString()));
         if (!tokendata_only) {
             String encryptedCodeKey = new Gson().toJson(key);
 
@@ -157,6 +159,7 @@ public class TokenPersistence {
         try {
             sk = mk.decrypt(pwd);
         } catch (Exception e) {
+            Log.e(LOGTAG, "Exception", e);
             throw new BadPasswordException();
         }
 
@@ -173,16 +176,22 @@ public class TokenPersistence {
             Object v = item.getValue();
             RestoredData bkp = new RestoredData();
 
-            if (uuid.equals(MASTER) || !needsRestore(uuid) || item.getKey().contains("-token"))
+            Log.i(LOGTAG, String.format("Found [%s] in backup", uuid));
+            if (uuid.equals(MASTER) || !needsRestore(uuid) || item.getKey().contains("-token")) {
+                Log.i(LOGTAG, String.format("Skipping [%s]", uuid));
                 continue;
+            }
 
-            if (!(v instanceof String))
+            if (!(v instanceof String)) {
+                Log.i(LOGTAG, String.format("[%s] Not a string", uuid));
                 continue;
+            }
 
             try {
                 obj = new JSONObject(v.toString());
             } catch (JSONException e) {
                 // Invalid JSON backup data
+                Log.e(LOGTAG, "Exception", e);
                 continue;
             }
 
@@ -199,6 +208,7 @@ public class TokenPersistence {
             bkp.key = skKey;
             bkp.token = token;
             bkp.uuid = uuid;
+            Log.i(LOGTAG, String.format("Added [%s] token to backup list", uuid));
             tokensList.add(bkp);
         }
 
