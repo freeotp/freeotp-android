@@ -264,7 +264,11 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             try {
                 List<TokenPersistence.RestoredData> list = mTokenBackup.restore(pwd);
                 for (TokenPersistence.RestoredData item : list) {
-                    add(item.key, item.token, item.token.getLock(), item.uuid);
+                    try {
+                        add(item.key, item.token, item.token.getLock(), item.uuid);
+                    } catch (Exception e) {
+                        Log.e(LOGTAG, "Exception", e);
+                    }
                 }
             } catch (TokenPersistence.BadPasswordException pe) {
                 throw pe;
