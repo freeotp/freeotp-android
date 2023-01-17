@@ -187,6 +187,12 @@ public class TokenPersistence {
                 continue;
             }
 
+            Key key = mKeyStore.getKey(uuid, null);
+            if (key != null) {
+                Log.i(LOGTAG, String.format("Existing token [%s]! Skipping", uuid));
+                continue;
+            }
+
             try {
                 obj = new JSONObject(v.toString());
             } catch (JSONException e) {
