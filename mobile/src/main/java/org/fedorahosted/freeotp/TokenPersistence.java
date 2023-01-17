@@ -27,6 +27,7 @@ import java.io.ObjectOutputStream;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -178,6 +179,12 @@ public class TokenPersistence {
 
             if (!(v instanceof String))
                 continue;
+
+            Key key = mKeyStore.getKey(uuid, null);
+            if (key != null) {
+                Log.i(LOGTAG, String.format("Existing token [%s]! Skipping", uuid));
+                continue;
+            }
 
             try {
                 obj = new JSONObject(v.toString());
