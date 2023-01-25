@@ -9,8 +9,8 @@ import android.util.Pair;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.codec.binary.Base32;
 import org.fedorahosted.freeotp.main.Adapter;
-import org.fedorahosted.freeotp.utils.Base32;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,11 +116,13 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
         mLock = fix(lock);
     }
 
-    private JSONObject makeJson() throws JSONException, Base32.DecodingException {
+    private JSONObject makeJson() throws JSONException, IllegalArgumentException {
+        Base32 base32 = new Base32();
+
         JSONObject obj = new JSONObject();
 
         JSONArray arr = new JSONArray();
-        for (byte b : Base32.RFC4648.decode(mSecret.toUpperCase()))
+        for (byte b : base32.decode(mSecret.toUpperCase()))
             arr.put((int) b);
 
         obj.put("counter", mCounter == null ? 0 : Integer.parseInt(mCounter));
@@ -256,7 +258,7 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
     }
 
     @Test
-    public void jsonCompat() throws GeneralSecurityException, IOException, JSONException, Base32.DecodingException {
+    public void jsonCompat() throws GeneralSecurityException, IOException, JSONException {
         SharedPreferences old = mContext.getSharedPreferences("tokens", Context.MODE_PRIVATE);
         SharedPreferences cur = mContext.getSharedPreferences("tokenStore", Context.MODE_PRIVATE);
         old.edit()
