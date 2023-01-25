@@ -5,7 +5,7 @@ import android.util.Pair;
 
 import junit.framework.TestCase;
 
-import org.fedorahosted.freeotp.utils.Base32;
+import org.apache.commons.codec.binary.Base32;
 import org.fedorahosted.freeotp.utils.Time;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,9 +57,11 @@ public class TokenRFC6238Test extends TestCase {
 
     @Test
     public void test() throws Token.InvalidUriException, InvalidKeyException {
+        Base32 base32 = new Base32();
+
         // Note: we are implicitly testing default period = 30
         String fmt = "otpauth://totp/foo?secret=%s&digits=8&algorithm=%s";
-        String uri = String.format(fmt, Base32.RFC4648.encode(mSecret.getBytes()), mAlgorithm);
+        String uri = String.format(fmt, base32.encodeAsString(mSecret.getBytes()), mAlgorithm);
         Pair<SecretKey, Token> pair = Token.parseUnsafe(uri);
 
         Time.INSTANCE = new Time() {

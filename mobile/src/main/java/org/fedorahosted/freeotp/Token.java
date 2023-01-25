@@ -27,8 +27,7 @@ import android.util.Pair;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.SerializedName;
-
-import org.fedorahosted.freeotp.utils.Base32;
+import org.apache.commons.codec.binary.Base32;
 import org.fedorahosted.freeotp.utils.Time;
 
 import java.nio.ByteBuffer;
@@ -148,8 +147,9 @@ public class Token {
         Pair<SecretKey, Token> pair = parseUnsafe(uri);
 
         // RFC 4226, Section 4, R6
-        if (pair.first.getEncoded().length < 16)
+        if (pair.first.getEncoded().length < 16) {
             throw new UnsafeSecretException();
+        }
 
         boolean safeAlgo = false;
         for (String algo : SAFE_ALGOS) {
@@ -158,9 +158,9 @@ public class Token {
                 break;
             }
         }
-        if (!safeAlgo)
+        if (!safeAlgo) {
             throw new UnsafeAlgorithmException();
-
+        }
         if (pair.second.mDigits != null) {
             Code.Factory f = Code.Factory.fromIssuer(pair.second.mIssuer);
             if (pair.second.mDigits < f.getDigitsMin() || pair.second.mDigits > f.getDigitsMax())
@@ -172,12 +172,13 @@ public class Token {
 
     public static Pair<SecretKey, Token> parseUnsafe(Uri uri) throws InvalidUriException {
         Token t = new Token(uri);
+        Base32 base32 = new Base32();
 
         try {
             String secret = uri.getQueryParameter("secret").toUpperCase(Locale.US);
-            byte[] bytes = Base32.RFC4648.decode(secret);
+            byte[] bytes = base32.decode(secret);
             return new Pair<SecretKey, Token>(new SecretKeySpec(bytes, "Hmac" + t.getAlgorithm()), t);
-        } catch (Base32.DecodingException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new InvalidSecretException();
         }
     }
@@ -376,13 +377,15 @@ public class Token {
     }
 
     public Uri toUri(SecretKey key) {
+        Base32 base32 = new Base32();
+
         Uri.Builder ub = new Uri.Builder().scheme("otpauth");
 
         ub.authority(mType.toString().toLowerCase());
         ub.appendEncodedPath(mIssuer != null ? mIssuer + ":" + mLabel : mLabel);
 
         if (key != null)
-            ub.appendQueryParameter("secret", Base32.RFC4648.encode(key.getEncoded()));
+            ub.appendQueryParameter("secret", base32.encodeAsString(key.getEncoded()));
 
         if (mAlgorithm != null)
             ub.appendQueryParameter("algorithm", mAlgorithm);

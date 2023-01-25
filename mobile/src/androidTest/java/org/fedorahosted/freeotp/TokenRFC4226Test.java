@@ -3,7 +3,7 @@ import android.util.Pair;
 
 import junit.framework.TestCase;
 
-import org.fedorahosted.freeotp.utils.Base32;
+import org.apache.commons.codec.binary.Base32;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import androidx.test.runner.AndroidJUnit4;
@@ -20,8 +20,10 @@ public class TokenRFC4226Test extends TestCase {
         //   * digits = 6
         //   * counter = 0
         //   * algorithm = SHA1
+        Base32 base32 = new Base32();
+
         String fmt = "otpauth://hotp/foo?secret=%s";
-        String uri = String.format(fmt, Base32.RFC4648.encode("12345678901234567890".getBytes()));
+        String uri = String.format(fmt, base32.encodeAsString("12345678901234567890".getBytes()));
 
         Pair<SecretKey, Token> pair = Token.parseUnsafe(uri);
         assertEquals("755224", pair.second.getCode(pair.first).getCode());
