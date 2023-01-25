@@ -68,7 +68,14 @@ public class TokenPersistenceTest implements SelectableAdapter.EventListener {
     }
 
     private Adapter wipeAndRestore(SharedPreferences tokenStore) throws TokenPersistence.BadPasswordException,
-            GeneralSecurityException, IOException {
+            GeneralSecurityException, IOException, JSONException {
+        JSONArray oldtoken = new JSONArray(tokenStore.getString("tokenOrder", null));
+        KeyStore ks = KeyStore.getInstance("AndroidKeyStore");
+        ks.load(null);
+
+        for (int i = 0; i < oldtoken.length(); i++) {
+            ks.deleteEntry(oldtoken.getString(i));
+        }
         tokenStore.edit().clear().commit();
         assertEquals(0, tokenStore.getAll().size());
 

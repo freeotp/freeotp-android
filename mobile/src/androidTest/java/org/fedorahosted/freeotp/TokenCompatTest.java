@@ -301,6 +301,9 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
         TokenPersistence tokenBackup = new TokenPersistence(mContext);
         String pwd = "MyM4sterPassw0rd";
 
+        KeyStore ks = KeyStore.getInstance("AndroidKeyStore");
+        ks.load(null);
+
         SharedPreferences old = mContext.getSharedPreferences("tokens", Context.MODE_PRIVATE);
         SharedPreferences cur = mContext.getSharedPreferences("tokenStore", Context.MODE_PRIVATE);
         SharedPreferences bkp = mContext.getSharedPreferences("tokenBackup", Context.MODE_PRIVATE);
@@ -317,7 +320,10 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
         assertEquals(3, bkp.getAll().size());
 
         // Delete token
+        JSONArray oldtoken = new JSONArray(cur.getString("tokenOrder", null));
+        String olduuid = oldtoken.getString(0);
         cur.edit().clear().commit();
+        ks.deleteEntry(olduuid);
         assertEquals(0, cur.getAll().size());
 
         // Perform restore
@@ -330,8 +336,6 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
         UUID uuid = UUID.fromString(order.getString(0));
 
         // Make sure the secret is stored in the key store.
-        KeyStore ks = KeyStore.getInstance("AndroidKeyStore");
-        ks.load(null);
         assertTrue(ks.containsAlias(uuid.toString()));
         Key key = ks.getKey(uuid.toString(), null);
 
