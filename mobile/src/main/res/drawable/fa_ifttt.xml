@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="136dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="136.0"
+    tools:keep="@drawable/fa_ifttt">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 0,0 H 43.180723 V 136 H 0 Z m 246.74699,0 h -74.0241 v 43.27273 h 30.84338 V 136 h 43.18072 V 43.27273 h 30.84337 V 0 Z m 117.20482,0 h -74.0241 v 43.27273 h 30.84337 V 136 h 43.18073 V 43.27273 h 30.84337 V 0 Z m 117.20482,0 h -74.0241 V 43.27273 H 437.9759 V 136 h 43.18073 V 43.27273 H 512 V 0 Z M 160.38554,43.27273 V 0 H 61.686747 V 136 H 104.86747 V 98.9091 h 37.01205 V 55.63636 H 104.86747 V 43.27273 Z M 0,0 H 43.180723 V 136 H 0 Z m 246.74699,0 h -74.0241 v 43.27273 h 30.84338 V 136 h 43.18072 V 43.27273 h 30.84337 V 0 Z m 117.20482,0 h -74.0241 v 43.27273 h 30.84337 V 136 h 43.18073 V 43.27273 h 30.84337 V 0 Z m 117.20482,0 h -74.0241 V 43.27273 H 437.9759 V 136 h 43.18073 V 43.27273 H 512 V 0 Z M 160.38554,43.27273 V 0 H 61.686747 V 136 H 104.86747 V 98.9091 h 37.01205 V 55.63636 H 104.86747 V 43.27273 Z"/>
+</vector>

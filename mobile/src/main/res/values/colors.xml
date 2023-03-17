@@ -80,4 +80,16 @@
     <color name="brand_steam" tools:keep="@color/brand_steam">#242424</color>
     <color name="brand_redhat" tools:keep="@color/brand_redhat">#FF0000</color>
     <color name="brand_fedora" tools:keep="@color/brand_fedora">#3c6eb4</color>
+    <color name="brand_coinbase" tools:keep="@color/brand_coinbase">#0050ff</color>
+    <color name="brand_ecobee" tools:keep="@color/brand_ecobee">#144745</color>
+    <color name="brand_epicgames" tools:keep="@color/brand_epicgames">#2a2a2a</color>
+    <color name="brand_fanatical" tools:keep="@color/brand_fanatical">#ff9800</color>
+    <color name="brand_id_me" tools:keep="@color/brand_id_me">#08833d</color>
+    <color name="brand_ifttt" tools:keep="@color/brand_ifttt">#000000</color>
+    <color name="brand_itch_io" tools:keep="@color/brand_itch_io">#40434e</color>
+    <color name="brand_namecheap" tools:keep="@color/brand_namecheap">#f67a2c</color>
+    <color name="brand_nintendo" tools:keep="@color/brand_nintendo">#e60012</color>
+    <color name="brand_robinhood" tools:keep="@color/brand_robinhood">#2fd233</color>
+    <color name="brand_t_mobile" tools:keep="@color/brand_t_mobile">#e30075</color>
+    <color name="brand_wyze" tools:keep="@color/brand_wyze">#1ad8a8</color>
 </resources>
