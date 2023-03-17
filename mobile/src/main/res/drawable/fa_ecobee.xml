@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_ecobee">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 52.031051,230.42071 H 459.91607 C 457.35153,106.74121 399.2925,50.365424 274.71408,50.365424 h -37.51629 c -124.58723,0 -182.593387,56.375786 -185.157925,180.046466 M 276.47665,512 H 235.47928 C 78.478407,512 0,433.52159 0,275.6218 V 236.38701 C 0,78.522471 78.478407,0 235.47928,0 h 40.99737 C 433.43346,0 512,78.522471 512,236.38701 v 44.39031 H 52.031051 C 54.604403,405.36454 112.61056,461.6522 237.18897,461.6522 h 37.52511 c 92.18239,0 147.6857,-28.97664 169.03041,-84.4447 h 54.55153 C 475.29449,465.0804 400.20903,512 276.47665,512"/>
+</vector>

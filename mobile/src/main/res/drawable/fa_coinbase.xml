@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0"
+    tools:keep="@drawable/fa_coinbase">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="m 256.47728,383.27485 c -70.31936,0 -127.27486,-56.9555 -127.27486,-127.27485 0,-70.31936 56.9555,-127.27486 127.27486,-127.27486 63.00106,0 115.2898,45.92501 125.36573,106.06238 H 510.07242 C 499.25406,104.11867 389.90375,1.45029 256.47728,1.45029 115.94463,1.45029 1.927575,115.46735 1.927575,256 c 0,140.53265 114.017055,254.54971 254.549705,254.54971 133.42647,0 242.77679,-102.66839 253.59514,-233.33724 H 381.84301 c -10.07593,60.13737 -62.36468,106.06238 -125.36573,106.06238 z"/>
+</vector>
