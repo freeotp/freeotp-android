@@ -48,7 +48,7 @@
     <string name="main_invalidated_message">Nøkkelen er ugyldiggjort av Android KeyStore. Dette kan ha vært på grunn av en endring i skjermlåsinnstillingene dine. Nøkkelen er fjernet. Vennligst kontakt leverandøren av nøkkelen.</string>
     <string name="main_restore_title">Gjenopprett fra sikkerhetskopi</string>
     <string name="main_backup_android_title">Android-sikkerhetskopi</string>
-    <string name="main_backup_android_alert">Krypterte FreeOTP-nøkkeldata er inkludert i sikkerhetskopierings- og gjenopprettingsoperasjoner som utføres av Android-sikkerhetskopiering. Android-sikkerhetskopier må være aktivert for å dra nytte av denne funksjonen.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Oversikt over sikkerhetskopier&lt;/a&gt; og &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=no"&gt;Android-sikkerhetskopier&lt;/a&gt;</string>
+    <string name="main_backup_android_alert">Krypterte FreeOTP-nøkkeldata er inkludert i sikkerhetskopierings- og gjenopprettingsoperasjoner som utføres av Android-sikkerhetskopiering. Android-sikkerhetskopier må være aktivert for å dra nytte av denne funksjonen.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Oversikt over sikkerhetskopier&lt;/a&gt; og &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=no&quot;&gt;Android-sikkerhetskopier&lt;/a&gt;</string>
     <string name="main_restore_message">Skriv inn passord for sikkerhetskopi</string>
     <string name="main_restore_bad_password">Ugyldig passord</string>
     <string name="main_restore_cancel_title">Avbryt gjenoppretting?</string>
@@ -103,8 +103,8 @@
     <string name="restore_title">Gjenopprett</string>
     <string name="backup_restore_title">Sikkerhetskopi og Gjenoppretting</string>
     <string name="keystore_migration_explanation">FreeOTP-nøkler er nå migrert til Android KeyStore! Dette gir økt sikkerhet for nøkkelhemmeligheter, men nøkkelmaterialet er ikke eksporterbart. \n\nSikkerhetskopi og gjenopprettingsfunksjonalitet er nå lagt til for å sikre at nøkler kan gjenopprettes. Du vil bli bedt om å opprette et hovedpassord for å sette opp kryptert sikkerhetskopi av nøkler.</string>
-    <string name="manual_backup_explanation">Alternativt kan en kryptert sikkerhetskopi-datafil eksporteres til ekstern lagring fra appen. Toppverktøylinjen inneholder nå elementer merket 'Sikkerhetskopi' og 'Gjenopprett' for å bruke denne manuelle metoden for sikkerhetskopi.</string>
-    <string name="google_auto_backup_link">"FreeOTP kan delta i Androids automatiske sikkerhetskopiering og gjenopprettingsfunksjonalitet. Denne &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-linken&lt;/a&gt; inneholder informasjon om hvordan du kan bruke denne metoden for sikkerhetskopi."</string>
+    <string name="manual_backup_explanation">Alternativt kan en kryptert sikkerhetskopi-datafil eksporteres til ekstern lagring fra appen. Toppverktøylinjen inneholder nå elementer merket \'Sikkerhetskopi\' og \'Gjenopprett\' for å bruke denne manuelle metoden for sikkerhetskopi.</string>
+    <string name="google_auto_backup_link">FreeOTP kan delta i Androids automatiske sikkerhetskopiering og gjenopprettingsfunksjonalitet. Denne &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-linken&lt;/a&gt; inneholder informasjon om hvordan du kan bruke denne metoden for sikkerhetskopi.</string>
     <string name="hello_blank_fragment">Hei tomt fragment</string>
     <string name="backup_imageview">sikkerhetskopi bildevisning</string>
     <string name="keystore_image">keystore bilde</string>

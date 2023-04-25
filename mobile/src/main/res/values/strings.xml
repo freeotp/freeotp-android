@@ -9,7 +9,7 @@
    - you may not use this file except in compliance with the License.
    - You may obtain a copy of the License at
    -
-   -     http://www.apache.org/licenses/LICENSE-2.0
+   -     https://www.apache.org/licenses/LICENSE-2.0
    -
    - Unless required by applicable law or agreed to in writing, software
    - distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,7 +51,7 @@
 
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2022 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;https://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
     <string name="main_welcome">Welcome to FreeOTP!\n\nAdd a token to get started.</string>
     <string name="main_deletion_title">Delete selected tokens?</string>
     <string name="main_deletion_message">Deleting a token does not disable it on the server. If you continue, you may be locked out of your account. Deleting a token cannot be undone.</string>
@@ -67,7 +67,7 @@
     <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
     <string name="main_restore_title">Restore from backup</string>
     <string name="main_backup_android_title">Android Backup</string>
-    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.&lt;br/&gt;&lt;br/&gt;For more information, see &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Data Backup Overview&lt;/a&gt; and &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en"&gt;Android Backups&lt;/a&gt;</string>
+    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.&lt;br/&gt;&lt;br/&gt;For more information, see &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Data Backup Overview&lt;/a&gt; and &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Android Backups&lt;/a&gt;</string>
     <string name="main_restore_message">Please enter backup password</string>
     <string name="main_restore_bad_password">Invalid password</string>
     <string name="main_restore_cancel_title">Cancel Restore?</string>
@@ -122,9 +122,9 @@
     <string name="backup_title">Backup</string>
     <string name="restore_title">Restore</string>
     <string name="backup_restore_title">Backup and Restore</string>
-    <string name="keystore_migration_explanation">FreeOTP tokens are now migrated into the Android Keystore! This results in increased security of token secrets, however key material is non-exportable. \n\nBackup and restore functionality is now added to ensure tokens can be recovered. You will be prompted to create a master password to setup encrypted token backups."</string>
-    <string name="manual_backup_explanation">Alternatively, an encrypted backup data file can be exported to external storage from within the App. The top toolbar menu now contains items labeled \'Backup\' and \'Restore\' to utilize this manual backup method."</string>
-    <string name="google_auto_backup_link">"FreeOTP can participate in Android automatic backup and restore functionality. This <a href='https://support.google.com/android/answer/2819582?hl=en'> Google link</a> contains information on how to utilize this backup method."</string>
+    <string name="keystore_migration_explanation">FreeOTP tokens are now migrated into the Android Keystore! This results in increased security of token secrets, however key material is non-exportable. \n\nBackup and restore functionality is now added to ensure tokens can be recovered. You will be prompted to create a master password to setup encrypted token backups.</string>
+    <string name="manual_backup_explanation">Alternatively, an encrypted backup data file can be exported to external storage from within the App. The top toolbar menu now contains items labeled \'Backup\' and \'Restore\' to utilize this manual backup method.</string>
+    <string name="google_auto_backup_link">FreeOTP can participate in Android automatic backup and restore functionality. This &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google link&lt;/a&gt; contains information on how to utilize this backup method.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="backup_imageview">backup imageView</string>
     <string name="keystore_image">keystore image</string>
