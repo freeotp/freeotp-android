@@ -1,7 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="delete">Slett</string>
 
-    <string name="error_camera_open">Feil under åpning av kamera!</string>
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Ferdig</string>
+    <string name="close">Lukk</string>
+    <string name="save">Lagre</string>
+    <string name="restore">Gjenopprett Fra Sikkerhetskopi</string>
+    <string name="about">Om</string>
+    <string name="auto_copy_clipboard">Auto Utklippstavle</string>
+    <string name="manual_add">Legg Til Manuelt/string>
+    <string name="cancel">Avbryt</string>
+    <string name="delete">Slett</string>
+    <string name="move_up">Flytt Opp</string>
+    <string name="move_down">Flytt Ned</string>
+    <string name="add_anyway">Legg Til Uansett</string>
+    <string name="unknown_issuer">Ukjent Utsteder</string>
+    <string name="enable_lock_screen">Aktiver Låseskjerm</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Send til…</string>
+    <string name="share_jelling_scan_for">Søk etter…</string>
+    <string name="share_jelling_scanning_for">Søker etter…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth-enheter</string>
+    <string name="share_clipboard_copy_to">Kopier til…</string>
+    <string name="share_clipboard_clipboard">Utklippstavle</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Feil ved åpning av kamera!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Versjon %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., og andre.&lt;br/&gt;&lt;br/&gt;FreeOTP er lisensiert under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se vår &lt;a href=&quot;https://freeotp.github.io&quot;&gt;nettside&lt;/a&gt;.</string>
+    <string name="main_welcome">Velkommen til FreeOTP!\n\nLegg til en nøkkel for å komme i gang.</string>
+    <string name="main_deletion_title">Slett valgte nøkler?</string>
+    <string name="main_deletion_message">Sletting av en nøkkel deaktiverer den ikke på tjenesten. Hvis du fortsetter, kan du bli utestengt fra kontoen din. Sletting av en nøkkel kan ikke angres.</string>
+    <string name="main_unsafe_title">Nøkkel er usikker!</string>
+    <string name="main_unsafe_message">Nøkkelen du prøver å legge til, inneholder svake kryptografiske parametere. Bruk av denne nøkkelen er sterkt frarådet! Vennligst informer leverandøren din av nøkkelen.</string>
+    <string name="main_invalid_title">Nøkkel er ugyldig!</string>
+    <string name="main_invalid_message">Nøkkelen du prøver å legge til, er ugyldig. Vennligst informer leverandøren din av nøkkelen.</string>
+    <string name="main_error_title">Feil!</string>
+    <string name="main_error_message">Det oppsto en feil da du prøvde å legge til en nøkkel.</string>
+    <string name="main_lock_message">Denne nøkkelen krever at du autentiserer deg hver gang du bruker den. Dette betyr at skjermlåsen på enheten din må være aktivert. Aktiver skjermlåssikkerhet og legg til nøkkelen igjen.</string>
+    <string name="main_lock_title">Skjermlås kreves!</string>
+    <string name="main_invalidated_title">Nøkkel ugyldiggjort!</string>
+    <string name="main_invalidated_message">Nøkkelen er ugyldiggjort av Android KeyStore. Dette kan ha vært på grunn av en endring i skjermlåsinnstillingene dine. Nøkkelen er fjernet. Vennligst kontakt leverandøren av nøkkelen.</string>
+    <string name="main_restore_title">Gjenopprett fra sikkerhetskopi</string>
+    <string name="main_backup_android_title">Android-sikkerhetskopi</string>
+    <string name="main_backup_android_alert">Krypterte FreeOTP-nøkkeldata er inkludert i sikkerhetskopierings- og gjenopprettingsoperasjoner som utføres av Android-sikkerhetskopiering. Android-sikkerhetskopier må være aktivert for å dra nytte av denne funksjonen.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Oversikt over sikkerhetskopier&lt;/a&gt; og &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=no"&gt;Android-sikkerhetskopier&lt;/a&gt;</string>
+    <string name="main_restore_message">Skriv inn passord for sikkerhetskopi</string>
+    <string name="main_restore_bad_password">Ugyldig passord</string>
+    <string name="main_restore_cancel_title">Avbryt gjenoppretting?</string>
+    <string name="main_restore_cancel_message">Du vil miste alle tidligere sikkerhetskopierte nøkler!</string>
+    <string name="main_restore_proceed">Fortsett uten gjenoppretting</string>
+    <string name="main_restore_go_back">Gå tilbake</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Passord</string>
+    <string name="password_confirm">Bekreft Passord</string>
+    <string name="password_info">Sikkerhetskopiering av nøkler lar deg gjenopprette data ved tap og overføre dine nøkler til en ny enhet uten problemer. Sikkerhetskopier er kryptert med passordet nedenfor. Sikkerheten til sikkerhetskopiene avhenger av et sterkt passord. Sikkerhetsmodellen til FreeOTP dikterer at dette passordet IKKE kan endres senere. Vennligst ta dette i betraktning når du velger et passord.</string>
+    <string name="password_weak">Passordet er for svakt!</string>
+    <string name="password_match">Passordene stemmer ikke overens!</string>
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Eksempel AS</string>
+    <string name="manual_secret_text">Hemmelighet</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Type</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Siffer</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritme</string>
+    <string name="manual_interval">Intervall</string>
+    <string name="manual_add_token">Legg Til Nøkkel</string>
+    <string name="manual_accessibility_algorithm">Nøkkel-algoritme</string>
+    <string name="manual_accessibility_interval">Nøkkel-intervall</string>
+    <string name="manual_invalid_title">Nøkkel er ugyldig!</string>
+    <string name="manual_invalid_message">Nøkkelen du prøver å legge til er ugyldig. Vennligst sjekk at hvert felt følger OTP Key URI-formatet.</string>
+    <string name="edit_token">Rediger Nøkkel</string>
+    <string name="get_started">KOM IGANG</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Sikkerhetskopi</string>
+    <string name="restore_title">Gjenopprett</string>
+    <string name="backup_restore_title">Sikkerhetskopi og Gjenoppretting</string>
+    <string name="keystore_migration_explanation">FreeOTP-nøkler er nå migrert til Android KeyStore! Dette gir økt sikkerhet for nøkkelhemmeligheter, men nøkkelmaterialet er ikke eksporterbart. \n\nSikkerhetskopi og gjenopprettingsfunksjonalitet er nå lagt til for å sikre at nøkler kan gjenopprettes. Du vil bli bedt om å opprette et hovedpassord for å sette opp kryptert sikkerhetskopi av nøkler.</string>
+    <string name="manual_backup_explanation">Alternativt kan en kryptert sikkerhetskopi-datafil eksporteres til ekstern lagring fra appen. Toppverktøylinjen inneholder nå elementer merket 'Sikkerhetskopi' og 'Gjenopprett' for å bruke denne manuelle metoden for sikkerhetskopi.</string>
+    <string name="google_auto_backup_link">"FreeOTP kan delta i Androids automatiske sikkerhetskopiering og gjenopprettingsfunksjonalitet. Denne &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-linken&lt;/a&gt; inneholder informasjon om hvordan du kan bruke denne metoden for sikkerhetskopi."</string>
+    <string name="hello_blank_fragment">Hei tomt fragment</string>
+    <string name="backup_imageview">sikkerhetskopi bildevisning</string>
+    <string name="keystore_image">keystore bilde</string>
+    <string name="android_keystore_title">Android KeyStore</string>
+
 </resources>
