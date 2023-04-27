@@ -10,7 +10,7 @@
     <string name="restore">Gjenopprett Fra Sikkerhetskopi</string>
     <string name="about">Om</string>
     <string name="auto_copy_clipboard">Auto Utklippstavle</string>
-    <string name="manual_add">Legg Til Manuelt/string>
+    <string name="manual_add">Legg Til Manuelt</string>
     <string name="cancel">Avbryt</string>
     <string name="delete">Slett</string>
     <string name="move_up">Flytt Opp</string>
@@ -109,5 +109,4 @@
     <string name="backup_imageview">sikkerhetskopi bildevisning</string>
     <string name="keystore_image">keystore bilde</string>
     <string name="android_keystore_title">Android KeyStore</string>
-
 </resources>
