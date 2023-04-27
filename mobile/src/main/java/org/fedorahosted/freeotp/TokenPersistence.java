@@ -163,13 +163,6 @@ public class TokenPersistence {
             throw new BadPasswordException();
         }
 
-        KeyProtection kp = new KeyProtection.Builder(KeyProperties.PURPOSE_ENCRYPT)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                .build();
-
-        mKeyStore.setEntry(MASTER, new KeyStore.SecretKeyEntry(sk), kp);
-
         for (Map.Entry<String, ?> item : mBackups.getAll().entrySet()) {
             JSONObject obj;
             String uuid = item.getKey();
