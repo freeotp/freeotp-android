@@ -114,7 +114,7 @@
     <string name="manual_accessibility_algorithm">Token algorithm</string>
     <string name="manual_accessibility_interval">Token Interval</string>
     <string name="manual_invalid_title">Token is invalid!</string>
-    <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key Uri Format.</string>
+    <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key URI Format.</string>
     <string name="edit_token">Edit Token</string>
     <string name="get_started">GET STARTED</string>
 
