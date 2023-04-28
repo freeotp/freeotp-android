@@ -104,7 +104,7 @@
     <string name="backup_restore_title">Sikkerhetskopi og Gjenoppretting</string>
     <string name="keystore_migration_explanation">FreeOTP-nøkler er nå migrert til Android KeyStore! Dette gir økt sikkerhet for nøkkelhemmeligheter, men nøkkelmaterialet er ikke eksporterbart. \n\nSikkerhetskopi og gjenopprettingsfunksjonalitet er nå lagt til for å sikre at nøkler kan gjenopprettes. Du vil bli bedt om å opprette et hovedpassord for å sette opp kryptert sikkerhetskopi av nøkler.</string>
     <string name="manual_backup_explanation">Alternativt kan en kryptert sikkerhetskopi-datafil eksporteres til ekstern lagring fra appen. Toppverktøylinjen inneholder nå elementer merket \'Sikkerhetskopi\' og \'Gjenopprett\' for å bruke denne manuelle metoden for sikkerhetskopi.</string>
-    <string name="google_auto_backup_link">FreeOTP kan delta i Androids automatiske sikkerhetskopiering og gjenopprettingsfunksjonalitet. Denne &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-linken&lt;/a&gt; inneholder informasjon om hvordan du kan bruke denne metoden for sikkerhetskopi.</string>
+    <string name="google_auto_backup_link">FreeOTP kan delta i Androids automatiske sikkerhetskopiering og gjenopprettingsfunksjonalitet. Denne &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=no&quot;&gt;Google-linken&lt;/a&gt; inneholder informasjon om hvordan du kan bruke denne metoden for sikkerhetskopi.</string>
     <string name="hello_blank_fragment">Hei tomt fragment</string>
     <string name="backup_imageview">sikkerhetskopi bildevisning</string>
     <string name="keystore_image">keystore bilde</string>
