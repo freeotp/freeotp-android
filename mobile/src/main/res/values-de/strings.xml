@@ -1,8 +1,133 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="delete">Löschen</string>
 
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Fertig</string>
+    <string name="close">Schließen</string>
+    <string name="save">Speichern</string>
+    <string name="restore">Wiederherstellen aus Backup</string>
+    <string name="about">Über</string>
+    <string name="auto_copy_clipboard">Automatische Zwischenablage</string>
+    <string name="manual_add">Manuell hinzufügen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="delete">Löschen</string>
+    <string name="move_up">Nach Oben bewegen</string>
+    <string name="move_down">Nach Unten bewegen</string>
+    <string name="add_anyway">Trotzdem hinzufügen</string>
+    <string name="unknown_issuer">Unbekannter Herausgeber</string>
+    <string name="enable_lock_screen">Bildschirmsperre aktivieren</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Senden an…</string>
+    <string name="share_jelling_scan_for">Scannen nach…</string>
+    <string name="share_jelling_scanning_for">Scannen nach…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth-Geräte</string>
+    <string name="share_clipboard_copy_to">Kopieren in…</string>
+    <string name="share_clipboard_clipboard">Zwischenablage</string>
+
+    <!-- Strings related to camera errors. -->
     <string name="error_camera_open">Fehler beim Öffnen der Kamera!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP ist lizensiert unter &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Weitere Informationen finden Sie auf unserer &lt;a href=&quot;https://freeotp.github.io&quot;&gt;Website&lt;/a&gt;.</string>
+    <string name="main_welcome">Willkommen bei FreeOTP!\n\nFügen Sie ein Token hinzu, um loszulegen.</string>
+    <string name="main_deletion_title">Ausgewählte Token löschen?</string>
+    <string name="main_deletion_message">Beim Löschen eines Tokens wird dieser nicht auf dem Server deaktiviert. Wenn Sie fortfahren, werden Sie möglicherweise von Ihrem Konto ausgesperrt. Die Löschung eines Tokens kann nicht rückgängig gemacht werden.</string>
+    <string name="main_unsafe_title">Token ist unsicher!</string>
+    <string name="main_unsafe_message">Das Token, das Sie hinzufügen möchten, enthält schwache kryptographische Parameter. Von der Verwendung dieses Tokens wird dringend abgeraten! Bitte informieren Sie Ihren Token-Anbieter.</string>
+    <string name="main_invalid_title">Token ist ungültig!</string>
+    <string name="main_invalid_message">Der Token, den Sie hinzufügen möchten, ist ungültig. Bitte informieren Sie Ihren Token-Anbieter.</string>
+    <string name="main_error_title">Fehler!</string>
+    <string name="main_error_message">Beim Versuch, ein Token hinzuzufügen, ist ein Fehler aufgetreten.</string>
+    <string name="main_lock_message">Dieses Token fordert, dass Sie sich bei jeder Verwendung authentifizieren. Das bedeutet, dass ihr die Bildschirmsperre ihres Geräts aktiviert sein muss. Bitte aktivieren Sie die Bildschirmsperre und fügen Sie das Token erneut hinzu.</string>
+    <string name="main_lock_title">Sperrbildschirm erforderlich!</string>
+    <string name="main_invalidated_title">Schlüssel ungültig gemacht!</string>
+    <string name="main_invalidated_message">Der Schlüssel für dieses Token wurde vom Android Key Store für ungültig erklärt. Dies kann durch eine Änderung der Einstellungen Ihres Sperrbildschirms verursacht worden sein. Das Token wurde entfernt. Bitte kontaktieren Sie Ihren Token-Anbieter.</string>
+    <string name="main_restore_title">Aus Backup wiederherstellen</string>
+    <string name="main_backup_android_title">Android-Backup</string>
+    <string name="main_backup_android_alert">Verschlüsselte FreeOTP-Token-Daten sind in den Sicherungs- und Wiederherstellungsvorgängen von Android Backup enthalten. Android-Backups müssen aktiviert sein, um diese Funktion nutzen zu können.&lt;br/&gt;&lt;br/&gt;Weitere Informationen finden Sie unter &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Überblick zur Datensicherung&lt;/a&gt; und &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=de&quot;&gt;Android-Backups&lt;/a&gt;</string>
+    <string name="main_restore_message">Bitte geben Sie das Backup-Passwort ein</string>
+    <string name="main_restore_bad_password">Ungültiges Passwort</string>
+    <string name="main_restore_cancel_title">Wiederherstellen abbrechen?</string>
+    <string name="main_restore_cancel_message">Sie verlieren alle zuvor gesicherten Token!</string>
+    <string name="main_restore_proceed">Ohne Wiederherstellung fortfahren</string>
+    <string name="main_restore_go_back">Zurück</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Passwort</string>
+    <string name="password_confirm">Passwort bestätigen</string>
+    <string name="password_info">Token-Backups ermöglichen Ihnen die Wiederherstellung nach einem Datenverlust und die mühelose Übertragung Ihrer Token auf ein neues Gerät.\n\nBackups werden mit dem unten angegebenen Passwort verschlüsselt. Die Sicherheit Ihrer Backups hängt von einem starken Passwort ab.\n\nDas FreeOTP Sicherheitsmodell schreibt vor, dass dieses Passwort zu einem späteren Zeitpunkt NICHT geändert werden kann. Bitte berücksichtigen Sie dies bei der Wahl Ihres Passworts.</string>
+    <string name="password_weak">Das Passwort ist zu schwach!</string>
+    <string name="password_match">Die Passwörter stimmen nicht überein!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Example Inc</string>
+    <string name="manual_secret_text">Geheimnis</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Typ</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Ziffern</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algorithmus</string>
+    <string name="manual_interval">Interval</string>
+    <string name="manual_add_token">Token hinzufügen</string>
+    <string name="manual_accessibility_algorithm">Token-Algorithmus</string>
+    <string name="manual_accessibility_interval">Token-Interval</string>
+    <string name="manual_invalid_title">Token ist ungültig!</string>
+    <string name="manual_invalid_message">Der Token, den Sie hinzufügen möchten, ist ungültig. Bitte überprüfen Sie, ob jedes Feld gemäß dem OTP-Key-URI-Format gültig ist.</string>
+    <string name="edit_token">Token bearbeiten</string>
+    <string name="get_started">LOSLEGEN</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Backup</string>
+    <string name="restore_title">Wiederherstellen</string>
+    <string name="backup_restore_title">Sichern und Wiederherstellen</string>
+    <string name="keystore_migration_explanation">FreeOTP-Tokens sind jetzt in den Android Keystore migriert! Dies führt zu einer erhöhten Sicherheit der Token-Geheimnisse, allerdings ist das Schlüsselmaterial nicht exportierbar. \n\nBackup- und Wiederherstellungsfunktionen wurden hinzugefügt, um sicherzustellen, dass Token wiederhergestellt werden können. Sie werden aufgefordert, ein Master-Passwort zu erstellen, um verschlüsselte Token-Backups einzurichten.</string>
+    <string name="manual_backup_explanation">Alternativ dazu kann eine verschlüsselte Sicherungsdatei in der App auf einen externen Speicher exportiert werden. Das Menü in der oberen Symbolleiste enthält jetzt die Einträge "Sichern" und "Wiederherstellen", um diese manuelle Sicherungsmethode zu nutzen.</string>
+    <string name="google_auto_backup_link">FreeOTP kann an der automatischen Sicherungs- und Wiederherstellungsfunktion von Android teilnehmen. Dieser &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-Link&lt;/a&gt; enthält Informationen darüber, wie diese Sicherungsmethode genutzt werden kann.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backup_imageview">backup imageView</string>
+    <string name="keystore_image">keystore image</string>
+    <string name="android_keystore_title">Android Keystore</string>
 
 </resources>
