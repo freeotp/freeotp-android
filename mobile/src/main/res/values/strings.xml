@@ -129,5 +129,6 @@
     <string name="backup_imageview">backup imageView</string>
     <string name="keystore_image">keystore image</string>
     <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Menu</string>
 
 </resources>

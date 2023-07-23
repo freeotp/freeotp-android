@@ -57,30 +57,42 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/action_backup"
-        android:orderInCategory="100"
-        android:title="@string/backup_title"
-        android:visible="true"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_restore"
-        android:orderInCategory="100"
-        android:title="Restore"
-        android:visible="true"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_clipboard"
-        android:orderInCategory="100"
-        android:title="@string/auto_copy_clipboard"
-        android:visible="true"
-        app:showAsAction="never" />
-    <item
-        android:visible="true"
-        android:id="@+id/action_about"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_about"
-        android:title="@string/about"
-        app:showAsAction="never"
-        />
+        android:id="@+id/menu_todo"
+        android:title="@string/menu_title"
+        android:icon="@drawable/ic_menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_backup"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_backup"
+                android:title="@string/backup_title"
+                android:visible="true"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/action_restore"
+                android:orderInCategory="100"
+                android:title="@string/restore_title"
+                android:icon="@drawable/ic_restore"
+                android:visible="true"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/action_clipboard"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_check_box_blank"
+                android:title="@string/auto_copy_clipboard"
+                android:visible="true"
+                app:showAsAction="always" />
+            <item
+                android:visible="true"
+                android:id="@+id/action_about"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_about"
+                android:title="@string/about"
+                app:showAsAction="always"
+                />
+        </menu>
+
+    </item>
 
 </menu>
