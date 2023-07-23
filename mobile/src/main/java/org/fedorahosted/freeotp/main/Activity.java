@@ -99,6 +99,7 @@ public class Activity extends AppCompatActivity
     private Adapter mTokenAdapter;
     private TextView mEmpty;
     private Menu mMenu;
+    private MenuItem mAutoClipboard;
     ActivityResultLauncher<Intent> mManualAddLauncher;
     ActivityResultLauncher<Intent> mBackupSaveLauncher;
     ActivityResultLauncher<Intent> mRestoreSaveLauncher;
@@ -340,6 +341,7 @@ public class Activity extends AppCompatActivity
 
             showRestoreAlert(input);
         }
+
         onNewIntent(getIntent());
 
 
@@ -360,7 +362,14 @@ public class Activity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mMenu = menu;
-
+        mAutoClipboard = menu.findItem(R.id.action_clipboard);
+        /* Set checked/unchecked checkbox in menu for auto copy to clipboard setting */
+        if(mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false)) {
+            mAutoClipboard.setIcon(R.drawable.ic_check_box_checked);
+        } else {
+            /* Should not be needed since this is the default, here as fallback */
+            mAutoClipboard.setIcon(R.drawable.ic_check_box_blank);
+        }
         return true;
     }
 
@@ -508,6 +517,9 @@ public class Activity extends AppCompatActivity
                 String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
                 Snackbar.make(findViewById(R.id.toolbar), s, Snackbar.LENGTH_SHORT)
                         .show();
+                /* Update checkbox icon in menu */
+                if(mAutoClipboard == null) return true;
+                mAutoClipboard.setIcon(!copy_clipboard ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_blank);
 
                 return true;
 
@@ -544,12 +556,12 @@ public class Activity extends AppCompatActivity
             MenuItem mi = mMenu.getItem(i);
 
             switch (mi.getItemId()) {
+                case R.id.menu_todo:
+                    mi.setVisible(selected.size() == 0);
+                    break;
                 case R.id.action_backup:
                 case R.id.action_restore:
                 case R.id.action_clipboard:
-                case R.id.action_about:
-                    mi.setVisible(selected.size() == 0);
-                    break;
 
                 case R.id.action_up:
                     mi.setVisible(selected.size() > 0);
