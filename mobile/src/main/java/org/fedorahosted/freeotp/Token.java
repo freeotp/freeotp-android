@@ -66,7 +66,7 @@ public class Token {
     public enum Type { HOTP, TOTP }
 
     private static final String[] SAFE_ALGOS = { "SHA1", "SHA224", "SHA256", "SHA384", "SHA512" };
-    private static final Pattern PATTERN = Pattern.compile("^/(?:([^:]+):)?([^:]+)$");
+    private static final Pattern PATTERN = Pattern.compile("^/(?:([^:]*):)?([^:]*)$");
 
     @SerializedName("algo")
     private final String mAlgorithm;
@@ -227,11 +227,13 @@ public class Token {
 
         try {
             Matcher matcher = PATTERN.matcher(uri.getPath());
-            if (!matcher.find())
+            if (!matcher.find()) {
                 throw new InvalidLabelException();
-
-            mIssuer = matcher.group(1);
-            mLabel = matcher.group(2);
+            }
+            else {
+                mIssuer = matcher.group(1);
+                mLabel = matcher.group(2);
+            }
         } catch (NullPointerException e) {
             throw new InvalidLabelException();
         }

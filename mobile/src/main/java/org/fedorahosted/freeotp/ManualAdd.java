@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.fedorahosted.freeotp.main.Activity;
 
 public class ManualAdd extends AppCompatActivity {
@@ -105,11 +106,18 @@ public class ManualAdd extends AppCompatActivity {
 
     private boolean inputValid() {
         String secret = mSecret.getText().toString();
+        String issuer = mIssuer.getText().toString();
+        String account = mAccount.getText().toString();
         Boolean valid = true;
         String msg = "";
 
         if (TextUtils.isEmpty(secret)) {
             msg = "Secret must not be empty";
+            valid = false;
+        }
+
+        if(issuer.contains(":") || account.contains(":")) {
+            msg = "Issuer and account may not contain \":\"";
             valid = false;
         }
 

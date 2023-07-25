@@ -24,7 +24,7 @@ public class TokenUriInvalidTest extends TestCase {
             { "otpauth://totp",
                     Token.InvalidLabelException.class },
             { "otpauth://totp/",
-                    Token.InvalidLabelException.class },
+                    Token.InvalidSecretException.class },
             { "otpauth://totp/foo:bar:baz",
                     Token.InvalidLabelException.class },
             { "otpauth://totp/bar",
