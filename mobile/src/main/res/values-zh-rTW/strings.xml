@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<resources>
+    <string name="app_name">FreeOTP</string>
+
+    <!-- Buttons -->
+    <string name="ok">確定</string>
+    <string name="done">完成</string>
+    <string name="close">關閉</string>
+    <string name="save">儲存</string>
+    <string name="restore">從備份還原</string>
+    <string name="about">關於</string>
+    <string name="auto_copy_clipboard">自動複製到剪貼簿</string>
+    <string name="manual_add">手動新增</string>
+    <string name="cancel">取消</string>
+    <string name="delete">刪除</string>
+    <string name="move_up">上移</string>
+    <string name="move_down">下移</string>
+    <string name="add_anyway">仍然新增</string>
+    <string name="unknown_issuer">未知的發行者</string>
+    <string name="enable_lock_screen">啟用鎖定螢幕</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">傳送至…</string>
+    <string name="share_jelling_scan_for">掃描以尋找…</string>
+    <string name="share_jelling_scanning_for">正在掃描以尋找…</string>
+    <string name="share_jelling_bluetooth_devices">藍牙裝置</string>
+    <string name="share_clipboard_copy_to">複製到…</string>
+    <string name="share_clipboard_clipboard">剪貼簿</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">開啟相機時發生錯誤！</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP 版本 %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP 採用 &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt; 授權。&lt;br/&gt;&lt;br/&gt;更多資訊，請參閱我們的 &lt;a href=&quot;https://freeotp.github.io&quot;&gt;網站&lt;/a&gt;。</string>
+    <string name="main_welcome">歡迎使用 FreeOTP！\n\n新增一個 token 以開始。</string>
+    <string name="main_deletion_title">刪除所選的 token ？</string>
+    <string name="main_deletion_message">刪除 token 並不會在伺服器上將其停用。如果繼續，您的帳戶可能會因為無法存取而被鎖定。刪除 token 的動作無法進行復原。</string>
+    <string name="main_unsafe_title">Token 存在安全風險！</string>
+    <string name="main_unsafe_message">您嘗試新增的 token 包含弱的加密參數。強烈建議不要使用此 token ！請聯絡您的 token 提供者。</string>
+    <string name="main_invalid_title">Token 無效！</string>
+    <string name="main_invalid_message">您嘗試新增的 token 無效。請通知您的 token 提供者。</string>
+    <string name="main_error_title">錯誤！</string>
+    <string name="main_error_message">嘗試新增 token 時發生錯誤。</string>
+    <string name="main_lock_message">此 token 要求您在每次使用時進行身分驗證。這意味著您的裝置的鎖定螢幕必須被啟用。請啟用鎖定螢幕安全性並再次新增 token 。</string>
+    <string name="main_lock_title">需要鎖定螢幕！</string>
+    <string name="main_invalidated_title">金鑰已失效！</string>
+    <string name="main_invalidated_message">此 token 的金鑰已被 Android 金鑰存放區設為失效。這可能是由於您的鎖定螢幕設定的變更。 token 已被移除。請聯絡您的 token 提供者。</string>
+    <string name="main_restore_title">從備份還原</string>
+    <string name="main_backup_android_title">Android 備份</string>
+    <string name="main_backup_android_alert">加密的 FreeOTP token 資料包含在由 Android 備份進行的備份和還原操作中。必須啟用 Android 備份以使用此功能。&lt;br/&gt;&lt;br/&gt;欲了解更多資訊，請參閱 &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;資料備份概覽&lt;/a&gt; 和 &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=zh-Hant&quot;&gt;Android 備份&lt;/a&gt;</string>
+    <string name="main_restore_message">請輸入備份密碼</string>
+    <string name="main_restore_bad_password">密碼無效</string>
+    <string name="main_restore_cancel_title">確定取消還原？</string>
+    <string name="main_restore_cancel_message">您將失去所有先前備份的 token ！</string>
+    <string name="main_restore_proceed">不進行還原並繼續</string>
+    <string name="main_restore_go_back">返回</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">輸入密碼</string>
+    <string name="password_confirm">確認輸入密碼</string>
+    <string name="password_info">Token 備份讓您能從資料遺失中復原，並輕易地將您的 token 轉移到新的裝置。\n\n備份會用以下提供的密碼進行加密。您的備份的安全性取決於密碼的強度。\n\nFreeOTP 的安全模型規定此密碼在之後無法變更。在選擇密碼時，請考慮此點。</string>
+    <string name="password_weak">密碼強度太弱！</string>
+    <string name="password_match">密碼不一致！</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Example Inc</string>
+    <string name="manual_secret_text">金鑰</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">類型</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">位數</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">演算法</string>
+    <string name="manual_interval">間隔</string>
+    <string name="manual_add_token">新增 token</string>
+    <string name="manual_accessibility_algorithm">Token 演算法</string>
+    <string name="manual_accessibility_interval">Token 間隔</string>
+    <string name="manual_invalid_title">Token 無效！</string>
+    <string name="manual_invalid_message">您嘗試新增的 token 無效。請檢查每個欄位是否符合 OTP 金鑰 URI 格式。</string>
+    <string name="edit_token">編輯 token</string>
+    <string name="get_started">開始使用</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">備份</string>
+    <string name="restore_title">還原</string>
+    <string name="backup_restore_title">備份和還原</string>
+    <string name="keystore_migration_explanation">FreeOTP token 現已遷移到 Android 金鑰存放區！這讓 token 的安全性增加，但導致 token 的金鑰不可匯出。 \n\n現已新增備份和還原功能以確保 token 可以被恢復。您將被提示建立主密碼以設定加密的 token 備份。</string>
+    <string name="manual_backup_explanation">或者，可以從 App 內部將加密的備份資料檔案匯出到外部儲存空間。頂部工具列選單現在包含標籤為「備份」和「還原」的項目，以使用此手動備份方法。</string>
+    <string name="google_auto_backup_link">FreeOTP 支援 Android 的自動備份和還原功能。詳細使用此備份方法的資訊，請查閱 &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=zh-Hant&quot;&gt;Google 提供的說明&lt;/a&gt;。</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backup_imageview">備份 imageView</string>
+    <string name="keystore_image">金鑰存放區 image</string>
+    <string name="android_keystore_title">Android 金鑰存放區</string>
+    <string name="menu_title">選單</string>
+
+</resources>
