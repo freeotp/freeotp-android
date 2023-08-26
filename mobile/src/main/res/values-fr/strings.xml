@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<resources>
+    <string name="app_name">FreeOTP</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Fait</string>
+    <string name="close">Fermer</string>
+    <string name="save">Sauvegarder</string>
+    <string name="about">À propos</string>
+    <string name="auto_copy_clipboard">Presse-papier automatique</string>
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
+    <string name="move_up">Monter</string>
+    <string name="move_down">Descendre</string>
+    <string name="add_anyway">Ajouter quand même</string>
+    <string name="unknown_issuer">Fournisseur inconnu</string>
+    <string name="enable_lock_screen">Activer le verrouillage de l\'écran</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Envoyer à…</string>
+    <string name="share_jelling_scan_for">Rechercher…</string>
+    <string name="share_jelling_scanning_for">Recherche en cours…</string>
+    <string name="share_jelling_bluetooth_devices">appareils Bluetooth</string>
+    <string name="share_clipboard_copy_to">Copier dans…</string>
+    <string name="share_clipboard_clipboard">presse-papier</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Erreur à l\'ouverture de l\'appareil photo\\u00A0!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP version %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP est publié sous licence &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Pour plus d\'information, visitez notre &lt;a href=&quot;https://freeotp.github.io&quot;&gt;site web&lt;/a&gt;.</string>
+    <string name="main_welcome">Bienvenue dans FreeOTP\u00A0!\n\nAjouter un jeton pour commencer.</string>
+    <string name="main_deletion_title">Supprimer les jetons sélectionnés\u00A0?</string>
+    <string name="main_deletion_message">Supprimer un jeton ne le désactive pas sur le serveur. Si vous continuez, vous pourriez être exclu de l\'accès à votre compte. Un jeton supprimé ne peut être restauré.</string>
+    <string name="main_unsafe_title">Jeton risqué\u00A0!</string>
+    <string name="main_unsafe_message">Le jeton que vous tentez d\'ajouter utilise des paramètres cryptographiques faibles. L\'utilisation de ce jeton est fortement déconseillée\u00A0! Merci d\'alerter votre fournisseur de jetons.</string>
+    <string name="main_invalid_title">Le jeton est invalide\u00A0!</string>
+    <string name="main_invalid_message">Le jeton que vous tentez d\'ajouter est invalide. Merci d\'alerter votre fournisseur de jetons.</string>
+    <string name="main_error_title">Erreur\u00A0!</string>
+    <string name="main_error_message">Une erreur est survenue à l\'ajout d\'un jeton.</string>
+    <string name="main_lock_message">Ce jeton nécessite une authentification à chaque utilisation. Cela implique que l\'écran de verrouillage de l\'appareil soit activé. Merci d\'activer l\'écran de verrouillage avant d\'ajouter à nouveau ce jeton.</string>
+    <string name="main_lock_title">Verrouillage de l\'écran requis\u00A0!</string>
+    <string name="main_invalidated_title">Clé invalidée\u00A0!</string>
+    <string name="main_invalidated_message">La clé de ce jeton a été invalidée par le magasin de clés Android. Cela peut être dû à un changement de paramètres du verrouillage de l\'écran. Le jeton a été supprimé. Merci de contacter votre fournisseur de jetons.</string>
+    <string name="main_restore_title">Restauration de la sauvegarde</string>
+    <string name="main_restore_message">Merci d\'entrer votre mot de passe de sauvegarde</string>
+    <string name="main_restore_bad_password">Mot de passe invalide</string>
+    <string name="main_restore_cancel_title">Annuler la restauration\u00A0?</string>
+    <string name="main_restore_cancel_message">Vous perdrez tous les jetons sauvegardés précédemment\u00A0!</string>
+    <string name="main_restore_proceed">Continuer sans restaurer</string>
+    <string name="main_restore_go_back">Revenir en arrière</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Mot de passe</string>
+    <string name="password_confirm">Confirmer le mot de passe</string>
+    <string name="password_info">Les sauvegardes de jetons vous permettent de les récupérer après une perte de données ou de les transférer facilement vers un nouvel appareil.\n\nLes sauvegardes sont chiffrées en utilisant le mot de passe ci-dessous. La sécurité de vos sauvegardes dépend donc de la solidité de ce mot de passe.\n\nLe modèle de sécurité de FreeOTP impose que ce mot de passe NE PEUT PAS être modifié ultérieurement. Merci de prendre en compte cette information au moment de choisir un mot de passe.</string>
+    <string name="password_match">Les mots de passe ne correspondent pas\u00A0!</string>
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Example Inc</string>
+    <string name="manual_secret_text">Secret</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Type</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Chiffres</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algorithme</string>
+    <string name="manual_interval">Intervalle</string>
+    <string name="manual_add_token">Ajouter un jeton</string>
+    <string name="manual_accessibility_algorithm">Algorithme des jetons</string>
+    <string name="manual_accessibility_interval">Intervalle des jetons</string>
+    <string name="edit_token">Éditer le jeton</string>
+    <string name="get_started">COMMENCER</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Sauvegarde</string>
+    <string name="restore_title">Restauration</string>
+    <string name="backup_restore_title">Sauvegarde et restauration</string>
+    <string name="keystore_migration_explanation">Les jetons FreeOTP ont désormais migré vers le magasin de clés Android\u00A0! Il en résulte une sécurité accrue, mais les clés ne sont alors plus exportables. \n\nLes fonctionnalités de sauvegarde et restauration sont désormais ajoutées afin d\'assurer la récupération des jetons. Vous serez invité à créer un mot de passe maitre pour initialiser les sauvegardes chiffrées des jetons.</string>
+    <string name="manual_backup_explanation">Parallèlement, un fichier de sauvegarde chiffré peut être exporté sur le stockage externe depuis l\'application. La barre d\'outils supérieure contient désormais les entrées nommées \'Sauvegarde\' et \'Restauration\' afin d\'utiliser cette sauvegarde manuelle.</string>
+    <string name="google_auto_backup_link">FreeOTP peut utiliser la fonctionnalité sauvegarde et restauration automatiques d\'Android. Ce &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=fr&quot;&gt;lien Google&lt;/a&gt; contient des informations pour utiliser cette méthode de restauration.</string>
+    <string name="backup_imageview">Image sauvegarde</string>
+    <string name="keystore_image">Image magasin de clés</string>
+    <string name="android_keystore_title">Magasin de clés Android</string>
+    <string name="menu_title">Menu</string>
+
+</resources>
