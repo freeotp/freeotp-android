@@ -26,10 +26,8 @@
     <string name="done">Fertig</string>
     <string name="close">Schließen</string>
     <string name="save">Speichern</string>
-    <string name="restore">Wiederherstellen aus Backup</string>
     <string name="about">Über</string>
     <string name="auto_copy_clipboard">Automatische Zwischenablage</string>
-    <string name="manual_add">Manuell hinzufügen</string>
     <string name="cancel">Abbrechen</string>
     <string name="delete">Löschen</string>
     <string name="move_up">Nach Oben bewegen</string>
@@ -66,8 +64,6 @@
     <string name="main_invalidated_title">Schlüssel ungültig gemacht!</string>
     <string name="main_invalidated_message">Der Schlüssel für dieses Token wurde vom Android Key Store für ungültig erklärt. Dies kann durch eine Änderung der Einstellungen Ihres Sperrbildschirms verursacht worden sein. Das Token wurde entfernt. Bitte kontaktieren Sie Ihren Token-Anbieter.</string>
     <string name="main_restore_title">Aus Backup wiederherstellen</string>
-    <string name="main_backup_android_title">Android-Backup</string>
-    <string name="main_backup_android_alert">Verschlüsselte FreeOTP-Token-Daten sind in den Sicherungs- und Wiederherstellungsvorgängen von Android Backup enthalten. Android-Backups müssen aktiviert sein, um diese Funktion nutzen zu können.&lt;br/&gt;&lt;br/&gt;Weitere Informationen finden Sie unter &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Überblick zur Datensicherung&lt;/a&gt; und &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=de&quot;&gt;Android-Backups&lt;/a&gt;</string>
     <string name="main_restore_message">Bitte geben Sie das Backup-Passwort ein</string>
     <string name="main_restore_bad_password">Ungültiges Passwort</string>
     <string name="main_restore_cancel_title">Wiederherstellen abbrechen?</string>
@@ -79,7 +75,6 @@
     <string name="password">Passwort</string>
     <string name="password_confirm">Passwort bestätigen</string>
     <string name="password_info">Token-Backups ermöglichen Ihnen die Wiederherstellung nach einem Datenverlust und die mühelose Übertragung Ihrer Token auf ein neues Gerät.\n\nBackups werden mit dem unten angegebenen Passwort verschlüsselt. Die Sicherheit Ihrer Backups hängt von einem starken Passwort ab.\n\nDas FreeOTP Sicherheitsmodell schreibt vor, dass dieses Passwort zu einem späteren Zeitpunkt NICHT geändert werden kann. Bitte berücksichtigen Sie dies bei der Wahl Ihres Passworts.</string>
-    <string name="password_weak">Das Passwort ist zu schwach!</string>
     <string name="password_match">Die Passwörter stimmen nicht überein!</string>
 
 
@@ -113,8 +108,6 @@
     <string name="manual_add_token">Token hinzufügen</string>
     <string name="manual_accessibility_algorithm">Token-Algorithmus</string>
     <string name="manual_accessibility_interval">Token-Interval</string>
-    <string name="manual_invalid_title">Token ist ungültig!</string>
-    <string name="manual_invalid_message">Der Token, den Sie hinzufügen möchten, ist ungültig. Bitte überprüfen Sie, ob jedes Feld gemäß dem OTP-Key-URI-Format gültig ist.</string>
     <string name="edit_token">Token bearbeiten</string>
     <string name="get_started">LOSLEGEN</string>
 
@@ -125,7 +118,6 @@
     <string name="keystore_migration_explanation">FreeOTP-Tokens sind jetzt in den Android Keystore migriert! Dies führt zu einer erhöhten Sicherheit der Token-Geheimnisse, allerdings ist das Schlüsselmaterial nicht exportierbar. \n\nBackup- und Wiederherstellungsfunktionen wurden hinzugefügt, um sicherzustellen, dass Token wiederhergestellt werden können. Sie werden aufgefordert, ein Master-Passwort zu erstellen, um verschlüsselte Token-Backups einzurichten.</string>
     <string name="manual_backup_explanation">Alternativ dazu kann eine verschlüsselte Sicherungsdatei in der App auf einen externen Speicher exportiert werden. Das Menü in der oberen Symbolleiste enthält jetzt die Einträge "Sichern" und "Wiederherstellen", um diese manuelle Sicherungsmethode zu nutzen.</string>
     <string name="google_auto_backup_link">FreeOTP kann an der automatischen Sicherungs- und Wiederherstellungsfunktion von Android teilnehmen. Dieser &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-Link&lt;/a&gt; enthält Informationen darüber, wie diese Sicherungsmethode genutzt werden kann.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="backup_imageview">backup imageView</string>
     <string name="keystore_image">keystore image</string>
     <string name="android_keystore_title">Android Keystore</string>
