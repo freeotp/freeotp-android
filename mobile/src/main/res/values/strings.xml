@@ -26,10 +26,8 @@
     <string name="done">Done</string>
     <string name="close">Close</string>
     <string name="save">Save</string>
-    <string name="restore">Restore from Backup</string>
     <string name="about">About</string>
     <string name="auto_copy_clipboard">Auto Clipboard</string>
-    <string name="manual_add">Manual Add</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="move_up">Move Up</string>
@@ -66,8 +64,6 @@
     <string name="main_invalidated_title">Key invalidated!</string>
     <string name="main_invalidated_message">The key for this token has been invalidated by the Android Key Store. This may have been due to a change in your lock screen settings. The token has been removed. Please contact your token provider.</string>
     <string name="main_restore_title">Restore from backup</string>
-    <string name="main_backup_android_title">Android Backup</string>
-    <string name="main_backup_android_alert">Encrypted FreeOTP token data is included in backup and restore operations performed by Android Backup. Android Backups must be enabled to take advantage of this feature.&lt;br/&gt;&lt;br/&gt;For more information, see &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;Data Backup Overview&lt;/a&gt; and &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Android Backups&lt;/a&gt;</string>
     <string name="main_restore_message">Please enter backup password</string>
     <string name="main_restore_bad_password">Invalid password</string>
     <string name="main_restore_cancel_title">Cancel Restore?</string>
@@ -79,7 +75,6 @@
     <string name="password">Password</string>
     <string name="password_confirm">Confirm Password</string>
     <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.\n\nThe FreeOTP security model dictates this password CANNOT be changed at a later time. Please take this into consideration when choosing a password.</string>
-    <string name="password_weak">Password is too weak!</string>
     <string name="password_match">Passwords do not match!</string>
 
 
@@ -113,8 +108,6 @@
     <string name="manual_add_token">Add Token</string>
     <string name="manual_accessibility_algorithm">Token algorithm</string>
     <string name="manual_accessibility_interval">Token Interval</string>
-    <string name="manual_invalid_title">Token is invalid!</string>
-    <string name="manual_invalid_message">The token you are attempting to add is invalid. Please check that each field is valid following the OTP Key URI Format.</string>
     <string name="edit_token">Edit Token</string>
     <string name="get_started">GET STARTED</string>
 
@@ -125,7 +118,6 @@
     <string name="keystore_migration_explanation">FreeOTP tokens are now migrated into the Android Keystore! This results in increased security of token secrets, however key material is non-exportable. \n\nBackup and restore functionality is now added to ensure tokens can be recovered. You will be prompted to create a master password to setup encrypted token backups.</string>
     <string name="manual_backup_explanation">Alternatively, an encrypted backup data file can be exported to external storage from within the App. The top toolbar menu now contains items labeled \'Backup\' and \'Restore\' to utilize this manual backup method.</string>
     <string name="google_auto_backup_link">FreeOTP can participate in Android automatic backup and restore functionality. This &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google link&lt;/a&gt; contains information on how to utilize this backup method.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="backup_imageview">backup imageView</string>
     <string name="keystore_image">keystore image</string>
     <string name="android_keystore_title">Android Keystore</string>

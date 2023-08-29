@@ -26,10 +26,8 @@
     <string name="done">完成</string>
     <string name="close">關閉</string>
     <string name="save">儲存</string>
-    <string name="restore">從備份還原</string>
     <string name="about">關於</string>
     <string name="auto_copy_clipboard">自動複製到剪貼簿</string>
-    <string name="manual_add">手動新增</string>
     <string name="cancel">取消</string>
     <string name="delete">刪除</string>
     <string name="move_up">上移</string>
@@ -66,8 +64,6 @@
     <string name="main_invalidated_title">金鑰已失效！</string>
     <string name="main_invalidated_message">此 token 的金鑰已被 Android 金鑰存放區設為失效。這可能是由於您的鎖定螢幕設定的變更。 token 已被移除。請聯絡您的 token 提供者。</string>
     <string name="main_restore_title">從備份還原</string>
-    <string name="main_backup_android_title">Android 備份</string>
-    <string name="main_backup_android_alert">加密的 FreeOTP token 資料包含在由 Android 備份進行的備份和還原操作中。必須啟用 Android 備份以使用此功能。&lt;br/&gt;&lt;br/&gt;欲了解更多資訊，請參閱 &lt;a href=&quot;https://developer.android.com/guide/topics/data/backup&quot;&gt;資料備份概覽&lt;/a&gt; 和 &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=zh-Hant&quot;&gt;Android 備份&lt;/a&gt;</string>
     <string name="main_restore_message">請輸入備份密碼</string>
     <string name="main_restore_bad_password">密碼無效</string>
     <string name="main_restore_cancel_title">確定取消還原？</string>
@@ -79,7 +75,6 @@
     <string name="password">輸入密碼</string>
     <string name="password_confirm">確認輸入密碼</string>
     <string name="password_info">Token 備份讓您能從資料遺失中復原，並輕易地將您的 token 轉移到新的裝置。\n\n備份會用以下提供的密碼進行加密。您的備份的安全性取決於密碼的強度。\n\nFreeOTP 的安全模型規定此密碼在之後無法變更。在選擇密碼時，請考慮此點。</string>
-    <string name="password_weak">密碼強度太弱！</string>
     <string name="password_match">密碼不一致！</string>
 
 
@@ -113,8 +108,6 @@
     <string name="manual_add_token">新增 token</string>
     <string name="manual_accessibility_algorithm">Token 演算法</string>
     <string name="manual_accessibility_interval">Token 間隔</string>
-    <string name="manual_invalid_title">Token 無效！</string>
-    <string name="manual_invalid_message">您嘗試新增的 token 無效。請檢查每個欄位是否符合 OTP 金鑰 URI 格式。</string>
     <string name="edit_token">編輯 token</string>
     <string name="get_started">開始使用</string>
 
@@ -125,7 +118,6 @@
     <string name="keystore_migration_explanation">FreeOTP token 現已遷移到 Android 金鑰存放區！這讓 token 的安全性增加，但導致 token 的金鑰不可匯出。 \n\n現已新增備份和還原功能以確保 token 可以被恢復。您將被提示建立主密碼以設定加密的 token 備份。</string>
     <string name="manual_backup_explanation">或者，可以從 App 內部將加密的備份資料檔案匯出到外部儲存空間。頂部工具列選單現在包含標籤為「備份」和「還原」的項目，以使用此手動備份方法。</string>
     <string name="google_auto_backup_link">FreeOTP 支援 Android 的自動備份和還原功能。詳細使用此備份方法的資訊，請查閱 &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=zh-Hant&quot;&gt;Google 提供的說明&lt;/a&gt;。</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="backup_imageview">備份 imageView</string>
     <string name="keystore_image">金鑰存放區 image</string>
     <string name="android_keystore_title">Android 金鑰存放區</string>
