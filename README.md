@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/freeotp/freeotp-android.svg?branch=master)](https://travis-ci.org/freeotp/freeotp-android)
 
-# FreeOTP
+# FreeOTP  
 
 [FreeOTP](https://freeotp.github.io) is a two-factor authentication application for systems
 utilizing one-time password protocols. Tokens can be added easily by scanning a QR code.
