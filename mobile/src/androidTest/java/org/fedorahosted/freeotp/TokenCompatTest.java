@@ -50,7 +50,13 @@ public class TokenCompatTest extends TestCase implements SelectableAdapter.Event
     private static final String[] COUNTERS = { null, "0", "1234143" };
     private static final String[] IMAGES = { null, };
     private static final String[] COLORS = { null, "000000", "FFFFFF" };
-    private static final String[] LOCKS = { null, "true", "false" };
+    /* `lock=true` tokens cannot be added with screen lock disabled (default), which
+     * is the android emulator default. We don't need to test this with migration.
+     *
+     * java.security.KeyStoreException: java.lang.IllegalStateException:
+     * Secure lock screen must be enabled to create keys requiring user authentication
+     */
+    private static final String[] LOCKS = { null, "false" };
 
     private static Object[][] compose(Object[] ... sets) {
         int size = 1;
