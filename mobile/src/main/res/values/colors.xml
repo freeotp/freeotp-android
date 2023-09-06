@@ -91,5 +91,6 @@
     <color name="brand_nintendo" tools:keep="@color/brand_nintendo">#e60012</color>
     <color name="brand_robinhood" tools:keep="@color/brand_robinhood">#2fd233</color>
     <color name="brand_t_mobile" tools:keep="@color/brand_t_mobile">#e30075</color>
+    <color name="brand_tutanota" tools:keep="@color/brand_tutanota">#840010</color>
     <color name="brand_wyze" tools:keep="@color/brand_wyze">#1ad8a8</color>
 </resources>
