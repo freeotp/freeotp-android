@@ -79,7 +79,7 @@
     <color name="brand_reddit" tools:keep="@color/brand_reddit">#FF4500</color>
     <color name="brand_steam" tools:keep="@color/brand_steam">#242424</color>
     <color name="brand_redhat" tools:keep="@color/brand_redhat">#FF0000</color>
-    <color name="brand_fedora" tools:keep="@color/brand_fedora">#3c6eb4</color>
+    <color name="brand_fedora" tools:keep="@color/brand_fedora">#51a2da</color>
     <color name="brand_coinbase" tools:keep="@color/brand_coinbase">#0050ff</color>
     <color name="brand_ecobee" tools:keep="@color/brand_ecobee">#144745</color>
     <color name="brand_epicgames" tools:keep="@color/brand_epicgames">#2a2a2a</color>
