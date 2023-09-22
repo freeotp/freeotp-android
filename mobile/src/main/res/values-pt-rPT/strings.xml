@@ -1,9 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FreeOTP</string>
+
+    <!-- Buttons -->
+    <string name="done">Feito</string>
+    <string name="close">Fechar</string>
+    <string name="save">Salvar</string>
+    <string name="about">Sobre</string>
+    <string name="auto_copy_clipboard">Copiar Automaticamente</string>
+    <string name="cancel">Cancelar</string
     <string name="delete">Eliminar</string>
+    <string name="move_up">Mover para cima</string>
+    <string name="move_down">Mover para baixo</string>
+    <string name="add_anyway">Adicionar mesmo assim</string>
+    <string name="unknown_issuer">Emissor desconhecido</string>
+    <string name="enable_lock_screen">ATIVAR BLOQUEIO DE TELA</string>
+   
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Enviar para…</string>
+    <string name="share_jelling_scan_for">Escanear por…</string>
+    <string name="share_jelling_scanning_for">Escaneando para…</string>
+    <string name="share_jelling_bluetooth_devices">Dispositivos Bluetooth </string>
+    <string name="share_clipboard_copy_to">Copiar para…</string>
+    <string name="share_clipboard_clipboard">Área de Transferência</string>
 
+    
+    <!-- Strings related to camera errors. -->
     <string name="error_camera_open">Erro ao abrir a câmara!</string>
+    
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Versão %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP é licenciado sob &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Para mais informações, veja nosso &lt;a href=&quot;https://freeotp.github.io&quot;&gt;site&lt;/a&gt;.</string>
+    <string name="main_welcome">Bem-vindo ao FreeOTP!\n\nAdicione um token para começar.</string>
+    <string name="main_deletion_title">Excluir tokens selecionados?</string>
+    <string name="main_deletion_message">A exclusão de um token não o desativa no servidor. Se você continuar, sua conta poderá ser bloqueada. A exclusão de um token não pode ser desfeita.</string>
+    <string name="main_unsafe_title">O Token não é seguro!</string>
+    <string name="main_unsafe_message">O token que você está tentando adicionar contém parâmetros criptográficos fracos. O uso deste token é fortemente desencorajado! Avise seu provedor de token.</string>
+    <string name="main_invalid_title">O Token é inválido!</string>
+    <string name="main_invalid_message">O token que você está tentando adicionar é inválido. Avise seu provedor de token.</string>
+    <string name="main_error_title">Erro!</string>
+    <string name="main_error_message">An error occurred when trying to add a token.</string>
+    <string name="main_lock_message">Este token exige que você se autentique em cada uso. Isso significa que a tela de bloqueio do seu dispositivo deve estar ativada. Ative o bloqueio de tela de segurança e adicione o token novamente.</string>
+    <string name="main_lock_title">Bloqueio de tela requerido!</string>
+    <string name="main_invalidated_title">Chave Inválida!</string>
+    <string name="main_invalidated_message">A chave deste token foi invalidada pelo Android Key Store. Isso pode ter ocorrido devido a uma alteração nas configurações da tela de bloqueio. O token foi removido. Entre em contato com seu provedor de token.</string>
+    <string name="main_restore_title">Restaurar do backup</string>
+    <string name="main_restore_message">Por favor insira a senha de backup</string>
+    <string name="main_restore_bad_password">Senha inválida</string>
+    <string name="main_restore_cancel_title">Cancelar Restauração?</string>
+    <string name="main_restore_cancel_message">Você perderá todos os tokens salvos anteriormente!</string>
+    <string name="main_restore_proceed">Prosseguir sem Restaurar</string>
+    <string name="main_restore_go_back">Voltar</string>
 
+    <!-- Strings for the password activity. -->
+    <string name="password">Senha</string>
+    <string name="password_confirm">Confirme a senha</string>
+    <string name="password_info">Os backups de token permitem que você se recupere de uma perda de dados e transfira facilmente seus tokens para um novo dispositivo.\n\nOs backups são criptografados usando a senha fornecida abaixo. A segurança dos seus backups depende de uma senha forte.\n\nO modelo de segurança do FreeOTP determina que esta senha NÃO PODE ser alterada posteriormente. Leve isso em consideração ao escolher uma senha.</string>
+    <string name="password_match">As senhas não coincidem!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jose@exemplo.com</string>
+    <string name="manual_issuer_hint">Exemplo LTDA</string>
+    <string name="manual_secret_text">Segredo</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Tipo</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Dígitos</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritmo</string>
+    <string name="manual_interval">Intervalo</string>
+    <string name="manual_add_token">Adicionar Token</string>
+    <string name="manual_accessibility_algorithm">Algoritmo do Token</string>
+    <string name="manual_accessibility_interval">Intervalo do Token</string>
+    <string name="edit_token">Editar Token</string>
+    <string name="get_started">INICIAR</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Backup</string>
+    <string name="restore_title">Restaurar</string>
+    <string name="backup_restore_title">Backup e Restaurar</string>
+    <string name="keystore_migration_explanation">Os tokens do FreeOTP foram migrados para o Android Keystore! Isso resulta em maior segurança dos segredos do token, porém a chave principal não é exportável. \n\nA funcionalidade de backup e restauração agora foi adicionada para garantir que os tokens possam ser recuperados. Você será solicitado a criar uma senha mestra para configurar backups de token criptografados.</string>
+    <string name="manual_backup_explanation">Alternativamente, um arquivo de dados de backup criptografado pode ser exportado para armazenamento externo de dentro do aplicativo. O menu superior da barra de ferramentas agora contém itens denominados \'Backup\' e \'Restaurar\' para utilizar este método de backup manual.</string>
+    <string name="google_auto_backup_link">O FreeOTP pode participar da funcionalidade de backup e restauração automática do Android. Este &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;link do Google &lt;/a&gt; contém informações sobre como utilizar este método de backup.</string>
+    <string name="backup_imageview">backup imageView</string>
+    <string name="keystore_image">imagem keystore</string>
+    <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Menu</string>
+
+
+    
 </resources>
 
