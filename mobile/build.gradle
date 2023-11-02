@@ -6,8 +6,8 @@ android {
         applicationId "org.fedorahosted.freeotp"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 43
-        versionName "2.0.2"
+        versionCode 44
+        versionName "2.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
