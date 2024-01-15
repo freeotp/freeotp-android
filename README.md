@@ -30,3 +30,7 @@ The FreeOTP app uses the following permissions
 |------------|--------------------------|----------|-----------------|
 | Camera     | Recognition of QR codes  | No       | Dangerous       |
 | Internet   | Token image provisioning | No       | Normal          |
+
+## Alternatives
+
+* https://github.com/andOTP/andOTP
