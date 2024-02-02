@@ -222,7 +222,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment
                                     @Override
                                     public void run() {
                                         Activity a = (Activity) getActivity();
-                                        a.addToken(Uri.parse(uri), true);
+                                        a.addToken(Uri.parse(uri), false);
                                     }
                                 });
                                 dismiss();

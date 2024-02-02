@@ -210,7 +210,7 @@ public class Activity extends AppCompatActivity
             Log.e(LOGTAG, "Exception", e);
         }
 
-        mManualAddLauncher = registerLauncher(uri -> addToken(uri, true));
+        mManualAddLauncher = registerLauncher(uri -> addToken(uri, false));
 
         mBackupSaveLauncher = registerLauncher(uri -> {
             /* Copy tokenBackup to picked file on external storage */
@@ -620,7 +620,7 @@ public class Activity extends AppCompatActivity
     public void onClick(View v) {
         if (mLongClickCount >= 3) {
             Pair<SecretKey, Token> pair = Token.random();
-            addToken(pair.second.toUri(pair.first), true);
+            addToken(pair.second.toUri(pair.first), false);
         } else {
             if (mFABManual.isShown()) {
                 mFABManual.hide();
@@ -685,6 +685,6 @@ public class Activity extends AppCompatActivity
 
         Uri uri = intent.getData();
         if (uri != null)
-            addToken(uri, true);
+            addToken(uri, false);
     }
 }
