@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FreeOTP</string>
+    <string name="app_name">TitleOTP</string>
     <string name="delete">מחק</string>
 
     <string name="error_camera_open">שגיאה בעת פתיחת המצלמה!</string>

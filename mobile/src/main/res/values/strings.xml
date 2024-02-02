@@ -19,7 +19,7 @@
    -->
 
 <resources>
-    <string name="app_name">FreeOTP</string>
+    <string name="app_name">TitleOTP</string>
 
     <!-- Buttons -->
     <string name="ok">Ok</string>
@@ -48,8 +48,8 @@
     <string name="error_camera_open">Error while opening camera!</string>
 
     <!-- Strings for the various dialogs. -->
-    <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information, see our &lt;a href=&quot;https://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
+    <string name="main_about_title">TitleOTP Version 1.0</string>
+    <string name="main_about_message">This application is a custom adaptation of FreeOTP version. &lt;br/&gt;© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is licensed under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For more information visit at &lt;br/&gt;&lt;a href=&quot;https://www.titleotp.com&quot;&gt;https://www.titleotp.com&lt;/a&gt;</string>
     <string name="main_welcome">Welcome to TitleOTP!\n\nAdd a token to get started.</string>
     <string name="main_deletion_title">Delete selected tokens?</string>
     <string name="main_deletion_message">Deleting a token does not disable it on the server. If you continue, you may be locked out of your account. Deleting a token cannot be undone.</string>

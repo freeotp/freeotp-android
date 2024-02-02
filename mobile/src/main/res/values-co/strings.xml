@@ -23,7 +23,7 @@ Information about Corsican localization:
    - Created on September 14th, 2023 for version 2.0.2 by Patriccollu di Santa Maria è Sichè
 -->
 <resources>
-    <string name="app_name">FreeOTP</string>
+    <string name="app_name">TitleOTP</string>
 
     <!-- Buttons -->
     <string name="ok">Vai</string>

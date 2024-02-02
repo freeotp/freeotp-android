@@ -19,7 +19,7 @@
    -->
 
 <resources>
-    <string name="app_name">FreeOTP</string>
+    <string name="app_name">TitleOTP</string>
 
     <!-- Buttons -->
     <string name="ok">確定</string>

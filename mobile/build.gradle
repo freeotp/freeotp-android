@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdk 33
     defaultConfig {
-        applicationId "org.razi.titleotp"
+        applicationId "org.fedorahosted.freeotp"
         minSdkVersion 23
         targetSdkVersion 33
         versionCode 44
