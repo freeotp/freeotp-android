@@ -21,7 +21,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to FreeOTP 2.0"
+        android:text="Welcome to TitleOTP 1.0"
         android:textSize="26dp"
         android:layout_marginTop="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
