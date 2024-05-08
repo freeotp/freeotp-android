@@ -62,6 +62,7 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="@integer/columns"
+        tools:listitem="@layout/token"
         />
 
     <LinearLayout
