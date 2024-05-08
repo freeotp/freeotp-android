@@ -225,6 +225,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mImageActive.setOnClickListener(mSelectClick);
         mShare.setOnClickListener(mShareClick);
         mView.setOnClickListener(mViewClick);
+        mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mSelectClick.onClick(mIcons);
+                return true;
+            }
+        });
     }
 
 
