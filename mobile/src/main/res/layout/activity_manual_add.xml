@@ -1,212 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    >
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ManualAdd">
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Base.FreeOTP">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:theme="@style/ToolbarStyle"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ManualAdd">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Base.FreeOTP">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                 android:layout_height="?android:attr/actionBarSize"
-            android:layout_width="match_parent"
-                android:theme="@style/ToolbarStyle"
-                />
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <EditText
-            android:id="@+id/edit_text_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/manual_account_hint"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/edit_text_issuer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/manual_issuer_hint"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
+        android:layout_width="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_secret"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manual_secret_text"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
+            android:layout_margin="@dimen/margin"
+            android:orientation="vertical"
+            >
             <EditText
-                android:id="@+id/edit_text_secret"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:id="@+id/edit_text_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/manual_secret_base32_text"
+                android:hint="@string/manual_account_hint"
                 android:inputType="textPersonName"
                 android:minHeight="48dp" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/edit_text_issuer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/manual_issuer_hint"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
-            <TextView
-                android:id="@+id/text_type"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manual_type_text"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/radio_grp_type"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:checkedButton="@+id/button_hotp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/button_totp"
+                <TextView
+                    android:id="@+id/text_secret"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/manual_button_totp_text" />
+                    android:gravity="center"
+                    android:text="@string/manual_secret_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <RadioButton
-                    android:id="@+id/button_hotp"
+                <EditText
+                    android:id="@+id/edit_text_secret"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/manual_button_hotp_text" />
-            </RadioGroup>
-        </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:hint="@string/manual_secret_base32_text"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_digits"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manual_digits_text"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/radio_grp_digits"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:checkedButton="@+id/button_six"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/button_six"
+                <TextView
+                    android:id="@+id/text_type"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/manual_button_digits_six" />
+                    android:gravity="center"
+                    android:text="@string/manual_type_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <RadioButton
-                    android:id="@+id/button_eight"
+                <RadioGroup
+                    android:id="@+id/radio_grp_type"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:checkedButton="@+id/button_hotp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/button_totp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/manual_button_totp_text" />
+
+                    <RadioButton
+                        android:id="@+id/button_hotp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/manual_button_hotp_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_digits"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/manual_button_digits_eight" />
-            </RadioGroup>
-        </LinearLayout>
+                    android:gravity="center"
+                    android:text="@string/manual_digits_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioGroup
+                    android:id="@+id/radio_grp_digits"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:checkedButton="@+id/button_six"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_algorithm"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manual_algorithm"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <RadioButton
+                        android:id="@+id/button_six"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/manual_button_digits_six" />
 
-            <Spinner
-                android:id="@+id/spinner_algorithms"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:contentDescription="@string/manual_accessibility_algorithm"
-                android:minHeight="48dp" />
-        </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/button_eight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/manual_button_digits_eight" />
+                </RadioGroup>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_interval"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manual_interval"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/text_algorithm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/manual_algorithm"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner_intervals"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:contentDescription="@string/manual_accessibility_interval"
-                android:minHeight="48dp" />
-        </LinearLayout>
+                <Spinner
+                    android:id="@+id/spinner_algorithms"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/manual_accessibility_algorithm"
+                    android:minHeight="48dp" />
+            </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_interval"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/manual_interval"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinner_intervals"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/manual_accessibility_interval"
+                    android:minHeight="48dp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button_add"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:onClick="addToken"
-                android:text="@string/manual_add_token"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-</ScrollView>
+                android:text="@string/manual_add_token" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
