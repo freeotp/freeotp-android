@@ -20,6 +20,7 @@
 
 <resources>
     <string name="app_name">FreeOTP</string>
+    <string name="app_welcome">Welcome to FreeOTP 2.0</string>
 
     <!-- Buttons -->
     <string name="ok">Ok</string>
