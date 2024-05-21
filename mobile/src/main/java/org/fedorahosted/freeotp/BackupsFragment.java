@@ -4,6 +4,8 @@ import static org.fedorahosted.freeotp.OnBoardingActivity.COMPLETED_ONBOARDING;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -21,6 +23,7 @@ public class BackupsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_backups, container, false);
 
         TextView textView = view.findViewById(R.id.textViewGoogle);
+        textView.setText(HtmlCompat.fromHtml(getString(R.string.google_auto_backup_link), HtmlCompat.FROM_HTML_MODE_LEGACY));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         Button doneButton = view.findViewById(R.id.button_onboard_done);
