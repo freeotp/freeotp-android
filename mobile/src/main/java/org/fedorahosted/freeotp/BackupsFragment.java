@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 
-public class BackupsFragment extends Fragment implements View.OnClickListener {
+public class BackupsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,9 +35,5 @@ public class BackupsFragment extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
         sharedPreferencesEditor.putBoolean(COMPLETED_ONBOARDING, true).apply();
         requireActivity().finish();
-    }
-
-    @Override
-    public void onClick(View view) {
     }
 }
