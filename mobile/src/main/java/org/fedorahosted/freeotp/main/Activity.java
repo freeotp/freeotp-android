@@ -36,7 +36,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
@@ -83,6 +82,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Activity extends AppCompatActivity
@@ -442,7 +442,7 @@ public class Activity extends AppCompatActivity
                     final AlertDialog dialog = new AlertDialog.Builder(this)
                             .setTitle(r.getString(R.string.main_about_title,
                                     info.versionName, info.versionCode))
-                            .setMessage(Html.fromHtml(r.getString(R.string.main_about_message)))
+                            .setMessage(HtmlCompat.fromHtml(r.getString(R.string.main_about_message), HtmlCompat.FROM_HTML_MODE_LEGACY))
                             .setPositiveButton(R.string.close, null)
                             .create();
 
