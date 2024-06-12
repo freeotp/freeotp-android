@@ -15,7 +15,9 @@ jobs:
       run: ./gradlew build -x lint
 
   tests:
-    runs-on: macos-latest
+    # macOS v14 / m1 GitHub Actions runners not allowing Android emulators
+    # https://github.com/ReactiveCircus/android-emulator-runner/issues/397
+    runs-on: macos-13
     steps:
     - name: Checkout project sources
       uses: actions/checkout@v3
