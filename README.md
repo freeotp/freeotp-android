@@ -20,7 +20,7 @@ that implements these standards.
 
 ## Contributing
 
-Pull requests on GitHub are welcome under the Apache 2.0 license, see [COPYING](COPYING).
+Pull requests on GitHub are welcome under the [Apache 2.0 license](LICENSE).
 
 ## Permissions
 
