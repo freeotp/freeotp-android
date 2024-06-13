@@ -20,110 +20,112 @@
 -->
 <!--
 Information about Corsican localization:
+   - Updated on June 13th, 2024 for version 2.0.4 by Patriccollu di Santa Maria è Sichè
    - Created on September 14th, 2023 for version 2.0.2 by Patriccollu di Santa Maria è Sichè
 -->
 <resources>
-    <string name="app_name">FreeOTP</string>
+	<string name="app_name">FreeOTP</string>
+	<string name="app_welcome">Benvenuta in FreeOTP 2.0</string>
 
-    <!-- Buttons -->
-    <string name="ok">Vai</string>
-    <string name="done">Fattu</string>
-    <string name="close">Chjode</string>
-    <string name="save">Arregistrà</string>
-    <string name="about">Apprupositu</string>
-    <string name="auto_copy_clipboard">Preme’papei autumaticu</string>
-    <string name="cancel">Abbandunà</string>
-    <string name="delete">Squassà</string>
-    <string name="move_up">Dispiazzà insù</string>
-    <string name="move_down">Dispiazzà inghjò</string>
-    <string name="add_anyway">Aghjunghje quantunque</string>
-    <string name="unknown_issuer">Emettidore scunnisciutu</string>
-    <string name="enable_lock_screen">Attivà l’ammarchjunata di u screnu</string>
+	<!-- Buttons -->
+	<string name="ok">Vai</string>
+	<string name="done">Fattu</string>
+	<string name="close">Chjode</string>
+	<string name="save">Arregistrà</string>
+	<string name="about">Apprupositu</string>
+	<string name="auto_copy_clipboard">Preme’papei autumaticu</string>
+	<string name="cancel">Abbandunà</string>
+	<string name="delete">Squassà</string>
+	<string name="move_up">Dispiazzà insù</string>
+	<string name="move_down">Dispiazzà inghjò</string>
+	<string name="add_anyway">Aghjunghje quantunque</string>
+	<string name="unknown_issuer">Emettidore scunnisciutu</string>
+	<string name="enable_lock_screen">Attivà l’ammarchjunata di u screnu</string>
 
-    <!-- Strings related to token sharing. -->
-    <string name="share_jelling_send_to">Mandà à…</string>
-    <string name="share_jelling_scan_for">Circà…</string>
-    <string name="share_jelling_scanning_for">Ricerca in corsu…</string>
-    <string name="share_jelling_bluetooth_devices">Apparechji Bluetooth</string>
-    <string name="share_clipboard_copy_to">Cupià versu…</string>
-    <string name="share_clipboard_clipboard">Preme’papei</string>
+	<!-- Strings related to token sharing. -->
+	<string name="share_jelling_send_to">Mandà à…</string>
+	<string name="share_jelling_scan_for">Circà…</string>
+	<string name="share_jelling_scanning_for">Ricerca in corsu…</string>
+	<string name="share_jelling_bluetooth_devices">Apparechji Bluetooth</string>
+	<string name="share_clipboard_copy_to">Cupià versu…</string>
+	<string name="share_clipboard_clipboard">Preme’papei</string>
 
-    <!-- Strings related to camera errors. -->
-    <string name="error_camera_open">Sbagliu à l’apertura di l’apparechju-fotò&#x00a0;!</string>
+	<!-- Strings related to camera errors. -->
+	<string name="error_camera_open">Sbagliu à l’apertura di l’apparechju-fotò&#x00a0;!</string>
 
-    <!-- Strings for the various dialogs. -->
-    <string name="main_about_title">FreeOTP versione %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP hè publicatu sottu a licenza &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Per sapene di più, fighjate u nostru &lt;a href=&quot;https://freeotp.github.io&quot;&gt;situ web&lt;/a&gt;.</string>
-    <string name="main_welcome">Benvenuta in FreeOTP&#x00a0;!\n\nAghjunghjite un gettone per principià.</string>
-    <string name="main_deletion_title">Squassà i gettoni selezziunati&#x00a0;?</string>
-    <string name="main_deletion_message">A squassatura d’un gettone ùn u disattiveghja micca nant’à u servitore. S’è vo cuntinuate, u vostru contu puderia esse bluccatu. A squassatura d’un gettone ùn pò micca esse disfata.</string>
-    <string name="main_unsafe_title">U gettone hè à risicu&#x00a0;!</string>
-    <string name="main_unsafe_message">U gettone chì vo circate à aghjunghje impiegheghja parametri crittografichi chì sò debule. U so adopru hè scunsigliatu forte&#x00a0;! Ci vole à infurmà u vostru furnidore di gettone.</string>
-    <string name="main_invalid_title">U gettone hè inaccettevule&#x00a0;!</string>
-    <string name="main_invalid_message">U gettone chì vo circate à aghjunghje hè inaccettevule. Ci vole à infurmà u vostru furnidore di gettone.</string>
-    <string name="main_error_title">Sbagliu&#x00a0;!</string>
-    <string name="main_error_message">Un sbagliu hè accadutu pruvendu d’aghjunghje u gettone.</string>
-    <string name="main_lock_message">Stu gettone richiede à autenticassi à ogni usu. Vole si dì chì u screnu d’ammarchjunata di u vostru apparechju deve esse attivatu. Ci vole à attivà a sicurità di u screnu d’ammarchjunata è aghjunghje torna u gettone.</string>
-    <string name="main_lock_title">Ammarchjunata di u screnu richiesta&#x00a0;!</string>
-    <string name="main_invalidated_title">Chjave invalitata&#x00a0;!</string>
-    <string name="main_invalidated_message">A chjave di stu gettone hè stata invalitata da u magazinu di chjavi Android. Què pò esse cagiunatu per via d’un cambiamentu di e definizioni di u screnu d’ammarchjunata. U gettone hè statu cacciatu. Ci vole à cuntattà u vostru furnidore di gettone.</string>
-    <string name="main_restore_title">Risturà via una salvaguardia</string>
-    <string name="main_restore_message">Stampittate a parolla d’intesa di salvaguardia</string>
-    <string name="main_restore_bad_password">Parolla d’intesa inaccettevule</string>
-    <string name="main_restore_cancel_title">Abbandunà a risturazione&#x00a0;?</string>
-    <string name="main_restore_cancel_message">Pirderete tutti i gettoni arregistrati precedentemente&#x00a0;!</string>
-    <string name="main_restore_proceed">Cuntinuà senza risturà</string>
-    <string name="main_restore_go_back">Ritornu</string>
+	<!-- Strings for the various dialogs. -->
+	<string name="main_about_title">FreeOTP versione %1$s (%2$d)</string>
+	<string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP hè publicatu sottu a licenza &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Per sapene di più, fighjate u nostru &lt;a href=&quot;https://freeotp.github.io&quot;&gt;situ web&lt;/a&gt;.</string>
+	<string name="main_welcome">Benvenuta in FreeOTP&#x00a0;!\n\nAghjunghjite un gettone per principià.</string>
+	<string name="main_deletion_title">Squassà i gettoni selezziunati&#x00a0;?</string>
+	<string name="main_deletion_message">A squassatura d’un gettone ùn u disattiveghja micca nant’à u servitore. S’è vo cuntinuate, u vostru contu puderia esse bluccatu. A squassatura d’un gettone ùn pò micca esse disfata.</string>
+	<string name="main_unsafe_title">U gettone hè à risicu&#x00a0;!</string>
+	<string name="main_unsafe_message">U gettone chì vo circate à aghjunghje impiegheghja parametri crittografichi chì sò debule. U so adopru hè scunsigliatu forte&#x00a0;! Ci vole à infurmà u vostru furnidore di gettone.</string>
+	<string name="main_invalid_title">U gettone hè inaccettevule&#x00a0;!</string>
+	<string name="main_invalid_message">U gettone chì vo circate à aghjunghje hè inaccettevule. Ci vole à infurmà u vostru furnidore di gettone.</string>
+	<string name="main_error_title">Sbagliu&#x00a0;!</string>
+	<string name="main_error_message">Un sbagliu hè accadutu pruvendu d’aghjunghje u gettone.</string>
+	<string name="main_lock_message">Stu gettone richiede à autenticassi à ogni usu. Vole si dì chì u screnu d’ammarchjunata di u vostru apparechju deve esse attivatu. Ci vole à attivà a sicurità di u screnu d’ammarchjunata è aghjunghje torna u gettone.</string>
+	<string name="main_lock_title">Ammarchjunata di u screnu richiesta&#x00a0;!</string>
+	<string name="main_invalidated_title">Chjave invalitata&#x00a0;!</string>
+	<string name="main_invalidated_message">A chjave di stu gettone hè stata invalitata da u magazinu di chjavi Android. Què pò esse cagiunatu per via d’un cambiamentu di e definizioni di u screnu d’ammarchjunata. U gettone hè statu cacciatu. Ci vole à cuntattà u vostru furnidore di gettone.</string>
+	<string name="main_restore_title">Risturà via una salvaguardia</string>
+	<string name="main_restore_message">Stampittate a parolla d’intesa di salvaguardia</string>
+	<string name="main_restore_bad_password">Parolla d’intesa inaccettevule</string>
+	<string name="main_restore_cancel_title">Abbandunà a risturazione&#x00a0;?</string>
+	<string name="main_restore_cancel_message">Pirderete tutti i gettoni arregistrati precedentemente&#x00a0;!</string>
+	<string name="main_restore_proceed">Cuntinuà senza risturà</string>
+	<string name="main_restore_go_back">Ritornu</string>
 
-    <!-- Strings for the password activity. -->
-    <string name="password">Parolla d’intesa</string>
-    <string name="password_confirm">Cunfirmà a parolla d’intesa</string>
-    <string name="password_info">E salvaguardie di gettone vi permettenu di ricuperalli dopu à una perdita di dati o di trasferisceli senza straziu versu un apparechju novu.\n\nE salvaguardie sò cifrate impieghendu a parolla d’intesa pruvista quaghjò. A sicurità di e vostre salvaguardie dipende d’una parolla d’intesa forta.\n\nU mudellu di sicurità di FreeOTP impone chì sta parolla d’intesa ÙN POSSI MICCA esse cambiata al di là. Ci vole à piglià st’infurmazione in contu quandu si sceglie a parolla d’intesa.</string>
-    <string name="password_match">E parolle d’intesa ùn currispondenu micca&#x00a0;!</string>
+	<!-- Strings for the password activity. -->
+	<string name="password">Parolla d’intesa</string>
+	<string name="password_confirm">Cunfirmà a parolla d’intesa</string>
+	<string name="password_info">E salvaguardie di gettone vi permettenu di ricuperalli dopu à una perdita di dati o di trasferisceli senza straziu versu un apparechju novu.\n\nE salvaguardie sò cifrate impieghendu a parolla d’intesa pruvista quaghjò. A sicurità di e vostre salvaguardie dipende d’una parolla d’intesa forta.\n\nU mudellu di sicurità di FreeOTP impone chì sta parolla d’intesa ÙN POSSI MICCA esse cambiata al di là. Ci vole à piglià st’infurmazione in contu quandu si sceglie a parolla d’intesa.</string>
+	<string name="password_match">E parolle d’intesa ùn currispondenu micca&#x00a0;!</string>
 
-    <!-- Strings for Manual Add activity -->
-    <string-array name="algorithms_array">
-        <item>SHA1</item>
-        <item>SHA224</item>
-        <item>SHA256</item>
-        <item>SHA384</item>
-        <item>SHA512</item>
-    </string-array>
-    <string-array name="intervals_array">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>120</item>
-        <item>300</item>
-    </string-array>
-    <string name="manual_account_hint">qualunque@esempiu.com</string>
-    <string name="manual_issuer_hint">Intrapresa Esempiu</string>
-    <string name="manual_secret_text">Sicretu</string>
-    <string name="manual_secret_base32_text">(Base32)</string>
-    <string name="manual_type_text">Tipu</string>
-    <string name="manual_button_totp_text">TOTP</string>
-    <string name="manual_button_hotp_text">HOTP</string>
-    <string name="manual_digits_text">Cifri</string>
-    <string name="manual_button_digits_six">6</string>
-    <string name="manual_button_digits_eight">8</string>
-    <string name="manual_algorithm">Cudificazione</string>
-    <string name="manual_interval">Intervallu</string>
-    <string name="manual_add_token">Aghjunghje un gettone</string>
-    <string name="manual_accessibility_algorithm">Cudificazione di i gettoni</string>
-    <string name="manual_accessibility_interval">Intervallu di i gettoni</string>
-    <string name="edit_token">Mudificà u gettone</string>
-    <string name="get_started">PRINCIPIÀ</string>
+	<!-- Strings for Manual Add activity -->
+	<string-array name="algorithms_array">
+		<item>SHA1</item>
+		<item>SHA224</item>
+		<item>SHA256</item>
+		<item>SHA384</item>
+		<item>SHA512</item>
+	</string-array>
+	<string-array name="intervals_array">
+		<item>15</item>
+		<item>30</item>
+		<item>60</item>
+		<item>120</item>
+		<item>300</item>
+	</string-array>
+	<string name="manual_account_hint">qualunque@esempiu.com</string>
+	<string name="manual_issuer_hint">Intrapresa Esempiu</string>
+	<string name="manual_secret_text">Sicretu</string>
+	<string name="manual_secret_base32_text">(Base32)</string>
+	<string name="manual_type_text">Tipu</string>
+	<string name="manual_button_totp_text">TOTP</string>
+	<string name="manual_button_hotp_text">HOTP</string>
+	<string name="manual_digits_text">Cifri</string>
+	<string name="manual_button_digits_six">6</string>
+	<string name="manual_button_digits_eight">8</string>
+	<string name="manual_algorithm">Cudificazione</string>
+	<string name="manual_interval">Intervallu</string>
+	<string name="manual_add_token">Aghjunghje un gettone</string>
+	<string name="manual_accessibility_algorithm">Cudificazione di i gettoni</string>
+	<string name="manual_accessibility_interval">Intervallu di i gettoni</string>
+	<string name="edit_token">Mudificà u gettone</string>
+	<string name="get_started">PRINCIPIÀ</string>
 
-    <!-- Strings for Backup related operations -->
-    <string name="backup_title">Salvaguardia</string>
-    <string name="restore_title">Risturazione</string>
-    <string name="backup_restore_title">Salvaguardia è risturazione</string>
-    <string name="keystore_migration_explanation">Avà i gettoni FreeOTP sò trasferiti ver di u magazinu di chjavi Android&#x00a0;! Què face chì a sicurità di i gettoni hè più forte, ma ùn si pò più espurtà e chjavi. \n\nAvà e funzioni di salvaguardia è di risturazione sò aghjunte per assicurassi chì i gettoni ponu esse ricuperati. Serete invitati à creà una parolla d’intesa principale per inizià e salvaguardie cifrate di gettone.</string>
-    <string name="manual_backup_explanation">Un altra pussibilità hè d’espurtà un schedariu cifratu di salvaguardia versu una memoria esterna via l’appiecazione. A barra d’attrezzi superiore cuntene i dui elementi chjamati «&#x00a0;Salvaguardia&#x00a0;» è «&#x00a0;Risturazione&#x00a0;» per impiegà sta metoda manuale di salvaguardia.</string>
-    <string name="google_auto_backup_link">FreeOTP pò impiegà e funzioni autumatiche di salvaguardia è di risturazione d’Android. Stu &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=fr&quot;&gt;liame Google&lt;/a&gt; cuntene l’infurmazioni per sapè cumu impiegà sta metoda di salvaguardia.</string>
-    <string name="backup_imageview">fiura di salvaguardia</string>
-    <string name="keystore_image">fiura di magazinu di chjavi</string>
-    <string name="android_keystore_title">Magazinu di chjavi Android</string>
-    <string name="menu_title">Listinu</string>
+	<!-- Strings for Backup related operations -->
+	<string name="backup_title">Salvaguardia</string>
+	<string name="restore_title">Risturazione</string>
+	<string name="backup_restore_title">Salvaguardia è risturazione</string>
+	<string name="keystore_migration_explanation">Avà i gettoni FreeOTP sò trasferiti ver di u magazinu di chjavi Android&#x00a0;! Què face chì a sicurità di i gettoni hè più forte, ma ùn si pò più espurtà e chjavi. \n\nAvà e funzioni di salvaguardia è di risturazione sò aghjunte per assicurassi chì i gettoni ponu esse ricuperati. Serete invitati à creà una parolla d’intesa principale per inizià e salvaguardie cifrate di gettone.</string>
+	<string name="manual_backup_explanation">Un altra pussibilità hè d’espurtà un schedariu cifratu di salvaguardia versu una memoria esterna via l’appiecazione. A barra d’attrezzi superiore cuntene i dui elementi chjamati «&#x00a0;Salvaguardia&#x00a0;» è «&#x00a0;Risturazione&#x00a0;» per impiegà sta metoda manuale di salvaguardia.</string>
+	<string name="google_auto_backup_link">FreeOTP pò impiegà e funzioni autumatiche di salvaguardia è di risturazione d’Android. Stu &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=fr&quot;&gt;liame Google&lt;/a&gt; cuntene l’infurmazioni per sapè cumu impiegà sta metoda di salvaguardia.</string>
+	<string name="backup_imageview">fiura di salvaguardia</string>
+	<string name="keystore_image">fiura di magazinu di chjavi</string>
+	<string name="android_keystore_title">Magazinu di chjavi Android</string>
+	<string name="menu_title">Listinu</string>
 
 </resources>
