@@ -28,8 +28,8 @@
     <string name="auto_copy_clipboard">自動複製到剪貼簿</string>
     <string name="cancel">取消</string>
     <string name="delete">刪除</string>
-    <string name="move_up">上移</string>
-    <string name="move_down">下移</string>
+    <string name="move_up">向上移動</string>
+    <string name="move_down">向下移動</string>
     <string name="add_anyway">仍然新增</string>
     <string name="unknown_issuer">未知的發行者</string>
     <string name="enable_lock_screen">啟用螢幕鎖定</string>
