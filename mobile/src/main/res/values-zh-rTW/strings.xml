@@ -70,7 +70,7 @@
     <!-- Strings for the password activity. -->
     <string name="password">輸入密碼</string>
     <string name="password_confirm">確認輸入密碼</string>
-    <string name="password_info">Token 備份讓您能從資料遺失中復原，並輕易地將您的動態密碼轉移到新的裝置。
+    <string name="password_info">動態密碼備份讓您能從資料遺失中復原，並輕易地將您的動態密碼轉移到新的裝置。
 \n
 \n備份會用以下提供的密碼進行加密。您的備份的安全性取決於密碼的強度。
 \n
@@ -103,16 +103,16 @@
     <string name="manual_button_digits_eight">8</string>
     <string name="manual_algorithm">演算法</string>
     <string name="manual_interval">時間間隔（秒）</string>
-    <string name="manual_add_token">新增 Token</string>
-    <string name="manual_accessibility_algorithm">Token 演算法</string>
-    <string name="manual_accessibility_interval">Token 間隔</string>
-    <string name="edit_token">編輯 Token</string>
+    <string name="manual_add_token">新增動態密碼</string>
+    <string name="manual_accessibility_algorithm">動態密碼演算法</string>
+    <string name="manual_accessibility_interval">動態密碼間隔</string>
+    <string name="edit_token">編輯動態密碼</string>
     <string name="get_started">開始使用</string>
     <!-- Strings for Backup related operations -->
     <string name="backup_title">備份</string>
     <string name="restore_title">還原</string>
     <string name="backup_restore_title">備份和還原</string>
-    <string name="keystore_migration_explanation">FreeOTP 動態密碼現已遷移到 Android KeyStore！這會讓動態密碼金鑰的安全性增加，但也將限制 token 金鑰無法被匯出。
+    <string name="keystore_migration_explanation">FreeOTP 動態密碼現已遷移到 Android KeyStore！這會讓動態密碼金鑰的安全性增加，但也將限制動態密碼金鑰無法被匯出。
 \n
 \n現已新增備份和還原功能以確保動態密碼可以被復原。系統會提示您建立主密碼以加密備份。</string>
     <string name="manual_backup_explanation">除此之外，亦可在應用程式中將加密的備份檔案匯出到外部儲存空間。您可以透過上方工具列選單中的「備份」和「還原」選項來使用此功能進行手動備份。</string>
