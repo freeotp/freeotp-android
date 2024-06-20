@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">Il token specificato non era valido!</string>
+    <string name="delete">Elimina</string>
+    <string name="edit">Modifica</string>
+    <string name="restore_defaults">Ripristina predefiniti</string>
+    <string name="no_keys">Nessuna chiave OTP installata.</string>
+    <string name="add_token">Aggiungi token</string>
+    <string name="scan_qr_code">Scansiona codice QR</string>
+    <string name="interval">Intervallo</string>
+    <string name="counter">Contatore</string>
+    <string name="secret">Segreto</string>
+    <string name="type">Tipo</string>
+    <string name="algorithm">Algoritmo</string>
+    <string name="digits">Cifre</string>
+    <string name="save">Salva</string>
+    <string name="code_copied">Codice copiato negli appunti.</string>
+
+    <string name="about_freeotp">Info su FreeOTP</string>
+    <string name="about_version">Versione FreeOTP %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP ha una licenza %1$s.</string>
+    <string name="about_website">Per altre informazioni, vedi il nostro %s.</string>
+    <string name="about_icons">Alcune icone usate da questa applicazione sono riprodotte da lavoro creato e condiviso dall\'Android Open Source Project e usate secondo i termini descritti nella Licenza di Attribuzione Creative Commons 2.5.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">Errore durante l\'accesso alla fotocamera!</string>
+    <string name="error_permission_camera_open">L\'accesso alla fotocamera non è autorizzato</string>
+    <string name="error_image_open">Errore durante l\'apertura dell\'immagine!</string>
+
+    <string name="delete_summary">Questa è la tua ultima possibilità: se elimini questo token, sarà perduto per sempre. Non sarà disattivato sul server.</string>
+    <string name="delete_question">Eliminare questo token?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
