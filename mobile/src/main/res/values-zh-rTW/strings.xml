@@ -20,7 +20,7 @@
    --><resources>
     <string name="app_name">FreeOTP</string>
     <!-- Buttons -->
-    <string name="ok">確定</string>
+    <string name="ok">確認</string>
     <string name="done">完成</string>
     <string name="close">關閉</string>
     <string name="save">儲存</string>
