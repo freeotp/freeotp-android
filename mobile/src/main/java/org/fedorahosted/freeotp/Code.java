@@ -20,8 +20,8 @@
 
 package org.fedorahosted.freeotp;
 
+import androidx.annotation.Nullable;
 import org.fedorahosted.freeotp.utils.Time;
-import org.jetbrains.annotations.Nullable;
 
 public class Code {
     static class Factory {
