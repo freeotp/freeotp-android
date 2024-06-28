@@ -33,8 +33,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     // Needed to import Kotlin functions from dependencies e.g. io.fotoapparat
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.0'
 
