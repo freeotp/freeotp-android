@@ -2,6 +2,7 @@ package org.fedorahosted.freeotp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Looper;
 import android.util.Log;
 import android.util.Pair;
 
@@ -12,6 +13,7 @@ import org.fedorahosted.freeotp.utils.SelectableAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -53,6 +55,14 @@ public class TokenAdapterTest extends TestCase implements SelectableAdapter.Even
     }
 
     public TokenAdapterTest() throws Token.InvalidUriException {
+    }
+
+    @BeforeClass
+    public static void setupOnce() {
+        // Instrumented tests are launched in a dedicated instrumentation thread that does not prepare an Android Looper.
+        // But it is mandatory here as Adapter will instantiate an Android Handler.
+        if (Looper.myLooper() == null)
+            Looper.prepare();
     }
 
     @Before
