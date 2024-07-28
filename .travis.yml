@@ -1,9 +1,0 @@
-language: android
-dist: trusty
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-29.0.2
-    - android-29
-    - extra-google-m2repository
