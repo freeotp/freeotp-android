@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/freeotp/freeotp-android.svg?branch=master)](https://travis-ci.org/freeotp/freeotp-android)
+[![Build Status](https://github.com/freeotp/freeotp-android/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/freeotp/freeotp-android/actions/workflows/build.yml)
 
 # FreeOTP
 
