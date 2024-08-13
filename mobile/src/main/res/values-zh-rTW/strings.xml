@@ -35,46 +35,46 @@
     <string name="enable_lock_screen">啟用螢幕鎖定</string>
     <!-- Strings related to token sharing. -->
     <string name="share_jelling_send_to">傳送至…</string>
-    <string name="share_jelling_scan_for">掃描以尋找…</string>
-    <string name="share_jelling_scanning_for">正在掃描以尋找…</string>
+    <string name="share_jelling_scan_for">搜尋並尋找…</string>
+    <string name="share_jelling_scanning_for">掃描中並尋找…</string>
     <string name="share_jelling_bluetooth_devices">藍牙裝置</string>
     <string name="share_clipboard_copy_to">複製到…</string>
     <string name="share_clipboard_clipboard">剪貼簿</string>
     <!-- Strings related to camera errors. -->
-    <string name="error_camera_open">開啟相機時發生錯誤！</string>
+    <string name="error_camera_open">啟動相機時發生錯誤！</string>
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP 版本 %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP 採用 &lt;a href=https://www.apache.org/licenses/LICENSE-2.0.html&gt;Apache 2.0&lt;/a&gt; 授權。&lt;br/&gt;&lt;br/&gt;如需更多資訊，請參閱我們的 &lt;a href=https://freeotp.github.io&gt;網站&lt;/a&gt;。</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP 採用 &lt;a href=https://www.apache.org/licenses/LICENSE-2.0.html&gt;Apache 2.0&lt;/a&gt; 授權標準。&lt;br/&gt;&lt;br/&gt;假如您需更多資訊，請參閱我們的 &lt;a href=https://freeotp.github.io&gt;網站&lt;/a&gt;。</string>
     <string name="main_welcome">歡迎使用 FreeOTP！
 \n
-\n新增一組動態密碼以開始使用。</string>
-    <string name="main_deletion_title">刪除選取的動態密碼？</string>
-    <string name="main_deletion_message">刪除動態密碼並不會在伺服器上將其停用。如果繼續，您的帳戶可能會被鎖定。刪除的動態密碼將無法復原。</string>
-    <string name="main_unsafe_title">動態密碼存在安全風險！</string>
-    <string name="main_unsafe_message">您嘗試新增的動態密碼包含較弱的加密參數。強烈建議不要使用此動態密碼！請聯絡您的動態密碼提供者。</string>
+\n請新增一組動態密碼後開始使用。</string>
+    <string name="main_deletion_title">要刪除已選取的動態密？</string>
+    <string name="main_deletion_message">刪除動態密碼不會停用伺服器上的設定。要是您繼續，您的帳戶可能會被鎖定。已刪除的動態密碼將無法復原。</string>
+    <string name="main_unsafe_title">動態密碼不安全！</string>
+    <string name="main_unsafe_message">您嘗試新增的動態密碼加密強度較低，強烈建議不要使用！請聯絡您的動態密碼提供者。</string>
     <string name="main_invalid_title">動態密碼無效！</string>
     <string name="main_invalid_message">您嘗試新增的動態密碼無效。請通知您的動態密碼提供者。</string>
     <string name="main_error_title">錯誤！</string>
-    <string name="main_error_message">嘗試新增動態密碼時發生錯誤。</string>
-    <string name="main_lock_message">此動態密碼要求您在每次使用時進行身分驗證。這表示您必須啟用裝置上的螢幕鎖定功能。請啟用螢幕鎖定後再次新增動態密碼。</string>
-    <string name="main_lock_title">需要螢幕鎖定！</string>
+    <string name="main_error_message">新增動態密碼時出錯了。</string>
+    <string name="main_lock_message">這個動態密碼要求每次使用時都要進行身分驗證，所以您必須先啟用裝置的螢幕鎖定功能。請先啟用螢幕鎖定，再重新設定動態密碼。</string>
+    <string name="main_lock_title">螢幕鎖定功能必須開啟！</string>
     <string name="main_invalidated_title">金鑰已失效！</string>
-    <string name="main_invalidated_message">此動態密碼的金鑰已被 Android KeyStore 設為失效。這可能是因為您的螢幕鎖定設定已變更。動態密碼已被移除。請聯絡您的動態密碼提供者。</string>
-    <string name="main_restore_title">從備份還原</string>
+    <string name="main_invalidated_message">這個動態密碼的金鑰已被 Android KeyStore 設為失效，可能是因為您變更了螢幕鎖定設定。動態密碼已被移除，請聯絡您的動態密碼提供者。</string>
+    <string name="main_restore_title">從備份中還原</string>
     <string name="main_restore_message">請輸入備份密碼</string>
     <string name="main_restore_bad_password">密碼無效</string>
-    <string name="main_restore_cancel_title">取消還原？</string>
-    <string name="main_restore_cancel_message">您將失去所有先前備份的動態密碼！</string>
-    <string name="main_restore_proceed">不進行還原並繼續</string>
+    <string name="main_restore_cancel_title">要取消還原嗎？</string>
+    <string name="main_restore_cancel_message">您將會失去所有先前備份的動態密碼喔！</string>
+    <string name="main_restore_proceed">不進行還原，繼續操作</string>
     <string name="main_restore_go_back">返回</string>
     <!-- Strings for the password activity. -->
     <string name="password">輸入密碼</string>
     <string name="password_confirm">確認輸入密碼</string>
-    <string name="password_info">動態密碼備份讓您能從資料遺失中復原，並輕易地將您的動態密碼轉移到新的裝置。
+    <string name="password_info">動態密碼備份讓您可以從資料遺失中恢復，並且輕鬆地把您的動態密碼轉移到新裝置上。
 \n
-\n備份會用以下提供的密碼進行加密。備份的安全性取決於密碼的強度。
+\n備份會使用您提供的密碼來加密。備份的安全性取決於密碼的強度。
 \n
-\n請留意，此密碼受到 FreeOTP 的安全模型限制，設定後就無法變更。</string>
+\n請注意，這個密碼受到 FreeOTP 的安全模型限制，設定後無法更改。</string>
     <string name="password_match">密碼不一致！</string>
     <!-- Strings for Manual Add activity -->
     <string-array name="algorithms_array">
@@ -92,33 +92,33 @@
         <item>300</item>
     </string-array>
     <string name="manual_account_hint">jdoe@example.com</string>
-    <string name="manual_issuer_hint">服務名稱</string>
-    <string name="manual_secret_text">金鑰</string>
-    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_issuer_hint">公司名稱範例</string>
+    <string name="manual_secret_text">私密金鑰</string>
+    <string name="manual_secret_base32_text">32位元進制</string>
     <string name="manual_type_text">類型</string>
-    <string name="manual_button_totp_text">TOTP</string>
-    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_button_totp_text">基於時間的一次性密碼 （TOTP）</string>
+    <string name="manual_button_hotp_text">基於 HMAC 的一次性密碼算法，這是一種使用散列消息驗證碼的技術。</string>
     <string name="manual_digits_text">密碼長度</string>
     <string name="manual_button_digits_six">6</string>
     <string name="manual_button_digits_eight">8</string>
     <string name="manual_algorithm">演算法</string>
-    <string name="manual_interval">時間間隔（秒）</string>
+    <string name="manual_interval">時間間隔(秒)</string>
     <string name="manual_add_token">新增動態密碼</string>
     <string name="manual_accessibility_algorithm">動態密碼演算法</string>
     <string name="manual_accessibility_interval">動態密碼間隔</string>
     <string name="edit_token">編輯動態密碼</string>
-    <string name="get_started">開始使用</string>
+    <string name="get_started">開始使用吧</string>
     <!-- Strings for Backup related operations -->
     <string name="backup_title">備份</string>
-    <string name="restore_title">還原</string>
+    <string name="restore_title">回復</string>
     <string name="backup_restore_title">備份和還原</string>
-    <string name="keystore_migration_explanation">FreeOTP 動態密碼現已遷移到 Android KeyStore！這會讓動態密碼金鑰的安全性增加，但也將限制動態密碼金鑰的匯出。
+    <string name="keystore_migration_explanation">FreeOTP 的動態密碼現在已經遷移到 Android KeyStore！這樣可以提高動態密碼金鑰的安全性，但也會限制金鑰的匯出功能。
 \n
-\n現已新增備份和還原功能以確保動態密碼可以被復原。系統會提示您建立主密碼以加密備份。</string>
-    <string name="manual_backup_explanation">此外，在應用程式中可將加密的備份檔案匯出到外部儲存空間。您可以透過上方工具列選單中的「備份」和「還原」來進行手動備份。</string>
-    <string name="google_auto_backup_link">FreeOTP 支援 Android 的自動備份和還原功能。詳細使用此備份方法的資訊，請查閱 &lt;a href="https://support.google.com/android/answer/2819582?hl=zh-Hant"&gt;Google 提供的說明&lt;/a&gt;。</string>
+\n現在已經新增了備份和還原功能，以確保動態密碼可以被恢復。系統會提示您設置主密碼來加密備份。</string>
+    <string name="manual_backup_explanation">此外，您可以將加密的備份檔案匯出到外部儲存空間。只需透過上方工具列選單中的「備份」和「還原」選項來進行手動備份。</string>
+    <string name="google_auto_backup_link">FreeOTP 支援 Android 的自動備份和還原功能。要了解如何使用這個備份方法，請查閱 &lt;a href=https://support.google.com/android/answer/2819582\?hl=zh-Hant&gt;Google 提供的說明&lt;/a&gt;。</string>
     <string name="backup_imageview">備份 imageView</string>
-    <string name="keystore_image">KeyStore image</string>
-    <string name="android_keystore_title">Android KeyStore</string>
+    <string name="keystore_image">金鑰存放區 image</string>
+    <string name="android_keystore_title">Android 金鑰存放區</string>
     <string name="menu_title">選單</string>
 </resources>
