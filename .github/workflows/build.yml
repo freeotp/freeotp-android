@@ -8,8 +8,14 @@ jobs:
     - name: Checkout project sources
       uses: actions/checkout@v3
 
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 17
+
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/actions/setup-gradle@v4
 
     - name: Run build with Gradle Wrapper
       run: ./gradlew build -x lint
@@ -18,6 +24,9 @@ jobs:
     # macOS v14 / m1 GitHub Actions runners not allowing Android emulators
     # https://github.com/ReactiveCircus/android-emulator-runner/issues/397
     runs-on: macos-13
+    strategy:
+      matrix:
+        api-level: [24, 29]
     steps:
     - name: Checkout project sources
       uses: actions/checkout@v3
@@ -32,7 +41,7 @@ jobs:
     - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 29
+        api-level: ${{ matrix.api-level }}
         script: ./gradlew connectedAndroidTest --stacktrace
         disable-animations: true
         disable-spellchecker: true
