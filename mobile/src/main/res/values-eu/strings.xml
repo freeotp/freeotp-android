@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="app_welcome">Ongi etorri FreeOTP 2.0-ra</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ados</string>
+    <string name="done">Eginda</string>
+    <string name="close">Itxi</string>
+    <string name="save">Gorde</string>
+    <string name="about">Honi buruz</string>
+    <string name="auto_copy_clipboard">Kopiatu automatikoki arbelera</string>
+    <string name="cancel">Utzi</string>
+    <string name="delete">Ezabatu</string>
+    <string name="move_up">Eraman gora</string>
+    <string name="move_down">Eraman behera</string>
+    <string name="add_anyway">Gehitu hala ere</string>
+    <string name="unknown_issuer">Hornitzaile ezezaguna</string>
+    <string name="enable_lock_screen">Gaitu pantaila blokeatzea</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Bidali…</string>
+    <string name="share_jelling_scan_for">Eskaneatu…</string>
+    <string name="share_jelling_scanning_for">Eskaneatzen…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth gailuak</string>
+    <string name="share_clipboard_copy_to">Kopiatu…</string>
+    <string name="share_clipboard_clipboard">Arbela</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Errorea kamera irekitzean!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP %1$s (%2$d) bertsioa</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP-k &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt; lizentzia du.&lt;br/&gt;&lt;br/&gt;Informazio gehiago &lt;a href=&quot;https://freeotp.github.io&quot;&gt;gure webgunean&lt;/a&gt;.</string>
+    <string name="main_welcome">Ongi etorri FreeOTP-ra!\n\nGehitu token bat hasteko.</string>
+    <string name="main_deletion_title">Hautatutako tokenak ezabatu?</string>
+    <string name="main_deletion_message">Token bat ezabatzeak ez du desgaitzen zerbitzarian. Jarraitzen baduzu, kontua blokeatuta geratu daiteke. Token bat ezabatzea ezin da desegin.</string>
+    <string name="main_unsafe_title">Tokena ez da segurua!</string>
+    <string name="main_unsafe_message">Gehitu nahi duzun tokenak parametro kriptografiko ahulak ditu. Token hau erabiltzea ez da inolaz ere gomendagarria! Jakinarazi zure tokenaren hornitzaileari.</string>
+    <string name="main_invalid_title">Tokena baliogabea da!</string>
+    <string name="main_invalid_message">Gehitu nahi duzun tokena baliogabea da. Mesedez jakinarazi zure tokenaren hornitzaileari.</string>
+    <string name="main_error_title">Errorea!</string>
+    <string name="main_error_message">Errore bat gertatu da tokena gehitzen saiatzean.</string>
+    <string name="main_lock_message">Token honek erabiltzen duzun aldiro autentifikatzea eskatzen du. Horrek esan nahi du gailuaren pantaila blokeatzeak aktibatuta egon behar duela. Gaitu pantaila blokeatzea eta gehitu tokena berriro.</string>
+    <string name="main_lock_title">Pantaila blokeatzea beharrezkoa da!</string>
+    <string name="main_invalidated_title">Gakoa baliogabetuta!</string>
+    <string name="main_invalidated_message">Token honen gakoa baliogabetu du Android-en Key Store-k. Pantaila blokeatzearen ezarpenen aldaketa bat izan daiteke horren arrazoia. Token hau kendu da. Jarri harremanetan tokenaren hornitzailearekin.</string>
+    <string name="main_restore_title">Berrezarri babeskopiatik</string>
+    <string name="main_restore_message">Idatzi babeskopiaren pasahitza</string>
+    <string name="main_restore_bad_password">Pasahitz baliogabea</string>
+    <string name="main_restore_cancel_title">Berrezartzea ezeztatu?</string>
+    <string name="main_restore_cancel_message">Aurrez babeskopia egindako token guztiak galduko dituzu!</string>
+    <string name="main_restore_proceed">Jarraitu berrezarri gabe</string>
+    <string name="main_restore_go_back">Atzera</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Pasahitza</string>
+    <string name="password_confirm">Berretsi pasahitza</string>
+    <string name="password_info">Tokenen babeskopiek aukera ematen dizute datuen galeratik errekuperatzeko eta tokenak gailu berri batera erraz transferitzeko.\n\nBabeskopiak behean jarritako pasahitzarekin enkriptatzen dira. Babeskopiak seguruak izan daitezen pasahitz sendo bat erabili behar da.\n\nFreeOTP-ren segurtasun ereduaren ondorioz pasahitzak EZINGO DIRA aldatu. Kontuan izan pasahitza aukeratzean.</string>
+    <string name="password_match">Pasahitzak ez datoz bat!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">izena@adibidea.eus</string>
+    <string name="manual_issuer_hint">Adibidea</string>
+    <string name="manual_secret_text">Sekretua</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Mota</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Digituak</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritmoa</string>
+    <string name="manual_interval">Tartea</string>
+    <string name="manual_add_token">Gehitu tokena</string>
+    <string name="manual_accessibility_algorithm">Tokenaren algoritmoa</string>
+    <string name="manual_accessibility_interval">Tokenaren tartea</string>
+    <string name="edit_token">Editatu tokena</string>
+    <string name="get_started">HASI</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Babeskopia</string>
+    <string name="restore_title">Berrezarri</string>
+    <string name="backup_restore_title">Backup and Restore</string>
+    <string name="keystore_migration_explanation">FreeOTP tokenak Android Keystore-ra migratu dira! Ondorioz token sekretuen segurtasuna handiagoa da, baina gakoak ezin dira esportatu. \n\nBabeskopiak eta berrezartzeko funtzionalitatea gehitu dira tokenak berreskuratu ahal izatea ziurtatzeko. Pasahitz nagusi bat sortzeko eskatuko zaizu, tokenen babeskopia enkriptatuak konfiguratzeko.</string>
+    <string name="manual_backup_explanation">Alternatively, an encrypted backup data file can be exported to external storage from within the App. The top toolbar menu now contains items labeled \'Backup\' and \'Restore\' to utilize this manual backup method.</string>
+    <string name="google_auto_backup_link">FreeOTP-k Androiden babeskopia eta berrezartze funtzionalitate automatikoak erabil ditzake. &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google-ren esteka&lt;/a&gt; honetan aurkituko duzu babeskopia metodo hau nola erabili.</string>
+    <string name="backup_imageview">Babeskopiaren irudi-ikuspegia</string>
+    <string name="keystore_image">Keystore irudia</string>
+    <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Menua</string>
+
+</resources>
