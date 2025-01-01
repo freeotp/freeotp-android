@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="app_welcome">Welkom bij FreeOTP 2.0</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Klaar</string>
+    <string name="close">Sluiten</string>
+    <string name="save">Opslaan</string>
+    <string name="about">Over</string>
+    <string name="auto_copy_clipboard">Automatisch Klembord</string>
+    <string name="cancel">Annuleren</string>
+    <string name="delete">Verwijderen</string>
+    <string name="move_up">Naar Boven Verplaatsen</string>
+    <string name="move_down">Naar Beneden Verplaatsen</string>
+    <string name="add_anyway">Toch Toevoegen</string>
+    <string name="unknown_issuer">Onbekende Uitgever</string>
+    <string name="enable_lock_screen">Schermvergrendeling Inschakelen</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Verzenden naar…</string>
+    <string name="share_jelling_scan_for">Scannen voor…</string>
+    <string name="share_jelling_scanning_for">Scannen voor…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth Apparaten</string>
+    <string name="share_clipboard_copy_to">Kopiëren naar…</string>
+    <string name="share_clipboard_clipboard">Klembord</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Fout bij het openen van de camera!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP is gelicenseerd onder &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Voor meer informatie, zie onze &lt;a href=&quot;https://freeotp.github.io&quot;&gt;website&lt;/a&gt;.</string>
+    <string name="main_welcome">Welkom bij FreeOTP!\n\nVoeg een token toe om te beginnen.</string>
+    <string name="main_deletion_title">Geselecteerde tokens verwijderen?</string>
+    <string name="main_deletion_message">Het verwijderen van een token schakelt deze niet uit op de server. Als u doorgaat, heeft u mogelijk geen toegang meer tot uw account. Het verwijderen van een token kan niet ongedaan worden gemaakt.</string>
+    <string name="main_unsafe_title">Token is onveilig!</string>
+    <string name="main_unsafe_message">Het token dat u probeert toe te voegen bevat zwakke cryptografische parameters. Het gebruik van dit token wordt ten zeerste afgeraden! Waarschuw uw tokenprovider.</string>
+    <string name="main_invalid_title">Token is ongeldig!</string>
+    <string name="main_invalid_message">Het token dat u probeert toe te voegen is ongeldig. Waarschuw uw tokenprovider.</string>
+    <string name="main_error_title">Foutmelding!</string>
+    <string name="main_error_message">Er is een fout opgetreden bij het toevoegen van een token.</string>
+    <string name="main_lock_message">Bij dit token moet u zich steeds opnieuw authenticeren. Dit betekent dat het vergrendelscherm van uw apparaat ingeschakeld moet zijn. Schakel het vergrendelscherm in en voeg het token opnieuw toe.</string>
+    <string name="main_lock_title">Vergrendelscherm vereist!</string>
+    <string name="main_invalidated_title">Sleutel ongeldig verklaard!</string>
+    <string name="main_invalidated_message">De sleutel voor dit token is ongeldig verklaard door de Android Key Store. Dit kan komen door een wijziging in uw vergrendelscherminstellingen. Het token is verwijderd. Neem contact op met uw tokenprovider.</string>
+    <string name="main_restore_title">Herstellen vanaf back-up</string>
+    <string name="main_restore_message">Voer het back-up wachtwoord in</string>
+    <string name="main_restore_bad_password">Ongeldig wachtwoord</string>
+    <string name="main_restore_cancel_title">Herstellen Annuleren?</string>
+    <string name="main_restore_cancel_message">U verliest alle tokens waarvan u eerder een back-up heeft gemaakt!</string>
+    <string name="main_restore_proceed">Doorgaan zonder te herstellen</string>
+    <string name="main_restore_go_back">Ga Terug</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Wachtwoord</string>
+    <string name="password_confirm">Bevestig Wachtwoord</string>
+    <string name="password_info">Met token back-ups kunt u gegevensverlies herstellen en uw tokens moeiteloos overzetten naar een nieuw apparaat.\n\nBack-ups worden versleuteld met het hieronder vermelde wachtwoord. De beveiliging van uw back-ups hangt af van een sterk wachtwoord.\n\nHet FreeOTP-beveiligingsmodel schrijft voor dat dit wachtwoord op een later tijdstip NIET kan worden gewijzigd. Houd hier rekening mee bij het kiezen van uw wachtwoord.</string>
+    <string name="password_match">Wachtwoorden komen niet overeen!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Example Inc</string>
+    <string name="manual_secret_text">Geheim</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Type</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Cijfers</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritme</string>
+    <string name="manual_interval">Interval</string>
+    <string name="manual_add_token">Token toevoegen</string>
+    <string name="manual_accessibility_algorithm">Token algoritme</string>
+    <string name="manual_accessibility_interval">Token Interval</string>
+    <string name="edit_token">Token wijzigen</string>
+    <string name="get_started">AAN DE SLAG</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Back-up</string>
+    <string name="restore_title">Herstellen</string>
+    <string name="backup_restore_title">Back-up en Herstellen</string>
+    <string name="keystore_migration_explanation">FreeOTP-tokens worden nu gemigreerd naar de Android Keystore! Dit resulteert in een verhoogde beveiliging van token geheimen, maar sleutelmateriaal kan niet worden geëxporteerd. \n\nBack-up- en herstelfunctionaliteit is nu toegevoegd om ervoor te zorgen dat tokens kunnen worden hersteld. U wordt gevraagd een hoofdwachtwoord te maken om versleutelde tokenback-ups in te stellen.</string>
+    <string name="manual_backup_explanation">Als alternatief kan een versleuteld back-upgegevensbestand worden geëxporteerd naar externe opslag vanuit de app. Het bovenste werkbalkmenu bevat nu items met de labels \'Back-up\' en \'Herstellen\' om deze handmatige back-up methode te gebruiken.</string>
+    <string name="google_auto_backup_link">FreeOTP kan deelnemen aan de automatische back-up- en herstelfunctionaliteit van Android. Deze &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=nl&quot;&gt;Google-link&lt;/a&gt; bevat informatie over hoe u deze back-upmethode kunt gebruiken.</string>
+    <string name="backup_imageview">backup imageView</string>
+    <string name="keystore_image">keystore image</string>
+    <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Menu</string>
+
+</resources>
