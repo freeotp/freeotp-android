@@ -142,6 +142,77 @@ public class TokenPersistenceTest implements SelectableAdapter.EventListener {
         validateTokens(cur, a2);
     }
 
+    private void copySP(SharedPreferences copyFrom, SharedPreferences copyTo) {
+        // Copy to
+        SharedPreferences.Editor ed = copyTo.edit();
+        // Copy from
+        SharedPreferences sp = copyFrom;
+        ed.clear();
+        for (Map.Entry<String, ?> entry : sp.getAll().entrySet()) {
+            Object v = entry.getValue();
+            String key = entry.getKey();
+            if (v instanceof String) {
+                ed.putString(key, ((String) v));
+            }
+        }
+        ed.commit();
+    }
+
+    @Test
+    // Test multiple restore passes
+    public void tokenBackupRestoreMultiPass() throws GeneralSecurityException,
+            IOException, Token.UnsafeUriException, Token.InvalidUriException, TokenPersistence.BadPasswordException, JSONException {
+        setup(null);
+        SharedPreferences cur = mContext.getSharedPreferences("tokenStore", android.content.Context.MODE_PRIVATE);
+        SharedPreferences bkp = mContext.getSharedPreferences("tokenBackup", Context.MODE_PRIVATE);
+        SharedPreferences bkpCopy = mContext.getSharedPreferences("tokenBackupCopy", Context.MODE_PRIVATE);
+
+        TokenPersistence tokenBackup = new TokenPersistence(mContext);
+        String origPwd = "backup";
+        String newPwd = "redhat";
+
+        tokenBackup.provision(origPwd);
+        Adapter a = new Adapter(mContext, this);
+
+        for (Map.Entry<String, String> entry : uris.entrySet()) {
+            Pair<SecretKey, Token> pair = Token.parse(entry.getValue());
+            a.add(pair.first, pair.second);
+        }
+
+        // Backup and Restore Pass 1
+        copySP(bkp, bkpCopy);
+        // Simulate app removal + reinstall
+        for (int i = 0; i < numTokens; i++) {
+            a.delete(0);
+        }
+        cur.edit().clear().commit();
+        assertEquals(0, cur.getAll().size());
+
+        // Setup new backup password
+        tokenBackup.provision(newPwd);
+
+        // Replace SP backup copy, must be after new provision to not overwrite MK
+        copySP(bkpCopy, bkp);
+        a.restoreTokens(origPwd);
+        validateTokens(cur, a);
+
+        // Pass 2: export and attempt restore again
+        copySP(bkp, bkpCopy);
+        for (int i = 0; i < numTokens; i++) {
+            a.delete(0);
+        }
+        cur.edit().clear().commit();
+        assertEquals(0, cur.getAll().size());
+
+        tokenBackup.provision(newPwd);
+        copySP(bkpCopy, bkp);
+        a.restoreTokens(origPwd);
+        String order = cur.getString("tokenOrder", null);
+        assertNotNull(order);
+
+        validateTokens(cur, a);
+    }
+
     @Test
     // Test restoring multiple migrated tokens
     public void tokenCompatBackupRestore() throws GeneralSecurityException, IOException,
