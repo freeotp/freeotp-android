@@ -163,6 +163,14 @@ public class TokenPersistence {
             throw new BadPasswordException();
         }
 
+        // Overwrite the master key stored in the keystore, restored entries are then re-encrypted
+        KeyProtection kp = new KeyProtection.Builder(KeyProperties.PURPOSE_ENCRYPT)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .build();
+
+        mKeyStore.setEntry(MASTER, new KeyStore.SecretKeyEntry(mk.decrypt(pwd)), kp);
+
         for (Map.Entry<String, ?> item : mBackups.getAll().entrySet()) {
             JSONObject obj;
             String uuid = item.getKey();
