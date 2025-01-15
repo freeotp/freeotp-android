@@ -20,6 +20,7 @@
 -->
 <!--
 Information about Corsican localization:
+   - Updated on January 15th, 2025 for version 2.0.5 by Patriccollu di Santa Maria è Sichè
    - Updated on June 13th, 2024 for version 2.0.4 by Patriccollu di Santa Maria è Sichè
    - Created on September 14th, 2023 for version 2.0.2 by Patriccollu di Santa Maria è Sichè
 -->
@@ -68,12 +69,12 @@ Information about Corsican localization:
 	<string name="main_lock_message">Stu gettone richiede à autenticassi à ogni usu. Vole si dì chì u screnu d’ammarchjunata di u vostru apparechju deve esse attivatu. Ci vole à attivà a sicurità di u screnu d’ammarchjunata è aghjunghje torna u gettone.</string>
 	<string name="main_lock_title">Ammarchjunata di u screnu richiesta&#x00a0;!</string>
 	<string name="main_invalidated_title">Chjave invalitata&#x00a0;!</string>
-	<string name="main_invalidated_message">A chjave di stu gettone hè stata invalitata da u magazinu di chjavi Android. Què pò esse cagiunatu per via d’un cambiamentu di e definizioni di u screnu d’ammarchjunata. U gettone hè statu cacciatu. Ci vole à cuntattà u vostru furnidore di gettone.</string>
+	<string name="main_invalidated_message">A chjave di stu gettone hè stata invalitata da u magazinu di chjavi Android. Què pò esse cagiunatu per via d’un cambiamentu di i parametri di u screnu d’ammarchjunata. U gettone hè statu cacciatu. Ci vole à cuntattà u vostru furnidore di gettone.</string>
 	<string name="main_restore_title">Risturà via una salvaguardia</string>
-	<string name="main_restore_message">Stampittate a parolla d’intesa di salvaguardia</string>
+	<string name="main_restore_message">Stampittate a parolla d’intesa di salvaguardia\n\nIn casu di risturazione riesciuta, sta parolla d’intesa impiegata per risturà rimpiazzerà tutta parolla d’intesa di salvaguardia definita nanzu</string>
 	<string name="main_restore_bad_password">Parolla d’intesa inaccettevule</string>
 	<string name="main_restore_cancel_title">Abbandunà a risturazione&#x00a0;?</string>
-	<string name="main_restore_cancel_message">Pirderete tutti i gettoni arregistrati precedentemente&#x00a0;!</string>
+	<string name="main_restore_cancel_message">Pirderete tutti i gettoni arregistrati nanzu&#x00a0;!</string>
 	<string name="main_restore_proceed">Cuntinuà senza risturà</string>
 	<string name="main_restore_go_back">Ritornu</string>
 
