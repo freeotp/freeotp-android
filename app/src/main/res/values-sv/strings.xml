@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeOTP</string>
+    <string name="invalid_token">Den angivna token var ogiltig!</string>
+    <string name="delete">Ta bort</string>
+    <string name="edit">Redigera</string>
+    <string name="restore_defaults">Återgå till grundinställningarna</string>
+    <string name="no_keys">Inga OTP-nycklar installerade.</string>
+    <string name="add_token">Lägg till token</string>
+    <string name="scan_qr_code">Skanna QR-kod</string>
+    <string name="interval">Intervall</string>
+    <string name="counter">Räknare</string>
+    <string name="secret">Hemlighet</string>
+    <string name="type">Typ</string>
+    <string name="algorithm">Algoritm</string>
+    <string name="digits">Siffror</string>
+    <string name="save">Spara</string>
+    <string name="code_copied">Koden kopierades till urklipp.</string>
+
+    <string name="about_freeotp">Om FreeOTP</string>
+    <string name="about_version">FreeOTP version %1$s (%2$d)</string>
+    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
+    <string name="about_license">FreeOTP är licensierat enligt %1$s.</string>
+    <string name="about_website">För mer information, se vår %s.</string>
+    <string name="about_icons">Vissa ikoner som används av denna applikation återges från arbete som skapats och delats av Android Open Source Project och används enligt termer som beskrivs i Creative Commons 2.5 Attribution License.</string>
+
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
+
+    <string name="error_camera_open">Fel vid öppning av kameran!</string>
+    <string name="error_permission_camera_open">Ingen behörighet att öppna kameran</string>
+    <string name="error_image_open">Ett fel uppstod när bilden öppnades!</string>
+
+    <string name="delete_summary">Detta är din sista chans: om du tar bort denna token kommer den att vara borta för alltid. Det kommer inte att inaktiveras på servern.</string>
+    <string name="delete_question">Ta bort denna token?</string>
+
+    <string-array name="algorithms">
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA256</item>
+        <item>SHA512</item>
+    </string-array>
+</resources>
