@@ -4,7 +4,7 @@
     <string name="invalid_token">Den angivna token var ogiltig!</string>
     <string name="delete">Ta bort</string>
     <string name="edit">Redigera</string>
-    <string name="restore_defaults">Återgå till grundinställningarna</string>
+    <string name="restore_defaults">Återställ standardvärden</string>
     <string name="no_keys">Inga OTP-nycklar installerade.</string>
     <string name="add_token">Lägg till token</string>
     <string name="scan_qr_code">Skanna QR-kod</string>
