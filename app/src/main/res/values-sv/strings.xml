@@ -24,14 +24,14 @@
     <string name="about_website">För mer information, se vår %s.</string>
     <string name="about_icons">Vissa ikoner som används av denna applikation återges från arbete som skapats och delats av Android Open Source Project och används enligt termer som beskrivs i Creative Commons 2.5 Attribution License.</string>
 
-    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;website&lt;/a&gt;</string>
+    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;Webbplats&lt;/a&gt;</string>
     <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
 
-    <string name="error_camera_open">Fel vid öppning av kameran!</string>
+    <string name="error_camera_open">Ett fel uppstod när kameran öppnades!</string>
     <string name="error_permission_camera_open">Ingen behörighet att öppna kameran</string>
     <string name="error_image_open">Ett fel uppstod när bilden öppnades!</string>
 
-    <string name="delete_summary">Detta är din sista chans: om du tar bort denna token kommer den att vara borta för alltid. Det kommer inte att inaktiveras på servern.</string>
+    <string name="delete_summary">Detta är din sista chans: om du tar bort denna token, kommer den att vara borta för alltid. Det kommer inte att inaktiveras på servern.</string>
     <string name="delete_question">Ta bort denna token?</string>
 
     <string-array name="algorithms">
