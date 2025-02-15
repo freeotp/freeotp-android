@@ -20,7 +20,7 @@
     <string name="about_freeotp">Om FreeOTP</string>
     <string name="about_version">FreeOTP version %1$s (%2$d)</string>
     <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
-    <string name="about_license">FreeOTP är licensierat enligt %1$s.</string>
+    <string name="about_license">FreeOTP är licensierad enligt %1$s.</string>
     <string name="about_website">För mer information, se vår %s.</string>
     <string name="about_icons">Vissa ikoner som används av denna applikation återges från arbete som skapats och delats av Android Open Source Project och används enligt termer som beskrivs i Creative Commons 2.5 Attribution License.</string>
 
