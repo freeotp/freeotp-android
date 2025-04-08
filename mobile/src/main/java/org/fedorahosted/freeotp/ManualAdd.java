@@ -86,7 +86,18 @@ public class ManualAdd extends AppCompatActivity {
 
     private Uri makeUri() {
         String label = String.format("%s:%s", mIssuer.getText(), mAccount.getText());
-        String type = mType.getText().toString().toLowerCase();
+        // cause i18n，this text may not TOTP OR HOTP
+        String type;
+        switch(mType.getId()) {
+            case R.id.button_totp:
+                type = "totp";
+                break;
+            case R.id.button_hotp:
+                type = "hotp";
+                break;
+            default:
+                type = "";
+        } 
 
         // Validate URI first or Activity will crash
         Uri.Builder builder = new Uri.Builder();
