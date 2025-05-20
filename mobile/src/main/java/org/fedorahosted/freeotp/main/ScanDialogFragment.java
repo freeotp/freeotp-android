@@ -113,7 +113,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     public void onStart() {
         super.onStart();
 
-        switch (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)) {
+        switch (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)) {
             case PackageManager.PERMISSION_GRANTED:
                 onRequestPermissionsResult(0,
                         new String[] { Manifest.permission.CAMERA },
@@ -278,7 +278,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
                                 mImage.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Activity a = (Activity) getActivity();
+                                        Activity a = (Activity) requireActivity();
                                         a.addToken(Uri.parse(uri), true);
                                     }
                                 });
