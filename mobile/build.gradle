@@ -40,7 +40,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'io.fotoapparat:fotoapparat:2.7.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'me.gosimple:nbvcxz:1.4.2'
@@ -52,4 +51,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // CameraX
+    implementation "androidx.camera:camera-core:1.4.2"
+    implementation "androidx.camera:camera-camera2:1.4.2"
+    implementation "androidx.camera:camera-lifecycle:1.4.2"
+    implementation "androidx.camera:camera-view:1.4.2"
 }
