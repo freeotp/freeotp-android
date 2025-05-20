@@ -3,7 +3,7 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.0'
@@ -13,11 +13,8 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
-        // Android studio requires google m2 to obtain support libraries, even though
-        // we are not directly referencing them at present.
-        google()
     }
 }
 
