@@ -256,36 +256,27 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
 
             vibrate();
 
-            mImage.post(new Runnable() {
-                @Override
-                public void run() {
-                    mProgress.setVisibility(View.INVISIBLE);
-                    mCamera.animate()
-                        .setInterpolator(new DecelerateInterpolator())
-                        .setDuration(2000)
-                        .alpha(0.0f)
-                        .start();
+            mImage.post(() -> {
+                mProgress.setVisibility(View.INVISIBLE);
+                mCamera.animate()
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(2000)
+                    .alpha(0.0f)
+                    .start();
 
-                    mImage.setImageBitmap(b);
-                    mImage.animate()
-                        .setInterpolator(new DecelerateInterpolator())
-                        .setDuration(2000)
-                        .alpha(1.0f)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                mImage.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Activity a = (Activity) requireActivity();
-                                        a.addToken(Uri.parse(uri), true);
-                                    }
-                                });
-                                dismiss();
-                            }
-                        })
-                        .start();
-                }
+                mImage.setImageBitmap(b);
+                mImage.animate()
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(2000)
+                    .alpha(1.0f)
+                    .withEndAction(() -> {
+                        mImage.post(() -> {
+                            Activity a = (Activity) requireActivity();
+                            a.addToken(Uri.parse(uri), true);
+                        });
+                        dismiss();
+                    })
+                    .start();
             });
         } catch (NotFoundException | ChecksumException | FormatException | WriterException e) {
             Log.e(LOGTAG, "Exception", e);
