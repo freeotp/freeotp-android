@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -39,12 +40,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
@@ -60,34 +61,33 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import org.fedorahosted.freeotp.R;
 
+import androidx.annotation.OptIn;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.camera.core.CameraInfoUnavailableException;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ExperimentalLensFacing;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
-import io.fotoapparat.Fotoapparat;
-import io.fotoapparat.error.CameraErrorListener;
-import io.fotoapparat.exception.camera.CameraException;
-import io.fotoapparat.parameter.Resolution;
-import io.fotoapparat.parameter.ScaleType;
-import io.fotoapparat.preview.Frame;
-import io.fotoapparat.preview.FrameProcessor;
-import io.fotoapparat.view.CameraView;
 
-import static io.fotoapparat.selector.FocusModeSelectorsKt.autoFocus;
-import static io.fotoapparat.selector.FocusModeSelectorsKt.continuousFocusPicture;
-import static io.fotoapparat.selector.FocusModeSelectorsKt.fixed;
-import static io.fotoapparat.selector.LensPositionSelectorsKt.back;
-import static io.fotoapparat.selector.LensPositionSelectorsKt.external;
-import static io.fotoapparat.selector.LensPositionSelectorsKt.front;
-import static io.fotoapparat.selector.SelectorsKt.firstAvailable;
+import java.nio.ByteBuffer;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class ScanDialogFragment extends AppCompatDialogFragment
-        implements FrameProcessor, CameraErrorListener {
+public class ScanDialogFragment extends AppCompatDialogFragment implements ImageAnalysis.Analyzer {
     private static final String LOGTAG = "ScanDialogFragment";
 
-    private Fotoapparat mFotoapparat;
     private ProgressBar mProgress;
-    private CameraView mCamera;
+    private PreviewView mCamera;
     private ImageView mImage;
     private TextView mError;
+
+    ExecutorService mCameraExecutor = null;
+    private ProcessCameraProvider mCameraProvider = null;
 
     public static boolean hasCamera(Context context) {
         PackageManager pm = context.getPackageManager();
@@ -105,15 +105,6 @@ public class ScanDialogFragment extends AppCompatDialogFragment
         mCamera = v.findViewById(R.id.camera);
         mImage = v.findViewById(R.id.image);
         mError = v.findViewById(R.id.error);
-
-        mFotoapparat = Fotoapparat.with(getContext())
-            .focusMode(firstAvailable(continuousFocusPicture(), autoFocus(), fixed()))
-            .lensPosition(firstAvailable(back(), external(), front()))
-            .previewScaleType(ScaleType.CenterCrop)
-            .cameraErrorCallback(this)
-            .frameProcessor(this)
-            .into(mCamera)
-            .build();
 
         return v;
     }
@@ -135,6 +126,65 @@ public class ScanDialogFragment extends AppCompatDialogFragment
         }
     }
 
+    @OptIn(markerClass = ExperimentalLensFacing.class)
+    @CameraSelector.LensFacing
+    private int getLensFacing(@NonNull ProcessCameraProvider cameraProvider)
+            throws CameraInfoUnavailableException, RuntimeException {
+        if (cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA)) {
+            return CameraSelector.LENS_FACING_BACK;
+        }
+
+        CameraSelector externalCameraSelector = new CameraSelector.Builder()
+            .requireLensFacing(CameraSelector.LENS_FACING_EXTERNAL).build();
+        if (cameraProvider.hasCamera(externalCameraSelector)) {
+            return CameraSelector.LENS_FACING_EXTERNAL;
+        }
+
+        if (cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA)) {
+            return CameraSelector.LENS_FACING_FRONT;
+        }
+
+        throw new RuntimeException("Can't retrieve camera lens facing");
+    }
+
+    private void startCamera() {
+        mCameraExecutor = Executors.newSingleThreadExecutor();
+
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity());
+        cameraProviderFuture.addListener(() -> {
+            try {
+                mCameraProvider = cameraProviderFuture.get();
+
+                ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
+
+                imageAnalysis.setAnalyzer(mCameraExecutor, this);
+
+                Preview preview = new Preview.Builder().build();
+
+                CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(getLensFacing(mCameraProvider)).build();
+
+                mCamera.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
+                preview.setSurfaceProvider(mCamera.getSurfaceProvider());
+
+                mCameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
+            } catch (ExecutionException | InterruptedException | CameraInfoUnavailableException e) {
+                // Unexpected
+                Log.e(LOGTAG, "Unexpected error: " + e.getMessage());
+                showError();
+            }
+        }, ContextCompat.getMainExecutor(requireActivity()));
+    }
+
+    private void stopCamera() {
+        requireActivity().runOnUiThread(() -> {
+            if (mCameraProvider != null) {
+                mCameraProvider.unbindAll();
+            }
+
+            mCameraExecutor.shutdown();
+        });
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -144,12 +194,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment
 
             switch (grantResults[i]) {
                 case PackageManager.PERMISSION_GRANTED:
-                    mFotoapparat.start();
-                    mCamera.animate()
-                        .setInterpolator(new AccelerateInterpolator())
-                        .setDuration(2000)
-                        .alpha(1.0f)
-                        .start();
+                    startCamera();
                     break;
 
                 default:
@@ -162,16 +207,35 @@ public class ScanDialogFragment extends AppCompatDialogFragment
     @Override
     public void onStop() {
         super.onStop();
-        mFotoapparat.stop();
+        stopCamera();
+    }
+
+    @NonNull
+    private static LuminanceSource getLuminanceSource(@NonNull ImageProxy imageProxy) {
+        ByteBuffer buffer = imageProxy.getPlanes()[0].getBuffer();
+        byte[] i = new byte[buffer.remaining()];
+        buffer.get(i);
+
+        int width = imageProxy.getWidth();
+        int height = imageProxy.getHeight();
+
+        return new PlanarYUVLuminanceSource(i, width, height, 0, 0, width, height, false);
+    }
+
+    private void vibrate() {
+        Vibrator v = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (v != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                v.vibrate(250);
+            }
+        }
     }
 
     @Override
-    public void process(Frame frame) {
-        byte[] i = frame.getImage();
-        Resolution r = frame.getSize();
-
-        LuminanceSource ls = new PlanarYUVLuminanceSource(
-                i, r.width, r.height, 0, 0, r.width, r.height, false);
+    public void analyze(@NonNull ImageProxy imageProxy) {
+        LuminanceSource ls = getLuminanceSource(imageProxy);
 
         try {
             BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(ls));
@@ -182,7 +246,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment
                 size = mImage.getHeight();
 
             BitMatrix bm = new QRCodeWriter().encode(uri, BarcodeFormat.QR_CODE, size, size);
-            mFotoapparat.stop();
+            stopCamera();
 
             final Bitmap b = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
             for (int x = 0; x < size; x++) {
@@ -191,14 +255,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment
                 }
             }
 
-            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-            if (v != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
-                } else {
-                    v.vibrate(250);
-                }
-            }
+            vibrate();
 
             mImage.post(new Runnable() {
                 @Override
@@ -234,10 +291,11 @@ public class ScanDialogFragment extends AppCompatDialogFragment
         } catch (NotFoundException | ChecksumException | FormatException | WriterException e) {
             Log.e(LOGTAG, "Exception", e);
         }
+
+        imageProxy.close();
     }
 
-    @Override
-    public void onError(CameraException e) {
+    public void showError() {
         mProgress.setVisibility(View.INVISIBLE);
         mCamera.setVisibility(View.INVISIBLE);
         mImage.setVisibility(View.INVISIBLE);
