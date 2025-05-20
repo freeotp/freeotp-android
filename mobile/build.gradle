@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'me.gosimple:nbvcxz:1.4.2'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.9.0'
     androidTestImplementation 'org.mockito:mockito-android:3.9.0'
