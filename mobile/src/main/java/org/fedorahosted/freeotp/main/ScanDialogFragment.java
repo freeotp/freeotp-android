@@ -91,10 +91,9 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
 
     public static boolean hasCamera(Context context) {
         PackageManager pm = context.getPackageManager();
-        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 
-    @SuppressWarnings("unchecked")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
