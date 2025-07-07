@@ -41,15 +41,13 @@
         <activity
             android:name=".ManualAdd"
             android:exported="false"
-            android:parentActivityName=".main.Activity"
-            android:theme="@style/FreeOTP.Purple.NoActionBar" />
+            android:parentActivityName=".main.Activity" />
         <activity
             android:name=".main.Activity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:theme="@style/FreeOTP.Purple.NoActionBar">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -69,8 +67,7 @@
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:theme="@style/FreeOTP.Purple.NoActionBar">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
