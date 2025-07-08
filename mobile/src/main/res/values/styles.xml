@@ -20,7 +20,10 @@
    -->
 
 <resources>
-    <style name="FreeOTP.Purple.NoActionBar" parent="FreeOTP.Purple">
+    <style name="FreeOTP.OptOutEdgeToEdgeEnforcement" parent="FreeOTP.Purple">
+    </style>
+
+    <style name="FreeOTP.Purple.NoActionBar" parent="FreeOTP.OptOutEdgeToEdgeEnforcement">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
