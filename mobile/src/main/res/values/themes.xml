@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
     <style name="Base.FreeOTP" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
 
