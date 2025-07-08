@@ -19,19 +19,8 @@
    - limitations under the License.
    -->
 <resources>
-    <style name="FreeOTP.Purple.NoActionBar" parent="FreeOTP.Purple">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <attr name="buttoncolor" format="reference"/>
-
-    <!-- Toolbar styles -->
-    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+    <!-- Overrides for dark mode -->
+    <style name="PopupMenuStyle" parent="android:Widget.Holo.Light.PopupMenu">
         <item name="android:textColorPrimary">@color/white</item>
     </style>
-
-    <style name="PopupMenuStyle" parent="android:Widget.Holo.Light.PopupMenu">
-    <item name="android:textColorPrimary">@color/white</item>
-    </style>
-
 </resources>
