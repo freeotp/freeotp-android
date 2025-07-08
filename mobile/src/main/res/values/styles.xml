@@ -28,12 +28,11 @@
 
     <!-- Toolbar styles -->
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="PopupMenuStyle" parent="android:Widget.Holo.Light.PopupMenu">
         <item name="android:popupBackground">@android:color/white</item>
         <item name="android:textColorPrimary">@color/black</item>
-
     </style>
 </resources>
