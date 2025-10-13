@@ -53,7 +53,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'commons-codec:commons-codec:1.15'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.google.zxing:core:3.5.3'
     implementation 'me.gosimple:nbvcxz:1.4.2'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
