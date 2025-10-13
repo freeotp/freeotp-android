@@ -48,15 +48,14 @@ import android.widget.TextView;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.FormatException;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import org.fedorahosted.freeotp.R;
@@ -74,6 +73,8 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
 import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -237,8 +238,13 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
         LuminanceSource ls = getLuminanceSource(imageProxy);
 
         try {
-            BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(ls));
-            final String uri = new QRCodeReader().decode(bb).getText();
+            final BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(ls));
+            final List<BarcodeFormat> formats = List.of(BarcodeFormat.QR_CODE);
+            final Map<DecodeHintType,?> hints = Map.of(
+                    DecodeHintType.POSSIBLE_FORMATS, formats,
+                    DecodeHintType.ALSO_INVERTED, Boolean.TRUE
+            );
+            final String uri = new MultiFormatReader().decode(bb, hints).getText();
 
             int size = mImage.getWidth();
             if (size > mImage.getHeight())
@@ -278,7 +284,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
                     })
                     .start();
             });
-        } catch (NotFoundException | ChecksumException | FormatException | WriterException e) {
+        } catch (NotFoundException | WriterException e) {
             Log.e(LOGTAG, "Exception", e);
         }
 
