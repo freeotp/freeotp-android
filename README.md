@@ -18,6 +18,11 @@ that implements these standards.
 * [Google Play](https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp)
 * [F-Droid](https://f-droid.org/packages/org.fedorahosted.freeotp)
 
+<a href="https://f-droid.org/packages/org.fedorahosted.freeotp/" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60"/></a>
+<a href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="60"/></a>
+
 ## Contributing
 
 Pull requests on GitHub are welcome under the Apache 2.0 license, see [CONTRIBUTING](CONTRIBUTING.md) for more details.
