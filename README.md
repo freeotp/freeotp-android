@@ -15,8 +15,8 @@ that implements these standards.
 
 ## Download FreeOTP for Android
 
-* [Google Play](https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp)
 * [F-Droid](https://f-droid.org/packages/org.fedorahosted.freeotp)
+* [Google Play](https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp)
 
 <a href="https://f-droid.org/packages/org.fedorahosted.freeotp/" target="_blank">
 <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60"/></a>
