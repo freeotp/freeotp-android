@@ -30,3 +30,10 @@ The FreeOTP app uses the following permissions
 |------------|--------------------------|----------|-----------------|
 | Camera     | Recognition of QR codes  | No       | Dangerous       |
 | Internet   | Token image provisioning | No       | Normal          |
+
+## Alternatives
+
+Here are some open-source alternative apps providing similar functionality:
+- [Aegis](https://github.com/beemdevelopment/Aegis)
+- [FreeOTP+](https://github.com/helloworld1/FreeOTPPlus)
+- [Proton Authenticator](https://github.com/protonpass/android-authenticator)
