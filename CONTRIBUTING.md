@@ -52,6 +52,6 @@ Signed off by Jane Smith<jsmith@mycompany.com>
 
 ## UI Changes
 
-If your PR creates or updates a screen, attach screen shots of your updates as a comment to the
-pull request. Changes to existing screens should annotate the screen shot to highlight changed
+If your PR creates or updates a screen, attach screenshots of your updates as a comment to the
+pull request. Changes to existing screens should annotate the screenshot to highlight changed
 elements.
