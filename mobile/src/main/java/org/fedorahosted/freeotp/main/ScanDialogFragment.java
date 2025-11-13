@@ -233,6 +233,37 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
         }
     }
 
+    private Bitmap createBlankBitmap(int size)
+    {
+        final Bitmap b = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        b.eraseColor(Color.WHITE);
+        return b;
+    }
+
+    private Bitmap createUriBitmap(String uri, int size)
+    {
+        // ZXing refuses to encode an empty string
+        if (uri == null || uri.isEmpty()) {
+            return createBlankBitmap(size);
+        }
+
+        try {
+            BitMatrix bm = new QRCodeWriter().encode(uri, BarcodeFormat.QR_CODE, size, size);
+
+            final Bitmap b = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            for (int x = 0; x < size; x++) {
+                for (int y = 0; y < size; y++) {
+                    b.setPixel(x, y, bm.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+
+            return b;
+        } catch (WriterException e) {
+            Log.e(LOGTAG, "Exception", e);
+            return createBlankBitmap(size);
+        }
+    }
+
     @Override
     public void analyze(@NonNull ImageProxy imageProxy) {
         LuminanceSource ls = getLuminanceSource(imageProxy);
@@ -250,16 +281,8 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
             if (size > mImage.getHeight())
                 size = mImage.getHeight();
 
-            BitMatrix bm = new QRCodeWriter().encode(uri, BarcodeFormat.QR_CODE, size, size);
+            final Bitmap b = createUriBitmap(uri, size);
             stopCamera();
-
-            final Bitmap b = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            for (int x = 0; x < size; x++) {
-                for (int y = 0; y < size; y++) {
-                    b.setPixel(x, y, bm.get(x, y) ? Color.BLACK : Color.WHITE);
-                }
-            }
-
             vibrate();
 
             mImage.post(() -> {
@@ -284,7 +307,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
                     })
                     .start();
             });
-        } catch (NotFoundException | WriterException e) {
+        } catch (NotFoundException e) {
             Log.e(LOGTAG, "Exception", e);
         }
 
