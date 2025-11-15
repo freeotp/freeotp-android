@@ -134,14 +134,14 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
             return CameraSelector.LENS_FACING_BACK;
         }
 
+        if (cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA)) {
+            return CameraSelector.LENS_FACING_FRONT;
+        }
+
         CameraSelector externalCameraSelector = new CameraSelector.Builder()
             .requireLensFacing(CameraSelector.LENS_FACING_EXTERNAL).build();
         if (cameraProvider.hasCamera(externalCameraSelector)) {
             return CameraSelector.LENS_FACING_EXTERNAL;
-        }
-
-        if (cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA)) {
-            return CameraSelector.LENS_FACING_FRONT;
         }
 
         throw new RuntimeException("Can't retrieve camera lens facing");
