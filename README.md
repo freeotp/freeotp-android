@@ -10,8 +10,10 @@ FreeOTP implements open standards:
 * HOTP (HMAC-Based One-Time Password Algorithm) [RFC 4226](https://www.ietf.org/rfc/rfc4226.txt)
 * TOTP (Time-Based One-Time Password Algorithm) [RFC 6238](https://www.ietf.org/rfc/rfc6238.txt)
 
-This means that no proprietary server-side component is necessary: use any server-side component
-that implements these standards.
+This means that no proprietary server-side component is necessary: use any server-side component that implements these standards.
+
+## Screenshots
+<img src="screenshots/1.png" alt="FreeOTP screenshot 1" width="200" /> &nbsp;<img src="screenshots/2.png" alt="FreeOTP screenshot 2" width="200" /> &nbsp;<img src="screenshots/3.png" alt="FreeOTP screenshot 3" width="200" /> &nbsp;<img src="screenshots/4.png" alt="FreeOTP screenshot 4" width="200" />
 
 ## Download FreeOTP for Android
 
