@@ -78,7 +78,6 @@
     <string name="password_info">Token backups allow you to recover from data loss and effortlessly transfer your tokens to a new device.\n\nBackups are encrypted using the password provided below. The security of your backups depends on a strong password.\n\nThe FreeOTP security model dictates this password CANNOT be changed at a later time. Please take this into consideration when choosing a password.</string>
     <string name="password_match">Passwords do not match!</string>
 
-
     <!-- Strings for Manual Add activity -->
     <string-array name="algorithms_array">
         <item>SHA1</item>
@@ -109,6 +108,9 @@
     <string name="manual_add_token">Add Token</string>
     <string name="manual_accessibility_algorithm">Token algorithm</string>
     <string name="manual_accessibility_interval">Token Interval</string>
+    <string name="manual_empty_secret">Secret must not be empty</string>
+    <string name="manual_malformed_issuer_account">Issuer and account may not contain ":"</string>
+
     <string name="edit_token">Edit Token</string>
     <string name="get_started">GET STARTED</string>
 
