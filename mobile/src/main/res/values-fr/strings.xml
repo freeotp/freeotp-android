@@ -108,6 +108,9 @@
     <string name="manual_add_token">Ajouter un jeton</string>
     <string name="manual_accessibility_algorithm">Algorithme des jetons</string>
     <string name="manual_accessibility_interval">Intervalle des jetons</string>
+    <string name="manual_empty_secret">Le secret ne doit pas être vide</string>
+    <string name="manual_malformed_issuer_account">Le fournisseur et le compte ne peuvent contenir ":"</string>
+
     <string name="edit_token">Éditer le jeton</string>
     <string name="get_started">COMMENCER</string>
 

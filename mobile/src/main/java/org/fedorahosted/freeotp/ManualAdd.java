@@ -1,13 +1,9 @@
 package org.fedorahosted.freeotp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -17,7 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.codec.binary.StringUtils;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import org.fedorahosted.freeotp.main.Activity;
 
 public class ManualAdd extends AppCompatActivity {
@@ -97,7 +96,7 @@ public class ManualAdd extends AppCompatActivity {
                 break;
             default:
                 type = "";
-        } 
+        }
 
         // Validate URI first or Activity will crash
         Uri.Builder builder = new Uri.Builder();
@@ -119,21 +118,16 @@ public class ManualAdd extends AppCompatActivity {
         String secret = mSecret.getText().toString();
         String issuer = mIssuer.getText().toString();
         String account = mAccount.getText().toString();
-        Boolean valid = true;
-        String msg = "";
+        @StringRes int msgId = 0;
 
         if (TextUtils.isEmpty(secret)) {
-            msg = "Secret must not be empty";
-            valid = false;
+            msgId = R.string.manual_empty_secret;
+        } else if (issuer.contains(":") || account.contains(":")) {
+            msgId = R.string.manual_malformed_issuer_account;
         }
 
-        if(issuer.contains(":") || account.contains(":")) {
-            msg = "Issuer and account may not contain \":\"";
-            valid = false;
-        }
-
-        if (!valid) {
-            Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_SHORT).show();
+        if (msgId != 0) {
+            Toast.makeText(getApplicationContext(), getString(msgId),Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -144,6 +138,7 @@ public class ManualAdd extends AppCompatActivity {
         if (!inputValid()) {
             return;
         }
+
         getSelected();
         Uri uri = makeUri();
 
