@@ -285,7 +285,18 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
 
         try {
             Log.i(LOGTAG, String.format("getCode: deserialize token"));
-            Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+            String stored = mSharedPreferences.getString(uuid, null);
+            Token token = null;
+            if (stored != null) {
+                token = Token.deserialize(stored);
+            } else {
+                Log.e(LOGTAG, "Stored is null");
+                return new Code("ERROR", 15);
+            }
+            if (token == null){
+                Log.e(LOGTAG, "Token is null");
+                return new Code("ERROR", 15);
+            }
             Key key = mKeyStore.getKey(uuid, null);
             code = token.getCode(key);
             mSharedPreferences.edit().putString(uuid, token.serialize()).apply();
