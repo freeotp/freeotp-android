@@ -289,12 +289,12 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             Token token = null;
             if (stored != null) {
                 token = Token.deserialize(stored);
+                if (token == null) {
+                    Log.e(LOGTAG, "Token is null");
+                    return new Code("ERROR", 15);
+                }
             } else {
                 Log.e(LOGTAG, "Stored is null");
-                return new Code("ERROR", 15);
-            }
-            if (token == null){
-                Log.e(LOGTAG, "Token is null");
                 return new Code("ERROR", 15);
             }
             Key key = mKeyStore.getKey(uuid, null);
