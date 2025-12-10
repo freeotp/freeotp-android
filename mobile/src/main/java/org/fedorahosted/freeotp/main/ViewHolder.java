@@ -238,6 +238,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     void reset() {
         mCountdown.cancel();
+        Picasso.get().cancelRequest(mImage);
+        Picasso.get().cancelRequest(mImageActive);
     }
 
     void bind(Token token, int color, int image_id, String image_url, Code code, boolean selected, Token.Type type) {
