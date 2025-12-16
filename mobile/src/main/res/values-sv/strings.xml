@@ -1,43 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
 <resources>
     <string name="app_name">FreeOTP</string>
-    <string name="invalid_token">Den angivna token var ogiltig!</string>
-    <string name="delete">Ta bort</string>
-    <string name="edit">Redigera</string>
-    <string name="restore_defaults">Återställ standardvärden</string>
-    <string name="no_keys">Inga OTP-nycklar installerade.</string>
-    <string name="add_token">Lägg till token</string>
-    <string name="scan_qr_code">Skanna QR-kod</string>
-    <string name="interval">Intervall</string>
-    <string name="counter">Räknare</string>
-    <string name="secret">Hemlighet</string>
-    <string name="type">Typ</string>
-    <string name="algorithm">Algoritm</string>
-    <string name="digits">Siffror</string>
+    <string name="app_welcome">Välkommen till FreeOTP 2.0</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Klar</string>
+    <string name="close">Stäng</string>
     <string name="save">Spara</string>
-    <string name="code_copied">Koden kopierades till urklipp.</string>
+    <string name="about">Om</string>
+    <string name="auto_copy_clipboard">Automatisk kopiering</string>
+    <string name="cancel">Avbryt</string>
+    <string name="delete">Radera</string>
+    <string name="move_up">Flytta upp</string>
+    <string name="move_down">Flytta ner</string>
+    <string name="add_anyway">Lägg till ändå</string>
+    <string name="unknown_issuer">Okänd utfärdare</string>
+    <string name="enable_lock_screen">Aktivera låsskärm</string>
 
-    <string name="about_freeotp">Om FreeOTP</string>
-    <string name="about_version">FreeOTP version %1$s (%2$d)</string>
-    <string name="about_copyright">© 2013 - Red Hat, Inc., et al.</string>
-    <string name="about_license">FreeOTP är licensierad enligt %1$s.</string>
-    <string name="about_website">För mer information, se vår %s.</string>
-    <string name="about_icons">Vissa ikoner som används av denna applikation återges från arbete som skapats och delats av Android Open Source Project och används enligt termer som beskrivs i Creative Commons 2.5 Attribution License.</string>
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Skicka till…</string>
+    <string name="share_jelling_scan_for">Sök efter…</string>
+    <string name="share_jelling_scanning_for">Söker efter…</string>
+    <string name="share_jelling_bluetooth_devices">Bluetooth-enheter</string>
+    <string name="share_clipboard_copy_to">Kopiera till…</string>
+    <string name="share_clipboard_clipboard">Urklipp</string>
 
-    <string name="link_website">&lt;a href=&quot;http://freeotp.github.io&quot;&gt;Webbplats&lt;/a&gt;</string>
-    <string name="link_apache2">&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;</string>
-
+    <!-- Strings related to camera errors. -->
     <string name="error_camera_open">Ett fel uppstod när kameran öppnades!</string>
-    <string name="error_permission_camera_open">Ingen behörighet att öppna kameran</string>
-    <string name="error_image_open">Ett fel uppstod när bilden öppnades!</string>
 
-    <string name="delete_summary">Detta är din sista chans: om du tar bort denna token, kommer den att vara borta för alltid. Det kommer inte att inaktiveras på servern.</string>
-    <string name="delete_question">Ta bort denna token?</string>
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Version %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP är licensierat under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;För mer information, besök vår &lt;a href=&quot;https://freeotp.github.io&quot;&gt;webbplats&lt;/a&gt;.</string>
+    <string name="main_welcome">Välkommen till FreeOTP!\n\nLägg till en token för att komma igång.</string>
+    <string name="main_deletion_title">Radera markerade tokens?</string>
+    <string name="main_deletion_message">Att radera en token inaktiverar inte den på servern. Om du fortsätter kan du bli utelåst från ditt konto. Radering av en token kan inte ångras.</string>
+    <string name="main_unsafe_title">Token är osäker!</string>
+    <string name="main_unsafe_message">Tokenen du försöker lägga till innehåller svaga kryptografiska parametrar. Användning av denna token avråds starkt! Vänligen meddela din tokenleverantör.</string>
+    <string name="main_invalid_title">Token är ogiltig!</string>
+    <string name="main_invalid_message">Tokenen du försöker lägga till är ogiltig. Vänligen meddela din tokenleverantör.</string>
+    <string name="main_error_title">Fel!</string>
+    <string name="main_error_message">Ett fel uppstod när en token skulle läggas till.</string>
+    <string name="main_lock_message">Denna token kräver att du autentiserar vid varje användning. Detta innebär att enhetens låsskärm måste vara aktiverad. Vänligen aktivera låsskärmssäkerhet och lägg till tokenen igen.</string>
+    <string name="main_lock_title">Låsskärm krävs!</string>
+    <string name="main_invalidated_title">Nyckel ogiltigförklarad!</string>
+    <string name="main_invalidated_message">Nyckeln för denna token har ogiltigförklarats av Android Key Store. Detta kan ha orsakats av en ändring i dina låsskärmsinställningar. Tokenen har tagits bort. Vänligen kontakta din tokenleverantör.</string>
+    <string name="main_restore_title">Återställ från säkerhetskopia</string>
+    <string name="main_restore_message">Ange lösenord för säkerhetskopia\n\nVid lyckad återställning kommer detta lösenord att skriva över eventuellt tidigare inställt lösenord för säkerhetskopia</string>
+    <string name="main_restore_bad_password">Ogiltigt lösenord</string>
+    <string name="main_restore_cancel_title">Avbryt återställning?</string>
+    <string name="main_restore_cancel_message">Du kommer att förlora alla tidigare säkerhetskopierade tokens!</string>
+    <string name="main_restore_proceed">Fortsätt utan att återställa</string>
+    <string name="main_restore_go_back">Gå tillbaka</string>
 
-    <string-array name="algorithms">
-        <item>MD5</item>
+    <!-- Strings for the password activity. -->
+    <string name="password">Lösenord</string>
+    <string name="password_confirm">Bekräfta lösenord</string>
+    <string name="password_info">Säkerhetskopiering av tokens gör att du kan återställa vid dataförlust och enkelt flytta dina tokens till en ny enhet.\n\nSäkerhetskopior krypteras med lösenordet du anger nedan. Säkerheten för dina säkerhetskopior är berorende av att du väljer ett starkt lösenord.\n\nFreeOTPs säkerhetsmodell innebär att detta lösenord INTE KAN ändras i efterhand. Vänligen tänk på detta när du väljer ditt lösenord.</string>
+    <string name="password_match">Lösenorden matchar inte!</string>
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
         <item>SHA1</item>
+        <item>SHA224</item>
         <item>SHA256</item>
+        <item>SHA384</item>
         <item>SHA512</item>
     </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">jdoe@example.com</string>
+    <string name="manual_issuer_hint">Exempel AB</string>
+    <string name="manual_secret_text">Hemlighet</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Typ</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Siffror</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritm</string>
+    <string name="manual_interval">Intervall</string>
+    <string name="manual_add_token">Lägg till token</string>
+    <string name="manual_accessibility_algorithm">Token-algoritm</string>
+    <string name="manual_accessibility_interval">Token-intervall</string>
+    <string name="manual_empty_secret">Hemlighet får inte vara tom</string>
+    <string name="manual_malformed_issuer_account">Utfärdare och konto får inte innehålla ":"</string>
+
+    <string name="edit_token">Redigera token</string>
+    <string name="get_started">KOM IGÅNG</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Säkerhetskopia</string>
+    <string name="restore_title">Återställ</string>
+    <string name="backup_restore_title">Säkerhetskopiering och återställning</string>
+    <string name="keystore_migration_explanation">FreeOTP-tokens har nu migrerats till Android Keystore! Detta ger ökad säkerhet för tokenhemligheter, men nyckelmaterial kan inte exporteras. \n\nFunktionalitet för säkerhetskopiering och återställning har lagts till för att säkerställa att tokens kan återställas. Du kommer att uppmanas att skapa ett huvudlösenord för att konfigurera krypterade säkerhetskopior av tokens.</string>
+    <string name="manual_backup_explanation">Alternativt kan en krypterad säkerhetskopieringsfil exporteras till extern lagring från appen. Verktygsfältets meny innehåller nu alternativen \'Säkerhetskopia\' och \'Återställ\' för att använda denna manuella säkerhetskopieringsmetod.</string>
+    <string name="google_auto_backup_link">FreeOTP kan delta i Androids automatiska säkerhetskopiering och återställning. Denna &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=sv&quot;&gt;Google-länk&lt;/a&gt; innehåller information om hur du använder denna säkerhetskopieringsmetod.</string>
+    <string name="backup_imageview">säkerhetskopia bildvy</string>
+    <string name="keystore_image">keystore-bild</string>
+    <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Meny</string>
+
 </resources>
