@@ -20,6 +20,7 @@
 -->
 <!--
 Information about Corsican localization:
+   - Updated on December 20th, 2025 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
    - Updated on January 15th, 2025 for version 2.0.5 by Patriccollu di Santa Maria è Sichè
    - Updated on June 13th, 2024 for version 2.0.4 by Patriccollu di Santa Maria è Sichè
    - Created on September 14th, 2023 for version 2.0.2 by Patriccollu di Santa Maria è Sichè
@@ -114,6 +115,9 @@ Information about Corsican localization:
 	<string name="manual_add_token">Aghjunghje un gettone</string>
 	<string name="manual_accessibility_algorithm">Cudificazione di i gettoni</string>
 	<string name="manual_accessibility_interval">Intervallu di i gettoni</string>
+	<string name="manual_empty_secret">U secretu ùn deve micca esse viotu</string>
+	<string name="manual_malformed_issuer_account">L’emettidore è u contu ùn ponu micca cuntene « : »</string>
+
 	<string name="edit_token">Mudificà u gettone</string>
 	<string name="get_started">PRINCIPIÀ</string>
 
