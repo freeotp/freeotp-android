@@ -65,7 +65,7 @@
     <string name="main_invalidated_title">Gakoa baliogabetuta!</string>
     <string name="main_invalidated_message">Token honen gakoa baliogabetu du Android-en Key Store-k. Pantaila blokeatzearen ezarpenen aldaketa bat izan daiteke horren arrazoia. Token hau kendu da. Jarri harremanetan tokenaren hornitzailearekin.</string>
     <string name="main_restore_title">Berrezarri babeskopiatik</string>
-    <string name="main_restore_message">Idatzi babeskopiaren pasahitza</string>
+    <string name="main_restore_message">Idatzi babeskopiaren pasahitza\n\nBerrezarpena arrakastatsua bada, pasahitz honekin gainidatziko dira aurrez ezarritako babeskopien pasahitzak</string>
     <string name="main_restore_bad_password">Pasahitz baliogabea</string>
     <string name="main_restore_cancel_title">Berrezartzea ezeztatu?</string>
     <string name="main_restore_cancel_message">Aurrez babeskopia egindako token guztiak galduko dituzu!</string>
@@ -109,6 +109,8 @@
     <string name="manual_add_token">Gehitu tokena</string>
     <string name="manual_accessibility_algorithm">Tokenaren algoritmoa</string>
     <string name="manual_accessibility_interval">Tokenaren tartea</string>
+    <string name="manual_empty_secret">Sekretuak ezin du hutsik egon</string>
+    <string name="manual_malformed_issuer_account">Hornitzaileak eta kontuak ezin dute eduki ":"</string>
     <string name="edit_token">Editatu tokena</string>
     <string name="get_started">HASI</string>
 
