@@ -20,8 +20,6 @@
 
 package org.fedorahosted.freeotp.main;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.text.BidiFormatter;
@@ -105,20 +103,31 @@ class ViewHolder extends RecyclerView.ViewHolder {
         // Just in case, cancel possible previous animation
         animator.cancel();
 
-        if (in) {
-            view.setVisibility(View.VISIBLE);
-        }
+        if (duration > 0) {
+            if (in) {
+                view.setVisibility(View.VISIBLE);
+            }
 
-        animator.setInterpolator(new AccelerateDecelerateInterpolator())
-            .setDuration(duration)
-            .alpha(in ? 1f : 0f)
-            .withLayer()
-            .withEndAction(() -> {
-                if (!in) {
-                    view.setVisibility(View.GONE);
-                }
-            })
-            .start();
+            animator.setInterpolator(new AccelerateDecelerateInterpolator())
+                .setDuration(duration)
+                .alpha(in ? 1f : 0f)
+                .withLayer()
+                .withEndAction(() -> {
+                    if (!in) {
+                        view.setVisibility(View.GONE);
+                    }
+                })
+                .start();
+        } else {
+            // Not really a fade in this case, just do it right now
+            if (in) {
+                view.setAlpha(1f);
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setAlpha(0f);
+                view.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void displayCode(Code code, Token.Type type, long animationDuration) {
@@ -157,18 +166,24 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.setDuration(timeLeft);
 
         mHandler.removeCallbacksAndMessages(null);
-        mHandler.postDelayed(() -> fadeOut(), timeLeft);
+        mHandler.postDelayed(() -> fadeOut(animationDuration), timeLeft);
+        fadeIn(animationDuration);
 
         mCountdown.setIntValues(code.getProgress(mProgress.getMax()), 0);
         mCountdown.start();
     }
 
-    void fadeOut() {
+    void fadeOut(long duration) {
         /* Fade out */
-        fade(mPassive, true, FADE_DURATION);
-        fade(mActive, false, FADE_DURATION);
-
+        fade(mPassive, true, duration);
+        fade(mActive, false, duration);
     }
+
+    void fadeIn(long duration) {
+        fade(mPassive, false, duration);
+        fade(mActive, true, duration);
+    }
+
     ViewHolder(View itemView, EventListener listener) {
         super(itemView);
 
@@ -195,22 +210,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.setPropertyName("progress");
         mCountdown.setTarget(mProgress);
         mCountdown.setAutoCancel(true);
-        mCountdown.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                mView.setEnabled(true);
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
-
-                /* Fade in */
-                Log.i(LOGTAG, "onAnimationStart: fade");
-                fade(mPassive, false, FADE_DURATION);
-                fade(mActive, true, FADE_DURATION);
-            }
-        });
 
         mIcons.setOnClickListener(mSelectClick);
         mImageActive.setOnClickListener(mSelectClick);
