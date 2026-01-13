@@ -28,6 +28,7 @@ import android.text.BidiFormatter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -99,12 +100,24 @@ class ViewHolder extends RecyclerView.ViewHolder {
     };
 
     private static void fade(final View view, final boolean in, long duration) {
-        view.setVisibility(View.VISIBLE);
-        view.animate()
-            .setInterpolator(new AccelerateDecelerateInterpolator())
+        ViewPropertyAnimator animator = view.animate();
+
+        // Just in case, cancel possible previous animation
+        animator.cancel();
+
+        if (in) {
+            view.setVisibility(View.VISIBLE);
+        }
+
+        animator.setInterpolator(new AccelerateDecelerateInterpolator())
             .setDuration(duration)
             .alpha(in ? 1f : 0f)
             .withLayer()
+            .withEndAction(() -> {
+                if (!in) {
+                    view.setVisibility(View.GONE);
+                }
+            })
             .start();
     }
 
