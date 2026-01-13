@@ -237,6 +237,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     void reset() {
+        mHandler.removeCallbacksAndMessages(null);
         mCountdown.cancel();
         Picasso.get().cancelRequest(mImage);
         Picasso.get().cancelRequest(mImageActive);
@@ -264,6 +265,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
         setSelected(selected);
         if (code != null) {
             displayCode(code, type, 0);
+        } else {
+            // As the view may have been recycled from a previous one with code displayed,
+            // do not forget to reset this part to avoid issue
+            fadeOut(0);
         }
     }
 
