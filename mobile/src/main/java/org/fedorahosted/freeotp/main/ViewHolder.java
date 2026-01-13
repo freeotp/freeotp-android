@@ -74,47 +74,31 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     private View mView;
 
-    private final View.OnClickListener mViewClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mEventListener.onActivated(ViewHolder.this);
-        }
-    };
-
-    private final View.OnClickListener mShareClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String code = mCode.getText().toString();
-            mEventListener.onShare(code.replaceAll("\\s+", ""));
-        }
-    };
+    private static final long SELECT_HALF_DURATION = 100; // milliseconds
+    private static final long FADE_DURATION = 500; // milliseconds
 
     private final View.OnClickListener mSelectClick = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
             v.animate()
                 .setInterpolator(new AccelerateInterpolator())
-                .setDuration(100)
+                .setDuration(SELECT_HALF_DURATION)
                 .rotationY(90)
                 .withLayer()
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        int pos = getAdapterPosition();
-                        setSelected(mEventListener.onSelectionToggled(ViewHolder.this));
-                        v.setRotationY(-90);
-                        v.animate()
-                            .setInterpolator(new DecelerateInterpolator())
-                            .setDuration(100)
-                            .rotationY(0)
-                            .withLayer()
-                            .start();
-                    }
+                .withEndAction(() -> {
+                    setSelected(mEventListener.onSelectionToggled(ViewHolder.this));
+                    v.setRotationY(-90);
+                    v.animate()
+                        .setInterpolator(new DecelerateInterpolator())
+                        .setDuration(SELECT_HALF_DURATION)
+                        .rotationY(0)
+                        .withLayer()
+                        .start();
                 }).start();
         }
     };
 
-    private static void fade(final View view, final boolean in, int duration) {
+    private static void fade(final View view, final boolean in, long duration) {
         view.setVisibility(View.VISIBLE);
         view.animate()
             .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -124,12 +108,12 @@ class ViewHolder extends RecyclerView.ViewHolder {
             .start();
     }
 
-    private void displayCode(Code code, Token.Type type, int animationDuration) {
+    private void displayCode(Code code, Token.Type type, long animationDuration) {
         if (code == null)
             return;
 
         String text = mBidiFormatter.unicodeWrap(code.getCode());
-        Log.i(LOGTAG, String.format("displaying Code"));
+        Log.i(LOGTAG, "displaying Code");
         /* Add spaces for readability */
         for (int segment : new int[] { 7, 5, 4, 3 }) {
             if (text.length() % segment != 0)
@@ -168,8 +152,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     void fadeOut() {
         /* Fade out */
-        fade(mPassive, true, 500);
-        fade(mActive, false, 500);
+        fade(mPassive, true, FADE_DURATION);
+        fade(mActive, false, FADE_DURATION);
 
     }
     ViewHolder(View itemView, EventListener listener) {
@@ -209,26 +193,29 @@ class ViewHolder extends RecyclerView.ViewHolder {
                 super.onAnimationStart(animation);
 
                 /* Fade in */
-                Log.i(LOGTAG, String.format("onAnimationStart: fade"));
-                fade(mPassive, false, 500);
-                fade(mActive, true, 500);
+                Log.i(LOGTAG, "onAnimationStart: fade");
+                fade(mPassive, false, FADE_DURATION);
+                fade(mActive, true, FADE_DURATION);
             }
         });
 
         mIcons.setOnClickListener(mSelectClick);
         mImageActive.setOnClickListener(mSelectClick);
-        mShare.setOnClickListener(mShareClick);
-        mView.setOnClickListener(mViewClick);
-        mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                mSelectClick.onClick(mIcons);
-                return true;
-            }
+
+        mShare.setOnClickListener(v -> {
+            String code = mCode.getText().toString();
+            mEventListener.onShare(code.replaceAll("\\s+", ""));
+        });
+
+        mView.setOnClickListener(v -> {
+            mEventListener.onActivated(ViewHolder.this);
+        });
+
+        mView.setOnLongClickListener(v -> {
+            mSelectClick.onClick(mIcons);
+            return true;
         });
     }
-
-
 
     private void setSelected(boolean selected) {
         mImage.setVisibility(selected ? View.INVISIBLE : View.VISIBLE);
@@ -267,7 +254,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     void displayCode(Code code, Token.Type type) {
-        displayCode(code, type,500);
+        displayCode(code, type, FADE_DURATION);
     }
 
     CharSequence getIssuer() {
