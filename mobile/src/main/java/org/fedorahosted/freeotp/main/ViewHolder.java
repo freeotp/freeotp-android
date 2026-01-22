@@ -62,6 +62,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     private ViewGroup mPassive;
     private ViewGroup mActive;
     private ViewGroup mIcons;
+    private ViewGroup mIconsActive;
     private ImageView mCheck;
     private ImageView mCheckActive;
     private ImageView mImage;
@@ -197,6 +198,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mIssuer = itemView.findViewById(R.id.issuer);
         mLabel = itemView.findViewById(R.id.label);
         mIcons = itemView.findViewById(R.id.icons);
+        mIconsActive = itemView.findViewById(R.id.icons_active);
         mCheck = itemView.findViewById(R.id.check);
         mCheckActive = itemView.findViewById(R.id.check_active);
         mImage = itemView.findViewById(R.id.image);
@@ -212,7 +214,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         mCountdown.setAutoCancel(true);
 
         mIcons.setOnClickListener(mSelectClick);
-        mImageActive.setOnClickListener(mSelectClick);
+        mIconsActive.setOnClickListener(mSelectClick);
 
         mShare.setOnClickListener(v -> {
             String code = mCode.getText().toString();
