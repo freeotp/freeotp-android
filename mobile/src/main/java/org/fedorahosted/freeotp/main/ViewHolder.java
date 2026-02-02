@@ -156,14 +156,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
         mCountdown.cancel();
         mCode.setText(text);
-        Long timeLeft;
-        if (type == Token.Type.HOTP) {
-            timeLeft = code.timeLeft();
-            mCountdown.setDuration(timeLeft);
-        } else {
-            timeLeft = code.timeRemaining() * 1000;
-            mCountdown.setDuration(timeLeft);
-        }
+        long timeLeft = code.timeLeft();
+        mCountdown.setDuration(timeLeft);
 
         mHandler.removeCallbacksAndMessages(null);
         mHandler.postDelayed(() -> fadeOut(), timeLeft);

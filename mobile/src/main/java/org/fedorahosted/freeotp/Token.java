@@ -367,7 +367,12 @@ public class Token {
         code |= (digest[off + 2] & 0xff) << 0x08;
         code |= (digest[off + 3] & 0xff);
 
-        return Code.Factory.fromIssuer(mIssuer).makeCode(code, mDigits, getPeriod());
+        Code.Factory factory = Code.Factory.fromIssuer(mIssuer);
+        if (mType == Type.TOTP) {
+            return factory.makeTotpCode(code, mDigits, getPeriod());
+        } else {
+            return factory.makeHotpCode(code, mDigits, getPeriod());
+        }
     }
 
     public void setIssuer(String issuer) {

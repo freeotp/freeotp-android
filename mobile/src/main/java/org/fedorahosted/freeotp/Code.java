@@ -64,7 +64,15 @@ public class Code {
             return (int) Math.floor(Math.log(RFC_MAX) / Math.log(mAlphabet.length));
         }
 
-        Code makeCode(int code, @Nullable Integer digits, int period) {
+        Code makeHotpCode(int code, @Nullable Integer digits, int period) {
+            return makeCode(code, digits, period, false);
+        }
+
+        Code makeTotpCode(int code, @Nullable Integer digits, int period) {
+            return makeCode(code, digits, period, true);
+        }
+
+        private Code makeCode(int code, @Nullable Integer digits, int period, boolean alignToWindow) {
             if (digits == null)
                 digits = mDigits;
 
@@ -75,7 +83,7 @@ public class Code {
                 code /= mAlphabet.length;
             }
 
-            return new Code(new String(buffer), period);
+            return new Code(new String(buffer), period, alignToWindow);
         }
     }
 
@@ -84,8 +92,19 @@ public class Code {
     private final long mStart;
 
     public Code(String code, long period) {
-        mStart = Time.INSTANCE.current();
+        this(code, period, false);
+    }
+
+    public Code(String code, long period, boolean alignToWindow) {
         mPeriod = period * 1000;
+        if (alignToWindow) {
+            // For TOTP: mStart is not used since we calculate based on current time
+            // Set to 0 to indicate TOTP mode
+            mStart = 0;
+        } else {
+            // For HOTP: use current time when code was generated
+            mStart = Time.INSTANCE.current();
+        }
         mCode = code;
     }
 
@@ -97,15 +116,18 @@ public class Code {
         return mPeriod;
     }
 
-    public long timeRemaining() {
-        long time_remaining = mPeriod - mStart % mPeriod;
-        return time_remaining / 1000;
-    }
-
     public long timeLeft() {
         long now = Time.INSTANCE.current();
-        long left = mStart + mPeriod - now;
-        return left < 0 ? 0 : left;
+        if (mStart == 0) {
+            // TOTP mode: calculate time until next period boundary based on epoch
+            long windowStart = (now / mPeriod) * mPeriod;
+            long left = windowStart + mPeriod - now;
+            return left < 0 ? 0 : left;
+        } else {
+            // HOTP mode: calculate time since code was generated
+            long left = mStart + mPeriod - now;
+            return left < 0 ? 0 : left;
+        }
     }
 
     public int getProgress(int max) {
