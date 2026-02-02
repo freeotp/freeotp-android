@@ -54,6 +54,9 @@ import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyStore;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -252,6 +255,32 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         mItems.add(fromPosition, uuid);
     }
 
+    public void sortByMostRecentlyUsed() {
+        List<Pair<String, Long>> items = new ArrayList<>();
+
+        for (String uuid : mItems) {
+            Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
+            Long lastUsed = token != null ? token.getLastUsed() : null;
+            items.add(new Pair<>(uuid, lastUsed != null ? lastUsed : 0L));
+        }
+
+        Collections.sort(items, new Comparator<Pair<String, Long>>() {
+            @Override
+            public int compare(Pair<String, Long> a, Pair<String, Long> b) {
+                return Long.compare(b.second, a.second);
+            }
+        });
+
+        mItems.clear();
+        for (Pair<String, Long> item : items) {
+            mItems.add(item.first);
+        }
+
+        if (storeItems().commit()) {
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public boolean onSelectionToggled(ViewHolder holder) {
         boolean selected = !isSelected(holder.getAdapterPosition());
@@ -299,6 +328,7 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
             }
             Key key = mKeyStore.getKey(uuid, null);
             code = token.getCode(key);
+            token.setLastUsed(System.currentTimeMillis());
             mSharedPreferences.edit().putString(uuid, token.serialize()).apply();
         } catch (UserNotAuthenticatedException | KeyPermanentlyInvalidatedException e) {
             Log.e(LOGTAG, "Exception", e);

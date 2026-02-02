@@ -107,6 +107,9 @@ public class Token {
     @SerializedName("counter")
     private Long mCounter;
 
+    @SerializedName("lastUsed")
+    private Long mLastUsed;
+
     private class Secret {
         private byte[] secret;
     }
@@ -381,6 +384,14 @@ public class Token {
 
     public void setLabel(String label) {
         mLabel = label;
+    }
+
+    public Long getLastUsed() {
+        return mLastUsed;
+    }
+
+    public void setLastUsed(long timestamp) {
+        mLastUsed = timestamp;
     }
 
     public Uri toUri(SecretKey key) {

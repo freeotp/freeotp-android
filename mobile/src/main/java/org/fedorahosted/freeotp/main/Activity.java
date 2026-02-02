@@ -100,6 +100,7 @@ public class Activity extends AppCompatActivity
     private TextView mEmpty;
     private Menu mMenu;
     private MenuItem mAutoClipboard;
+    private MenuItem mSortByMru;
     ActivityResultLauncher<Intent> mManualAddLauncher;
     ActivityResultLauncher<Intent> mBackupSaveLauncher;
     ActivityResultLauncher<Intent> mRestoreSaveLauncher;
@@ -112,6 +113,7 @@ public class Activity extends AppCompatActivity
     private SharedPreferences mSettings;
     static final String SETTINGS = "settings";
     static final String AUTO_COPY_CLIPBOARD = "copyClipboard";
+    public static final String SORT_BY_MRU = "sortByMostRecentlyUsed";
 
 
     private final RecyclerView.AdapterDataObserver mAdapterDataObserver =
@@ -135,16 +137,28 @@ public class Activity extends AppCompatActivity
     private void onActivate(ViewHolder vh) {
         try {
             Log.i(LOGTAG, String.format("onActivate: adapter.getCode()"));
-            Code code = mTokenAdapter.getCode(vh.getAdapterPosition());
+            int position = vh.getAdapterPosition();
+            Token.Type type = mTokenAdapter.getTokenType(position);
+            Code code = mTokenAdapter.getCode(position);
+
             if (mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false)) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("code", code.getCode());
                 clipboard.setPrimaryClip(clip);
             }
 
-            Token.Type type = mTokenAdapter.getTokenType(vh.getAdapterPosition());
             Log.i(LOGTAG, String.format("onActivate: vh.displayCode()"));
             vh.displayCode(code, type);
+
+            // Defer sorting to next frame to avoid ViewHolder rebinding during click
+            if (mSettings.getBoolean(SORT_BY_MRU, false)) {
+                new android.os.Handler(android.os.Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTokenAdapter.sortByMostRecentlyUsed();
+                    }
+                });
+            }
 
         } catch (UserNotAuthenticatedException e) {
             Log.e(LOGTAG, "Exception", e);
@@ -370,6 +384,14 @@ public class Activity extends AppCompatActivity
             /* Should not be needed since this is the default, here as fallback */
             mAutoClipboard.setIcon(R.drawable.ic_check_box_blank);
         }
+
+        mSortByMru = menu.findItem(R.id.action_sort_mru);
+        /* Set checked/unchecked checkbox in menu for sort by MRU setting */
+        if(mSettings.getBoolean(SORT_BY_MRU, false)) {
+            mSortByMru.setIcon(R.drawable.ic_check_box_checked);
+        } else {
+            mSortByMru.setIcon(R.drawable.ic_check_box_blank);
+        }
         return true;
     }
 
@@ -520,6 +542,25 @@ public class Activity extends AppCompatActivity
                 /* Update checkbox icon in menu */
                 if(mAutoClipboard == null) return true;
                 mAutoClipboard.setIcon(!copy_clipboard ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_blank);
+
+                return true;
+
+            case R.id.action_sort_mru:
+                boolean sortByMru = mSettings.getBoolean(SORT_BY_MRU, false);
+
+                mSettings.edit().putBoolean(SORT_BY_MRU, !sortByMru).apply();
+                String msg = String.format("Sort by recent use: %s", !sortByMru ? "Enabled" : "Disabled");
+                Snackbar.make(findViewById(R.id.toolbar), msg, Snackbar.LENGTH_SHORT).show();
+
+                /* Update checkbox icon in menu */
+                if (mSortByMru != null) {
+                    mSortByMru.setIcon(!sortByMru ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_blank);
+                }
+
+                /* If enabling, sort immediately */
+                if (!sortByMru) {
+                    mTokenAdapter.sortByMostRecentlyUsed();
+                }
 
                 return true;
 

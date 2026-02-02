@@ -84,6 +84,13 @@
                 android:visible="true"
                 app:showAsAction="always" />
             <item
+                android:id="@+id/action_sort_mru"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_check_box_blank"
+                android:title="@string/sort_by_recent_use"
+                android:visible="true"
+                app:showAsAction="always" />
+            <item
                 android:visible="true"
                 android:id="@+id/action_about"
                 android:orderInCategory="100"
