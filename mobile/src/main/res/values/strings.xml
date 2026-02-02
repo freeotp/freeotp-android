@@ -29,6 +29,7 @@
     <string name="save">Save</string>
     <string name="about">About</string>
     <string name="auto_copy_clipboard">Auto Clipboard</string>
+    <string name="sort_by_recent_use">Sort by Recently Used</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="move_up">Move Up</string>
