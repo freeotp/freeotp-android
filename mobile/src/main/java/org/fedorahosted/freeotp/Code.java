@@ -90,20 +90,23 @@ public class Code {
     private final String mCode;
     private final long mPeriod;
     private final long mStart;
+    private final long mWindowStart; // For TOTP: the epoch window this code is valid for
 
     public Code(String code, long period) {
         this(code, period, false);
     }
 
     public Code(String code, long period, boolean alignToWindow) {
+        long currentTime = Time.INSTANCE.current();
         mPeriod = period * 1000;
         if (alignToWindow) {
-            // For TOTP: mStart is not used since we calculate based on current time
-            // Set to 0 to indicate TOTP mode
-            mStart = 0;
+            // For TOTP: track which window this code is valid for
+            mStart = 0; // Flag to indicate TOTP mode
+            mWindowStart = (currentTime / mPeriod) * mPeriod;
         } else {
             // For HOTP: use current time when code was generated
-            mStart = Time.INSTANCE.current();
+            mStart = currentTime;
+            mWindowStart = 0; // Not used for HOTP
         }
         mCode = code;
     }
@@ -135,6 +138,14 @@ public class Code {
     }
 
     public boolean isValid() {
-        return timeLeft() > 0;
+        if (mStart == 0) {
+            // TOTP mode: check if we're still in the same window
+            long now = Time.INSTANCE.current();
+            long currentWindowStart = (now / mPeriod) * mPeriod;
+            return currentWindowStart == mWindowStart;
+        } else {
+            // HOTP mode: check if time hasn't expired
+            return timeLeft() > 0;
+        }
     }
 }
