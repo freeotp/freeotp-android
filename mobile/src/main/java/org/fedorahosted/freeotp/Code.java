@@ -47,15 +47,6 @@ public class Code {
             mDigits = getDigitsMin();
         }
 
-        private Factory(String alphabet, int defaultDigits) {
-            mAlphabet = alphabet.toCharArray();
-            mDigits = defaultDigits;
-        }
-
-        int getDigitsDefault() {
-            return mDigits;
-        }
-
         int getDigitsMin() {
             return (int) Math.ceil(Math.log(RFC_MIN) / Math.log(mAlphabet.length));
         }
