@@ -34,6 +34,8 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.text.InputType;
@@ -136,7 +138,7 @@ public class Activity extends AppCompatActivity
 
     private void onActivate(ViewHolder vh) {
         try {
-            Log.i(LOGTAG, String.format("onActivate: adapter.getCode()"));
+            Log.i(LOGTAG, "onActivate: adapter.getCode()");
             int position = vh.getAdapterPosition();
             Code code = mTokenAdapter.getCode(position);
 
@@ -146,17 +148,12 @@ public class Activity extends AppCompatActivity
                 clipboard.setPrimaryClip(clip);
             }
 
-            Log.i(LOGTAG, String.format("onActivate: vh.displayCode()"));
+            Log.i(LOGTAG, "onActivate: vh.displayCode()");
             vh.displayCode(code);
 
             // Defer sorting to next frame to avoid ViewHolder rebinding during click
             if (mSettings.getBoolean(SORT_BY_MRU, false)) {
-                new android.os.Handler(android.os.Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTokenAdapter.sortByMostRecentlyUsed();
-                    }
-                });
+                new Handler(Looper.getMainLooper()).post(() -> mTokenAdapter.sortByMostRecentlyUsed());
             }
 
         } catch (UserNotAuthenticatedException e) {
