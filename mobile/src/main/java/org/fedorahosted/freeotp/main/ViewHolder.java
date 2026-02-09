@@ -131,7 +131,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void displayCode(Code code, Token.Type type, long animationDuration) {
+    private void displayCode(Code code, long animationDuration) {
         if (code == null)
             return;
 
@@ -266,7 +266,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
         setSelected(selected);
         if (code != null) {
-            displayCode(code, type, 0);
+            displayCode(code, 0);
         } else {
             // As the view may have been recycled from a previous one with code displayed,
             // do not forget to reset this part to avoid issue
@@ -274,8 +274,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    void displayCode(Code code, Token.Type type) {
-        displayCode(code, type, FADE_DURATION);
+    void displayCode(Code code) {
+        displayCode(code, FADE_DURATION);
     }
 
     CharSequence getIssuer() {

@@ -373,13 +373,6 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         return new TokenIcon(token, mContext);
     }
 
-    public Token.Type getTokenType(int position) {
-        String uuid = mItems.get(position);
-        Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
-
-        return token.getType();
-    }
-
     public void setLabel(int position, String account, String issuer) throws IOException {
         String uuid = mItems.get(position);
         Token token = Token.deserialize(mSharedPreferences.getString(uuid, null));
