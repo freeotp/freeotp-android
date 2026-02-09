@@ -138,7 +138,6 @@ public class Activity extends AppCompatActivity
         try {
             Log.i(LOGTAG, String.format("onActivate: adapter.getCode()"));
             int position = vh.getAdapterPosition();
-            Token.Type type = mTokenAdapter.getTokenType(position);
             Code code = mTokenAdapter.getCode(position);
 
             if (mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false)) {
@@ -148,7 +147,7 @@ public class Activity extends AppCompatActivity
             }
 
             Log.i(LOGTAG, String.format("onActivate: vh.displayCode()"));
-            vh.displayCode(code, type);
+            vh.displayCode(code);
 
             // Defer sorting to next frame to avoid ViewHolder rebinding during click
             if (mSettings.getBoolean(SORT_BY_MRU, false)) {
