@@ -29,6 +29,7 @@
     <string name="save">Sauvegarder</string>
     <string name="about">À propos</string>
     <string name="auto_copy_clipboard">Presse-papier automatique</string>
+    <string name="sort_by_recent_use">Trier par dernière utilisation</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
     <string name="move_up">Monter</string>
