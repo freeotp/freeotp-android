@@ -20,6 +20,7 @@
 -->
 <!--
 Information about Corsican localization:
+   - Updated on February 10th, 2026 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
    - Updated on December 20th, 2025 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
    - Updated on January 15th, 2025 for version 2.0.5 by Patriccollu di Santa Maria è Sichè
    - Updated on June 13th, 2024 for version 2.0.4 by Patriccollu di Santa Maria è Sichè
@@ -36,6 +37,7 @@ Information about Corsican localization:
 	<string name="save">Arregistrà</string>
 	<string name="about">Apprupositu</string>
 	<string name="auto_copy_clipboard">Preme’papei autumaticu</string>
+	<string name="sort_by_recent_use">Ordinà da impiegati pocu fà</string>
 	<string name="cancel">Abbandunà</string>
 	<string name="delete">Squassà</string>
 	<string name="move_up">Dispiazzà insù</string>
