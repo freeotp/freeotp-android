@@ -229,15 +229,11 @@ public class Activity extends AppCompatActivity
         });
 
         mRestoreSaveLauncher = registerLauncher(uri -> {
-            final EditText input = new EditText(getApplicationContext());
-            input.setTypeface(Typeface.SERIF);
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
             /* Copy chosen file (externalBackup.xml) over apps tokenBackup.xml SP file */
             mTokenBackup.restoreBackupFromExternal(uri);
 
             /* Prompt for restore */
-            showRestoreAlert(input);
+            showRestoreAlert();
         });
     }
 
@@ -345,11 +341,7 @@ public class Activity extends AppCompatActivity
 
         if (mBackups.getBoolean(RESTORED, false)) {
             mBackups.edit().remove(RESTORED).apply();
-            final EditText input = new EditText(this);
-            input.setTypeface(Typeface.SERIF);
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
-            showRestoreAlert(input);
+            showRestoreAlert();
         }
 
         onNewIntent(getIntent());
@@ -391,59 +383,44 @@ public class Activity extends AppCompatActivity
         return true;
     }
 
-    private void showRestoreCancelAlert(final EditText input) {
-        new AlertDialog.Builder(Activity.this)
-                .setTitle(R.string.main_restore_cancel_title)
-                .setMessage(R.string.main_restore_cancel_message)
-                .setCancelable(false)
-                .setNegativeButton(R.string.main_restore_go_back, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(input.getParent() != null) {
-                            ((ViewGroup)input.getParent()).removeView(input); // <- fix
-                        }
-                        showRestoreAlert(input);
-                    }
-                })
-                .setPositiveButton(R.string.main_restore_proceed, null)
-                .show();
+    private void showRestoreCancelAlert() {
+        RestoreCancelDialogFragment cancelDialog = RestoreCancelDialogFragment.newInstance();
+        cancelDialog.setListener(new RestoreCancelDialogFragment.RestoreCancelDialogListener() {
+            @Override
+            public void onGoBack() {
+                showRestoreAlert();
+            }
+
+            @Override
+            public void onProceed() {
+                // User chose to proceed without restoring
+            }
+        });
+        cancelDialog.show(getSupportFragmentManager(), "restore_cancel");
     }
 
-    private void showRestoreAlert(final EditText input) {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.main_restore_title)
-                .setMessage(R.string.main_restore_message)
-                .setCancelable(false)
-                .setView(input)
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        showRestoreCancelAlert(input);
-                    }
-                })
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (input != null) {
-                            mRestorePwd = input.getText().toString();
+    private void showRestoreAlert() {
+        RestoreDialogFragment restoreDialog = RestoreDialogFragment.newInstance();
+        restoreDialog.setListener(new RestoreDialogFragment.RestoreDialogListener() {
+            @Override
+            public void onRestorePassword(String password) {
+                mRestorePwd = password;
 
-                            try {
-                                mTokenAdapter.restoreTokens(mRestorePwd);
-                            } catch (TokenPersistence.BadPasswordException e) {
-                                Toast badpwd = Toast.makeText(getApplicationContext(),
-                                        R.string.main_restore_bad_password,Toast.LENGTH_SHORT);
-                                badpwd.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
-                                badpwd.show();
-                                dialog.dismiss();
-                                if(input.getParent() != null) {
-                                    ((ViewGroup)input.getParent()).removeView(input); // <- fix
-                                }
-                                input.setText("");
-                                showRestoreAlert(input);
-                            }
-                        }
-                    }
-                }).show();
+                try {
+                    mTokenAdapter.restoreTokens(mRestorePwd);
+                    restoreDialog.dismiss();
+                } catch (TokenPersistence.BadPasswordException e) {
+                    restoreDialog.showBadPasswordError();
+                }
+            }
+
+            @Override
+            public void onRestoreCancel() {
+                restoreDialog.dismiss();
+                showRestoreCancelAlert();
+            }
+        });
+        restoreDialog.show(getSupportFragmentManager(), "restore");
     }
 
     @Override
