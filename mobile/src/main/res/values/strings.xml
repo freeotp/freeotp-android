@@ -68,6 +68,7 @@
     <string name="main_restore_title">Restore from backup</string>
     <string name="main_restore_message">Please enter backup password\n\nUpon successful restore, this password used to restore will overwrite any previously setup backup password</string>
     <string name="main_restore_bad_password">Invalid password</string>
+    <string name="main_restore_password_required">Password is required</string>
     <string name="main_restore_cancel_title">Cancel Restore?</string>
     <string name="main_restore_cancel_message">You will lose all previously backed up tokens!</string>
     <string name="main_restore_proceed">Proceed without Restoring</string>
