@@ -2,8 +2,8 @@
 <resources>
     <!-- Overrides for dark mode -->
     <style name="FreeOTP.Purple">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorSecondary">@color/purple_500</item>
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorSecondary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/freeotp_grey_dark_primary</item>
         <item name="colorPrimaryDark">@color/dark_grey</item>
         <item name="buttoncolor">@drawable/buttoncolor</item>
