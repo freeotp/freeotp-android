@@ -30,9 +30,9 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="true"
-        android:icon="@drawable/ic_freeotp"
+        android:icon="@mipmap/ic_freeotp"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_freeotp"
+        android:roundIcon="@mipmap/ic_freeotp_round"
         android:supportsRtl="true"
         android:theme="@style/FreeOTP.Purple.NoActionBar">
         <activity
