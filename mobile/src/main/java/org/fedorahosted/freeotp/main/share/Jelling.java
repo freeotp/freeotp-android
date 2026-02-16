@@ -21,6 +21,8 @@
 package org.fedorahosted.freeotp.main.share;
 
 import android.Manifest;
+import android.bluetooth.le.ScanRecord;
+import android.os.Build;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -39,6 +41,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.ParcelUuid;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
+
 import android.util.Log;
 
 import org.fedorahosted.freeotp.R;
@@ -46,6 +50,7 @@ import org.fedorahosted.freeotp.R;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -57,12 +62,16 @@ class Jelling extends Discoverable {
         boolean mRestart = false;
         String mToken;
 
-        private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+            @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
             @Override
             public void onReceive(Context context, Intent i) {
                 BluetoothDevice dev = i.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 int ns = i.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, -1);
                 int os = i.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE, -1);
+
+                if (dev == null)
+                    return;
 
                 Log.d("LOG", String.format("Bond: %s (%d => %d)", dev.getAddress(), os, ns));
 
@@ -85,6 +94,7 @@ class Jelling extends Discoverable {
             mToken = token;
         }
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int state) {
             switch (state) {
@@ -101,22 +111,12 @@ class Jelling extends Discoverable {
                     if (mRestart) {
                         // The remote pairing dialog has stolen focus from the input.
                         // Give time for the dialog to dismiss and refocus.
-                        post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mBluetoothGatt.connect();
-                            }
-                        }, 3000);
+                        post(() -> mBluetoothGatt.connect(), 3000);
                         mRestart = false;
                         return;
                     }
 
-                    post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mShareCallback.onShareCompleted(mSuccess);
-                        }
-                    });
+                    post(() -> mShareCallback.onShareCompleted(mSuccess));
 
                     if (mRegistered) {
                         mContext.unregisterReceiver(mBroadcastReceiver);
@@ -129,6 +129,7 @@ class Jelling extends Discoverable {
             }
         }
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             BluetoothGattService svc = gatt.getService(JELLING_SVC);
@@ -154,6 +155,7 @@ class Jelling extends Discoverable {
             }
         }
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic chr, int status) {
             switch (status) {
@@ -171,6 +173,7 @@ class Jelling extends Discoverable {
             }
         }
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
             mSuccess = status == BluetoothGatt.GATT_SUCCESS;
@@ -188,6 +191,20 @@ class Jelling extends Discoverable {
         ).build()
     );
 
+    private static final String[] mPermissions = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+            ? new String[]{
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH,
+    }
+            : new String[]{
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+    };
+
     private static final ScanSettings SCAN_SETTINGS = new ScanSettings.Builder()
         .setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT)
         .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
@@ -199,6 +216,7 @@ class Jelling extends Discoverable {
         private final Map<BluetoothDevice, Long> mDevices = new ConcurrentHashMap<>();
         private final long TIMEOUT = 10000;
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
             super.onBatchScanResults(results);
@@ -206,6 +224,17 @@ class Jelling extends Discoverable {
                 onScanResult(ScanSettings.CALLBACK_TYPE_ALL_MATCHES, result);
         }
 
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
+        @NonNull
+        private String getAliasOrName(@NonNull BluetoothDevice dev, ScanRecord record) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if(dev.getAlias() != null) return  dev.getAlias();
+            }
+            if (record.getDeviceName() != null) return  record.getDeviceName();
+            return  dev.getName();
+        }
+
+        @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         @Override
         public void onScanResult(int callbackType, final ScanResult result) {
             final BluetoothDevice dev = result.getDevice();
@@ -213,7 +242,7 @@ class Jelling extends Discoverable {
             if (!mDevices.containsKey(dev)) {
                 Adapter.Item item = new Adapter.Item();
                 item.setTitle(mContext.getResources().getString(R.string.share_jelling_send_to));
-                item.setSubtitle(dev.getName());
+                item.setSubtitle(getAliasOrName(dev, result.getScanRecord()));
                 item.setImage(R.drawable.ic_bluetooth);
 
                 switch (dev.getBondState()) {
@@ -226,40 +255,33 @@ class Jelling extends Discoverable {
                 }
 
                 mDeviceItemMap.put(dev, item);
-                appear(item, new Shareable() {
-                    @Override
-                    public void share(String token, ShareCallback shareCallback) {
-                        GattCallback gc = new GattCallback(token, shareCallback);
-                        mBluetoothGatt = dev.connectGatt(mContext, false, gc);
-                    }
+                appear(item, (token, shareCallback) -> {
+                    GattCallback gc = new GattCallback(token, shareCallback);
+                    mBluetoothGatt = dev.connectGatt(mContext, false, gc);
                 });
             }
 
             mDevices.put(dev, System.currentTimeMillis());
 
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    for (BluetoothDevice d : mDevices.keySet()) {
-                        if (mDevices.get(d) < System.currentTimeMillis() - TIMEOUT) {
-                            disappear(mDeviceItemMap.get(d));
-                            mDevices.remove(d);
-                        }
+            post(() -> {
+                for (BluetoothDevice d : mDevices.keySet()) {
+                    if (Objects.requireNonNull(mDevices.get(d)) < System.currentTimeMillis() - TIMEOUT) {
+                        disappear(mDeviceItemMap.get(d));
+                        mDevices.remove(d);
                     }
                 }
             }, TIMEOUT);
         }
     };
 
-    private Map<BluetoothDevice, Adapter.Item> mDeviceItemMap = new ConcurrentHashMap<>();
-    private Adapter.Item mBluetoothItem = new Adapter.Item();
+    private final Map<BluetoothDevice, Adapter.Item> mDeviceItemMap = new ConcurrentHashMap<>();
+    private final Adapter.Item mBluetoothItem = new Adapter.Item();
     private BluetoothGatt mBluetoothGatt;
     private boolean mScanning = false;
 
     Jelling(@NonNull Context context, @NonNull DiscoveryCallback discoveryCallback) {
         super(context, discoveryCallback);
 
-        mBluetoothItem = new Adapter.Item();
         mBluetoothItem.setSubtitle(mContext.getResources().getString(R.string.share_jelling_bluetooth_devices));
         mBluetoothItem.setTitle(mContext.getResources().getString(R.string.share_jelling_scan_for));
         mBluetoothItem.setImage(R.drawable.ic_bluetooth);
@@ -276,11 +298,7 @@ class Jelling extends Discoverable {
 
     @Override
     public String[] permissions() {
-        return new String[] {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.BLUETOOTH_ADMIN,
-            Manifest.permission.BLUETOOTH,
-        };
+        return mPermissions;
     }
 
     public Intent enablement() {
@@ -294,6 +312,7 @@ class Jelling extends Discoverable {
         return new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     @Override
     public void startDiscovery() {
         if (mScanning)
@@ -307,18 +326,16 @@ class Jelling extends Discoverable {
         if (ba == null)
             return;
 
-        ba.getBluetoothLeScanner().startScan(FILTERS, SCAN_SETTINGS, mScanCallback);
+        ba.getBluetoothLeScanner().startScan(Jelling.FILTERS, Jelling.SCAN_SETTINGS, mScanCallback);
         mScanning = true;
 
-        post(new Runnable() {
-            @Override
-            public void run() {
-                mBluetoothItem.setTitle(mContext.getResources().getString(R.string.share_jelling_scanning_for));
-                mBluetoothItem.setOnClickListener(null);
-            }
+        post(() -> {
+            mBluetoothItem.setTitle(mContext.getResources().getString(R.string.share_jelling_scanning_for));
+            mBluetoothItem.setOnClickListener(null);
         });
     }
 
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN})
     public void stopDiscovery() {
         if (!mScanning)
             return;
