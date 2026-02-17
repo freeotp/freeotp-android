@@ -257,7 +257,7 @@ class Jelling extends Discoverable {
                 mDeviceItemMap.put(dev, item);
                 appear(item, (token, shareCallback) -> {
                     GattCallback gc = new GattCallback(token, shareCallback);
-                    mBluetoothGatt = dev.connectGatt(mContext, false, gc);
+                    mBluetoothGatt = dev.connectGatt(mContext, false, gc, BluetoothDevice.TRANSPORT_BREDR);
                 });
             }
 
