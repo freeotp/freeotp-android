@@ -43,6 +43,7 @@
     <string name="share_jelling_scan_for">Scan for…</string>
     <string name="share_jelling_scanning_for">Scanning for…</string>
     <string name="share_jelling_bluetooth_devices">Bluetooth Devices</string>
+    <string name="share_jelling_stale_handles">Connection failed, try again.</string>
     <string name="share_clipboard_copy_to">Copy to…</string>
     <string name="share_clipboard_clipboard">Clipboard</string>
 

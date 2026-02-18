@@ -21,6 +21,7 @@
 package org.fedorahosted.freeotp.main.share;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.le.ScanRecord;
 import android.os.Build;
 import android.bluetooth.BluetoothAdapter;
@@ -44,9 +45,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import org.fedorahosted.freeotp.R;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +58,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressLint("DiscouragedPrivateApi")
 class Jelling extends Discoverable {
     private class GattCallback extends BluetoothGattCallback {
         Shareable.ShareCallback mShareCallback;
@@ -168,6 +173,11 @@ class Jelling extends Discoverable {
             default:
                 Log.d(getClass().getSimpleName(), String.format("Chr. Write failed: %d", status));
                 gatt.abortReliableWrite();
+                // refresh handle on stale cache
+                if (status == 0x1 || status == 133 || status == BluetoothGatt.GATT_FAILURE) {
+                    post(() -> Toast.makeText(mContext, R.string.share_jelling_stale_handles, Toast.LENGTH_LONG).show());
+                    refreshCache(gatt);
+                }
                 gatt.disconnect();
                 break;
             }
@@ -274,10 +284,40 @@ class Jelling extends Discoverable {
         }
     };
 
+    /**
+     * <p>Android caches Gatt services and handles, so
+     * if BlueZ/Jelling restarts, all handles becomes
+     * invalid, causing the write to fail.</p>
+     * <br />
+     * <p>Resolve BluetoothGatt.refresh() via reflection.</p>
+     */
+    private static void refreshCache(BluetoothGatt gatt) {
+        if(mGattRefresh == null || gatt == null) return;
+        try {
+            mGattRefresh.invoke(gatt);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            Log.d("JellingRefresh", Objects.requireNonNullElse(e.getMessage(), e.toString()));
+        }
+    }
+
     private final Map<BluetoothDevice, Adapter.Item> mDeviceItemMap = new ConcurrentHashMap<>();
     private final Adapter.Item mBluetoothItem = new Adapter.Item();
     private BluetoothGatt mBluetoothGatt;
     private boolean mScanning = false;
+
+    private static final Method mGattRefresh;
+    static {
+        Method m = null;
+        try {
+            //noinspection JavaReflectionMemberAccess
+            m = BluetoothGatt.class.getDeclaredMethod("refresh");
+            m.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            Log.d("JellingScanCallback", "BluetoothGatt.refresh() not found.");
+        }
+        mGattRefresh = m;
+    }
+
 
     Jelling(@NonNull Context context, @NonNull DiscoveryCallback discoveryCallback) {
         super(context, discoveryCallback);
