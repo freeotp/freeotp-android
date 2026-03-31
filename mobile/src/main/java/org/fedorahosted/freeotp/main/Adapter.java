@@ -341,6 +341,10 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
         final Long id = getItemId(position);
         mActive.put(id, code);
 
+        // Minimum delay to prevent rapid rescheduling when timeLeft() is 0 or near-zero
+        final long MIN_DELAY_MS = 500;
+        long initialDelay = Math.max(code.timeLeft(), MIN_DELAY_MS);
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -349,10 +353,12 @@ public class Adapter extends SelectableAdapter<ViewHolder> implements ViewHolder
                     return;
                 if (!code.isValid())
                     mActive.remove(id);
-                else
-                    mHandler.postDelayed(this, code.timeLeft());
+                else {
+                    long delay = Math.max(code.timeLeft(), MIN_DELAY_MS);
+                    mHandler.postDelayed(this, delay);
+                }
             }
-        }, code.timeLeft());
+        }, initialDelay);
 
         Log.i(LOGTAG, String.format("getCode: returning code"));
 
