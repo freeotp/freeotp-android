@@ -20,6 +20,7 @@
 -->
 <!--
 Information about Corsican localization:
+   - Updated on May 15th, 2026 for version 2.0.7 by Patriccollu di Santa Maria è Sichè
    - Updated on February 10th, 2026 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
    - Updated on December 20th, 2025 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
    - Updated on January 15th, 2025 for version 2.0.5 by Patriccollu di Santa Maria è Sichè
@@ -32,12 +33,12 @@ Information about Corsican localization:
 
 	<!-- Buttons -->
 	<string name="ok">Vai</string>
-	<string name="done">Fattu</string>
+	<string name="done">Compiu</string>
 	<string name="close">Chjode</string>
 	<string name="save">Arregistrà</string>
 	<string name="about">Apprupositu</string>
 	<string name="auto_copy_clipboard">Preme’papei autumaticu</string>
-	<string name="sort_by_recent_use">Ordinà da impiegati pocu fà</string>
+	<string name="sort_by_recent_use">Ordinà da l’ultimu usu</string>
 	<string name="cancel">Abbandunà</string>
 	<string name="delete">Squassà</string>
 	<string name="move_up">Dispiazzà insù</string>
@@ -51,6 +52,7 @@ Information about Corsican localization:
 	<string name="share_jelling_scan_for">Circà…</string>
 	<string name="share_jelling_scanning_for">Ricerca in corsu…</string>
 	<string name="share_jelling_bluetooth_devices">Apparechji Bluetooth</string>
+    <string name="share_jelling_stale_handles">Fiascu di a cunnessione, pruvate torna.</string>
 	<string name="share_clipboard_copy_to">Cupià versu…</string>
 	<string name="share_clipboard_clipboard">Preme’papei</string>
 
@@ -76,6 +78,7 @@ Information about Corsican localization:
 	<string name="main_restore_title">Risturà via una salvaguardia</string>
 	<string name="main_restore_message">Stampittate a parolla d’intesa di salvaguardia\n\nIn casu di risturazione riesciuta, sta parolla d’intesa impiegata per risturà rimpiazzerà tutta parolla d’intesa di salvaguardia definita nanzu</string>
 	<string name="main_restore_bad_password">Parolla d’intesa inaccettevule</string>
+    <string name="main_restore_password_required">A parolla d’intesa hè richiesta</string>
 	<string name="main_restore_cancel_title">Abbandunà a risturazione&#x00a0;?</string>
 	<string name="main_restore_cancel_message">Pirderete tutti i gettoni arregistrati nanzu&#x00a0;!</string>
 	<string name="main_restore_proceed">Cuntinuà senza risturà</string>
@@ -103,7 +106,7 @@ Information about Corsican localization:
 		<item>300</item>
 	</string-array>
 	<string name="manual_account_hint">qualunque@esempiu.com</string>
-	<string name="manual_issuer_hint">Intrapresa Esempiu</string>
+	<string name="manual_issuer_hint">Esempiu d’impresa</string>
 	<string name="manual_secret_text">Sicretu</string>
 	<string name="manual_secret_base32_text">(Base32)</string>
 	<string name="manual_type_text">Tipu</string>
@@ -112,7 +115,7 @@ Information about Corsican localization:
 	<string name="manual_digits_text">Cifri</string>
 	<string name="manual_button_digits_six">6</string>
 	<string name="manual_button_digits_eight">8</string>
-	<string name="manual_algorithm">Cudificazione</string>
+	<string name="manual_algorithm">Metoda di calculu</string>
 	<string name="manual_interval">Intervallu</string>
 	<string name="manual_add_token">Aghjunghje un gettone</string>
 	<string name="manual_accessibility_algorithm">Cudificazione di i gettoni</string>
