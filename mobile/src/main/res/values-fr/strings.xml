@@ -43,6 +43,7 @@
     <string name="share_jelling_scan_for">Rechercher…</string>
     <string name="share_jelling_scanning_for">Recherche en cours…</string>
     <string name="share_jelling_bluetooth_devices">appareils Bluetooth</string>
+    <string name="share_jelling_stale_handles">La connexion a échoué, veuillez réessayer.</string>
     <string name="share_clipboard_copy_to">Copier dans…</string>
     <string name="share_clipboard_clipboard">presse-papier</string>
 
@@ -68,6 +69,7 @@
     <string name="main_restore_title">Restauration de la sauvegarde</string>
     <string name="main_restore_message">Merci d\'entrer votre mot de passe de sauvegarde</string>
     <string name="main_restore_bad_password">Mot de passe invalide</string>
+    <string name="main_restore_password_required">Mot de passe requis</string>
     <string name="main_restore_cancel_title">Annuler la restauration\u00A0?</string>
     <string name="main_restore_cancel_message">Vous perdrez tous les jetons sauvegardés précédemment\u00A0!</string>
     <string name="main_restore_proceed">Continuer sans restaurer</string>
