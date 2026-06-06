@@ -55,22 +55,25 @@ public class Code {
             return (int) Math.floor(Math.log(RFC_MAX) / Math.log(mAlphabet.length));
         }
 
-        Code makeHotpCode(int code, @Nullable Integer digits, int period) {
-            return makeCode(code, digits, period, false);
+        Code makeHotpCode(int code, @Nullable Integer digits, int period, boolean reverse) {
+            return makeCode(code, digits, period, reverse, false);
         }
 
-        Code makeTotpCode(int code, @Nullable Integer digits, int period) {
-            return makeCode(code, digits, period, true);
+        Code makeTotpCode(int code, @Nullable Integer digits, int period, boolean reverse) {
+            return makeCode(code, digits, period, reverse, true);
         }
 
-        private Code makeCode(int code, @Nullable Integer digits, int period, boolean alignToWindow) {
+        private Code makeCode(int code, @Nullable Integer digits, int period, boolean reverse, boolean alignToWindow) {
             if (digits == null)
                 digits = mDigits;
 
             char[] buffer = new char[digits];
 
             for (int i = 0; i < digits; i++) {
-                buffer[digits - i - 1] = mAlphabet[code % mAlphabet.length];
+                if (reverse)
+                    buffer[i] = mAlphabet[code % mAlphabet.length];
+                else
+                    buffer[digits - i - 1] = mAlphabet[code % mAlphabet.length];
                 code /= mAlphabet.length;
             }
 

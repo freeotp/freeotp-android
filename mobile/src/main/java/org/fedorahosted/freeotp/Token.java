@@ -36,6 +36,7 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -370,11 +371,14 @@ public class Token {
         code |= (digest[off + 2] & 0xff) << 0x08;
         code |= (digest[off + 3] & 0xff);
 
+        // Steam reverses OTP code.
+        boolean reverse = Objects.equals(mIssuer, "Steam");
+
         Code.Factory factory = Code.Factory.fromIssuer(mIssuer);
         if (mType == Type.TOTP) {
-            return factory.makeTotpCode(code, mDigits, getPeriod());
+            return factory.makeTotpCode(code, mDigits, getPeriod(), reverse);
         } else {
-            return factory.makeHotpCode(code, mDigits, getPeriod());
+            return factory.makeHotpCode(code, mDigits, getPeriod(), reverse);
         }
     }
 
