@@ -38,6 +38,11 @@
     <string name="unknown_issuer">Unknown Issuer</string>
     <string name="enable_lock_screen">Enable Lock Screen</string>
 
+    <string name="auto_copy_clipboard_toast">Automatic copy-to-clipboard: %1$s</string>
+    <string name="sort_by_recent_use_toast">Sort by recent use: %1$s</string>
+    <string name="state_enabled_toast">Enabled</string>
+    <string name="state_disabled_toast">Disabled</string>
+
     <!-- Strings related to token sharing. -->
     <string name="share_jelling_send_to">Send to…</string>
     <string name="share_jelling_scan_for">Scan for…</string>
@@ -121,6 +126,7 @@
     <string name="backup_title">Backup</string>
     <string name="restore_title">Restore</string>
     <string name="backup_restore_title">Backup and Restore</string>
+    <string name="backup_toast">Backup file saved to external storage</string>
     <string name="keystore_migration_explanation">FreeOTP tokens are now migrated into the Android Keystore! This results in increased security of token secrets, however key material is non-exportable. \n\nBackup and restore functionality is now added to ensure tokens can be recovered. You will be prompted to create a master password to setup encrypted token backups.</string>
     <string name="manual_backup_explanation">Alternatively, an encrypted backup data file can be exported to external storage from within the App. The top toolbar menu now contains items labeled \'Backup\' and \'Restore\' to utilize this manual backup method.</string>
     <string name="google_auto_backup_link">FreeOTP can participate in Android automatic backup and restore functionality. This &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;Google link&lt;/a&gt; contains information on how to utilize this backup method.</string>
@@ -128,5 +134,4 @@
     <string name="keystore_image">keystore image</string>
     <string name="android_keystore_title">Android Keystore</string>
     <string name="menu_title">Menu</string>
-
 </resources>

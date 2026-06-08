@@ -74,6 +74,7 @@ import javax.crypto.SecretKey;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -215,7 +216,7 @@ public class Activity extends AppCompatActivity
         mBackupSaveLauncher = registerLauncher(uri -> {
             /* Copy tokenBackup to picked file on external storage */
             mTokenBackup.copyBackupToExternal(uri);
-            UserNotifier.show(this, "Backup file saved to external storage");
+            UserNotifier.show(this, R.string.backup_toast);
         });
 
         mRestoreSaveLauncher = registerLauncher(uri -> {
@@ -499,8 +500,7 @@ public class Activity extends AppCompatActivity
                 boolean copy_clipboard = mSettings.getBoolean(AUTO_COPY_CLIPBOARD, false);
 
                 mSettings.edit().putBoolean(AUTO_COPY_CLIPBOARD, !copy_clipboard).apply();
-                String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
-                UserNotifier.show(this, s);
+                UserNotifier.show(this, R.string.auto_copy_clipboard_toast, !copy_clipboard ? R.string.state_enabled_toast : R.string.state_disabled_toast);
 
                 /* Update checkbox icon in menu */
                 if(mAutoClipboard == null) return true;
@@ -512,8 +512,7 @@ public class Activity extends AppCompatActivity
                 boolean sortByMru = mSettings.getBoolean(SORT_BY_MRU, false);
 
                 mSettings.edit().putBoolean(SORT_BY_MRU, !sortByMru).apply();
-                String msg = String.format("Sort by recent use: %s", !sortByMru ? "Enabled" : "Disabled");
-                UserNotifier.show(this, msg);
+                UserNotifier.show(this, R.string.sort_by_recent_use_toast, !sortByMru ? R.string.state_enabled_toast : R.string.state_disabled_toast);
 
                 /* Update checkbox icon in menu */
                 if (mSortByMru != null) {

@@ -38,6 +38,11 @@
     <string name="unknown_issuer">Fournisseur inconnu</string>
     <string name="enable_lock_screen">Activer le verrouillage de l\'écran</string>
 
+    <string name="auto_copy_clipboard_toast">Presse-papier automatique\u00A0: %1$s</string>
+    <string name="sort_by_recent_use_toast">Trier par dernière utilisation\u00A0: %1$s</string>
+    <string name="state_enabled_toast">activé</string>
+    <string name="state_disabled_toast">désactivé</string>
+
     <!-- Strings related to token sharing. -->
     <string name="share_jelling_send_to">Envoyer à…</string>
     <string name="share_jelling_scan_for">Rechercher…</string>
@@ -48,7 +53,7 @@
     <string name="share_clipboard_clipboard">presse-papier</string>
 
     <!-- Strings related to camera errors. -->
-    <string name="error_camera_open">Erreur à l\'ouverture de l\'appareil photo\\u00A0!</string>
+    <string name="error_camera_open">Erreur à l\'ouverture de l\'appareil photo\u00A0!</string>
 
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP version %1$s (%2$d)</string>
@@ -121,6 +126,7 @@
     <string name="backup_title">Sauvegarde</string>
     <string name="restore_title">Restauration</string>
     <string name="backup_restore_title">Sauvegarde et restauration</string>
+    <string name="backup_toast">Fichier de sauvegarde exporté sur le stockage externe</string>
     <string name="keystore_migration_explanation">Les jetons FreeOTP ont désormais migré vers le magasin de clés Android\u00A0! Il en résulte une sécurité accrue, mais les clés ne sont alors plus exportables. \n\nLes fonctionnalités de sauvegarde et restauration sont désormais ajoutées afin d\'assurer la récupération des jetons. Vous serez invité à créer un mot de passe maitre pour initialiser les sauvegardes chiffrées des jetons.</string>
     <string name="manual_backup_explanation">Parallèlement, un fichier de sauvegarde chiffré peut être exporté sur le stockage externe depuis l\'application. La barre d\'outils supérieure contient désormais les entrées nommées \'Sauvegarde\' et \'Restauration\' afin d\'utiliser cette sauvegarde manuelle.</string>
     <string name="google_auto_backup_link">FreeOTP peut utiliser la fonctionnalité sauvegarde et restauration automatiques d\'Android. Ce &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=fr&quot;&gt;lien Google&lt;/a&gt; contient des informations pour utiliser cette méthode de restauration.</string>

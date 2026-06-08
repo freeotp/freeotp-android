@@ -14,4 +14,8 @@ public class UserNotifier {
     public static void show(Activity activity, @StringRes int msgId) {
         show(activity, activity.getString(msgId));
     }
+
+    public static void show(Activity activity, @StringRes int msgId, @StringRes int placeholderMsgId) {
+        show(activity, activity.getString(msgId, activity.getString(placeholderMsgId)));
+    }
 }
