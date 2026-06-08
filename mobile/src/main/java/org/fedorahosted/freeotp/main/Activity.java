@@ -31,31 +31,24 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.fedorahosted.freeotp.Code;
 import org.fedorahosted.freeotp.TokenIcon;
@@ -66,6 +59,7 @@ import org.fedorahosted.freeotp.TokenPersistence;
 import org.fedorahosted.freeotp.main.share.ShareFragment;
 import org.fedorahosted.freeotp.utils.GridLayoutItemDecoration;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
+import org.fedorahosted.freeotp.utils.UserNotifier;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -191,10 +185,6 @@ public class Activity extends AppCompatActivity
         }
     }
 
-    private void showToast(String msg) {
-        Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_SHORT).show();
-    }
-
     interface LauncherCallback {
         void execute(Uri uri);
     }
@@ -225,7 +215,7 @@ public class Activity extends AppCompatActivity
         mBackupSaveLauncher = registerLauncher(uri -> {
             /* Copy tokenBackup to picked file on external storage */
             mTokenBackup.copyBackupToExternal(uri);
-            showToast("Backup file saved to external storage");
+            UserNotifier.show(this, "Backup file saved to external storage");
         });
 
         mRestoreSaveLauncher = registerLauncher(uri -> {
@@ -510,8 +500,8 @@ public class Activity extends AppCompatActivity
 
                 mSettings.edit().putBoolean(AUTO_COPY_CLIPBOARD, !copy_clipboard).apply();
                 String s = String.format("Automatic copy-to-clipboard: %s", !copy_clipboard ? "Enabled" : "Disabled");
-                Snackbar.make(findViewById(R.id.toolbar), s, Snackbar.LENGTH_SHORT)
-                        .show();
+                UserNotifier.show(this, s);
+
                 /* Update checkbox icon in menu */
                 if(mAutoClipboard == null) return true;
                 mAutoClipboard.setIcon(!copy_clipboard ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_blank);
@@ -523,7 +513,7 @@ public class Activity extends AppCompatActivity
 
                 mSettings.edit().putBoolean(SORT_BY_MRU, !sortByMru).apply();
                 String msg = String.format("Sort by recent use: %s", !sortByMru ? "Enabled" : "Disabled");
-                Snackbar.make(findViewById(R.id.toolbar), msg, Snackbar.LENGTH_SHORT).show();
+                UserNotifier.show(this, msg);
 
                 /* Update checkbox icon in menu */
                 if (mSortByMru != null) {

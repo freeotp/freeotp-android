@@ -11,13 +11,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import org.fedorahosted.freeotp.main.Activity;
+import org.fedorahosted.freeotp.utils.UserNotifier;
 
 public class ManualAdd extends AppCompatActivity {
     EditText mAccount;
@@ -127,7 +127,7 @@ public class ManualAdd extends AppCompatActivity {
         }
 
         if (msgId != 0) {
-            Toast.makeText(getApplicationContext(), getString(msgId),Toast.LENGTH_SHORT).show();
+            UserNotifier.show(this, msgId);
             return false;
         } else {
             return true;
