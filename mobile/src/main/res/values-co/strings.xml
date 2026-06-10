@@ -20,10 +20,8 @@
 -->
 <!--
 Information about Corsican localization:
-   - Updated on May 15th, 2026 for version 2.0.7 by Patriccollu di Santa Maria è Sichè
-   - Updated on February 10th, 2026 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
-   - Updated on December 20th, 2025 for version 2.0.6 by Patriccollu di Santa Maria è Sichè
-   - Updated on January 15th, 2025 for version 2.0.5 by Patriccollu di Santa Maria è Sichè
+   - Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (2.0.6), June 10th (2.0.7), May 15th (2.0.7)
+   - Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (2.0.5), Dec. 20th (2.0.6)
    - Updated on June 13th, 2024 for version 2.0.4 by Patriccollu di Santa Maria è Sichè
    - Created on September 14th, 2023 for version 2.0.2 by Patriccollu di Santa Maria è Sichè
 -->
@@ -46,6 +44,11 @@ Information about Corsican localization:
 	<string name="add_anyway">Aghjunghje quantunque</string>
 	<string name="unknown_issuer">Emettidore scunnisciutu</string>
 	<string name="enable_lock_screen">Attivà l’ammarchjunata di u screnu</string>
+
+    <string name="auto_copy_clipboard_toast">Copia autumatica versu u preme’papei : %1$s</string>
+    <string name="sort_by_recent_use_toast">Ordinà da l’ultimu usu : %1$s</string>
+    <string name="state_enabled_toast">Attivatu</string>
+    <string name="state_disabled_toast">Disattivatu</string>
 
 	<!-- Strings related to token sharing. -->
 	<string name="share_jelling_send_to">Mandà à…</string>
@@ -130,6 +133,7 @@ Information about Corsican localization:
 	<string name="backup_title">Salvaguardia</string>
 	<string name="restore_title">Risturazione</string>
 	<string name="backup_restore_title">Salvaguardia è risturazione</string>
+    <string name="backup_toast">Schedariu di salvaguardia arregistratu in a memoria esterna</string>
 	<string name="keystore_migration_explanation">Avà i gettoni FreeOTP sò trasferiti ver di u magazinu di chjavi Android&#x00a0;! Què face chì a sicurità di i gettoni hè più forte, ma ùn si pò più espurtà e chjavi. \n\nAvà e funzioni di salvaguardia è di risturazione sò aghjunte per assicurassi chì i gettoni ponu esse ricuperati. Serete invitati à creà una parolla d’intesa principale per inizià e salvaguardie cifrate di gettone.</string>
 	<string name="manual_backup_explanation">Un altra pussibilità hè d’espurtà un schedariu cifratu di salvaguardia versu una memoria esterna via l’appiecazione. A barra d’attrezzi superiore cuntene i dui elementi chjamati «&#x00a0;Salvaguardia&#x00a0;» è «&#x00a0;Risturazione&#x00a0;» per impiegà sta metoda manuale di salvaguardia.</string>
 	<string name="google_auto_backup_link">FreeOTP pò impiegà e funzioni autumatiche di salvaguardia è di risturazione d’Android. Stu &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=fr&quot;&gt;liame Google&lt;/a&gt; cuntene l’infurmazioni per sapè cumu impiegà sta metoda di salvaguardia.</string>
@@ -137,5 +141,4 @@ Information about Corsican localization:
 	<string name="keystore_image">fiura di magazinu di chjavi</string>
 	<string name="android_keystore_title">Magazinu di chjavi Android</string>
 	<string name="menu_title">Listinu</string>
-
 </resources>
