@@ -30,7 +30,7 @@
 
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP Versjon %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., og andre.&lt;br/&gt;&lt;br/&gt;FreeOTP er lisensiert under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se vår &lt;a href=&quot;https://freeotp.github.io&quot;&gt;nettside&lt;/a&gt;.</string>
+    <string name="main_about_message">Copyright Red Hat&lt;br/&gt;&lt;br/&gt;FreeOTP er lisensiert under &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;For mer informasjon, se vår &lt;a href=&quot;https://freeotp.github.io&quot;&gt;nettside&lt;/a&gt;.</string>
     <string name="main_welcome">Velkommen til FreeOTP!\n\nLegg til en nøkkel for å komme i gang.</string>
     <string name="main_deletion_title">Slett valgte nøkler?</string>
     <string name="main_deletion_message">Sletting av en nøkkel deaktiverer den ikke på tjenesten. Hvis du fortsetter, kan du bli utestengt fra kontoen din. Sletting av en nøkkel kan ikke angres.</string>

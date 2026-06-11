@@ -64,7 +64,7 @@ Information about Corsican localization:
 
 	<!-- Strings for the various dialogs. -->
 	<string name="main_about_title">FreeOTP versione %1$s (%2$d)</string>
-	<string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP hè publicatu sottu a licenza &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Per sapene di più, fighjate u nostru &lt;a href=&quot;https://freeotp.github.io&quot;&gt;situ web&lt;/a&gt;.</string>
+	<string name="main_about_message">Copyright Red Hat&lt;br/&gt;&lt;br/&gt;FreeOTP hè publicatu sottu a licenza &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Per sapene di più, fighjate u nostru &lt;a href=&quot;https://freeotp.github.io&quot;&gt;situ web&lt;/a&gt;.</string>
 	<string name="main_welcome">Benvenuta in FreeOTP&#x00a0;!\n\nAghjunghjite un gettone per principià.</string>
 	<string name="main_deletion_title">Squassà i gettoni selezziunati&#x00a0;?</string>
 	<string name="main_deletion_message">A squassatura d’un gettone ùn u disattiveghja micca nant’à u servitore. S’è vo cuntinuate, u vostru contu puderia esse bluccatu. A squassatura d’un gettone ùn pò micca esse disfata.</string>

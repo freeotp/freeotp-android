@@ -47,7 +47,7 @@
     <string name="error_camera_open">開啟相機時發生錯誤！</string>
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP 版本 %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP 採用 &lt;a href=https://www.apache.org/licenses/LICENSE-2.0.html&gt;Apache 2.0&lt;/a&gt; 授權。&lt;br/&gt;&lt;br/&gt;如需更多資訊，請參閱我們的 &lt;a href=https://freeotp.github.io&gt;網站&lt;/a&gt;。</string>
+    <string name="main_about_message">Copyright Red Hat&lt;br/&gt;&lt;br/&gt;FreeOTP 採用 &lt;a href=https://www.apache.org/licenses/LICENSE-2.0.html&gt;Apache 2.0&lt;/a&gt; 授權。&lt;br/&gt;&lt;br/&gt;如需更多資訊，請參閱我們的 &lt;a href=https://freeotp.github.io&gt;網站&lt;/a&gt;。</string>
     <string name="main_welcome">歡迎使用 FreeOTP！
 \n
 \n請新增一組動態密碼後開始使用。</string>

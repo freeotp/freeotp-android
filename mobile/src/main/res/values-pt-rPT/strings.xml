@@ -30,7 +30,7 @@
     
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP Versão %1$s (%2$d)</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP é licenciado sob &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Para mais informações, veja nosso &lt;a href=&quot;https://freeotp.github.io&quot;&gt;site&lt;/a&gt;.</string>
+    <string name="main_about_message">Copyright Red Hat&lt;br/&gt;&lt;br/&gt;FreeOTP é licenciado sob &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Para mais informações, veja nosso &lt;a href=&quot;https://freeotp.github.io&quot;&gt;site&lt;/a&gt;.</string>
     <string name="main_welcome">Bem-vindo ao FreeOTP!\n\nAdicione um token para começar.</string>
     <string name="main_deletion_title">Excluir tokens selecionados?</string>
     <string name="main_deletion_message">A exclusão de um token não o desativa no servidor. Se você continuar, sua conta poderá ser bloqueada. A exclusão de um token não pode ser desfeita.</string>

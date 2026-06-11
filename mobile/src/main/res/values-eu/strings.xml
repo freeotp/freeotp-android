@@ -50,7 +50,7 @@
 
     <!-- Strings for the various dialogs. -->
     <string name="main_about_title">FreeOTP %1$s (%2$d) bertsioa</string>
-    <string name="main_about_message">© 2013–2023 - Red Hat, Inc., et al.&lt;br/&gt;&lt;br/&gt;FreeOTP-k &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt; lizentzia du.&lt;br/&gt;&lt;br/&gt;Informazio gehiago &lt;a href=&quot;https://freeotp.github.io&quot;&gt;gure webgunean&lt;/a&gt;.</string>
+    <string name="main_about_message">Copyright Red Hat&lt;br/&gt;&lt;br/&gt;FreeOTP-k &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt; lizentzia du.&lt;br/&gt;&lt;br/&gt;Informazio gehiago &lt;a href=&quot;https://freeotp.github.io&quot;&gt;gure webgunean&lt;/a&gt;.</string>
     <string name="main_welcome">Ongi etorri FreeOTP-ra!\n\nGehitu token bat hasteko.</string>
     <string name="main_deletion_title">Hautatutako tokenak ezabatu?</string>
     <string name="main_deletion_message">Token bat ezabatzeak ez du desgaitzen zerbitzarian. Jarraitzen baduzu, kontua blokeatuta geratu daiteke. Token bat ezabatzea ezin da desegin.</string>
