@@ -279,7 +279,10 @@ public class Token {
 
         try {
             String s = uri.getQueryParameter("digits");
-            mDigits = s == null ? null : Integer.parseInt(s);
+            if (Objects.equals(mIssuer, "Steam"))
+                mDigits = 5;
+            else
+                mDigits = s == null ? null : Integer.parseInt(s);
             if (mDigits != null && mDigits < 0)
                 throw new InvalidDigitsException();
         } catch (NumberFormatException x) {
