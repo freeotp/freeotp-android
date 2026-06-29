@@ -32,18 +32,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.OptIn;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.camera.core.CameraInfoUnavailableException;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ExperimentalLensFacing;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.zxing.BarcodeFormat;
@@ -58,19 +65,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import org.fedorahosted.freeotp.R;
-
-import androidx.annotation.OptIn;
-import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.camera.core.CameraInfoUnavailableException;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ExperimentalLensFacing;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.content.ContextCompat;
+import org.fedorahosted.freeotp.databinding.FragmentScanBinding;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -82,10 +77,7 @@ import java.util.concurrent.Executors;
 public class ScanDialogFragment extends AppCompatDialogFragment implements ImageAnalysis.Analyzer {
     private static final String LOGTAG = "ScanDialogFragment";
 
-    private ProgressBar mProgress;
-    private PreviewView mCamera;
-    private ImageView mImage;
-    private TextView mError;
+    private FragmentScanBinding mBinding;
 
     ExecutorService mCameraExecutor = null;
     private ProcessCameraProvider mCameraProvider = null;
@@ -99,14 +91,8 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = View.inflate(getContext(), R.layout.fragment_scan, null);
-
-        mProgress = v.findViewById(R.id.progress);
-        mCamera = v.findViewById(R.id.camera);
-        mImage = v.findViewById(R.id.image);
-        mError = v.findViewById(R.id.error);
-
-        return v;
+        mBinding = FragmentScanBinding.inflate(inflater);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -163,8 +149,8 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
 
                 CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(getLensFacing(mCameraProvider)).build();
 
-                mCamera.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
-                preview.setSurfaceProvider(mCamera.getSurfaceProvider());
+                mBinding.camera.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
+                preview.setSurfaceProvider(mBinding.camera.getSurfaceProvider());
 
                 mCameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
             } catch (ExecutionException | InterruptedException | CameraInfoUnavailableException e) {
@@ -277,29 +263,29 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
             );
             final String uri = new MultiFormatReader().decode(bb, hints).getText();
 
-            int size = mImage.getWidth();
-            if (size > mImage.getHeight())
-                size = mImage.getHeight();
+            int size = mBinding.image.getWidth();
+            if (size > mBinding.image.getHeight())
+                size = mBinding.image.getHeight();
 
             final Bitmap b = createUriBitmap(uri, size);
             stopCamera();
             vibrate();
 
-            mImage.post(() -> {
-                mProgress.setVisibility(View.INVISIBLE);
-                mCamera.animate()
+            mBinding.image.post(() -> {
+                mBinding.progress.setVisibility(View.INVISIBLE);
+                mBinding.camera.animate()
                     .setInterpolator(new DecelerateInterpolator())
                     .setDuration(2000)
                     .alpha(0.0f)
                     .start();
 
-                mImage.setImageBitmap(b);
-                mImage.animate()
+                mBinding.image.setImageBitmap(b);
+                mBinding.image.animate()
                     .setInterpolator(new DecelerateInterpolator())
                     .setDuration(2000)
                     .alpha(1.0f)
                     .withEndAction(() -> {
-                        mImage.post(() -> {
+                        mBinding.image.post(() -> {
                             Activity a = (Activity) requireActivity();
                             a.addToken(Uri.parse(uri), true);
                         });
@@ -315,9 +301,9 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     }
 
     public void showError() {
-        mProgress.setVisibility(View.INVISIBLE);
-        mCamera.setVisibility(View.INVISIBLE);
-        mImage.setVisibility(View.INVISIBLE);
-        mError.setVisibility(View.VISIBLE);
+        mBinding.progress.setVisibility(View.INVISIBLE);
+        mBinding.camera.setVisibility(View.INVISIBLE);
+        mBinding.image.setVisibility(View.INVISIBLE);
+        mBinding.error.setVisibility(View.VISIBLE);
     }
 }
