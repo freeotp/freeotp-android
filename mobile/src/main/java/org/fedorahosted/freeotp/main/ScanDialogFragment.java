@@ -38,6 +38,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
@@ -78,6 +80,7 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     private static final String LOGTAG = "ScanDialogFragment";
 
     private FragmentScanBinding mBinding;
+    private ActivityResultLauncher<String> mRequestPermissionLauncher;
 
     ExecutorService mCameraExecutor = null;
     private ProcessCameraProvider mCameraProvider = null;
@@ -85,6 +88,19 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     public static boolean hasCamera(Context context) {
         PackageManager pm = context.getPackageManager();
         return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRequestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    startCamera();
+                } else {
+                    dismiss();
+                }
+            });
     }
 
     @Nullable
@@ -99,16 +115,10 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
     public void onStart() {
         super.onStart();
 
-        switch (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)) {
-            case PackageManager.PERMISSION_GRANTED:
-                onRequestPermissionsResult(0,
-                        new String[] { Manifest.permission.CAMERA },
-                        new int[] { PackageManager.PERMISSION_GRANTED });
-                break;
-
-            default:
-                requestPermissions(new String[] { Manifest.permission.CAMERA }, 0);
-                break;
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            startCamera();
+        } else {
+            mRequestPermissionLauncher.launch(Manifest.permission.CAMERA);
         }
     }
 
@@ -169,25 +179,6 @@ public class ScanDialogFragment extends AppCompatDialogFragment implements Image
 
             mCameraExecutor.shutdown();
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        for (int i = 0; i < permissions.length; i++) {
-            if (!permissions[i].equals(Manifest.permission.CAMERA))
-                continue;
-
-            switch (grantResults[i]) {
-                case PackageManager.PERMISSION_GRANTED:
-                    startCamera();
-                    break;
-
-                default:
-                    dismiss();
-                    break;
-            }
-        }
     }
 
     @Override
