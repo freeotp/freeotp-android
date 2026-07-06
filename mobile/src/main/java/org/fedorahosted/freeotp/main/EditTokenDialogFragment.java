@@ -19,27 +19,21 @@
  */
 
 package org.fedorahosted.freeotp.main;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
 
-import org.fedorahosted.freeotp.R;
 import org.fedorahosted.freeotp.databinding.FragmentEditBinding;
 
-
-public class EditTokenDialogFragment extends DialogFragment implements View.OnClickListener {
+public class EditTokenDialogFragment extends DialogFragment {
     FragmentEditBinding mBinding;
 
     static EditTokenDialogFragment newInstance(String account, String issuer, int image_id, String image_url, int color) {
@@ -62,7 +56,14 @@ public class EditTokenDialogFragment extends DialogFragment implements View.OnCl
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentEditBinding.inflate(inflater);
 
-        mBinding.save.setOnClickListener((View.OnClickListener) this);
+        mBinding.save.setOnClickListener(v -> {
+            Bundle result = new Bundle();
+            result.putString("account", mBinding.account.getText().toString());
+            result.putString("issuer", mBinding.issuer.getText().toString());
+            getParentFragmentManager().setFragmentResult("requestKey", result);
+            dismiss();
+        });
+
         if (getArguments() != null) {
             mBinding.account.setText(getArguments().getString("account"));
             mBinding.issuer.setText(getArguments().getString("issuer"));
@@ -70,27 +71,14 @@ public class EditTokenDialogFragment extends DialogFragment implements View.OnCl
 
         mBinding.image.setBackgroundColor(getArguments().getInt("color"));
 
-        int image_id = getArguments().getInt("image_id");
-        String image_url = getArguments().getString("image_url");
-        if (image_url == null) {
+        int imageId = getArguments().getInt("image_id");
+        String imageUrl = getArguments().getString("image_url");
+        if (imageUrl == null) {
             mBinding.image.setImageResource(getArguments().getInt("image_id"));
         } else {
-            Picasso.get().load(image_url).error(image_id).into(mBinding.image);
+            Picasso.get().load(imageUrl).error(imageId).into(mBinding.image);
         }
 
         return mBinding.getRoot();
-    }
-
-    public void onClick(View v) {
-        String account = mBinding.account.getText().toString();
-        String issuer = mBinding.issuer.getText().toString();
-
-        if (v.getId() == R.id.save) {
-            Bundle result = new Bundle();
-            result.putString("account", account);
-            result.putString("issuer", issuer);
-            getParentFragmentManager().setFragmentResult("requestKey", result);
-            dismiss();
-        }
     }
 }
