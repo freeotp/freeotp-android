@@ -64,19 +64,19 @@ public class EditTokenDialogFragment extends DialogFragment {
             dismiss();
         });
 
-        if (getArguments() != null) {
-            mBinding.account.setText(getArguments().getString("account"));
-            mBinding.issuer.setText(getArguments().getString("issuer"));
-        }
+        Bundle args = getArguments();
+        if (args != null) {
+            mBinding.account.setText(args.getString("account"));
+            mBinding.issuer.setText(args.getString("issuer"));
+            mBinding.image.setBackgroundColor(getArguments().getInt("color"));
 
-        mBinding.image.setBackgroundColor(getArguments().getInt("color"));
-
-        int imageId = getArguments().getInt("image_id");
-        String imageUrl = getArguments().getString("image_url");
-        if (imageUrl == null) {
-            mBinding.image.setImageResource(getArguments().getInt("image_id"));
-        } else {
-            Picasso.get().load(imageUrl).error(imageId).into(mBinding.image);
+            int imageId = args.getInt("image_id");
+            String imageUrl = args.getString("image_url");
+            if (imageUrl == null) {
+                mBinding.image.setImageResource(getArguments().getInt("image_id"));
+            } else {
+                Picasso.get().load(imageUrl).error(imageId).into(mBinding.image);
+            }
         }
 
         return mBinding.getRoot();
