@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   - FreeOTP
+   -
+   - Authors: Nathaniel McCallum <npmccallum@redhat.com>
+   -
+   - Copyright (C) 2018  Nathaniel McCallum, Red Hat
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -     https://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+
+<resources>
+    <string name="app_name">FreeOTP</string>
+
+    <!-- Buttons -->
+    <string name="ok">Ok</string>
+    <string name="done">Selesai</string>
+    <string name="close">Tutup</string>
+    <string name="save">Simpan</string>
+    <string name="about">Tentang</string>
+    <string name="auto_copy_clipboard">Papan Klip Otomatis</string>
+    <string name="cancel">Batal</string>
+    <string name="delete">Hapus</string>
+    <string name="move_up">Pindah ke Atas</string>
+    <string name="move_down">Pindah ke Bawah</string>
+    <string name="add_anyway">Tambahkan Saja</string>
+    <string name="unknown_issuer">Penerbit Tidak Dikenal</string>
+    <string name="enable_lock_screen">Aktifkan Layar Kunci</string>
+
+    <!-- Strings related to token sharing. -->
+    <string name="share_jelling_send_to">Kirim ke…</string>
+    <string name="share_jelling_scan_for">Pindai untuk…</string>
+    <string name="share_jelling_scanning_for">Memindai untuk…</string>
+    <string name="share_jelling_bluetooth_devices">Perangkat Bluetooth</string>
+    <string name="share_clipboard_copy_to">Salin ke…</string>
+    <string name="share_clipboard_clipboard">Papan Klip</string>
+
+    <!-- Strings related to camera errors. -->
+    <string name="error_camera_open">Kesalahan saat membuka kamera!</string>
+
+    <!-- Strings for the various dialogs. -->
+    <string name="main_about_title">FreeOTP Veri %1$s (%2$d)</string>
+    <string name="main_about_message">© 2013–2024 - Red Hat, Inc., dkk.&lt;br/&gt;&lt;br/&gt;FreeOTP dilisensikan di bawah &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot;&gt;Apache 2.0&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;Untuk informasi lebih lanjut, lihat &lt;a href=&quot;https://freeotp.github.io&quot;&gt;situs web&lt;/a&gt; kami.</string>
+    <string name="main_welcome">Selamat datang di FreeOTP!\n\nTambahkan token untuk memulai.</string>
+    <string name="main_deletion_title">Hapus token yang dipilih?</string>
+    <string name="main_deletion_message">Menghapus token tidak akan menonaktifkannya di server. Jika Anda melanjutkan, Anda mungkin akan terkunci dari akun Anda. Menghapus token tidak dapat dibatalkan.</string>
+    <string name="main_unsafe_title">Token tidak aman!</string>
+    <string name="main_unsafe_message">Token yang Anda coba tambahkan mengandung parameter kriptografi yang lemah. Penggunaan token ini sangat tidak disarankan! Silakan hubungi penyedia token Anda.</string>
+    <string name="main_invalid_title">Token tidak valid!</string>
+    <string name="main_invalid_message">Token yang Anda coba tambahkan tidak valid. Silakan hubungi penyedia token Anda.</string>
+    <string name="main_error_title">Kesalahan!</string>
+    <string name="main_error_message">Terjadi kesalahan saat mencoba menambahkan token.</string>
+    <string name="main_lock_message">Token ini mengharuskan Anda untuk mengautentikasi pada setiap penggunaan. Ini berarti layar kunci perangkat Anda harus diaktifkan. Aktifkan keamanan layar kunci dan tambahkan token lagi.</string>
+    <string name="main_lock_title">Layar kunci diperlukan!</string>
+    <string name="main_invalidated_title">Kunci terinvalidasi!</string>
+    <string name="main_invalidated_message">Kunci untuk token ini telah dibatalkan oleh Android Key Store. Hal ini mungkin disebabkan oleh perubahan pada pengaturan layar kunci Anda. Token telah dihapus. Silakan hubungi penyedia token Anda.</string>
+    <string name="main_restore_title">Pulihkan dari cadangan</string>
+    <string name="main_restore_message">Masukkan kata sandi cadangan</string>
+    <string name="main_restore_bad_password">Kata sandi tidak valid</string>
+    <string name="main_restore_cancel_title">Batalkan Pemulihan?</string>
+    <string name="main_restore_cancel_message">Anda akan kehilangan semua token yang dicadangkan sebelumnya!</string>
+    <string name="main_restore_proceed">Lanjutkan tanpa Memulihkan</string>
+    <string name="main_restore_go_back">Kembali</string>
+
+    <!-- Strings for the password activity. -->
+    <string name="password">Kata Sandi</string>
+    <string name="password_confirm">Konfirmasi Kata Sandi</string>
+    <string name="password_info">Cadangan token memungkinkan Anda untuk memulihkan dari kehilangan data dan dengan mudah memindahkan token Anda ke perangkat baru.\n\nCadangan dienkripsi menggunakan kata sandi yang disediakan di bawah ini. Keamanan cadangan Anda bergantung pada kata sandi yang kuat.\n\nModel keamanan FreeOTP menetapkan kata sandi ini TIDAK DAPAT diubah di kemudian hari. Mohon pertimbangkan hal ini ketika memilih kata sandi.</string>
+    <string name="password_match">Kata sandi tidak cocok!</string>
+
+
+    <!-- Strings for Manual Add activity -->
+    <string-array name="algorithms_array">
+        <item>SHA1</item>
+        <item>SHA224</item>
+        <item>SHA256</item>
+        <item>SHA384</item>
+        <item>SHA512</item>
+    </string-array>
+    <string-array name="intervals_array">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+    </string-array>
+    <string name="manual_account_hint">nama@contoh.com</string>
+    <string name="manual_issuer_hint">Contoh Inc</string>
+    <string name="manual_secret_text">Secret</string>
+    <string name="manual_secret_base32_text">(Base32)</string>
+    <string name="manual_type_text">Tipe</string>
+    <string name="manual_button_totp_text">TOTP</string>
+    <string name="manual_button_hotp_text">HOTP</string>
+    <string name="manual_digits_text">Digit</string>
+    <string name="manual_button_digits_six">6</string>
+    <string name="manual_button_digits_eight">8</string>
+    <string name="manual_algorithm">Algoritma</string>
+    <string name="manual_interval">Selang Waktu</string>
+    <string name="manual_add_token">Tambah Token</string>
+    <string name="manual_accessibility_algorithm">Algoritma Token</string>
+    <string name="manual_accessibility_interval">Selang Waktu Token</string>
+    <string name="edit_token">Sunting Token</string>
+    <string name="get_started">MULAI</string>
+
+    <!-- Strings for Backup related operations -->
+    <string name="backup_title">Cadangan</string>
+    <string name="restore_title">Pemulihan</string>
+    <string name="backup_restore_title">Pencadangan dan Pemulihan</string>
+    <string name="keystore_migration_explanation">Token FreeOTP sekarang telah dimigrasikan ke Android Keystore! Hal ini menghasilkan peningkatan keamanan rahasia token, namun materi kunci tidak dapat diekspor. \n\nFungsi pencadangan dan pemulihan sekarang ditambahkan untuk memastikan token dapat dipulihkan. Anda akan diminta untuk membuat kata sandi utama untuk mengatur cadangan token terenkripsi.</string>
+    <string name="manual_backup_explanation">Alternatifnya, file data cadangan terenkripsi dapat diekspor ke penyimpanan eksternal dari dalam Aplikasi. Menu toolbar bagian atas sekarang berisi item berlabel \'Cadangan\' dan \'Pemulihan\' untuk memanfaatkan metode pencadangan manual ini.</string>
+    <string name="google_auto_backup_link">FreeOTP dapat berpartisipasi dalam pencadangan dan pemulihan otomatis Android. Berikut &lt;a href=&quot;https://support.google.com/android/answer/2819582?hl=en&quot;&gt;tautan Google&lt;/a&gt; berisi informasi tentang cara memanfaatkan metode pencadangan ini.</string>
+    <string name="backup_imageview">pencadangan imageView</string>
+    <string name="keystore_image">gambar keystore</string>
+    <string name="android_keystore_title">Android Keystore</string>
+    <string name="menu_title">Menu</string>
+
+</resources>
