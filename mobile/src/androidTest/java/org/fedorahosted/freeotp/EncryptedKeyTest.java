@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 @RunWith(AndroidJUnit4.class)
@@ -52,5 +54,29 @@ public class EncryptedKeyTest extends TestCase {
         String decryptedText = new String(decryptedBytes, StandardCharsets.UTF_8);
 
         assertEquals(plaintxt, decryptedText);
+    }
+
+    @Test
+    public void testSecretKeyFactoryDerivedCallerKeyRoundTrip()
+            throws GeneralSecurityException, IOException {
+        PBEKeySpec spec = new PBEKeySpec(
+                new char[] {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'},
+                "encrypted-key-test-salt".getBytes(StandardCharsets.UTF_8),
+                1000,
+                256);
+        try {
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            SecretKey derivedKey = factory.generateSecret(spec);
+            SecretKey callerKey = new SecretKeySpec(derivedKey.getEncoded(), "AES");
+            SecretKey originalKey = generateKey("HmacSHA512");
+
+            EncryptedKey encryptedKey = EncryptedKey.encrypt(callerKey, originalKey);
+            SecretKey decryptedKey = encryptedKey.decrypt(callerKey);
+
+            Assert.assertArrayEquals(originalKey.getEncoded(), decryptedKey.getEncoded());
+            assertEquals(originalKey.getAlgorithm(), decryptedKey.getAlgorithm());
+        } finally {
+            spec.clearPassword();
+        }
     }
 }
