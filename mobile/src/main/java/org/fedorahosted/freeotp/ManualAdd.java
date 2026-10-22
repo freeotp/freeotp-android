@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.fedorahosted.freeotp.databinding.ActivityManualAddBinding;
 import org.fedorahosted.freeotp.main.Activity;
+import org.fedorahosted.freeotp.utils.SystemBarInsets;
 import org.fedorahosted.freeotp.utils.UserNotifier;
 
 public class ManualAdd extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class ManualAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityManualAddBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+        SystemBarInsets.apply(this);
 
         /* Toolbar */
         setSupportActionBar(mBinding.toolbar);
