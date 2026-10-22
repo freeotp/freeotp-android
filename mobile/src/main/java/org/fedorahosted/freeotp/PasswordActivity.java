@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import org.fedorahosted.freeotp.main.Activity;
+import org.fedorahosted.freeotp.utils.SystemBarInsets;
 
 import me.gosimple.nbvcxz.Nbvcxz;
 import me.gosimple.nbvcxz.resources.Configuration;
@@ -90,6 +91,7 @@ public class PasswordActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_password);
+        SystemBarInsets.apply(this);
 
         mPassword = findViewById(R.id.password);
         mConfirm = findViewById(R.id.confirm);
