@@ -137,8 +137,10 @@ public class PasswordActivity extends AppCompatActivity {
                 mDone.setEnabled(false);
                 mConfirm.setText("");
 
+                // Do not interrupt: an interrupt that lands while nbvcxz opens its dictionaries
+                // makes the resource stream null and the evaluator crashes the app.
                 if (mEvaluator != null)
-                    mEvaluator.cancel(true);
+                    mEvaluator.cancel(false);
 
                 if (editable.toString().length() == 0) {
                     mProgress.setVisibility(View.INVISIBLE);
@@ -194,6 +196,6 @@ public class PasswordActivity extends AppCompatActivity {
         super.onDestroy();
 
         if (mEvaluator != null)
-            mEvaluator.cancel(true);
+            mEvaluator.cancel(false);
     }
 }
