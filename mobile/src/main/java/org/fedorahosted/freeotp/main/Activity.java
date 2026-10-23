@@ -59,6 +59,7 @@ import org.fedorahosted.freeotp.TokenPersistence;
 import org.fedorahosted.freeotp.main.share.ShareFragment;
 import org.fedorahosted.freeotp.utils.GridLayoutItemDecoration;
 import org.fedorahosted.freeotp.utils.SelectableAdapter;
+import org.fedorahosted.freeotp.utils.SystemBarInsets;
 import org.fedorahosted.freeotp.utils.UserNotifier;
 
 import java.io.IOException;
@@ -233,6 +234,7 @@ public class Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        SystemBarInsets.apply(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
