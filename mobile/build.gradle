@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'net.bytebuddy:byte-buddy:1.15.11'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.80'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.18.0'
     androidTestImplementation 'org.mockito:mockito-android:5.18.0'

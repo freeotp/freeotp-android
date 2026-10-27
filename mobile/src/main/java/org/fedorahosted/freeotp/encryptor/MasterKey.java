@@ -1,5 +1,10 @@
 package org.fedorahosted.freeotp.encryptor;
 
+import org.bouncycastle.crypto.PBEParametersGenerator;
+import org.bouncycastle.crypto.digests.SHA512Digest;
+import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
+import org.bouncycastle.crypto.params.KeyParameter;
+
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -11,8 +16,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public final class MasterKey {
@@ -20,55 +23,43 @@ public final class MasterKey {
     private static final int BYTES = 32;
 
     private final EncryptedKey mEncryptedKey;
-    private final String mAlgorithm;
     private final int mIterations;
     private final byte[] mSalt;
 
-    private static SecretKeyFactory getSecretKeyFactory() throws NoSuchAlgorithmException {
-        try {
-            return SecretKeyFactory.getInstance("PBKDF2withHmacSHA512");
-        } catch (NoSuchAlgorithmException e) {
-            return SecretKeyFactory.getInstance("PBKDF2withHmacSHA1");
-        }
+    private static SecretKey deriveKey(char[] password, byte[] salt, int iterations, int keyLength) {
+        PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA512Digest());
+        gen.init(PBEParametersGenerator.PKCS5PasswordToBytes(password), salt, iterations);
+        KeyParameter keyParam = (KeyParameter) gen.generateDerivedParameters(keyLength * 8);
+        return new SecretKeySpec(keyParam.getKey(), "AES");
     }
 
-    private MasterKey(PBEKeySpec spec) throws NoSuchAlgorithmException,
-            IllegalBlockSizeException, InvalidKeyException, BadPaddingException,
-            NoSuchPaddingException, InvalidKeySpecException, IOException {
-        SecretKeyFactory skf = getSecretKeyFactory();
-        SecretKey pwd = skf.generateSecret(spec);
+    private MasterKey(char[] password, byte[] salt, int iterations)
+            throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException,
+            BadPaddingException, NoSuchPaddingException, IOException {
+        SecretKey pwd = deriveKey(password, salt, iterations, BYTES);
 
-        byte[] raw = new byte[pwd.getEncoded().length];
+        byte[] raw = new byte[BYTES];
         new SecureRandom().nextBytes(raw);
         SecretKey key = new SecretKeySpec(raw, "AES");
 
         mEncryptedKey = EncryptedKey.encrypt(pwd, key);
-        mIterations = spec.getIterationCount();
-        mAlgorithm = skf.getAlgorithm();
-        mSalt = spec.getSalt();
+        mIterations = iterations;
+        mSalt = salt;
     }
 
     public static MasterKey generate(String pwd) throws BadPaddingException,
             NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException,
-            InvalidKeyException, InvalidKeySpecException, IOException {
+            InvalidKeyException, IOException {
         byte[] salt = new byte[BYTES];
         new SecureRandom().nextBytes(salt);
-        return new MasterKey(new PBEKeySpec(pwd.toCharArray(), salt, ITERATIONS, BYTES * 8));
-    }
-
-    private SecretKey decrypt(PBEKeySpec spec) throws NoSuchAlgorithmException,
-            InvalidKeySpecException, IllegalBlockSizeException, InvalidKeyException,
-            BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException,
-            IOException {
-        SecretKeyFactory skf = SecretKeyFactory.getInstance(mAlgorithm);
-        SecretKey pwd = skf.generateSecret(spec);
-        return mEncryptedKey.decrypt(pwd);
+        return new MasterKey(pwd.toCharArray(), salt, ITERATIONS);
     }
 
     public SecretKey decrypt(String pwd) throws BadPaddingException,
             InvalidAlgorithmParameterException, NoSuchAlgorithmException,
             IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException,
-            InvalidKeySpecException, IOException {
-        return decrypt(new PBEKeySpec(pwd.toCharArray(), mSalt, mIterations, mSalt.length * 8));
+            IOException {
+        SecretKey derivedKey = deriveKey(pwd.toCharArray(), mSalt, mIterations, BYTES);
+        return mEncryptedKey.decrypt(derivedKey);
     }
 }
