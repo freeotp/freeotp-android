@@ -32,14 +32,17 @@ public final class EncryptedKey {
         mParameters = cipher.getParameters().getEncoded();
     }
 
-    public static EncryptedKey encrypt(SecretKey key, SecretKey plaintext)
+    public static EncryptedKey encrypt(SecretKey encryptionKey, SecretKey plaintext)
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, IOException {
-        if (key == null) {
+        if (encryptionKey == null) {
             throw new InvalidKeyException("Key is null");
         }
+        if (!"AES".equalsIgnoreCase(encryptionKey.getAlgorithm())) {
+            throw new InvalidKeyException("Encryption key algorithm must be AES");
+        }
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        cipher.init(Cipher.ENCRYPT_MODE, key);
+        cipher.init(Cipher.ENCRYPT_MODE, encryptionKey);
         return new EncryptedKey(cipher, plaintext);
     }
 

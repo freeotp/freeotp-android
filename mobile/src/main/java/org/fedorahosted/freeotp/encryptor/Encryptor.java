@@ -45,15 +45,23 @@ public class Encryptor {
             BadPaddingException, NoSuchPaddingException, IOException {
         Map<String, EncryptedKey> data = new HashMap<>();
 
-        Key mk = null;
+        Key masterKey;
         try {
-            mk = mKeyStore.getKey(MASTER, null);
+            masterKey = mKeyStore.getKey(MASTER, null);
         } catch (Exception e) {
             Log.e(LOGTAG, "Exception", e);
+            InvalidKeyException invalidKeyException =
+                    new InvalidKeyException("Unable to access master key");
+            invalidKeyException.initCause(e);
+            throw invalidKeyException;
         }
 
-        // Encrypt token key
-        EncryptedKey ekc = EncryptedKey.encrypt((SecretKey) mk, key);
+        if (!(masterKey instanceof SecretKey)) {
+            throw new InvalidKeyException("Master key is unavailable or is not a secret key");
+        }
+
+        // Encrypt token key using the established recoverable master-key identity.
+        EncryptedKey ekc = EncryptedKey.encrypt((SecretKey) masterKey, key);
 
         data.put("key", ekc);
         return data;

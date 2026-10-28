@@ -6,6 +6,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -36,16 +37,25 @@ public final class MasterKey {
             IllegalBlockSizeException, InvalidKeyException, BadPaddingException,
             NoSuchPaddingException, InvalidKeySpecException, IOException {
         SecretKeyFactory skf = getSecretKeyFactory();
-        SecretKey pwd = skf.generateSecret(spec);
+        SecretKey passwordKey = skf.generateSecret(spec);
 
-        byte[] raw = new byte[pwd.getEncoded().length];
+        byte[] raw = new byte[passwordKey.getEncoded().length];
         new SecureRandom().nextBytes(raw);
         SecretKey key = new SecretKeySpec(raw, "AES");
 
-        mEncryptedKey = EncryptedKey.encrypt(pwd, key);
+        mEncryptedKey = EncryptedKey.encrypt(provisionEncryptionKey(passwordKey), key);
         mIterations = spec.getIterationCount();
         mAlgorithm = skf.getAlgorithm();
         mSalt = spec.getSalt();
+    }
+
+    private static SecretKey provisionEncryptionKey(SecretKey passwordKey) {
+        byte[] keyMaterial = passwordKey.getEncoded();
+        try {
+            return new SecretKeySpec(keyMaterial, "AES");
+        } finally {
+            Arrays.fill(keyMaterial, (byte) 0);
+        }
     }
 
     public static MasterKey generate(String pwd) throws BadPaddingException,
@@ -61,8 +71,8 @@ public final class MasterKey {
             BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException,
             IOException {
         SecretKeyFactory skf = SecretKeyFactory.getInstance(mAlgorithm);
-        SecretKey pwd = skf.generateSecret(spec);
-        return mEncryptedKey.decrypt(pwd);
+        SecretKey passwordKey = skf.generateSecret(spec);
+        return mEncryptedKey.decrypt(provisionEncryptionKey(passwordKey));
     }
 
     public SecretKey decrypt(String pwd) throws BadPaddingException,
